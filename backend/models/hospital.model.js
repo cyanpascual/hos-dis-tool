@@ -3,24 +3,52 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const hospitalSchema = new Schema({
-  type: "Feature",
-  typeofFeat: "hospital",
-  properties: {
-    Name_of_Ho: {type: String, required: true, unique: true, trim: true, minlength: 3},
-    Address: {type: String, required: true, trim: true},
-    Google_Plu: {type: String, required: true, trim: true},
-    Supply_Cap: {type: String, required: true, trim: true},
-    Supply_Cur: {type: String, required: true, trim: true},
-    Head: {type: String, required: true, trim: true},
-    Website: {type: String, required: true, trim: true},
-    Contact_Num: {type: String, required: true, trim: true},
+  "type": {"type": "String"},
+  "typeOfFeat": {"type": "String"},
+  "properties": {
+    "Name_of_Ho": {"type": "String"},
+    "Address": {"type": "String"},
+    "Google_Plu": {"type": "String"},
+    "Supply_Cap": {
+      "Alcohol": {"type": "Number"},
+      "Strerilium/Disinfectant": {"type": "Number"},
+      "Antibacterial Soap": {"type": "Number"},
+      "Sanitizing agents": {"type": "Number"},
+      "Masks/respirators": {"type": "Number"},
+      "Hepa filter and UV light radiation": {"type": "Number"},
+      "Gloves (disposable)/ Foot socks": {"type": "Number"},
+      "PPE": {"type": "Number"},
+      "Goggles/face shields": {"type": "Number"},
+      "Bedside patient equipments": {"type": "Number"},
+      "Testing Kits": {"type": "Number"},
+      "Ventilators": {"type": "Number"},
+      "Tissue": {"type": "Number"}
+    },
+    "Supply_Cap": {
+      "Alcohol": {"type": "Number"},
+      "Strerilium/Disinfectant": {"type": "Number"},
+      "Antibacterial Soap": {"type": "Number"},
+      "Sanitizing agents": {"type": "Number"},
+      "Masks/respirators": {"type": "Number"},
+      "Hepa filter and UV light radiation": {"type": "Number"},
+      "Gloves (disposable)/ Foot socks": {"type": "Number"},
+      "PPE": {"type": "Number"},
+      "Goggles/face shields": {"type": "Number"},
+      "Bedside patient equipments": {"type": "Number"},
+      "Testing Kits": {"type": "Number"},
+      "Ventilators": {"type": "Number"},
+      "Tissue": {"type": "Number"}
+    },
+    "Head": {"type": "String"},
+    "Website": {"type": "String"},
+    "Contact Numbers": {"type": "String"}
   },
-  geometry: {
-    type: "Point",
-    coordinates: {type: String, required: true, trim: true},
-  },
-}, {
-  timestamps: true,
+  "geometry": {
+    "type": {"type": "String"},
+    "coordinates": {
+      "type": ["Number"]
+    }
+  }
 });
 
 const Hospital = mongoose.model('Hospital', hospitalSchema);
