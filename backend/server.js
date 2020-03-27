@@ -21,7 +21,7 @@ connection.once('open', () => {
 const hospitalsRouter = require('./routes/hospitals');
 const usersRouter = require('./routes/users');
 
-app.use('/exercises', hospitalsRouter);
+app.use('/hospitals', hospitalsRouter);
 app.use('/users', usersRouter);
 
 app.listen(port, () => {
