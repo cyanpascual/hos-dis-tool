@@ -24,7 +24,7 @@ const hospitalSchema = new Schema({
       "Ventilators": {"type": "Number"},
       "Tissue": {"type": "Number"}
     },
-    "Supply_Cap": {
+    "Supply_Cur": {
       "Alcohol": {"type": "Number"},
       "Strerilium/Disinfectant": {"type": "Number"},
       "Antibacterial Soap": {"type": "Number"},
