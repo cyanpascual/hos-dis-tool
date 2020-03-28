@@ -1,0 +1,465 @@
+{
+"features": [
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "The Medical City - Ortigas", 
+            "Address": "Ortigas Ave, Pasig, Metro Manila", 
+            "Google_Plu": "H3Q9+RP Pasig, Metro Manila",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "n/a",
+            "Website": "www.link.com",
+            "Contact Numbers":"02-9881000 / 9887000 loc 6612 / 6314508 fax"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.0693125, 14.5895625 ] 
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "Philippine General Hospital", 
+            "Address": "Taft Ave, Ermita, Manila, 1000 Metro Manila", 
+            "Google_Plu": "HXHP+36 Manila, Metro Manila",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Dr. Mia Tabunar (Coordinator for Resource Generation)",
+            "Website": "https://web.facebook.com/philippinegeneralhospitalofficial/photos/a.2554926417871915/3080341705330381/",
+            "Contact Numbers":"09193506917"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 120.9855625, 14.5776875 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "OSPITAL NG MUNTINLUPA", 
+            "Address": "Civic Drive, Filinvest Corporate City, Alabang, Muntinlupa City", 
+            "Google_Plu": "n/a",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":0,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Dr. Edwin Dimatatac",
+            "Website": "https://web.facebook.com/OSMUNOFFICIAL/?_rdc=1&_rdr",
+            "Contact Numbers":"09176294301"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.04418, 14.41418 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "NATIONAL KIDNEY AND TRANSPLANT INSTITUTE", 
+            "Address": "East Avenue, Diliman, Quezon City", 
+            "Google_Plu": "fasdfasdfadsf",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "NKTI Internal Medicine",
+            "Website": "https://www.facebook.com/nkti.gov.ph/photos/a.10152324506863606/10158610828573606/",
+            "Contact Numbers":"028 981 0300/ 0917 320 3281/ Metrobank SA 175-3-17506954-3"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.04418, 14.41418 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "NATIONAL CHILDREN’S HOSPITAL", 
+            "Address": "#226 E. Rodriguez Sr. Boulevard, Quezon City", 
+            "Google_Plu": "sdsadcasdcadsf",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":0,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Dr. Jennifer Gianan, Chief Resident",
+            "Website": "www.link.com",
+            "Contact Numbers":"09176392278"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.02095, 14.62035 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "OSPITAL NG MAKATI", 
+            "Address": "Sampaguita St. cor. Gumamela St., Brgy. Pembo, Makati City", 
+            "Google_Plu": "warerwesdf",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":0,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Dr Relly Aram, Chief Fellow OB OSMAK",
+            "Website": "www.link.com",
+            "Contact Numbers":"+63 977 805 7687"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.0618633, 14.5462995 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "PHILIPPINE HEART CENTER", 
+            "Address": "East Avenue, Diliman, Quezon City", 
+            "Google_Plu": "vsmakdmfkmasd",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":0,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":0
+            },
+            "Head": "Anna Dy",
+            "Website": "www.link.com",
+            "Contact Numbers":"0289252401 loc 3299, 09175003221"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.04843, 14.64403 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "Research Institute for Tropical Medicine", 
+            "Address": "Filinvest Corporate City, Alabang, Muntinlupa", 
+            "Google_Plu": "erkkwekkdofasd",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":0,
+                "PPE":100,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Paula Rivera",
+            "Website": "www.link.com",
+            "Contact Numbers":"09178693316"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.03714, 14.41001 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "UNIVERSITY OF THE EAST RAMON MAGSAYSAY MEMORIAL MEDICAL CENTER", 
+            "Address": "Aurora Blvd., Quezon City", 
+            "Google_Plu": "sdafdskofak",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":0,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "n/a",
+            "Website": "www.link.com",
+            "Contact Numbers":"09759824143 (Karl)/ 09178387695 (Mike)/ 09989947517 (Angie)"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.0207128, 14.6066355 ]
+        } 
+    },
+    { 
+        "type": "Feature", 
+        "typeOfFeat":"hospital",
+        "properties": { 
+            "Name_of_Ho": "NATIONAL CENTER FOR MENTAL HEALTH", 
+            "Address": "#9 De Febrero St., Mandaluyong City, 254 Amang Rodriguez Avenue, Manggahan", 
+            "Google_Plu": "csdlkamfkmsd",
+            "Supply_Cap":{
+                "Alcohol":100, 
+                "Strerilium/Disinfectant":100,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":100,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":100,
+                "PPE":100,
+                "Goggles/face shields":100,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Supply_Cur":{
+                "Alcohol":0, 
+                "Strerilium/Disinfectant":0,
+                "Antibacterial Soap":100,
+                "Sanitizing agents":100,
+                "Masks/respirators":0,
+                "Hepa filter and UV light radiation":100,
+                "Gloves (disposable)/ Foot socks":0,
+                "PPE":0,
+                "Goggles/face shields":0,
+                "Bedside patient equipments":100,
+                "Testing Kits":100,
+                "Ventilators":100,
+                "Tissue":100
+            },
+            "Head": "Dr. Agnes Casino",
+            "Website": "www.link.com",
+            "Contact Numbers":"0917 808 3036"
+        }, 
+        "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 121.04127, 14.5816 ]
+        } 
+    }
+    ]
+    
+}
