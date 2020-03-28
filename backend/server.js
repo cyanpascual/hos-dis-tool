@@ -21,15 +21,11 @@ connection.once('open', () => {
 
 const hospitalsRouter = require('./routes/hospitals');
 const facilityRouter = require('./routes/facility');
-const personnelRouter = require('./routes/personnel');
-const validatorRouter = require('./routes/validator');
-const contributorRouter = require('./routes/contributor');
+const userRouter = require('./routes/user');
 
 app.use('/hospitals', hospitalsRouter);
 app.use('/facility', facilityRouter);
-app.use('/personnel', personnelRouter);
-app.use('/validator', validatorRouter);
-app.use('/contributor', contributorRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
