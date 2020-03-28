@@ -10,7 +10,7 @@ const facilitySchema = new Schema({
     "Name_of_Fa": {"type": "String"},
     "Address": {"type": "String"},
     "Google_Plu": {"type": "String"},
- 
+
     "Supply_Cur": {
       "Alcohol": {"type": "Number"},
       "Strerilium/Disinfectant": {"type": "Number"},

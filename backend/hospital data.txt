@@ -688,6 +688,99 @@
             "type": "Point", 
             "coordinates": [ 121.0226789, 14.6343409 ]
     } 
+},
+{ 
+    "type": "Feature", 
+    "typeOfFeat":"hospital",
+    "properties": { 
+        "Name_of_Ho": "CHINESE GENERAL HOSPITAL AND MEDICAL CENTER", 
+        "Address": "#286 Blumentritt St., Sta. Cruz, Manila City", 
+        "Google_Plu": "n/a",
+        "Supply_Cap":{
+            "Alcohol":100, 
+            "Strerilium/Disinfectant":100,
+            "Antibacterial Soap":100,
+            "Sanitizing agents":100,
+            "Masks/respirators":100,
+            "Hepa filter and UV light radiation":100,
+            "Gloves (disposable)/ Foot socks":100,
+            "PPE":100,
+            "Goggles/face shields":100,
+            "Bedside patient equipments":100,
+            "Testing Kits":100,
+            "Ventilators":100,
+            "Tissue":100
+        },
+        "Supply_Cur":{
+            "Alcohol":100, 
+            "Strerilium/Disinfectant":100,
+            "Antibacterial Soap":100,
+            "Sanitizing agents":100,
+            "Masks/respirators":100,
+            "Hepa filter and UV light radiation":100,
+            "Gloves (disposable)/ Foot socks":100,
+            "PPE":100,
+            "Goggles/face shields":100,
+            "Bedside patient equipments":100,
+            "Testing Kits":100,
+            "Ventilators":100,
+            "Tissue":100
+        },
+        "Head": "Human Resource Department or Dietary Department",
+        "Website": "www.link.com",
+        "Contact Numbers":"(87114141 local 613, 611, and 313)"
+    }, 
+    "geometry": { 
+            "type": "Point", 
+            "coordinates": [ 120.9878665, 14.6259849 ]
+    } 
+},
+{ 
+    "type": "Feature", 
+    "typeOfFeat":"hospital",
+    "properties": { 
+        "Name_of_Ho": "BERNARDINO GENERAL HOSPITAL 1", 
+        "Address": "#680 Quirino Highway, San Bartolome, Novaliches, Quezon City", 
+        "Google_Plu": "n/a",
+        "Supply_Cap":{
+            "Alcohol":100, 
+            "Strerilium/Disinfectant":100,
+            "Antibacterial Soap":100,
+            "Sanitizing agents":100,
+            "Masks/respirators":100,
+            "Hepa filter and UV light radiation":100,
+            "Gloves (disposable)/ Foot socks":100,
+            "PPE":100,
+            "Goggles/face shields":100,
+            "Bedside patient equipments":100,
+            "Testing Kits":100,
+            "Ventilators":100,
+            "Tissue":100
+        },
+        "Supply_Cur":{
+            "Alcohol":100, 
+            "Strerilium/Disinfectant":100,
+            "Antibacterial Soap":100,
+            "Sanitizing agents":100,
+            "Masks/respirators":0,
+            "Hepa filter and UV light radiation":100,
+            "Gloves (disposable)/ Foot socks":100,
+            "PPE":100,
+            "Goggles/face shields":0,
+            "Bedside patient equipments":100,
+            "Testing Kits":100,
+            "Ventilators":100,
+            "Tissue":100
+        },
+        "Head": "n/a",
+        "Website": "www.link.com",
+        "Contact Numbers":"(02) 8936 6050"
+    }, 
+    "geometry": { 
+            "type": "Point", 
+            "coordinates": [ 121.03501, 14.70058 ]
+    } 
 }
 ]
+
 
