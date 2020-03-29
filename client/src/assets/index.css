@@ -167,6 +167,11 @@ body {
   color: #ddd;
 }
 
+.trams{
+  font-size: 0.9em;
+  color: #ddd;
+}
+
 .hospitalInfo .title{
   font-weight: bold;
   color: #fff;

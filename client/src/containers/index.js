@@ -53,6 +53,7 @@ function App() {
             <img src={engglogo} className="App-logo" alt="logo" />
             <img src={dgelogo} className="App-logo" alt="logo" />
             <img src={geoplogo} className="App-logo" alt="logo" />
+            <div className="trams">TrAMS</div>
           </div>
           <div>
             <Feedback/>
