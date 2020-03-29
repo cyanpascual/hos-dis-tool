@@ -6,6 +6,10 @@ import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
 import Feedback from './popUpFeedback';
 import Donate from './popUpDonate';
+import uplogo from '../assets/logos/up.png'
+import dgelogo from '../assets/logos/dge.png'
+import engglogo from '../assets/logos/engineering.png'
+import geoplogo from '../assets/logos/geop_light.png'
 import { MapsContext } from '../contexts/MapsContext';
 
 
@@ -35,6 +39,12 @@ function App() {
     
       <div className="wrapper">
         <div className="one">
+          <div className="logos">
+            <img src={uplogo} className="App-logo" alt="logo" />
+            <img src={engglogo} className="App-logo" alt="logo" />
+            <img src={dgelogo} className="App-logo" alt="logo" />
+            <img src={geoplogo} className="App-logo" alt="logo" />
+          </div>
           <div>
             <Feedback/>
             <Donate/>

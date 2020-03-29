@@ -17,6 +17,12 @@ body {
   background-color: maroon;
 }
 
+.App-logo{
+  float: left;
+  height: 40px;
+  margin: 15px 5px 5px 5px;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -217,7 +223,8 @@ input[type='submit']{
   background: white;  
 }
 .popupbtn{
-  margin: 10px 5px;
+  float: right;
+  margin: 40px 5px;
   background: #eee;
   border: 0;
   padding: 6px 20px;
