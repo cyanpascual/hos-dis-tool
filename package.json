@@ -16,6 +16,9 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.6"
   },
+  "engines": {
+    "node": "10.16.0"
+  },
   "devDependencies": {},
   "description": "",
   "proxy": "http://localhost:5000"
