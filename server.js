@@ -15,7 +15,7 @@ app.use(express.json());
 
 //MongoDB connection string
 
-const uri = "mongodb+srv://rvramos:r3m3mb3R*@trams-2qp2z.gcp.mongodb.net/test?retryWrites=true&w=majority"
+const uri = "mongodb+srv://rvramos:rvramosPassword@trams-2qp2z.gcp.mongodb.net/test?retryWrites=true&w=majority"
 mongoose.connect(uri, 
   { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
