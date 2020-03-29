@@ -1,0 +1,1127 @@
+[   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "PhilMed Dynasty Supplies Corp.", 
+        "Address":  "1006 Muelle de Binondo, Binondo, Manila, 1006 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8354 6242"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.7838978,14.601169]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Digicare Medical Products Inc.", 
+        "Address":  "Piña Ave, Santa Mesa, Manila, 1016 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8716 5935"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.012073,14.605786]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Blue Sky Trading Company Incorporated", 
+        "Address":  "416 Dasmariñas St, Binondo, Manila, 1006 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8241 8501"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.979181,14.5992299999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Philippine Medical Supplies", 
+        "Address":  "G. Araneta Ave, Bagong Barrio West, Caloocan, Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8742 9228"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.997774,14.6584949999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Zenith Medical Equipment, Inc.", 
+        "Address":  "1119-1123, Rizal Ave, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8711 6870"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982137899999,14.6080574]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Sta. Cruz Medical Supplies", 
+        "Address":  "1610 Alvarez Street, Cor Rizal Ave, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0906 325 9238"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9826961,14.6118007]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Golden Horse Medical Supplies", 
+        "Address":  "38-B, Banawe St., corner Dapitan, St.. Brgy., Sto. Domingo, Quezon City, 1114 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8712 1360"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.005555999999,14.6263639999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Medical Supplies Depot Philippines", 
+        "Address":  "Unit 10-1 One Global Place, 5th Avenue & 25th Street, Taguig, 1630", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0930 321 4321"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0467769,14.5481629]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "ALLIED MEDICAL SUPPLIES", 
+        "Address":  "1506 Rizal Ave Sta Cruz Manila, 525 Zone 32 Sta Cruz Manila, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8742 1389"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982685999999,14.6122379999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Hospital Medical Laboratory Equipment and Supply Importers Association of the Philippines Incorporat", 
+        "Address":  "3-I Philippines, 704 Aurora Boulevard, Quezon City, 1100 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8721 8352"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.022028999999,14.6091552]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Caizer Scientific And Medical Supplies", 
+        "Address":  "1058 Rizal Ave. Corner Fugoso St., 312 Sta Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8985 0212"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982315,14.6075751]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "bambang medical equipment supply co.", 
+        "Address":  "1555 Bambang St, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0977 094 5682"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.981772999999,14.611159]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Transmedic Philippines Inc.", 
+        "Address":  "9th Floor Petron Mega Plaza #358 Sen, Gil Puyat Avenue, Brgy, Bel-Air, Makati City, Manila, 1209 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 317 6888"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.025833999999,14.5617547]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Tayuman Medical Supplies", 
+        "Address":  "1933 Rizal Avenue, Sta. Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 3495 1783"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982761099999,14.6262557]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Medical Center Trading Corporation", 
+        "Address":  "Pioneer St, Pasig, 1603 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8631 1715"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.058823699999,14.5758972]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Rebmann Medical Supplies and Equipment", 
+        "Address":  "88, 3rd Floor Picture Building, Timog Avenue, Barangay Paligsahan, Quezon City, 1100 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8922 8755"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.028706,14.6364999999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "JKOS Medical Supplies & Equipment Inc.", 
+        "Address":  "1366 Rizal Ave, 321 Sta. Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8733 0338"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982726,14.610764]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "CCM Medical Equipment Supplies", 
+        "Address":  "1554 B, Bambang St, Santa Cruz, Manila, 1014 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0977 827 8134"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9817074,14.6108909]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "JRGT Medical Supply", 
+        "Address":  "JRGT Medical Supply, 1613, Quiricada St, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "4048583"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9828737,14.6131549]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Amse Medical Supplies Equipments", 
+        "Address":  "Ligaya MMDA Footbridge, Pasig, 1800 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0920 201 0977"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.091859399999,14.6184066]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "JCD Medical Supplies", 
+        "Address":  "Dr Arcadio Santos Ave, Parañaque, 1700 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8514 4128"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9985856,14.4785537999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Avila Medical and Hospital Supplies", 
+        "Address":  "1310, Rizal Avenue, Sta Cruz, Manila, 1014 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8516 3795"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982799,14.61505]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Razab Medical Supplies", 
+        "Address":  "Edgar Building Dr Arcadio Santos Ave, San Isidro,Sucat, Parañaque, 1700 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8556 8356"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0030257,14.4737409999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Quality Medical Trading", 
+        "Address":  "Unit 305, Aloha Plaza Bldg.,, 424 Tandang Sora Ave., Brgy. Culiat, Quezon City, 1128 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8932 1411"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.054571,14.668593]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Nemrac Medical and Pharma Supplies Corp.", 
+        "Address":  "Unit 1-C, Goodway Condominium, 1555 Bambang St, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8742 4188"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9817886,14.6111404]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "P.A.S. Orthopedic & Medical Supplies", 
+        "Address":  "2 E Manalo, Sto. Nino, Marikina, 1800 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8941 4888"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0981319,14.6381992999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Easy Medical Supplies", 
+        "Address":  "55 Juan Luna, Marikina, 1809 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8941 9542"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.110310899999,14.6628611999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Sta. Cruz Medical Supplies", 
+        "Address":  "1610, Rizal Avenue, Manila, 1000 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 309 7639"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9827258,14.6266398999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Armangel Medical Equipment Sales and Services", 
+        "Address":  "Remarville Subdivision, 22 Apollo, Novaliches, Quezon City, 1116 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 3431 7688"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.040707,14.698364]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "El Roi Medical Supplies", 
+        "Address":  "60 Victoria Ave, New Manila, Quezon City, 1112 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8721 7414"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.024342199999,14.6214895]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "JPM Medical Supplies", 
+        "Address":  "1625 Maria Natividad St, Santa Cruz, Manila, Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "9386634"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9831404,14.6132037999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "K & N Medical Supplies", 
+        "Address":  "1437 Rizal Ave, Santa Cruz, Manila, 1014 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8741 2128"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982405,14.611568]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Hirose Medical Supplies", 
+        "Address":  "1463, Rizal Avenue, Manila, 1000 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8628 1967"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982701,14.6264349]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Serviplus Medical Equipment Inc.", 
+        "Address":  "Unit 1A GV Square Building 170 Brgy. Greater Lagro, Quezon City, 1121 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8937 8063"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.055766499999,14.7173599]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Aljeron Medical Enterprises", 
+        "Address":  "340, 1550 Dr Jose Fernandez, Mandaluyong, Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8583 0798"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0456883,14.5839816]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Antipolo Medical Supplies & Equipments", 
+        "Address":  "Eulogio Rodriguez Jr. Ave, Antipolo, 1870 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "0998 990 0978"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.092150899999,14.6057668]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Rada Medical Supplies", 
+        "Address":  "Marcos Alvarez Ave, Las Pinas, 1747 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8772 0712"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0019751,14.4266711]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "1st World Medical Supplies Solutions, Incorporated", 
+        "Address":  "Unit 2504-C West Tower PSEC, Exchange Road, Ortigas Center, Barangay San Antonio, Pasig, 1605 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": ""
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.061748999999,14.5829809999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "ALT Hospital and Medical Supplies", 
+        "Address":  "1463 Rizal Ave, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8781 4128"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.9824659,14.6130123]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Barone Trading Corporation Medical Supplies and Equipments", 
+        "Address":  "878, 4th Floor Bartolome Tower, J. Nakpil Street, Manila, 1000 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8353 5170"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.989189999999,14.573335]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Omega-Med Medical Supplies", 
+        "Address":  "Room 118, Dona Anita Building, 284 E Rodriguez Sr. Ave, New Manila, Quezon City, 1112 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8721 7940"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.022944,14.621208]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "JEGT Medical Supplies", 
+        "Address":  "1613 Unit C Rizal Ave, 339 Zone 34 District 3, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8740 7330"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982765,14.61326]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Medical Equipment Healthcare Group Inc.", 
+        "Address":  "24-B, 1103 Kamuning Rd, Quezon City, Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8926 3209"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.035282,14.627594]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Recto Antonio M. Medical Supplies", 
+        "Address":  "1137, San Andres Street, Manila, 1017 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 7508 2630"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.997816,14.5725559999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Haggai Medical Supplies", 
+        "Address":  "1617 Alvarez St, Bgy 325, Zone 032 STA Cruz, Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "9037581"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [121.0038127,14.6137784999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "K2 Drugstore and Medical Supplies", 
+        "Address":  "586 Quezon Boulevard, Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 3384 3699"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.985900399999,14.6060720999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "ERB Medical Suit & Supplies", 
+        "Address":  "1628 Bambang St Cor M Natividad St, Santa Cruz, Manila, 1003 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 3493 3390"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982986,14.6108479999999]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "N. S. Y Med Supplies", 
+        "Address":  "2117, 1008 Laong Laan Rd, Sampaloc, Manila, 1008 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "7124205"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.995270899999,14.6201258]
+    }  },
+   { 
+    "type": "Feature", 
+    "typeOfFeat": "Facility",
+    "properties": { 
+        "Name_of_Fa":  "Global Care Dental and Medical Supplies", 
+        "Address":  "1301, Rizal Avenue, E Remegio Street Corner, Sta Cruz, Manila, 1000 Metro Manila", 
+        "Google_Plu":  "n/a",
+        "Supply_Cur":{             "Alcohol": 1, 
+            "Strerilium/Disinfectant": 1,
+            "Antibacterial Soap": 1,
+            "Sanitizing agents": 1,
+            "Gloves": 1,
+            "PPE": 1,
+            "Goggles/face shields": 1,
+            "Tissue": 1, "Other Needs": "none"
+        },
+        "Contact Person":  "n/a",
+        "Contact Numbers": "(02) 8788 4355"
+    }, 
+    "geometry": { 
+            "type":  "Point", 
+            "coordinates":  [120.982603,14.6094045]
+    }  }]
