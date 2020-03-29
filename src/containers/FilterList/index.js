@@ -4,7 +4,7 @@ import hospitalDetails from '../hospitalDetails';
 import { MapsContext } from '../../contexts/MapsContext';
 
 const FilterList = () => {
-    const { hospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    const { hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
     const [userInput, setUserInput] = useState("")
     const { goToSelected } = useContext(MapsContext)
 
@@ -24,19 +24,18 @@ const FilterList = () => {
               e.preventDefault();
               switch(filterLevel){
                 case "Critically Low":
-                    setHospitalList(hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.25));
+                    setHospitalList(hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.2));
                     break
                 case "Low":
-                    setHospitalList(hospitals.filter((hospital)=> ((hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] >= 0.25) && (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] <= 0.9))))
+                    setHospitalList(hospitals.filter((hospital)=> ((hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] >= 0.20) && (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] <= 0.5))))
                     break
                     
                 case "Well stocked":
-                    setHospitalList(hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.9));
+                    setHospitalList(hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.5));
             }
             
             
             }}>
-              <input type="submit" value="Filter"></input>
               <div class="dropdown">
                 <button class="dropbtn">{filterSetting?(filterSetting + "▼"):("Supply ▼")}</button>
                 <div class="dropdown-content">
@@ -59,9 +58,11 @@ const FilterList = () => {
                   <a onClick={()=>setFilterLevel('Well stocked')}>Well stocked</a>
                   <a onClick={()=>setFilterLevel('Low')}>Low</a>
                   <a onClick={()=>setFilterLevel('Critically Low')}>Critically-Low</a>
-    
                 </div>
               </div>
+              <br/>
+              <input type="submit" value="Filter"></input>
+              <input type="button" value="Reset" onClick={resetHospitals}></input>
               
             </form>
         </div>

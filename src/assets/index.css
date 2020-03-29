@@ -38,6 +38,7 @@ body {
   grid-column: 1 / 2;
   grid-row: 2 / 9;
   background-color:lightgray;
+  max-width: 455px;
 }
 .marker-btn{
   background: none;
@@ -88,10 +89,10 @@ body {
 }
 
 .dropbtn {
-  margin: 10px 5px;
+  margin: 2px 2px;
   background: #eee;
   border: 0;
-  padding: 6px 20px;
+  padding: 3px 10px;
   display: block;
   cursor: pointer;
   
@@ -101,7 +102,8 @@ body {
 .dropdown {
   position: relative;
   display: inline-block;
-  width:"100%";
+
+  width: 200px;
 }
 
 
@@ -187,10 +189,17 @@ input[type='text']{
 }
 
 input[type='submit']{
-  margin: 10px auto;
+  margin: 2px 2px;
   background: #eee;
   border: 0;
-  padding: 6px 20px;
+  padding: 3px 10px;
+}
+
+input[type='button']{
+  margin: 2px 2px;;
+  background: #eee;
+  border: 0;
+  padding: 3px 10px;
 }
 
 .popup {  
@@ -226,4 +235,16 @@ input[type='submit']{
 }
 .popupbtn:hover {
   background-color: grey;
+}
+
+
+
+
+.hospitalInfo{
+  margin: 5px;
+  background-color: maroon;
+  padding: 10px;
+  text-align: center;
+  overflow: hidden;
+  overflow-y: scroll;
 }

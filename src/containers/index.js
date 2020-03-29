@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import '../assets/index.css';
 import ReactMap from './reactMap'
 import FilterList from './FilterList'
+import HospitalInfo from './HospitalInfo'
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
 import Feedback from './popUpFeedback';
@@ -12,6 +13,7 @@ import { MapsContext } from '../contexts/MapsContext';
 function App() {
 
   const { hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
 
     useEffect(()=>{
@@ -41,7 +43,7 @@ function App() {
           </div>
         </div>
           <div className="three">
-            <FilterList/>
+            {selectedHospital ? <HospitalInfo/> : <FilterList/>}
           </div>
           <div className="two">
             <ReactMap/>

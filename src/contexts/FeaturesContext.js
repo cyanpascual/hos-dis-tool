@@ -10,13 +10,15 @@ const FeaturesContextProvider = (props) => {
   const [filterSetting, setFilterSetting] = useState(null);
   const [filterLevel, setFilterLevel] = useState(null);
 
-
+  const resetHospitals = () => {
+      setHospitalList(hospitals)
+  } 
 
 
   
 
   return (
-    <FeaturesContext.Provider value={{ hospitals, setHospitals, hospitalList, setHospitalList, filterSetting, setFilterSetting, filterLevel, setFilterLevel }}>
+    <FeaturesContext.Provider value={{ hospitals, setHospitals, hospitalList, setHospitalList, filterSetting, setFilterSetting, filterLevel, setFilterLevel, resetHospitals }}>
       {props.children}
     </FeaturesContext.Provider>
   );

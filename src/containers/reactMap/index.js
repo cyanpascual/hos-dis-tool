@@ -58,11 +58,11 @@ export default function App() {
             {hoveredHospital && !selectedHospital ?(
                 <Popup
                     latitude={hoveredHospital.geometry.coordinates[1]}
-                    longitude={hoveredHospital.geometry.coordinates[0]}
+                    longitude={hoveredHospital.geometry.coordinates[0]} 
                     onClose={()=>{setHoveredHospital(null)}}
                 >
                     <div>
-                        {'hovered'}
+                        {hoveredHospital.properties.Name_of_Ho}
                     </div>
                 </Popup>
             ): null}
