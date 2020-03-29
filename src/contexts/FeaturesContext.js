@@ -11,6 +11,7 @@ const FeaturesContextProvider = (props) => {
   const [filterLevel, setFilterLevel] = useState(null);
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
+  
   const resetHospitals = () => {
       setHospitalList(hospitals)
       setFilterLevel(null);
