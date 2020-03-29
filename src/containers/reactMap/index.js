@@ -28,31 +28,33 @@ export default function App() {
                 setViewport(viewport);
             }}
         >
-            {hospitalList.map((hospital) => (
-                <Marker 
-                    key={hospital.properties.Google_Plu.substring(7)} 
-                    latitude={hospital.geometry.coordinates[1]}
-                    longitude={hospital.geometry.coordinates[0]}
-                >
-                    <button 
-                    class="marker-btn" 
-                    onClick={(e)=>{
-                        e.preventDefault();
-                        setSelectedHospital(hospital)
-                    }}
-                    onMouseOver={(e)=>{
-                        e.preventDefault();
-                        setHoveredHospital(hospital)
-                    }}
-                    onMouseOut={(e)=>{
-                        e.preventDefault();
-                        setHoveredHospital(null)
-                    }}
+            {hospitalList? (hospitalList.map((hospital) => {
+                if(hospital.properties != null){return(
+                        <Marker 
+                        key={hospital.properties.Google_Plu.substring(7)} 
+                        latitude={hospital.geometry.coordinates[1]}
+                        longitude={hospital.geometry.coordinates[0]}
                     >
-                        <img src="blackPin.svg" alt = "hospital pin" />
-                    </button>
-                </Marker>
-            ))}
+                        <button 
+                        class="marker-btn" 
+                        onClick={(e)=>{
+                            e.preventDefault();
+                            setSelectedHospital(hospital)
+                        }}
+                        onMouseOver={(e)=>{
+                            e.preventDefault();
+                            setHoveredHospital(hospital)
+                        }}
+                        onMouseOut={(e)=>{
+                            e.preventDefault();
+                            setHoveredHospital(null)
+                        }}
+                        >
+                            <img src="blackPin.svg" alt = "hospital pin" />
+                        </button>
+                    </Marker>
+                )}})) : null
+            }
             {selectedHospital ?(
                 <Popup
                     latitude={selectedHospital.geometry.coordinates[1]}

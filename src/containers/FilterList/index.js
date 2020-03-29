@@ -16,34 +16,32 @@ const FilterList = () => {
               <input placeholder="Search for hospital name" type="text" value={userInput} onChange={(e)=>setUserInput(e.currentTarget.value)}/>
               <input type="submit" value="Search"></input>
             </form>
-            <label>Filter by supply</label>
+            <label>Filter by supply ({hospitalList ? (hospitalList.length):("0")})</label>
             
             <form onSubmit={(e)=>{
               e.preventDefault();
               switch(filterLevel){
                 case "Critically Low":
-                    setHospitalList(
-                      hospitals.filter(
-                        (hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.25
-                        )
-                      );
+                    setHospitalList(hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.25));
+                    break
                 case "Low":
-                    setHospitalList(hospitals.filter((hospital)=> (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] >= 0.25) & (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] <= 0.9)))
+                    setHospitalList(hospitals.filter((hospital)=> ((hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] >= 0.25) && (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] <= 0.9))))
+                    break
                     
                 case "Well stocked":
                   setHospitalList(hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.9));
             }
-            console.log(hospitalList)
+            
             
             }}>
               <input type="submit" value="Filter"></input>
               <div class="dropdown">
-                <button class="dropbtn">{filterSetting?(filterSetting):("Supply")}</button>
+                <button class="dropbtn">{filterSetting?(filterSetting + "▼"):("Supply ▼")}</button>
                 <div class="dropdown-content">
                   <a onClick={()=>setFilterSetting('Alcohol')}>Alcohol</a>
                   <a onClick={()=>setFilterSetting("Strerilium/Disinfectant")}>Sterilium/ Disinfectant</a>
                   <a onClick={()=>setFilterSetting('Antibacterial Soap')}>Antibacterial Soap</a>
-                  <a onClick={()=>setFilterSetting('Sanitizing Agents')}>Sanitizing Agents</a>
+                  <a onClick={()=>setFilterSetting("Sanitizing agents")}>Sanitizing Agents</a>
                   <a onClick={()=>setFilterSetting('Masks/respirators')}>Masks/ Respirators</a>
                   <a onClick={()=>setFilterSetting('Hepa filter and UV light radiation')}>Hepa filter and UV light radiation</a>
                   <a onClick={()=>setFilterSetting('Gloves (disposable)/ Foot socks')}>Gloves (disposable)/ Foot socks</a>
@@ -54,7 +52,7 @@ const FilterList = () => {
                 </div>
               </div>
               <div class="dropdown">
-                <button class="dropbtn">{filterLevel?(filterLevel):("Supply Level")}</button>
+                <button class="dropbtn">{filterLevel?(filterLevel + "▼"):("Supply Level ▼")}</button>
                 <div class="dropdown-content">
                   <a onClick={()=>setFilterLevel('Well stocked')}>Well stocked</a>
                   <a onClick={()=>setFilterLevel('Low')}>Low</a>
@@ -68,12 +66,13 @@ const FilterList = () => {
         {hospitalList ? (
           <ul>
           {hospitalList.map(hospital => {
-            return (
+            if(hospital.properties != null){
+              return (
               <li>
               <div className="title">{hospital.properties.Name_of_Ho}</div>
               <div className="author">{hospital.properties.Address}</div>
             </li> 
-            );
+            );}
           })}
         </ul>
         ) : (<div className="empty">No results.</div>)}
