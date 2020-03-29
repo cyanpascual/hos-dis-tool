@@ -14,7 +14,7 @@ const userSchema = new Schema({
     "Email": {"type": "String"},
     "Username": {"type": "String"},
     "Password": {"type": "String"},
-    "HospitalID": {"type": "String"} //Hospital Name or Hospital ID(?)
+    "HospitalID": {"type": "String"} //Hospital ID from DOH?
   }
 });
 
