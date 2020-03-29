@@ -67,9 +67,9 @@ body {
 
 .filterList ul {
   background-color: darkgray;
-  height: 250px;
+  height: 225px;
   padding: 0px;
-  margin: 0px;
+  margin: 10px;
   text-align: left;
   overflow: hidden;
   overflow-y: scroll;
@@ -101,6 +101,8 @@ body {
   padding: 3px 10px;
   display: block;
   cursor: pointer;
+  width: 100%;
+  
   
 }
 
@@ -109,7 +111,7 @@ body {
   position: relative;
   display: inline-block;
 
-  width: 200px;
+  width: 100%;
 }
 
 
@@ -199,13 +201,15 @@ input[type='submit']{
   background: #eee;
   border: 0;
   padding: 3px 10px;
+  width: 100%;
 }
 
 input[type='button']{
-  margin: 2px 2px;;
+  margin: 2px 2px;
   background: #eee;
   border: 0;
   padding: 3px 10px;
+  width: 100%;
 }
 
 .popup {  
