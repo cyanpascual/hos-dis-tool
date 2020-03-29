@@ -170,6 +170,9 @@ body {
 .trams{
   font-size: 2.1em;
   color: #ddd;
+  font-weight: bold;
+  font-family:"Ubuntu";
+  vertical-align: baseline;
 }
 
 .hospitalInfo .title{
