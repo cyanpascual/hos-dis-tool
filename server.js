@@ -37,9 +37,36 @@ const hospitalsRouter = require('./routes/hospitals');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
 
-app.use('/hospitals', hospitalsRouter);
-app.use('/facility', facilityRouter);
-app.use('/user', userRouter);
+app.get('/api/hospitals', async (req, res) => {
+  try {
+    res.json(await hospitals.find())
+    // Post is a mongoose schema we've defined in /models
+    // .find() is a method on the model for fetching all documents
+  } catch (err) {
+    res.json({message: err})
+  }
+})
+
+app.get('/api/facility', async (req, res) => {
+  try {
+    res.json(await facility.find())
+    // Post is a mongoose schema we've defined in /models
+    // .find() is a method on the model for fetching all documents
+  } catch (err) {
+    res.json({message: err})
+  }
+})
+
+app.get('/api/user', async (req, res) => {
+  try {
+    res.json(await user.find())
+    // Post is a mongoose schema we've defined in /models
+    // .find() is a method on the model for fetching all documents
+  } catch (err) {
+    res.json({message: err})
+  }
+})
+  
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

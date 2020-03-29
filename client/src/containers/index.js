@@ -21,7 +21,7 @@ function App() {
 
 
     useEffect(()=>{
-      axios.get('http://localhost:5000/hospitals/')
+      axios.get('/api/hospitals/')
       .then(response =>{
           setHospitals(response.data)
           setHospitalList(response.data)
@@ -31,7 +31,7 @@ function App() {
           console.log(err);
           window.alert("Failed to communicate with server")
       });
-      axios.get('http://localhost:5000/facility/')
+      axios.get('/api/facility/')
       .then(response =>{
           setFacilities(response.data)
           setFacilitiesList(response.data)
