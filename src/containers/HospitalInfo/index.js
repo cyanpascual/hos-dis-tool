@@ -8,6 +8,8 @@ const HospitalInfo = () => {
 
     const [userInput, setUserInput] = useState("")
 
+    const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
+    
     return (
       <div className="hospitalInfo">
           {selectedHospital.properties.Name_of_Ho}<br/>
@@ -15,6 +17,14 @@ const HospitalInfo = () => {
           {selectedHospital.properties.Head}<br/>
           {selectedHospital.properties.Website}<br/>
           {selectedHospital.properties["Contact Numbers"]}
+          {selectedHospital.properties["Contact Numbers"]}
+          {supplies.map((supply)=>{
+              return(
+              <div>
+                  hello
+              </div>)
+          })}
+     
       </div>
     )
 }
