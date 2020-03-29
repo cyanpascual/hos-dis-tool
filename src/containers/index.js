@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../logo.svg';
 import '../assets/index.css';
+<<<<<<< Updated upstream
 
 function App() {
   return (
@@ -20,6 +21,34 @@ function App() {
         </a>
       </header>
     </div>
+=======
+import ReactMap from './reactMap'
+import FilterList from './FilterList'
+import FeaturesContextProvider from '../contexts/FeaturesContext';
+import Feedback from './popUpFeedback';
+import Donate from './popUpDonate';
+
+function App() {
+  return (
+    
+      <div className="wrapper">
+        <div className="one">
+          <div>
+            <Feedback/>
+            <Donate/>
+          </div>
+        </div>
+        <FeaturesContextProvider>
+          <div className="three">
+            <FilterList/>
+          </div>
+          <div className="two">
+            <ReactMap/>
+          </div>
+        </FeaturesContextProvider>
+      </div>
+    
+>>>>>>> Stashed changes
   );
 }
 
