@@ -4,6 +4,9 @@ import ReactMap from './reactMap'
 import FilterList from './FilterList'
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
+import Feedback from './popUpFeedback';
+import Donate from './popUpDonate';
+
 
 function App() {
 
@@ -27,22 +30,22 @@ function App() {
     }, [])
   
   
-  
-  
   return (
     
       <div className="wrapper">
-          <div className="one">
-            <div>
-              Contact us
-            </div>
+        <div className="one">
+          <div>
+            <Feedback/>
+            <Donate/>
           </div>
+        </div>
           <div className="three">
             <FilterList/>
           </div>
           <div className="two">
             <ReactMap/>
           </div>
+
       </div>
     
   );
