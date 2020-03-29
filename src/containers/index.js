@@ -16,18 +16,25 @@ import { MapsContext } from '../contexts/MapsContext';
 
 function App() {
 
-  const { hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
   const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
 
     useEffect(()=>{
       axios.get('http://localhost:5000/hospitals/')
       .then(response =>{
-          console.log('$$ data downloaded and set')
-          console.log(response.data)
           setHospitals(response.data)
           setHospitalList(response.data)
-          console.log(hospitalList)
+
+      })
+      .catch((err)=>{
+          console.log(err);
+          window.alert("Failed to communicate with server")
+      });
+      axios.get('http://localhost:5000/facility/')
+      .then(response =>{
+          setFacilities(response.data)
+          setFacilitiesList(response.data)
 
       })
       .catch((err)=>{

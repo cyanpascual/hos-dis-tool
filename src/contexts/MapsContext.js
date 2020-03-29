@@ -19,6 +19,7 @@ const MapsContextProvider = (props) => {
 
     const [hoveredHospital, setHoveredHospital] = useState(null);
   
+    const [clickedFacility, setClickedFacility] = useState(null)
     const goToSelected = (givenHospital) => {
         const newViewport = {
             ...viewport,
@@ -34,7 +35,7 @@ const MapsContextProvider = (props) => {
     };
 
   return (
-    <MapsContext.Provider value={{ viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected}}>
+    <MapsContext.Provider value={{ clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected}}>
       {props.children}
     </MapsContext.Provider>
   );

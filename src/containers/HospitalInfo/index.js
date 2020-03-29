@@ -2,6 +2,7 @@ import React, {useContext,useState} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 
+
 const HospitalInfo = () => {
     const { hospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
     const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
@@ -12,17 +13,28 @@ const HospitalInfo = () => {
     
     return (
       <div className="hospitalInfo">
-          {selectedHospital.properties.Name_of_Ho}<br/>
-          {selectedHospital.properties.Address}<br/>
-          {selectedHospital.properties.Head}<br/>
-          {selectedHospital.properties.Website}<br/>
-          {selectedHospital.properties["Contact Numbers"]}
-          {selectedHospital.properties["Contact Numbers"]}
+        <div className="title">{selectedHospital.properties.Name_of_Ho}</div>
+        <div className="author">Address: {selectedHospital.properties.Address}</div>
+        <div className="author">Head: {selectedHospital.properties.Head}</div>
+        <div className="author">Website: {selectedHospital.properties.Website}</div>
+        <div className="author">Contact Numbers: {selectedHospital.properties["Contact Numbers"]}</div>
+        <hr/>
           {supplies.map((supply)=>{
-              return(
-              <div>
-                  hello
-              </div>)
+              if(supply === "Other Needs"){
+                return(
+                    <div className="author">
+                        {supply} : {selectedHospital.properties.Supply_Cur[supply]}
+                    </div>
+                )
+                }
+                
+            return(
+                <div className="author">
+                    {supply} : {selectedHospital.properties.Supply_Cur[supply]}/{selectedHospital.properties.Supply_Cap[supply]}              
+                </div>)
+                
+            
+              
           })}
      
       </div>

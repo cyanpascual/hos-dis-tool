@@ -53,8 +53,12 @@ body {
 }
 
 .marker-btn img{
-  width: 20px;
   height: 20px;
+}
+
+.smallPicture{
+  width: 30px;
+  height: 30px;
 }
 
 
@@ -163,6 +167,16 @@ body {
   color: #ddd;
 }
 
+.hospitalInfo .title{
+  font-weight: bold;
+  color: #fff;
+  font-size:2.1em;
+}
+.hospitalInfo .author{
+  font-size: 0.9em;
+  color: #ddd;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -252,10 +266,12 @@ input[type='button']{
 
 
 .hospitalInfo{
+  height: 500px;
   margin: 5px;
   background-color: maroon;
   padding: 10px;
   text-align: center;
   overflow: hidden;
   overflow-y: scroll;
+  
 }
