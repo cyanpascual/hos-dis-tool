@@ -1,25 +1,13 @@
 import React, {useState, useContext} from 'react';
-import ReactMapGL, {Marker, Popup} from 'react-map-gl'
-//import * as hospitals from "../../data/hospitals.json"
+import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
+import { MapsContext } from '../../contexts/MapsContext';
 
 export default function App() {
-    const [viewport, setViewport] = useState({
-        latitude: 14.65523042,
-        longitude: 121.0597068,
-        width: "100%",
-        height: "100%",
-        zoom: 10
 
-    });
-
-    
-
-    const [selectedHospital, setSelectedHospital] = useState(null);
-
-    const [hoveredHospital, setHoveredHospital] = useState(null);
 
     const { hospitalList } = useContext(FeaturesContext);
+    const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
     
     return (
         <ReactMapGL 
@@ -39,7 +27,8 @@ export default function App() {
                         class="marker-btn" 
                         onClick={(e)=>{
                             e.preventDefault();
-                            setSelectedHospital(hospital)
+                            setSelectedHospital(hospital);
+                            goToSelected(hospital);
                         }}
                         onMouseOver={(e)=>{
                             e.preventDefault();

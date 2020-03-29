@@ -1,10 +1,12 @@
 import React, {useContext,useState} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import hospitalDetails from '../hospitalDetails';
+import { MapsContext } from '../../contexts/MapsContext';
 
 const FilterList = () => {
     const { hospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
     const [userInput, setUserInput] = useState("")
+    const { goToSelected } = useContext(MapsContext)
 
     return (
       <div className="filterList">
@@ -29,7 +31,7 @@ const FilterList = () => {
                     break
                     
                 case "Well stocked":
-                  setHospitalList(hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.9));
+                    setHospitalList(hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.9));
             }
             
             
@@ -68,10 +70,10 @@ const FilterList = () => {
           {hospitalList.map(hospital => {
             if(hospital.properties != null){
               return (
-              <li>
-              <div className="title">{hospital.properties.Name_of_Ho}</div>
-              <div className="author">{hospital.properties.Address}</div>
-            </li> 
+              <li onClick={()=>{goToSelected(hospital)}}>
+                <div className="title">{hospital.properties.Name_of_Ho}</div>
+                <div className="author">{hospital.properties.Address}</div>
+              </li> 
             );}
           })}
         </ul>

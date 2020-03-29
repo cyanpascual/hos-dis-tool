@@ -4,12 +4,15 @@ import './assets/index.css'
 import App from './containers'
 import * as serviceWorker from './serviceWorker';
 import FeaturesContextProvider from './contexts/FeaturesContext';
+import MapsContextProvider from './contexts/MapsContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FeaturesContextProvider>
-      <App />
-    </FeaturesContextProvider>
+    <MapsContextProvider>
+      <FeaturesContextProvider>
+        <App />
+      </FeaturesContextProvider>
+    </MapsContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

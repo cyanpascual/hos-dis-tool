@@ -6,6 +6,7 @@ import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
 import Feedback from './popUpFeedback';
 import Donate from './popUpDonate';
+import { MapsContext } from '../contexts/MapsContext';
 
 
 function App() {
