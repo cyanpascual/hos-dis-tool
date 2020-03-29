@@ -7,6 +7,7 @@ const hospitalSchema = new Schema({
   "typeOfFeat": {"type": "String"},
   "properties": {
     "Name_of_Ho": {"type": "String"},
+    "HospitalID": {"type": "String"}, //Hospital ID from DOH?
     "Address": {"type": "String"},
     "Google_Plu": {"type": "String"},
     "Supply_Cap": {
