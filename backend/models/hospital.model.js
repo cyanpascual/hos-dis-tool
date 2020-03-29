@@ -37,7 +37,8 @@ const hospitalSchema = new Schema({
       "Bedside patient equipments": {"type": "Number"},
       "Testing Kits": {"type": "Number"},
       "Ventilators": {"type": "Number"},
-      "Tissue": {"type": "Number"}
+      "Tissue": {"type": "Number"},
+      "Other Needs": {"type": "String"}
     },
     "Head": {"type": "String"},
     "Website": {"type": "String"},

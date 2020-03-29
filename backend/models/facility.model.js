@@ -19,7 +19,8 @@ const facilitySchema = new Schema({
       "Gloves (disposable)/ Foot socks": {"type": "Number"},
       "PPE": {"type": "Number"},
       "Goggles/face shields": {"type": "Number"},
-      "Tissue": {"type": "Number"}
+      "Tissue": {"type": "Number"},
+      "Other Needs": {"type": "String"}
     },
     "Contact Person": {"type": "String"},
     "Contact Numbers": {"type": "String"}
