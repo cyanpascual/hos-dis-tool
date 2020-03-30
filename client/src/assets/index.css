@@ -8,6 +8,20 @@ body {
   background: maroon;
 }
 
+.deselectButton{
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 2px 4px;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
 .filterBox {
   height: 250px;
 }

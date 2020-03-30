@@ -59,7 +59,8 @@ export default function App() {
                             
                         }}
                         >
-                            <img src="blackPin.svg" alt = "hospital pin" />
+                            {selectedHospital ? (selectedHospital.properties.Name_of_Ho === hospital.properties.Name_of_Ho ? <img src="greenPin.png" alt = "hospital pin" /> : <img src="blackPin.svg" alt = "hospital pin" />)
+                            : (<img src="blackPin.svg" alt = "hospital pin" />)}
                         </button>
                     </Marker>
                 )}})) : null

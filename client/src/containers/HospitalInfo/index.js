@@ -5,7 +5,7 @@ import { MapsContext } from '../../contexts/MapsContext';
 
 const HospitalInfo = () => {
     const { hospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
-    const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+    const { defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
     const [userInput, setUserInput] = useState("")
 
@@ -13,7 +13,10 @@ const HospitalInfo = () => {
     
     return (
       <div className="hospitalInfo">
-        <div><button onClick={()=>setSelectedHospital(null)}>X</button></div>
+        <div><button className="deselectButton" onClick={()=>{
+            setSelectedHospital(null)
+            setViewport(defaultMapSettings)
+            }}>X</button></div>
         <div className="title">{selectedHospital.properties.Name_of_Ho}</div>
         <div className="author">Address: {selectedHospital.properties.Address}</div>
         <div className="author">Head: {selectedHospital.properties.Head}</div>
