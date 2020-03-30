@@ -249,6 +249,17 @@ input[type='button']{
   border-radius: 20px;  
   background: white;  
 }
+.popupwelcome_inner{
+  position: absolute;  
+  left: 25%;  
+  right: 25%;  
+  top: 5%;  
+  bottom: 10%;  
+  margin: auto;  
+  padding: 10px;
+  border-radius: 20px;  
+  background: white; 
+}
 .popupbtn{
   float: right;
   margin: 40px 5px;
@@ -261,8 +272,13 @@ input[type='button']{
 .popupbtn:hover {
   background-color: grey;
 }
-
-
+.formWindow{
+  width: 90%;
+  height: 75%;
+  border:10px;
+  margin: 10px;
+  display: block;
+}
 
 
 .hospitalInfo{

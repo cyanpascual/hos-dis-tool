@@ -7,6 +7,7 @@ import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
 import Feedback from './popUpFeedback';
 import Donate from './popUpDonate';
+import Welcome from './popUpWelcome';
 import uplogo from '../assets/logos/up.png'
 import dgelogo from '../assets/logos/dge.png'
 import engglogo from '../assets/logos/engineering.png'
@@ -63,6 +64,7 @@ function App() {
             <img src={geoplogo} className="App-logo" alt="logo" />
           </div>
           <div>
+            <Welcome/>
             <Feedback/>
             <Donate/>
           </div>
