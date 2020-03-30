@@ -1,5 +1,6 @@
-[
-{ 
+{"features":
+    [
+    { 
     "type": "Feature", 
     "typeOfFeat":"hospital",
     "properties": { 
@@ -798,6 +799,6 @@
             "coordinates": [ 121.03501, 14.70058 ]
     } 
 }
-]
+]}
 
 
