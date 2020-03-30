@@ -7,11 +7,15 @@ import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
 import Feedback from './popUpFeedback';
 import Donate from './popUpDonate';
+import Welcome from './popUpWelcome';
 import uplogo from '../assets/logos/up.png'
 import dgelogo from '../assets/logos/dge.png'
 import engglogo from '../assets/logos/engineering.png'
 import geoplogo from '../assets/logos/geop_light.png'
 import { MapsContext } from '../contexts/MapsContext';
+import * as hospitalData from '../data/hospitals.json'
+import * as facilitiesData from '../data/facilities.json'
+
 
 
 function App() {
@@ -21,26 +25,31 @@ function App() {
 
 
     useEffect(()=>{
-      axios.get('http://localhost:5000/hospitals/')
-      .then(response =>{
-          setHospitals(response.data)
-          setHospitalList(response.data)
+      // axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
+      // .then(response =>{
+      //     setHospitals(response.data)
+      //     setHospitalList(response.data)
 
-      })
-      .catch((err)=>{
-          console.log(err);
-          window.alert("Failed to communicate with server")
-      });
-      axios.get('http://localhost:5000/facility/')
-      .then(response =>{
-          setFacilities(response.data)
-          setFacilitiesList(response.data)
+      // })
+      // .catch((err)=>{
+      //     console.log(err);
+      //     window.alert("Failed to communicate with server")
+      // });
+      // axios.get('http://trams-up-dge.herokuapp.com/facility/')
+      // .then(response =>{
+      //     setFacilities(response.data)
+      //     setFacilitiesList(response.data)
 
-      })
-      .catch((err)=>{
-          console.log(err);
-          window.alert("Failed to communicate with server")
-      });
+      // })
+      // .catch((err)=>{
+      //     console.log(err);
+      //     window.alert("Failed to communicate with server")
+      // });
+      setHospitals(hospitalData.features)
+      setHospitalList(hospitalData.features)
+      setFacilities(facilitiesData.features)
+      setFacilitiesList(facilitiesData.features)
+      
     }, [])
   
   
@@ -55,6 +64,7 @@ function App() {
             <img src={geoplogo} className="App-logo" alt="logo" />
           </div>
           <div>
+            <Welcome/>
             <Feedback/>
             <Donate/>
           </div>

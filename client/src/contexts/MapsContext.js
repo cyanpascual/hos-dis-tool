@@ -6,15 +6,17 @@ export const MapsContext = createContext();
 
 
 const MapsContextProvider = (props) => {
-    const [viewport, setViewport] = useState({
-        latitude: 14.65523042,
-        longitude: 121.0597068,
-        width: "100%",
-        height: "100%",
-        zoom: 10
 
-    });
+    const defaultMapSettings = {
+      latitude: 14.65523042,
+      longitude: 121.0597068,
+      width: "100%",
+      height: "100%",
+      zoom: 10
 
+  }
+    const [viewport, setViewport] = useState(defaultMapSettings);
+    
     const [selectedHospital, setSelectedHospital] = useState(null);
 
     const [hoveredHospital, setHoveredHospital] = useState(null);
@@ -35,7 +37,7 @@ const MapsContextProvider = (props) => {
     };
 
   return (
-    <MapsContext.Provider value={{ clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected}}>
+    <MapsContext.Provider value={{ defaultMapSettings, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected}}>
       {props.children}
     </MapsContext.Provider>
   );

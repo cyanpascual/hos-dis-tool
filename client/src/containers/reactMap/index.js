@@ -28,7 +28,7 @@ export default function App() {
     
     return (
         <ReactMapGL 
-            {...viewport} mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+            {...viewport} mapboxApiAccessToken={"pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw"}
             onViewportChange={viewport =>{
                 setViewport(viewport);
             }}
@@ -59,7 +59,8 @@ export default function App() {
                             
                         }}
                         >
-                            <img src="blackPin.svg" alt = "hospital pin" />
+                            {selectedHospital ? (selectedHospital.properties.Name_of_Ho === hospital.properties.Name_of_Ho ? <img src="greenPin.png" alt = "hospital pin" /> : <img src="blackPin.svg" alt = "hospital pin" />)
+                            : (<img src="blackPin.svg" alt = "hospital pin" />)}
                         </button>
                     </Marker>
                 )}})) : null
@@ -93,7 +94,7 @@ export default function App() {
             ): null}
             
             
-            {selectedHospital ?(
+            {/* {selectedHospital ?(
                 <Popup
                     latitude={selectedHospital.geometry.coordinates[1]}
                     longitude={selectedHospital.geometry.coordinates[0]}
@@ -106,8 +107,8 @@ export default function App() {
                         {selectedHospital.properties.Name_of_Ho}
                     </div>
                 </Popup>
-            ): null}
-            {hoveredHospital && !selectedHospital ?(
+            ): null} */}
+            {hoveredHospital ?(
                 <Popup
                     latitude={hoveredHospital.geometry.coordinates[1]}
                     longitude={hoveredHospital.geometry.coordinates[0]} 
