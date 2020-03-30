@@ -21,7 +21,7 @@ function App() {
 
 
     useEffect(()=>{
-      axios.get('https://trams-up-dge.herokuapp.com/hospitals/')
+      axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
       .then(response =>{
           setHospitals(response.data)
           setHospitalList(response.data)
@@ -31,7 +31,7 @@ function App() {
           console.log(err);
           window.alert("Failed to communicate with server")
       });
-      axios.get('https://trams-up-dge.herokuapp.com/facility/')
+      axios.get('http://trams-up-dge.herokuapp.com/facility/')
       .then(response =>{
           setFacilities(response.data)
           setFacilitiesList(response.data)
