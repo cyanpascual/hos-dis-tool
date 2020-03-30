@@ -13,6 +13,7 @@ const HospitalInfo = () => {
     
     return (
       <div className="hospitalInfo">
+        <div><button onClick={()=>setSelectedHospital(null)}>X</button></div>
         <div className="title">{selectedHospital.properties.Name_of_Ho}</div>
         <div className="author">Address: {selectedHospital.properties.Address}</div>
         <div className="author">Head: {selectedHospital.properties.Head}</div>

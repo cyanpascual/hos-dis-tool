@@ -93,7 +93,7 @@ export default function App() {
             ): null}
             
             
-            {selectedHospital ?(
+            {/* {selectedHospital ?(
                 <Popup
                     latitude={selectedHospital.geometry.coordinates[1]}
                     longitude={selectedHospital.geometry.coordinates[0]}
@@ -106,8 +106,8 @@ export default function App() {
                         {selectedHospital.properties.Name_of_Ho}
                     </div>
                 </Popup>
-            ): null}
-            {hoveredHospital && !selectedHospital ?(
+            ): null} */}
+            {hoveredHospital ?(
                 <Popup
                     latitude={hoveredHospital.geometry.coordinates[1]}
                     longitude={hoveredHospital.geometry.coordinates[0]} 
