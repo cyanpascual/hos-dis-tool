@@ -11,7 +11,7 @@ function Donate(){
       <div className="popup">  
         <div className="popup_inner">  
         <button className="popupbtn" onClick={() => setPopUp(false)}>Close</button>
-          <h1>Donation form</h1>  
+          <h1 className="popup__title">Donation form</h1>  
           <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdOG7rBP3aJU_CNKjgearZsi3-0RRwzz7RBDJMWtdTfA00btw/viewform?embedded=true"  
             className="formWindow">Loading…</iframe>
           
