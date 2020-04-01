@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import FeaturesContextProvider from './contexts/FeaturesContext';
 import MapsContextProvider from './contexts/MapsContext';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <MapsContextProvider>

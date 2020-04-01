@@ -8,6 +8,14 @@ body {
   background: maroon;
 }
 
+
+
+.map {
+  height: 100%;
+  z-index: 5;
+}
+
+
 .deselectButton{
   background-color: gray;
   border: none;
@@ -71,8 +79,8 @@ body {
 }
 
 .smallPicture{
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 
@@ -144,15 +152,16 @@ body {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  width: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  font-size: 0.8em;
   z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 6px 8px;
   text-decoration: none;
   display: block;
 }
@@ -174,10 +183,10 @@ body {
 .filterList .title{
   font-weight: bold;
   color: #fff;
-  font-size:2.1em;
+  font-size:0.8em;
 }
 .filterList .author{
-  font-size: 0.9em;
+  font-size: 0.7em;
   color: #ddd;
 }
 

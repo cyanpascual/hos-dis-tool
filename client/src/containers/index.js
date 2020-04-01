@@ -15,6 +15,7 @@ import geoplogo from '../assets/logos/geop_light.png'
 import { MapsContext } from '../contexts/MapsContext';
 import * as hospitalData from '../data/hospitals.json'
 import * as facilitiesData from '../data/facilities.json'
+import 'leaflet/dist/leaflet.css'
 
 
 
