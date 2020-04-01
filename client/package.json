@@ -8,9 +8,13 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "d3-ease": "^1.0.6",
+    "leaflet": "^1.6.0",
+    "leaflet.markercluster": "^1.4.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-map-gl": "^5.2.3",
+    "react-leaflet": "^2.6.3",
+    "react-leaflet-markercluster": "^2.0.0-rc1",
     "react-scripts": "3.4.1"
   },
   "scripts": {

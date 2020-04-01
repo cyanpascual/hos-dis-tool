@@ -1,7 +1,13 @@
-import React, {useState, useContext} from 'react';
-import ReactMapGL, {Marker, Popup} from 'react-map-gl';
+import React, {useState, useContext, useEffect} from 'react';
+//import ReactMapGL, {Marker, Popup} from 'react-map-gl';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import 'react-leaflet-markercluster/dist/styles.min.css';
+import L from 'leaflet'
+
+
 
 export default function App() {
 
@@ -18,55 +24,82 @@ export default function App() {
         var d = R * c; // Distance in km
         return d;
       }
-      
+
+    var facilityIcon = L.icon({
+          iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
+          iconSize:[25,44],
+          iconAnchor:[12,98],
+          popupAnchor: [0,-90]
+      })
+
+ 
+
       function deg2rad(deg) {
         return deg * (Math.PI/180)
       }
+      useEffect(() => {
+        //const L = require("leaflet");
+    
+        delete L.Icon.Default.prototype._getIconUrl;
+    
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+          iconUrl: require("leaflet/dist/images/marker-icon.png"),
+          shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+        });
+      }, []);
+
 
     const {facilities, hospitalList } = useContext(FeaturesContext);
-    const { clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
-    
+    const { setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+    const things = {
+        lat: 51.505,
+        lng: -0.09,
+        zoom: 13,
+    }
+    const position = [viewport.lat, viewport.lng]
     return (
-        <ReactMapGL 
-            {...viewport} mapboxApiAccessToken={"pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw"}
-            onViewportChange={viewport =>{
-                setViewport(viewport);
-            }}
-        >
+        <Map className='map' center={position} zoom={viewport.zoom} >
+            <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
+                id='mapbox.streets'
+            />
+            <MarkerClusterGroup
+                spiderLegPolylineOptions={{
+                    weight: 0,
+                    opacity: 0,
+                  }}
+            >
+
+       
             
-            
-            {hospitalList? (hospitalList.map((hospital) => {
+             {hospitalList? (hospitalList.map((hospital) => {
                 if(hospital.properties != null){return(
-                        <Marker 
-                        key={hospital._id} 
-                        latitude={hospital.geometry.coordinates[1]}
-                        longitude={hospital.geometry.coordinates[0]}
-                    >
-                        <button 
-                        class="marker-btn" 
+                    <Marker 
+                        position={[hospital.geometry.coordinates[1],hospital.geometry.coordinates[0]]}
                         onClick={(e)=>{
-                            e.preventDefault();
+                            setMapReference(e.target)
                             setSelectedHospital(hospital);
                             goToSelected(hospital);
                         }}
-                        onMouseOver={(e)=>{
-                            e.preventDefault();
-                            setHoveredHospital(hospital)
-                        }}
-                        onMouseOut={(e)=>{
-                            e.preventDefault();
-                            setHoveredHospital(null)
-                            
-                        }}
-                        >
-                            {selectedHospital ? (selectedHospital.properties.Name_of_Ho === hospital.properties.Name_of_Ho ? <img src="greenPin.png" alt = "hospital pin" /> : <img src="blackPin.svg" alt = "hospital pin" />)
-                            : (<img src="blackPin.svg" alt = "hospital pin" />)}
-                        </button>
+   
+                    >
+                    <Popup
+                    >
+                        {selectedHospital ? (
+                            <div>
+                                {selectedHospital.properties.Name_of_Ho}
+                            </div>
+                        ):null}
+                        
+                    </Popup>
+   
                     </Marker>
                 )}})) : null
-            }
-
-{selectedHospital ? (
+            } 
+            </MarkerClusterGroup>
+             {selectedHospital ? (
                 facilities.filter((facility)=>getDistanceFromLatLonInKm(
                     selectedHospital.geometry.coordinates[1],
                     selectedHospital.geometry.coordinates[0],
@@ -76,63 +109,31 @@ export default function App() {
                     if(facility.properties != null){
                         return(
                         <Marker 
-                            key={facility._id} 
-                            latitude={facility.geometry.coordinates[1]}
-                            longitude={facility.geometry.coordinates[0]}
-                        >
-                            <button 
-                            class="marker-btn" 
+                            position={[facility.geometry.coordinates[1],facility.geometry.coordinates[0]]}
                             onClick={(e)=>{
-                                e.preventDefault();
                                 setClickedFacility(facility)
                             }}
-                            >
-                                <img src="facilities.png" alt = "facility pin" />
-                            </button>
+                            icon={facilityIcon}
+                        >
+                            
+                            <Popup>
+                                {clickedFacility ? (
+                                    <div>
+                                        <div>Facility: {clickedFacility.properties.Name_of_Fa}</div>
+                                        <div>Address: {clickedFacility.properties.Address}</div>
+                                        <div>Contact Person: {clickedFacility.properties["Contact Person"]}</div>
+                                        <div>Contact Number{clickedFacility.properties["Contact Numbers"]}</div>
+                                    </div>
+                                ): null}
+                            
+                        </Popup>
+                            
                         </Marker>
                     )}})
-            ): null}
-            
-            
-            {/* {selectedHospital ?(
-                <Popup
-                    latitude={selectedHospital.geometry.coordinates[1]}
-                    longitude={selectedHospital.geometry.coordinates[0]}
-                    onClose={()=>{
-                        setSelectedHospital(null)
-                        setClickedFacility(null)
-                    }}
-                >
-                    <div>
-                        {selectedHospital.properties.Name_of_Ho}
-                    </div>
-                </Popup>
-            ): null} */}
-            {hoveredHospital ?(
-                <Popup
-                    latitude={hoveredHospital.geometry.coordinates[1]}
-                    longitude={hoveredHospital.geometry.coordinates[0]} 
-                    onClose={()=>{setHoveredHospital(null)}}
-                >
-                    <div>
-                        {hoveredHospital.properties.Name_of_Ho}
-                    </div>
-                </Popup>
-            ): null}
+            ): null} 
 
-            {clickedFacility ?(
-                <Popup
-                    latitude={clickedFacility.geometry.coordinates[1]}
-                    longitude={clickedFacility.geometry.coordinates[0]}
-                    onClose={()=>{setClickedFacility(null)}}
-                >
-                    <div>Facility: {clickedFacility.properties.Name_of_Fa}</div>
-                    <div>Address: {clickedFacility.properties.Address}</div>
-                    <div>Contact Person: {clickedFacility.properties["Contact Person"]}</div>
-                    <div>Contact Number{clickedFacility.properties["Contact Numbers"]}</div>
-                </Popup>
-            ): null}
-            
-        </ReactMapGL>
+    </Map>
     );
 }
+
+
