@@ -1,3 +1,7 @@
+html{
+  background-color: maroon;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,10 +9,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: maroon;
+  background-color: maroon;
 }
-
-
 
 .map {
   height: 100%;
@@ -20,14 +22,19 @@ body {
   background-color: gray;
   border: none;
   color: white;
-  padding: 10px 12px;
+  padding: 5px 7px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 10px;
   margin: 2px 4px;
   cursor: pointer;
-  border-radius: 100%;
+  border-radius: 50%;
+  transition: ease-in-out .2s;
+}
+.deselectButton:hover{
+  background-color: white;
+  color: maroon;
 }
 
 .filterBox {
@@ -87,28 +94,65 @@ body {
 
 .filterList {
   height: 500px;
-  margin: 10px;
+  margin: 5px 10px;
   padding: 5px;
+}
+.filterBox{
+  display: block;
+  height: 225px;
 }
 
 .filterList ul {
-  background-color: darkgray;
-  height: 225px;
+  display: block;
+  position: relative;
+  background-color: #f5f5f5;
+  height: 260px;
   padding: 0px;
-  margin: 10px;
+  margin: 0 10px 0px 15px;
   text-align: left;
   overflow: hidden;
   overflow-y: scroll;
+  border-radius: 2px;
 }
 
 .filterList li{
-  background: maroon;
+  background: #f5f5f5;
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
   margin: 10px 5px;
+  transition: ease-in-out .2s;
 }
 
+.filterList li:hover{
+  background: #d4d4d4;
+}
+
+.filterList li:hover .title,
+.filterList li:hover .author{
+  color: maroon;
+}
+
+.filterList .title{
+  font-weight: bold;
+  color: #252525;
+  font-size:0.8em;
+  transition: ease-in-out .2s;
+}
+
+.filterList .author{
+  font-size: 0.7em;
+  color: #252525;
+  transition: ease-in-out .2s;
+}
+
+.labels{
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: #252525;
+}
 .empty{
   background: maroon;
   border-radius: 4px;
@@ -121,22 +165,22 @@ body {
 }
 
 .dropbtn {
-  margin: 2px 2px;
+  margin: 0px 2px 2px 2px;
   background: #eee;
   border: 0;
-  padding: 3px 10px;
+  padding: 0px 10px;
   display: block;
   cursor: pointer;
   width: 100%;
-  
-  
+  border-radius: 3px;
+  font-size: 14px;
+  transition: ease-in-out .2s;
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
-
   width: 100%;
 }
 
@@ -164,6 +208,7 @@ body {
   padding: 6px 8px;
   text-decoration: none;
   display: block;
+  transition: ease-in-out .2s;
 }
 
 /* Change color of dropdown links on hover */
@@ -176,28 +221,8 @@ body {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-  background-color: grey;
-}
-
-
-.filterList .title{
-  font-weight: bold;
-  color: #fff;
-  font-size:0.8em;
-}
-.filterList .author{
-  font-size: 0.7em;
-  color: #ddd;
-}
-
-.hospitalInfo .title{
-  font-weight: bold;
-  color: #fff;
-  font-size:2.1em;
-}
-.hospitalInfo .author{
-  font-size: 0.9em;
-  color: #ddd;
+  background-color: #d4d4d4;
+  color: maroon;
 }
 
 /* width */
@@ -221,32 +246,43 @@ body {
 }
 
 form{
-  padding: 20px;
+  padding: 10px 20px;
 }
+
 input[type='text']{
   width: 100%;
-  padding: 10px;
+  padding: 7px;
   box-sizing: border-box;
-  margin: 6px 0;
+  margin: 0px 2px 2px 2px;
   background: white;
   color: black;
   border: 0;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 input[type='submit']{
-  margin: 2px 2px;
+  margin: 0px 2px 2px 2px;
+  color:#252525;
   background: #eee;
   border: 0;
-  padding: 3px 10px;
+  padding: 0px 7px;
   width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: ease-in-out .2s;
 }
 
 input[type='button']{
-  margin: 2px 2px;
+  margin: 0px 0px 0px 2px;
+  color:#252525;
   background: #eee;
   border: 0;
-  padding: 3px 10px;
+  padding: 0px 10px;
   width: 100%;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: ease-in-out .2s;
 }
 
 .popup {  
@@ -272,6 +308,10 @@ input[type='button']{
   border-radius: 20px;  
   background: white;  
 }
+.popup__title{
+  display: block;
+  margin: 10px 30px;
+}
 .popupwelcome_inner{
   position: absolute;  
   left: 25%;  
@@ -281,25 +321,43 @@ input[type='button']{
   margin: auto;  
   padding: 10px;
   border-radius: 20px;  
-  background: white; 
+  background: lightgray; 
 }
 .popupbtn{
   float: right;
   margin: 40px 5px;
   background: #eee;
   border: 0;
-  padding: 6px 20px;
+  padding: 3px 20px;
   display: block;
   cursor: pointer;
+  border-radius: 3px;
+  transition: ease-in-out .2s;
 }
-.popupbtn:hover {
-  background-color: grey;
+.popupbtn__close{
+  float: right;
+  margin: 20px 5px;
+  background: #eee;
+  border: 0;
+  padding: 3px 20px;
+  display: block;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: ease-in-out .2s;
+}
+.popupbtn:hover,
+.popupbtn__close:hover,
+input[type='button']:hover,
+input[type='submit']:hover,
+.dropbtn:hover {
+  background-color: #d4d4d4;
+  color: maroon;
 }
 .formWindow{
-  width: 90%;
+  width: 95%;
   height: 75%;
-  border:10px;
-  margin: 10px;
+  border: 10px;
+  margin: 5px 10px;
   display: block;
 }
 
@@ -307,10 +365,42 @@ input[type='button']{
 .hospitalInfo{
   height: 500px;
   margin: 5px;
-  background-color: maroon;
+  background-color: #d4d4d4;
   padding: 10px;
   text-align: center;
   overflow: hidden;
   overflow-y: scroll;
-  
+}
+.hospitalInfo .title{
+  font-weight: bold;
+  color: maroon;
+  font-size:32px;
+}
+.hospitalInfo .author{
+  display: block;
+  margin: 5px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #252525;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.hospitalInfo .info{
+  display: block;
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 14px;
+  color: maroon;
+  text-decoration: none;
+}
+.hospitalInfo .supplies{
+  display: block;
+  margin: 5px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: maroon;
+  text-align: left;
+  text-decoration: none;
 }

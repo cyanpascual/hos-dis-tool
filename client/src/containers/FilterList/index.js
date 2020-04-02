@@ -86,7 +86,7 @@ const FilterList = () => {
 
     return (
       <div className="filterList">
-         <label> Number of Hospitals Shown: {hospitalList ? (hospitalList.length):("0")}</label>
+         <label className="labels"> Number of Hospitals Shown: {hospitalList ? (hospitalList.length):("0")}</label>
         <div className="filterBox">
             <form onSubmit={(e)=>{
               e.preventDefault();
@@ -95,7 +95,7 @@ const FilterList = () => {
               <input placeholder="Search for hospital name" type="text" value={userInput} onChange={(e)=>setUserInput(e.currentTarget.value)}/>
               <input type="submit" value="Search"></input>
             </form>
-            <label>Filter by supply: </label>
+            <label className="labels">Filter by supply: </label>
             
             <form onSubmit={(e)=>{
               e.preventDefault();
