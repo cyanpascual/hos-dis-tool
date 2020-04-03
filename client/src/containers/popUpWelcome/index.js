@@ -18,7 +18,7 @@ function Welcome(){
       <div className="popup">  
         <div className="popupwelcome_inner">  
           <Carousel className="bootstrap" fade="true" interval="30000">
-            <Carousel.Item className="slide_1">
+            <Carousel.Item className="slide">
               <div className="content">
     
                 <img src={tramslogo} className="welcome-logo"/>
@@ -35,17 +35,15 @@ function Welcome(){
                 </div>
               </div>
             </Carousel.Item>
-            <Carousel.Item className="slide_2">
+            <Carousel.Item className="slide">
               <div className="content">
-                
                 <h3 className="welcome__subtitle">Our Goal</h3>
                 <p className="welcome__text">TrAMS is an online geographic and information tracking system which aims to properly allocate medical resources (such as alcohol, sanitizing agents, 
                   masks, gloves, etc.) to health facilities in the country. This system will serve as platform for government agencies, donors and other interested 
                   parties to efficiently distribute resources on hospitals with much-needed supplies.</p>
-                <img src={tramslogo} className="bottom"/>
               </div>
             </Carousel.Item>
-            <Carousel.Item className="slide_3">
+            <Carousel.Item className="slide">
               <div className="content">
                 <h2 className="help__titleleft">Filter</h2>
                 <p className="help__left">Hospitals can be classified based on their current capacity on medical supplies. Filter by supply works by choosing a certain supply 
@@ -55,10 +53,9 @@ function Welcome(){
                   their designated contact person and contact details and their inventory on medical supplies.</p>
                 <h2 className="help__titleleft">Facilities</h2>
                 <p className="help__left">Other facilities such as markets, convenience stores, gas stations and transport terminals can also be viewed on the map once a hospital is selected. </p>
-                <img src={tramslogo} className="bottom"/>
               </div>
             </Carousel.Item>
-            <Carousel.Item className="slide_4">
+            <Carousel.Item className="slide">
               <div className="content">
                 <h2 className="help__titleright">Legend</h2>
                 <p className="help__right">Medical supply icons under each corresponding hospital may be tagged as red or green. 
@@ -66,7 +63,6 @@ function Welcome(){
                 <h2 className="help__titleleft">Donation and Feedback</h2>
                 <p className="help__left">To donate medical supplies or give feedback regarding our service, 
                   you may answer our forms by clicking Donate or Feedback located on the upper right hand corner of your browser.</p>
-                  <img src={tramslogo} className="bottom"/>
               </div>
             </Carousel.Item>
           </Carousel>
