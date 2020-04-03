@@ -2,6 +2,7 @@ import React, {useContext,useState} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import hospitalDetails from '../hospitalDetails';
 import { MapsContext } from '../../contexts/MapsContext';
+import glass from '../../assets/logos/magnifying-glass-md.png';
 
 import alcohol_high from '../../assets/levelIndicators/alcohol_high.png'
 import alcohol_med from '../../assets/levelIndicators/alcohol_mid.png'
@@ -93,7 +94,7 @@ const FilterList = () => {
               setHospitalList(hospitals.filter((hospital)=>hospital.properties.Name_of_Ho.toLowerCase().indexOf(userInput.toLowerCase()) > -1))
             }}>
               <input placeholder="Search for hospital name" type="text" value={userInput} onChange={(e)=>setUserInput(e.currentTarget.value)}/>
-              <input type="submit" value="Search"></input>
+              <input type="image" className="glass" src={glass} alt="Submit"/> 
             </form>
             <label className="labels">Filter by supply: </label>
             
@@ -138,9 +139,12 @@ const FilterList = () => {
                 </div>
               </div>
               <br/>
-              <input type="submit" value="Filter"></input>
-              <input type="button" value="Reset" onClick={resetHospitals}></input>
-              
+
+              <div className="filter-submit">
+                <input type="submit" className="filter-button" value="Filter"></input>
+                <input type="button" className="filter-button" value="Reset" onClick={resetHospitals}></input>
+              </div>
+
             </form>
         </div>
         {hospitalList ? (

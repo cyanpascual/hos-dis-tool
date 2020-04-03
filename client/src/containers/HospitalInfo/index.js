@@ -43,11 +43,11 @@ const HospitalInfo = () => {
                         {supply} : {selectedHospital.properties.Supply_Cur[supply]}
                     </div>
                 )
-                }
+              }
                 
             return(
                 <div className="supplies">
-                    {supply}: {imageChoose(selectedHospital, supply)} {selectedHospital.properties.Supply_Cur[supply]}/{selectedHospital.properties.Supply_Cap[supply]}              
+                    {imageChoose(selectedHospital, supply)} {supply}: {selectedHospital.properties.Supply_Cur[supply]}/{selectedHospital.properties.Supply_Cap[supply]}              
                 </div>)
                 
             
