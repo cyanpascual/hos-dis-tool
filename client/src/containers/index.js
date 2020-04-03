@@ -5,16 +5,15 @@ import FilterList from './FilterList'
 import HospitalInfo from './HospitalInfo'
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import axios from 'axios';
-import Feedback from './popUpFeedback';
-import Donate from './popUpDonate';
-import Welcome from './popUpWelcome';
-import uplogo from '../assets/logos/up.png'
-import dgelogo from '../assets/logos/dge.png'
-import engglogo from '../assets/logos/engineering.png'
-import geoplogo from '../assets/logos/geop_light.png'
+import Menu from './sideMenu';
+import uplogo from '../assets/logos/up.png';
+import dgelogo from '../assets/logos/dge.png';
+import engglogo from '../assets/logos/engineering.png';
+import geoplogo from '../assets/logos/geop_light.png';
+import tramslogo from '../assets/logos/trams_h.png'
 import { MapsContext } from '../contexts/MapsContext';
-import * as hospitalData from '../data/hospitals.json'
-import * as facilitiesData from '../data/facilities.json'
+import * as hospitalData from '../data/hospitals.json';
+import * as facilitiesData from '../data/facilities.json';
 import 'leaflet/dist/leaflet.css'
 
 
@@ -58,25 +57,23 @@ function App() {
     
       <div className="wrapper">
         <div className="one">
-          <div className="logos">
-            <img src={uplogo} className="App-logo" alt="logo" />
-            <img src={engglogo} className="App-logo" alt="logo" />
-            <img src={dgelogo} className="App-logo" alt="logo" />
-            <img src={geoplogo} className="App-logo" alt="logo" />
-          </div>
-          <div>
-            <Welcome/>
-            <Feedback/>
-            <Donate/>
-          </div>
+          <img src={tramslogo} className="App-main-logo" alt="logo" />
+          <Menu/>
+          <div className="line"/>
         </div>
-          <div className="three">
-            {selectedHospital ? <HospitalInfo/> : <FilterList/>}
-          </div>
-          <div className="two">
-            <ReactMap/>
-          </div>
-
+        <div className="three">
+          {selectedHospital ? <HospitalInfo/> : <FilterList/>}
+        </div>
+        <div className="two">
+          <ReactMap/>
+        </div>
+        <div className="logos">
+          <img src={uplogo} className="App-logo" alt="logo" />
+          <img src={engglogo} className="App-logo" alt="logo" />
+          <img src={dgelogo} className="App-logo" alt="logo" />
+          <img src={geoplogo} className="App-logo" alt="logo" />
+        </div>
+        <div className="line-bottom"/>
       </div>
     
   );

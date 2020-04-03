@@ -1,226 +1,95 @@
-@keyframes tonext {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: 100%;
-    }
-    98% {
-      left: 100%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-  
-  @keyframes tostart {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: -300%;
-    }
-    98% {
-      left: -300%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-  
-  @keyframes snap {
-    96% {
-      scroll-snap-align: center;
-    }
-    97% {
-      scroll-snap-align: none;
-    }
-    99% {
-      scroll-snap-align: none;
-    }
-    100% {
-      scroll-snap-align: center;
-    }
-  }
-  
-  * {
-    box-sizing: border-box;
-    scrollbar-color: transparent transparent; /* thumb and track color */
-    scrollbar-width: 0px;
-  }
-  
-  *::-webkit-scrollbar {
-    width: 0;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background: transparent;
-    border: none;
-  }
-  
-  * {
-    -ms-overflow-style: none;
-  }
-  
-  ol, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .welcome {
-    position: relative;
-    padding-top: 75%;
-    filter: drop-shadow(0 0 10px #0003);
-    perspective: 100px;
-  }
-  
-  .welcome__viewport {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    overflow-x: scroll;
-    counter-reset: item;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-  }
-  
-  .welcome__slide {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    background-color: #f99;
-    counter-increment: item;
-  }
-  
-  .welcome__slide:nth-child(even) {
-    background-color: #99f;
-  }
-  
-  .welcome__slide:before {
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%,-40%,70px);
-    color: #fff;
-    font-size: 2em;
-  }
-  
-  .welcome__snapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: center;
-  }
-  
-  @media (hover: hover) {
-    .welcome__snapper {
-      animation-name: tonext, snap;
-      animation-timing-function: ease;
-      animation-duration: 4s;
-      animation-iteration-count: infinite;
-    }
-  
-    .welcome__slide:last-child .welcome__snapper {
-      animation-name: tostart, snap;
-    }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .welcome__snapper {
-      animation-name: none;
-    }
-  }
-  
-  .welcome:hover .welcome__snapper,
-  .welcome:focus-within .welcome__snapper {
-    animation-name: none;
-  }
-  
-  .welcome__navigation {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-  }
-  
-  .welcome__navigation-list,
-  .welcome__navigation-item {
-    display: inline-block;
-  }
-  
-  .welcome__navigation-button {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: #333;
-    background-clip: content-box;
-    border: 0.25rem solid transparent;
-    border-radius: 50%;
-    font-size: 0;
-    transition: transform 0.1s;
-  }
-  
-  .welcome::before,
-  .welcome::after,
-  .welcome__prev,
-  .welcome__next {
-    position: absolute;
-    top: 0;
-    margin-top: 37.5%;
-    width: 4rem;
-    height: 4rem;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    font-size: 0;
-    outline: 0;
-  }
-  
-  .welcome::before,
-  .welcome__prev {
-    left: -1rem;
-  }
-  
-  .welcome::after,
-  .welcome__next {
-    right: -1rem;
-  }
-  
-  .welcome::before,
-  .welcome::after {
-    content: '';
-    z-index: 1;
-    background-color: #333;
-    background-size: 1.5rem 1.5rem;
-    background-repeat: no-repeat;
-    background-position: center center;
-    color: #fff;
-    font-size: 2.5rem;
-    line-height: 4rem;
-    text-align: center;
-    pointer-events: none;
-  }
+.bootstrap{
+  display: block;
+  height: 94%;
+  background-color: #100243;
+  color: #d9cfff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.content{
+  width: 80%;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+}
 
-  .welcome::before:hover,
-  .welcome::after:hover {
-    background-color: ghostwhite;
-  }  
-  .welcome::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
-  }
-  
-  .welcome::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
-  }
-  
+.welcome-logo{
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  margin-left: 67px;
+  margin-right: 67px;
+  height: 150px;
+}
+.bottom{
+  margin-top: 45px;
+  margin-left: 166px;
+  margin-right: 166px;
+}
+.welcome-logo-bottom{
+  display: inline-block;
+  height: 35px;
+  margin: 5px;
+  align-content: center;
+}
+.slide_1{
+  display: block;
+  background-color: #d9cfff;
+  color: #65000a;
+  height: 536px;
+}
+.slide_2{
+  display: block;
+  background-color: #65000a;
+  height: 536px;
+}
+.slide_3{
+  display: block;
+  background-color: #002f0f;
+  height: 536px;
+}
+.slide_4{
+  display: block;
+  background-color: #100243;
+  height: 536px;
+}
+
+.welcome__title{
+  text-align: center;
+  font-size: 28px;
+  text-decoration: underline #65000a;
+}
+
+.welcome__subtitle{
+  text-align: center;
+  font-size: 20px;
+}
+
+.welcome__text{
+  text-align: justify;
+  text-align-last: center;
+  font-size: 14px;
+}
+
+.help__titleleft{
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.help__titleright{
+  text-align:right;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.help__left{
+  width: 60%;
+  text-align: justify;
+  font-size: 14px;
+}
+
+.help__right{
+  width: 60%;
+  text-align: justify;
+  font-size: 14px;
+  margin-left: 40%;
+}
