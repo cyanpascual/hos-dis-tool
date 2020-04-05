@@ -18,7 +18,10 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.6"
   },
-  "engines": {"node": "^10.16.0"},
+  "engines": {
+    "node": "^10.16.0",
+    "npm": "^6.9.0"
+  },
   "devDependencies": {},
   "description": ""
 }
