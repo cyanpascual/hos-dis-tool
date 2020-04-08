@@ -162,7 +162,7 @@ function Navigator(props) {
                 </Grid>
             </Grid>
         </ListItem>
-            <div style={{overflowY:"scroll", height:"79vh"}}>
+            <div style={{overflowY:"scroll", height:"75vh"}}>
             <FilterList/>
             </div>
         <ListItem style={{textAlign:"center"}}>

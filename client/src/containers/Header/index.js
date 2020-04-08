@@ -29,7 +29,7 @@ import DonateDialog from '../DonateDialog';
 import VolunteerDialog from '../VolunteerDialog';
 import UpdateDialog from '../UpdateDialog'
 import { FeaturesContext } from '../../contexts/FeaturesContext';
-
+import { MapsContext } from '../../contexts/MapsContext';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -59,7 +59,7 @@ const styles = (theme) => ({
 function Header(props) {
   const { classes, onDrawerToggle } = props;
   const { hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
-  
+  const {setSelectedHospital, goToSelected} = useContext(MapsContext)
   var hospitalNames =[]
     if(hospitalList){
         hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
@@ -119,9 +119,9 @@ function Header(props) {
             <Grid item>
                 <DonateDialog/>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
                 <VolunteerDialog/>
-            </Grid>
+            </Grid> */}
             <Grid item>
                 <UpdateDialog/>
             </Grid>
@@ -140,7 +140,13 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
             {hospitalList && <Autocomplete
-            
+            onInputChange={(obj,value)=>{
+                console.log("%%%%%")
+
+ 
+                goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.Name_of_Ho===value)})[0])
+                setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.Name_of_Ho===value)})[0])
+            }}
             options={hospitalList}
             getOptionLabel={(option) => option.properties.Name_of_Ho}
             size="small"
