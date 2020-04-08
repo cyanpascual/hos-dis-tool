@@ -13,7 +13,7 @@ function Volunteer(){
         <button className="popupbtn__close" onClick={() => setPopUp(false)}>Close</button>   
           <h1 className="popup__title">Volunteer form</h1>  
           <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQrqBzL9y151vkI-Y6v9pvh4y44G-tftbDO6OoGHCnd3aTg/viewform?embedded=true" 
-            frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            frameborder="0" marginheight="0" marginwidth="0" className="formWindow">Loading…</iframe>
         </div>  
       </div>  
       : null}

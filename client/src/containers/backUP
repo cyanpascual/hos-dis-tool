@@ -1,0 +1,91 @@
+import React, {useContext, useEffect} from 'react';
+import '../assets/index.css';
+import ReactMap from './reactMap'
+import FilterList from './FilterList'
+import HospitalInfo from './HospitalInfo'
+import { FeaturesContext } from '../contexts/FeaturesContext';
+import axios from 'axios';
+import Menu from './sideMenu';
+import SearchBar from './SearchBar';
+import uplogo from '../assets/logos/up.png';
+import dgelogo from '../assets/logos/dge.png';
+import engglogo from '../assets/logos/engineering.png';
+import geoplogo from '../assets/logos/geop_light.png';
+import tramslogo from '../assets/logos/trams_h.png'
+import { MapsContext } from '../contexts/MapsContext';
+import * as hospitalData from '../data/hospitals.json';
+import * as facilitiesData from '../data/facilities.json';
+import 'leaflet/dist/leaflet.css'
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+
+
+
+function App() {
+
+  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+
+
+    useEffect(()=>{
+      // axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
+      // .then(response =>{
+      //     setHospitals(response.data)
+      //     setHospitalList(response.data)
+
+      // })
+      // .catch((err)=>{
+      //     console.log(err);
+      //     window.alert("Failed to communicate with server")
+      // });
+      // axios.get('http://trams-up-dge.herokuapp.com/facility/')
+      // .then(response =>{
+      //     setFacilities(response.data)
+      //     setFacilitiesList(response.data)
+
+      // })
+      // .catch((err)=>{
+      //     console.log(err);
+      //     window.alert("Failed to communicate with server")
+      // });
+      setHospitals(hospitalData.features)
+      setHospitalList(hospitalData.features)
+      setFacilities(facilitiesData.features)
+      setFacilitiesList(facilitiesData.features)
+      
+    }, [])
+  
+  
+  return (
+    
+      <Container fluid>
+        <Row className="header">
+          <Col>
+          <Menu/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <SearchBar/>
+          </Col>
+          
+        </Row>
+        <Row>
+          <Col xl={3}>
+            {selectedHospital ? <HospitalInfo/> : <FilterList/>}
+          </Col>
+          <Col >
+            <ReactMap/>
+          </Col>
+        </Row>
+
+
+       
+      </Container>
+    
+  );
+}
+
+export default App;
