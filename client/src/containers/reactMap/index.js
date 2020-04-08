@@ -63,13 +63,15 @@ export default function App() {
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
-                id='mapbox.streets'
+                id='mapbox.light'
             />
             <MarkerClusterGroup
                 spiderLegPolylineOptions={{
                     weight: 0,
                     opacity: 0,
                   }}
+                removeOutsideVisibleBounds={true}
+                disableClusteringAtZoom={14}
             >
 
        

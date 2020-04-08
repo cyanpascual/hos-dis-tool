@@ -1,82 +1,232 @@
 import React, {useContext, useEffect} from 'react';
-import '../assets/index.css';
+import PropTypes from 'prop-types';
+import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Navigator from './Navigator';
+import Header from './Header';
 import ReactMap from './reactMap'
-import FilterList from './FilterList'
-import HospitalInfo from './HospitalInfo'
-import { FeaturesContext } from '../contexts/FeaturesContext';
-import axios from 'axios';
-import Menu from './sideMenu';
-import uplogo from '../assets/logos/up.png';
-import dgelogo from '../assets/logos/dge.png';
-import engglogo from '../assets/logos/engineering.png';
-import geoplogo from '../assets/logos/geop_light.png';
-import tramslogo from '../assets/logos/trams_h.png'
-import { MapsContext } from '../contexts/MapsContext';
+import 'leaflet/dist/leaflet.css'
+import 'typeface-roboto';
 import * as hospitalData from '../data/hospitals.json';
 import * as facilitiesData from '../data/facilities.json';
-import 'leaflet/dist/leaflet.css'
+import { MapsContext } from '../contexts/MapsContext';
+import { FeaturesContext } from '../contexts/FeaturesContext';
 
 
 
-function App() {
+let theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#993232',
+      main: '#800000',
+      dark: '#660000',
+    },
+    secondary: {
+      light: '#993232',
+      main: '#FFFFFE',
+      dark: '#660000',
+    },
+  },
+  typography: {
+    h5: {
+      fontWeight: 500,
+      fontSize: 26,
+      letterSpacing: 0.5,
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  props: {
+    MuiTab: {
+      disableRipple: true,
+    },
+  },
+  mixins: {
+    toolbar: {
+      minHeight: 48,
+    },
+  },
+});
+
+theme = {
+  ...theme,
+  overrides: {
+    MuiDrawer: {
+      paper: {
+        backgroundColor: '#BAB8B2',
+      },
+    },
+    MuiButton: {
+      label: {
+        textTransform: 'none',
+      },
+      contained: {
+        boxShadow: 'none',
+        '&:active': {
+          boxShadow: 'none',
+        },
+      },
+    },
+    MuiTabs: {
+      root: {
+        marginLeft: theme.spacing(1),
+      },
+      indicator: {
+        height: 3,
+        borderTopLeftRadius: 3,
+        borderTopRightRadius: 3,
+        backgroundColor: theme.palette.common.white,
+      },
+    },
+    MuiTab: {
+      root: {
+        textTransform: 'none',
+        margin: '0 16px',
+        minWidth: 0,
+        padding: 0,
+        [theme.breakpoints.up('md')]: {
+          padding: 0,
+          minWidth: 0,
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        padding: theme.spacing(1),
+      },
+    },
+    MuiTooltip: {
+      tooltip: {
+        borderRadius: 4,
+      },
+    },
+    MuiDivider: {
+      root: {
+        backgroundColor: '#404854',
+      },
+    },
+    MuiListItemText: {
+      primary: {
+        fontWeight: theme.typography.fontWeightMedium,
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        color: 'inherit',
+        marginRight: 0,
+        '& svg': {
+          fontSize: 20,
+        },
+      },
+    },
+
+  },
+};
+
+const drawerWidth = 300;
+
+const styles = {
+  root: {
+    display: 'flex',
+    minHeight: '100vh',
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    overflow:"hidden"
+  },
+  app: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  main: {
+    flex: 1,
+    padding: theme.spacing(6, 4),
+    background: '#eaeff1',
+  },
+  footer: {
+    padding: theme.spacing(2),
+    background: '#eaeff1',
+  },
+};
+
+function App(props) {
+  const { classes } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
   const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-    useEffect(()=>{
-      // axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
-      // .then(response =>{
-      //     setHospitals(response.data)
-      //     setHospitalList(response.data)
+  useEffect(()=>{
+    // axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
+    // .then(response =>{
+    //     setHospitals(response.data)
+    //     setHospitalList(response.data)
 
-      // })
-      // .catch((err)=>{
-      //     console.log(err);
-      //     window.alert("Failed to communicate with server")
-      // });
-      // axios.get('http://trams-up-dge.herokuapp.com/facility/')
-      // .then(response =>{
-      //     setFacilities(response.data)
-      //     setFacilitiesList(response.data)
+    // })
+    // .catch((err)=>{
+    //     console.log(err);
+    //     window.alert("Failed to communicate with server")
+    // });
+    // axios.get('http://trams-up-dge.herokuapp.com/facility/')
+    // .then(response =>{
+    //     setFacilities(response.data)
+    //     setFacilitiesList(response.data)
 
-      // })
-      // .catch((err)=>{
-      //     console.log(err);
-      //     window.alert("Failed to communicate with server")
-      // });
-      setHospitals(hospitalData.features)
-      setHospitalList(hospitalData.features)
-      setFacilities(facilitiesData.features)
-      setFacilitiesList(facilitiesData.features)
-      
-    }, [])
-  
-  
-  return (
+    // })
+    // .catch((err)=>{
+    //     console.log(err);
+    //     window.alert("Failed to communicate with server")
+    // });
+    setHospitals(hospitalData.features)
+    setHospitalList(hospitalData.features)
+    setFacilities(facilitiesData.features)
+    setFacilitiesList(facilitiesData.features)
     
-      <div className="wrapper">
-        <div className="one">
-          <img src={tramslogo} className="App-main-logo" alt="logo" />
-          <Menu/>
-          <div className="line"/>
-        </div>
-        <div className="three">
-          {selectedHospital ? <HospitalInfo/> : <FilterList/>}
-        </div>
-        <div className="two">
+  }, [])
+
+  return (
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        
+        <nav className={classes.drawer}>
+
+          <Hidden smUp implementation="js">
+            <Navigator
+              PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+            />
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
+          </Hidden>
+        </nav>
+        <div className={classes.app}>
+          <Header onDrawerToggle={handleDrawerToggle} />  
           <ReactMap/>
         </div>
-        <div className="logos">
-          <img src={uplogo} className="App-logo" alt="logo" />
-          <img src={engglogo} className="App-logo" alt="logo" />
-          <img src={dgelogo} className="App-logo" alt="logo" />
-          <img src={geoplogo} className="App-logo" alt="logo" />
-        </div>
-        <div className="line-bottom"/>
       </div>
-    
+    </ThemeProvider>
   );
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
+
