@@ -2,7 +2,10 @@ import React, {useContext,useState} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import hospitalDetails from '../hospitalDetails';
 import { MapsContext } from '../../contexts/MapsContext';
+import { makeStyles } from '@material-ui/core/styles';
 import glass from '../../assets/logos/magnifying-glass-md.png';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
 
 import alcohol_high from '../../assets/levelIndicators/alcohol_high.png'
 import alcohol_med from '../../assets/levelIndicators/alcohol_mid.png'
@@ -28,66 +31,152 @@ import tissue_high from '../../assets/levelIndicators/tissue_high.png'
 import tissue_med from '../../assets/levelIndicators/tissue_mid.png'
 import tissue_low from '../../assets/levelIndicators/tissue_low.png'
 
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box'
+import Divider from '@material-ui/core/Divider';
+
+
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  cardcontent: {
+    padding: "5px",
+    "&:last-child": {
+      paddingBottom: "5px"
+    }
+  }
+});
+
 const FilterList = () => {
-    const { hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    const { hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
     const [userInput, setUserInput] = useState("")
     const { goToSelected } = useContext(MapsContext)
+
+    const classes = useStyles();
     const alcoholImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Alcohol"]/currHospital.properties.Supply_Cap["Alcohol"] < 0.2){
-        return(<img className="smallPicture" src={alcohol_low} alt="critically-low"/>)
+        return(<img title={'Alcohol: Critically Low'} className="smallPicture" src={alcohol_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={alcohol_med} alt="low"/>)
+        return(<img title={'Alcohol: Low'} className="smallPicture" src={alcohol_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={alcohol_high} alt="well-supplied"/>)
+      return(<img title={'Alcohol: Well Supplied'} className="smallPicture" src={alcohol_high} alt="well-supplied"/>)
     }
     const disInfectantImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Strerilium/Disinfectant"]/currHospital.properties.Supply_Cap["Strerilium/Disinfectant"] < 0.2){
-        return(<img className="smallPicture" src={sanitizer_low} alt="critically-low"/>)
+        return(<img title={'Strerilium/Disinfectant: Critically Low'} className="smallPicture" src={sanitizer_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={sanitizer_med} alt="low"/>)
+        return(<img title={'Strerilium/Disinfectant: Low'} className="smallPicture" src={sanitizer_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={sanitizer_high} alt="well-supplied"/>)
+      return(<img title={'Strerilium/Disinfectant: Well Supplied'} className="smallPicture" src={sanitizer_high} alt="well-supplied"/>)
     }
 
     const glovesImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Gloves (disposable)/ Foot socks"]/currHospital.properties.Supply_Cap["Gloves (disposable)/ Foot socks"] < 0.2){
-        return(<img className="smallPicture" src={gloves_low} alt="critically-low"/>)
+        return(<img title={'Gloves: Critically Low'} className="smallPicture" src={gloves_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={gloves_med} alt="low"/>)
+        return(<img title={'Gloves: Low'} className="smallPicture" src={gloves_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={gloves_high} alt="well-supplied"/>)
+      return(<img title={'Gloves: Well Supplied'} className="smallPicture" src={gloves_high} alt="well-supplied"/>)
     }
     const maskImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Masks/respirators"]/currHospital.properties.Supply_Cap["Masks/respirators"] < 0.2){
-        return(<img className="smallPicture" src={mask_low} alt="critically-low"/>)
+        return(<img title={'Masks/respirators: Critically Low'} className="smallPicture" src={mask_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={mask_med} alt="low"/>)
+        return(<img title={'Masks/respirators: Low'} className="smallPicture" src={mask_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={mask_high} alt="well-supplied"/>)
+      return(<img title={'Masks/respirators: Well Supplied'} className="smallPicture" src={mask_high} alt="well-supplied"/>)
     }
 
     const soapImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Antibacterial Soap"]/currHospital.properties.Supply_Cap["Antibacterial Soap"] < 0.2){
-        return(<img className="smallPicture" src={soap_low} alt="critically-low"/>)
+        return(<img title={'Antibacterial Soap: Critically Low'} className="smallPicture" src={soap_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={soap_med} alt="low"/>)
+        return(<img title={'Antibacterial Soap: Low'} className="smallPicture" src={soap_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={soap_high} alt="well-supplied"/>)
+      return(<img title={'Antibacterial Soap: Well Supplied'} className="smallPicture" src={soap_high} alt="well-supplied"/>)
     }
 
     const tissueImageChoose = (currHospital) =>{
       if(currHospital.properties.Supply_Cur["Tissue"]/currHospital.properties.Supply_Cap["Tissue"] < 0.2){
-        return(<img className="smallPicture" src={tissue_low} alt="critically-low"/>)
+        return(<img title={'Tissue: Critically Low'} className="smallPicture" src={tissue_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-        return(<img className="smallPicture" src={tissue_med} alt="low"/>)
+        return(<img title={'Tissue: Low'} className="smallPicture" src={tissue_med} alt="low"/>)
       }
-      return(<img className="smallPicture" src={tissue_high} alt="well-supplied"/>)
+      return(<img title={'Tissue: Well Supplied'} className="smallPicture" src={tissue_high} alt="well-supplied"/>)
     }
 
+    const [selected, setSelected] = useState([]);
+    const hospitalsOnList = []
+    console.log(hospitalList)
+    if(hospitalsShown && hospitalList){
+    const start = hospitalsShown[0]
+    const end = ((hospitalsShown[1] >= hospitalList.length)? hospitalList.length-1: hospitalsShown[1])
+    for (let step = start; step <= end; step++) {
+      const hospital = hospitalList[step]
+      console.log("hospital")
+      const supplies = Object.keys(hospital.properties.Supply_Cur)
+      //TODO: MOVE THIS ^
+      if(hospital.properties != null){
+        hospitalsOnList.push(
+          <Card style={{margin: "5px",padding: "5px", maxWidth:"275 px"}} onClick={()=>{goToSelected(hospital)}}>
+                <CardContent className={classes.cardcontent}>
+                  <Typography variant="body1" component="h2">
+                    <Box lineHeight={1.25}>{hospital.properties.Name_of_Ho}</Box>
+                  </Typography>
+                  <Typography variant='caption' className={classes.pos} color="textSecondary">
+                  <Box lineHeight={1.25}>{hospital.properties.Address}</Box>
+                  </Typography>
+                  <Divider style={{marginTop:"5px", marginBottom:"5px"}} light/>
 
+                  <div>
+                  {alcoholImageChoose(hospital)}
+                  {disInfectantImageChoose(hospital)}
+                  {glovesImageChoose(hospital)}
+                  {maskImageChoose(hospital)}
+                  {soapImageChoose(hospital)}
+                  {tissueImageChoose(hospital)}
+                  </div>
+                </CardContent> 
+              </Card>
+        )
+      }
+    }}
+    
     return (
-      <div className="filterList">
-         <label className="labels"> Number of Hospitals Shown: {hospitalList ? (hospitalList.length):("0")}</label>
+      <div className="filterList" style={{backgroundColor:'#E3E2DF', paddingTop:"5px", paddingBottom:"5px"}}>
+         
+        {/* {hospitals && 
+        <InputGroup className="searchHospitalInputGroup">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Search by name</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Typeahead
+            selected={selected}
+            bsSize="small"
+            options={hospitals.map((hospital)=>hospital.properties.Name_of_Ho)}
+            onChange={((s) => {
+              setSelected(s)
+            })}
+          />
+        </InputGroup>
+        }
+        <label className="labels"> Number of Hospitals Shown: {hospitalList ? (hospitalList.length):("0")}</label>
+        
         <div className="filterBox">
             <form onSubmit={(e)=>{
               e.preventDefault();
@@ -146,30 +235,40 @@ const FilterList = () => {
               </div>
 
             </form>
-        </div>
+        </div> */}
         {hospitalList ? (
-          <ul>
-          {hospitalList.map(hospital => {
+          <div>
+
+          {hospitalsOnList} 
+          {/* {hospitalList.map(hospital => {
             const supplies = Object.keys(hospital.properties.Supply_Cur)
             //TODO: MOVE THIS ^
             if(hospital.properties != null){
               return (
-              <li onClick={()=>{goToSelected(hospital)}}>
-                <div className="title">{hospital.properties.Name_of_Ho}</div>
-                <div className="author">{hospital.properties.Address}</div>
-                {alcoholImageChoose(hospital)}
-                {disInfectantImageChoose(hospital)}
-                {glovesImageChoose(hospital)}
-                {maskImageChoose(hospital)}
-                {soapImageChoose(hospital)}
-                {tissueImageChoose(hospital)}
-                
-                
-                
-              </li> 
+              <Card style={{margin: "5px",padding: "5px", maxWidth:"275 px"}} onClick={()=>{goToSelected(hospital)}}>
+                <CardContent className={classes.cardcontent}>
+                  <Typography variant="body1" component="h2">
+                    <Box lineHeight={1.25}>{hospital.properties.Name_of_Ho}</Box>
+                  </Typography>
+                  <Typography variant='caption' className={classes.pos} color="textSecondary">
+                  <Box lineHeight={1.25}>{hospital.properties.Address}</Box>
+                  </Typography>
+                  <Divider style={{marginTop:"5px", marginBottom:"5px"}} light/>
+
+                  <div>
+                  {alcoholImageChoose(hospital)}
+                  {disInfectantImageChoose(hospital)}
+                  {glovesImageChoose(hospital)}
+                  {maskImageChoose(hospital)}
+                  {soapImageChoose(hospital)}
+                  {tissueImageChoose(hospital)}
+                  </div>
+                </CardContent> boop
+              </Card> 
             );}
-          })}
-        </ul>
+          })} */}
+        
+        </div>
         ) : (<div className="empty">No results.</div>)}
         
       </div>
