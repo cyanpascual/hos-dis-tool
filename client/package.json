@@ -23,7 +23,7 @@
     "react-leaflet": "^2.6.3",
     "react-leaflet-markercluster": "^2.0.0-rc1",
     "react-material-ui-carousel": "^1.1.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^2.1.8",
     "reactstrap": "^8.4.1",
     "typeface-roboto": "0.0.75"
   },

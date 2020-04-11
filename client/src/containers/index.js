@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
@@ -169,31 +170,42 @@ function App(props) {
   };
 
   useEffect(()=>{
-    // axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
-    // .then(response =>{
-    //     setHospitals(response.data)
-    //     setHospitalList(response.data)
-
-    // })
-    // .catch((err)=>{
-    //     console.log(err);
-    //     window.alert("Failed to communicate with server")
-    // });
-    // axios.get('http://trams-up-dge.herokuapp.com/facility/')
-    // .then(response =>{
-    //     setFacilities(response.data)
-    //     setFacilitiesList(response.data)
-
-    // })
-    // .catch((err)=>{
-    //     console.log(err);
-    //     window.alert("Failed to communicate with server")
-    // });
+    /*
+    axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
+      .then(response =>{
+        setHospitals(response.data)
+        setHospitalList(response.data)
+      })
+      .catch((err)=>{
+        console.log(err);
+        window.alert("Failed to communicate with server")
+      });
+    axios.get('http://trams-up-dge.herokuapp.com/facility/')
+      .then(response =>{
+        setFacilities(response.data)
+        setFacilitiesList(response.data)
+      })
+      .catch((err)=>{
+        console.log(err);
+        window.alert("Failed to communicate with server")
+    });*/
+    /*
     setHospitals(hospitalData.features)
     setHospitalList(hospitalData.features)
     setFacilities(facilitiesData.features)
     setFacilitiesList(facilitiesData.features)
+    */
     
+    const fetchData = async () => {
+      const res = await axios('http://trams-up-dge.herokuapp.com/hospitals/', );
+      const res2 = await axios('http://trams-up-dge.herokuapp.com/facility/', );
+      setHospitals(res.data);
+      setHospitalList(res.data);
+      setFacilities(res2.data);
+      setFacilitiesList(res2.data);
+    };
+
+    fetchData();
   }, [])
 
   return (
