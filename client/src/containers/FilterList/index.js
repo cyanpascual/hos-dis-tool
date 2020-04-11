@@ -1,6 +1,5 @@
 import React, {useContext,useState} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
-import hospitalDetails from '../hospitalDetails';
 import { MapsContext } from '../../contexts/MapsContext';
 import { makeStyles } from '@material-ui/core/styles';
 import glass from '../../assets/logos/magnifying-glass-md.png';
