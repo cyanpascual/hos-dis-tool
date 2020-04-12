@@ -169,7 +169,7 @@ function Navigator(props) {
             
             {hospitalList && <Pagination count={Math.ceil(hospitalList.length/5)} page={currentPage} size='small' onChange={(e,page)=>{
                 setHospitalsShown([page*5-5,page*5-1])
-                setCurrentPage(2)
+                setCurrentPage(page)
             }} siblingCount={0} variant="outlined" />}
         </ListItem>
       </List>) : (<HospitalInfo/>)
