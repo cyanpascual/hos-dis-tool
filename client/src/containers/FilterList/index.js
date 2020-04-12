@@ -263,7 +263,7 @@ const FilterList = () => {
     }}
     
     return (
-      <div className="filterList" style={{backgroundColor:'#E3E2DF', paddingTop:"5px", paddingBottom:"5px"}}>
+      <div className="filterList" style={{backgroundColor:'#E3E2DF', paddingTop:"5px", paddingBottom:"5px", minHeight:"75vh"}}>
          
         {/* {hospitals && 
         <InputGroup className="searchHospitalInputGroup">
