@@ -3,9 +3,9 @@
 {"type": "Feature", "typeOfFeat": "Hospital", 
 "properties": {
 "Name_of_Ho": "Mariano Marcos Memorial & Medical Center (MMM&MC)","HospitalID": "2593","Address": "Brgy. 6, San Julian, Batac, Ilocos Norte","Region": "Region 1","DOH Level": "Level 3","Capacity": "200","ICU Capacity": "30","Supply_Cap": {
-"Alcohol":0,"Disinfectant (Sterilium)":0,"Antibacterial Soap":0,"Surgical Gowns":0,"Surgical Masks":0,"N95 Masks":0,"Gloves and Shoe covers":0,"PPE":0,"Goggles and face shields":0,"Testing Kits":0,"Tissue":0,"Vitamins":0,"Food (Meals)":0,"Other Needs": ""},
+"Alcohol":0,"Disinfectant (Sterilium)":0,"Antibacterial Soap":100,"Surgical Gowns":0,"Surgical Masks":0,"N95 Masks":0,"Gloves and Shoe covers":0,"PPE":0,"Goggles and face shields":0,"Testing Kits":0,"Tissue":0,"Vitamins":0,"Food (Meals)":0,"Other Needs": ""},
 "Supply_Cur": {
-"Alcohol":0,"Disinfectant (Sterilium)":0,"Antibacterial Soap":0,"Surgical Gowns":0,"Surgical Masks":0,"N95 Masks":0,"Gloves and Shoe covers":0,"PPE":0,"Goggles and face shields":0,"Testing Kits":0,"Tissue":0,"Vitamins":0,"Food (Meals)":0,"Other Needs": ""},
+"Alcohol":0,"Disinfectant (Sterilium)":0,"Antibacterial Soap":20,"Surgical Gowns":0,"Surgical Masks":0,"N95 Masks":0,"Gloves and Shoe covers":0,"PPE":0,"Goggles and face shields":0,"Testing Kits":0,"Tissue":0,"Vitamins":0,"Food (Meals)":0,"Other Needs": ""},
 "Contact Person": "","Contact Numbers": "77-7923144; 6008000; 77-7731770; 7720303","Email Address": "","Website": "","Last Update": ""},
 "geometry": {
 "type": "Point","Coordinates": [120.559341, 18.060359]}

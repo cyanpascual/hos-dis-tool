@@ -44,10 +44,11 @@ export default function FilterDialog() {
     setOpen(false);
   };
   
-  const { hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+  const { setCurrentPage,hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen} color="primary" >Filter by supply</Button>
+      <Button variant="contained" color="primary" onClick={resetHospitals} style={{marginLeft:"5px"}}>Reset</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Fill the form</DialogTitle>
         <DialogContent>
@@ -98,6 +99,7 @@ export default function FilterDialog() {
             Cancel
           </Button>
           <Button onClick={(e)=>{
+            setCurrentPage(1)
             switch(filterLevel){
               case "Critically Low":
                   setHospitalList(hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.2));
