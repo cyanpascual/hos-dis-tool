@@ -197,8 +197,8 @@ function App(props) {
     */
     
     const fetchData = async () => {
-      const res = await axios('http://trams-up-dge.herokuapp.com/hospitals/', );
-      const res2 = await axios('http://trams-up-dge.herokuapp.com/facility/', );
+      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
       setHospitals(res.data);
       setHospitalList(res.data);
       setFacilities(res2.data);
