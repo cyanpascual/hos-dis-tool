@@ -135,7 +135,7 @@ const styles = (theme) => ({
 function Navigator(props) {
   const { classes, ...other } = props;
   const [age, setAge] = React.useState('');
-  const { hospitalList,hospitalsShown,setHospitalsShown } = useContext(FeaturesContext);
+  const { hospitalList,hospitalsShown,setHospitalsShown, currentPage,setCurrentPage } = useContext(FeaturesContext);
   const { selectedHospital } = useContext(MapsContext)
   const [open, setOpen] = React.useState(false);
 
@@ -167,8 +167,9 @@ function Navigator(props) {
             </div>
         <ListItem style={{textAlign:"center"}}>
             
-            {hospitalList && <Pagination count={Math.ceil(hospitalList.length/5)} size='small' onChange={(e,page)=>{
+            {hospitalList && <Pagination count={Math.ceil(hospitalList.length/5)} page={currentPage} size='small' onChange={(e,page)=>{
                 setHospitalsShown([page*5-5,page*5-1])
+                setCurrentPage(2)
             }} siblingCount={0} variant="outlined" />}
         </ListItem>
       </List>) : (<HospitalInfo/>)
