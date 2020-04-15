@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -103,8 +103,8 @@ export default function App() {
             </MarkerClusterGroup>
              {selectedHospital ? (
                 facilities.filter((facility)=>getDistanceFromLatLonInKm(
-                    selectedHospital.geometry.coordinates[1],
-                    selectedHospital.geometry.coordinates[0],
+                    selectedHospital.geometry.Coordinates[1],
+                    selectedHospital.geometry.Coordinates[0],
                     facility.geometry.coordinates[1],
                     facility.geometry.coordinates[0],
                     ) <= 0.6).map((facility) => {
@@ -133,7 +133,16 @@ export default function App() {
                         </Marker>
                     )}})
             ): null} 
+        {selectedHospital ? (
+        <Circle center={[selectedHospital.geometry.Coordinates[1],selectedHospital.geometry.Coordinates[0]]} radius={600}>
+            <Popup>
+                <div>
+                    Walkable Distance
+                </div>
+            </Popup>
+        </Circle>
 
+        ):null}
     </Map>
     );
 }
