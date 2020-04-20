@@ -141,9 +141,6 @@ function Header(props) {
             <Grid item xs>
             {hospitalList && <Autocomplete
             onInputChange={(obj,value)=>{
-                console.log("%%%%%")
-
- 
                 goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.Name_of_Ho===value)})[0])
                 setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.Name_of_Ho===value)})[0])
             }}
