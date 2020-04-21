@@ -37,7 +37,7 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').put((req, res) => {
   Hospital.findById(req.params.id)
     .then(hospital => {
       hospital.type = req.body.type;
@@ -46,7 +46,7 @@ router.route('/update/:id').post((req, res) => {
       hospital.geometry = req.body.geometry;
 
       hospital.save()
-        .then(() => res.json('Hospital updated!'))
+        .then(() => res.json('Hospital updated!' + req.body))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

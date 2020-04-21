@@ -9,17 +9,23 @@ const facilitySchema = new Schema({
   "properties": {
     "Name_of_Fa": {"type": "String"},
     "Address": {"type": "String"},
-    "Google_Plu": {"type": "String"},
+    "Region": {"type": "String"},
 
     "Supply_Cur": {
       "Alcohol": {"type": "Number"},
-      "Strerilium/Disinfectant": {"type": "Number"},
+      "Disinfectant (Sterilium)": {"type": "Number"},
       "Antibacterial Soap": {"type": "Number"},
-      "Sanitizing agents": {"type": "Number"},
-      "Gloves (disposable)/ Foot socks": {"type": "Number"},
+      "Surgical Gowns": {"type": "Number"},
+      "Surgical Masks": {"type": "Number"},
+      "N95 Masks": {"type": "Number"},
+      "Gloves": {"type": "Number"},
+      "Shoe covers": {"type": "Number"},
       "PPE": {"type": "Number"},
-      "Goggles/face shields": {"type": "Number"},
+      "Goggles and face shields": {"type": "Number"},
+      "Testing Kits": {"type": "Number"},
       "Tissue": {"type": "Number"},
+      "Vitamins": {"type": "Number"},
+      "Food (Meals)": {"type": "Number"},
       "Other Needs": {"type": "String"}
     },
     "Contact Person": {"type": "String"},

@@ -1,20 +1,20 @@
 import React, {useContext, useEffect} from 'react';
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from './Navigator';
-import Header from './Header';
-import ReactMap from './reactMap'
+import Navigator from '../Navigator';
+import Header from '../Header';
+import ReactMap from '../reactMap'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import { MapsContext } from '../contexts/MapsContext';
-import { FeaturesContext } from '../contexts/FeaturesContext';
-import Login from './login';
-import Main from './main'
+import * as hospitalData from '../../data/hospitals.json';
+import * as facilitiesData from '../../data/facilities.json';
+import { MapsContext } from '../../contexts/MapsContext';
+import { FeaturesContext } from '../../contexts/FeaturesContext';
 
 
 
@@ -62,14 +62,15 @@ theme = {
       },
     },
     MuiButton: {
-      root:{
-        [theme.breakpoints.up('xs')]: {
-          fontSize:12
+      label: {
+        textTransform: 'none',
+      },
+      contained: {
+        boxShadow: 'none',
+        '&:active': {
+          boxShadow: 'none',
         },
-        [theme.breakpoints.up('md')]: {
-          fontSize:16
-        }
-      }
+      },
     },
     MuiTabs: {
       root: {
@@ -157,11 +158,16 @@ const styles = {
   },
 };
 
-function App(props) {
+function Main(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   useEffect(()=>{
     /*
@@ -182,15 +188,37 @@ function App(props) {
 
     fetchData();
   }, [])
+  console.log(hospitalList);
+  return (
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <nav className={classes.drawer}>
 
-  return(
-    <BrowserRouter>
-      <Switch>
-        <Route path='/' component={Main} exact/>
-        <Route path='/validatorUpdate' component={Login} exact/>
-      </Switch>
-    </BrowserRouter>
+          <Hidden smUp implementation="js">
+            <Navigator
+              PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+            />
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
+          </Hidden>
+        </nav>
+        <div className={classes.app}>
+          <Header onDrawerToggle={handleDrawerToggle} />  
+          <ReactMap/>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default App;
+Main.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Main);
+
