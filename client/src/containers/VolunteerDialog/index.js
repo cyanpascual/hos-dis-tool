@@ -61,7 +61,7 @@ export default function VolunteerDialog() {
 
   return (
     <div>
-      <Button color="inherit" onClick={handleClickOpen}>
+      <Button color="primary" onClick={handleClickOpen}>
       <Typography>Volunteer</Typography>
       </Button>
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

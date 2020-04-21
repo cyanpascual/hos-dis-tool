@@ -8,6 +8,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const styles = (theme) => ({
   root: {
@@ -61,9 +62,11 @@ export default function FeedbackDialog() {
 
   return (
     <div>
-      <Button color="inherit" onClick={handleClickOpen}>
-        <Typography>Feedback</Typography>
-      </Button>
+      
+        <Button color="inherit" onClick={handleClickOpen}>
+          Feedback
+        </Button>
+
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
         <DialogContent dividers>

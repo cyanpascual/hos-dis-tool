@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import * as hospitalData from "../data/hospitals.json";
+
 
 export const FeaturesContext = createContext();
 
@@ -11,7 +11,7 @@ const FeaturesContextProvider = (props) => {
   const [filterLevel, setFilterLevel] = useState(null);
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
-  const [hospitalsShown,setHospitalsShown] = useState([0,4]);
+  const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
   
   const resetHospitals = () => {

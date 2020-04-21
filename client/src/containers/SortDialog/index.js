@@ -5,17 +5,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import IconButton from '@material-ui/core/IconButton';
-import FilterInput from './FilterInput';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import SortIcon from '@material-ui/icons/Sort';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -50,48 +47,61 @@ export default function FilterDialog() {
   };
   
   const { setCurrentPage,hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
- 
-  const supplyChoices=["Alcohol","Strerilium/Disinfectant","Antibacterial Soap","Sanitizing agents","Masks/respirators","Hepa filter and UV light radiation","Gloves (disposable)/ Foot socks","Bedside patient equipments","Testing Kits","Ventilators","Tissue"]
- 
-  const supplyLevelChoices=["Well stocked","Low", "Critically Low"]
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen} startIcon={<FilterListIcon/>} color="primary" > Filter</Button>
+      <Button variant="contained" onClick={handleClickOpen} startIcon={<SortIcon/>} color="primary" > Sort</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle><Button variant="contained" color="primary" onClick={resetHospitals} style={{marginLeft:"5px"}}>Reset</Button> </DialogTitle>
+        <DialogTitle>Fill the form <Button variant="contained" color="primary" onClick={resetHospitals} style={{marginLeft:"5px"}}>Reset</Button> </DialogTitle>
         
         <DialogContent>
-          <FilterInput 
-          label="Supply" 
-          onChange={setFilterSetting} 
-          choices={supplyChoices}
-          value={filterSetting}
-          />
-
-          <FilterInput 
-          label="Supply Level" 
-          onChange={setFilterLevel} 
-          choices={supplyLevelChoices}
-          value={filterLevel}
-          />
-
-          <Autocomplete
-            onInputChange={(obj,value)=>{
-                console.log(value)
-            }}
-            options={hospitalList}
-            getOptionLabel={(option) => option.properties["City/Municipality"]}
-            size="small"
-            style={{margin:10}}
-            renderInput={(params) => <TextField {...params} label="Search by hospital name"  />}
-            />
-         
+          <form className={classes.container}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="demo-dialog-native">Supply</InputLabel>
+              <Select
+                native
+                value={filterSetting}
+                onChange={(e)=>{setFilterSetting(e.target.value)}}
+                input={<Input id="demo-dialog-native" />}
+              >
+                <option aria-label="None" value="" />
+                <option value={"Alcohol"}>Alcohol</option>
+                <option value={"Strerilium/Disinfectant"}>Strerilium/Disinfectant</option>
+                <option value={"Antibacterial Soap"}>Antibacterial Soap</option>
+                <option value={"Sanitizing agents"}>Sanitizing agents</option>
+                <option value={"Masks/respirators"}>Masks/respirators</option>
+                <option value={"Hepa filter and UV light radiation"}>Hepa filter and UV light radiation</option>
+                <option value={"Gloves (disposable)/ Foot socks"}>Gloves (disposable)/ Foot socks</option>
+                <option value={"Bedside patient equipments"}>Bedside patient equipments</option>
+                <option value={"Testing Kits"}>Testing Kits</option>
+                <option value={"Ventilators"}>Ventilators</option>
+                <option value={"Tissue"}>Tissue</option>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-dialog-select-label">Supply Level</InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={filterLevel}
+                onChange={(e)=>{setFilterLevel(e.target.value)}}
+                input={<Input />}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"Well stocked"}>Well stocked</MenuItem>
+                <MenuItem value={"Low"}>Low</MenuItem>
+                <MenuItem value={"Critically Low"}>Critically Low</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={(e)=>{
+            setCurrentPage(1)
             switch(filterLevel){
               case "Critically Low":
                   setHospitalList(hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.2));

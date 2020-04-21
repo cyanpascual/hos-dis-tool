@@ -11,8 +11,6 @@ import Header from './Header';
 import ReactMap from './reactMap'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import * as hospitalData from '../data/hospitals.json';
-import * as facilitiesData from '../data/facilities.json';
 import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
 
@@ -62,15 +60,14 @@ theme = {
       },
     },
     MuiButton: {
-      label: {
-        textTransform: 'none',
-      },
-      contained: {
-        boxShadow: 'none',
-        '&:active': {
-          boxShadow: 'none',
+      root:{
+        [theme.breakpoints.up('xs')]: {
+          fontSize:12
         },
-      },
+        [theme.breakpoints.up('md')]: {
+          fontSize:16
+        }
+      }
     },
     MuiTabs: {
       root: {

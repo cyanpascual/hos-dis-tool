@@ -36,32 +36,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Pagination from '@material-ui/lab/Pagination';
 import FilterDialog from '../FilterDialog';
+import SortDialog from '../SortDialog';
 import FilterList from '../FilterList';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import HospitalInfo from '../HospitalInfo'
 
-const categories = [
-  {
-    id: 'Develop',
-    children: [
-      { id: 'Authentication', icon: <PeopleIcon />, active: true },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      { id: 'ML Kit', icon: <SettingsInputComponentIcon /> },
-    ],
-  },
-  {
-    id: 'Quality',
-    children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-    ],
-  },
-];
+
+
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -151,24 +133,27 @@ function Navigator(props) {
     setOpen(false);
   };
 
+  const numberOfHospitalsPerPage= hospitalsShown[1] +1 - hospitalsShown[0];
   return (
     <Drawer variant="permanent" {...other} >
     { !selectedHospital ?(
       <List disablePadding >
         <ListItem className={clsx(classes.header, classes.item, classes.itemCategory)}>
             <Grid container alignItems="center" spacing={1}>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                 < FilterDialog/>
+                </Grid>
+                <Grid item xs={6}>
+                < SortDialog/>
                 </Grid>
             </Grid>
         </ListItem>
             <div style={{overflowY:"scroll", height:"75vh"}}>
             <FilterList/>
             </div>
-        <ListItem style={{textAlign:"center"}}>
-            
-            {hospitalList && <Pagination count={Math.ceil(hospitalList.length/5)} page={currentPage} size='small' onChange={(e,page)=>{
-                setHospitalsShown([page*5-5,page*5-1])
+        <ListItem  style={{textAlign:"center"}}>
+            {hospitalList && <Pagination count={Math.ceil(hospitalList.length/numberOfHospitalsPerPage)}  style={{paddingLeft:"25px", width:"100%",}} size='small' onChange={(e,page)=>{
+                setHospitalsShown([page*numberOfHospitalsPerPage-numberOfHospitalsPerPage,page*numberOfHospitalsPerPage-1])
                 setCurrentPage(page)
             }} siblingCount={0} variant="outlined" />}
         </ListItem>

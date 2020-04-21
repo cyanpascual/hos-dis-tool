@@ -62,7 +62,7 @@ export default function WelcomeDialog() {
 
   return (
     <div>
-      <Button color="inherit" onClick={handleClickOpen}>
+      <Button color="primary" onClick={handleClickOpen}>
         <Typography>How To Use</Typography>
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

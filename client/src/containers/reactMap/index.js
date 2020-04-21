@@ -24,6 +24,10 @@ export default function App() {
         var d = R * c; // Distance in km
         return d;
       }
+    
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
 
     var facilityIcon = L.icon({
           iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
