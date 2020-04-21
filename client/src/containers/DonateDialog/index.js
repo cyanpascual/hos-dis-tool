@@ -62,7 +62,7 @@ export default function DonateDialog() {
   return (
     <div>
       <Button color="inherit" onClick={handleClickOpen}>
-      <Typography>Donate</Typography>
+      Donate
       </Button>
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>

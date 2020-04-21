@@ -27,7 +27,7 @@ const MapsContextProvider = (props) => {
         ...viewport,
         lat: givenHospital.geometry.Coordinates[1],
         lng: givenHospital.geometry.Coordinates[0],
-        zoom: 16
+        zoom: 15
 
     };
 
