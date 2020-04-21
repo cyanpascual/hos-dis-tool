@@ -38,9 +38,7 @@ export default function App() {
 
  
 
-      function deg2rad(deg) {
-        return deg * (Math.PI/180)
-      }
+    
       useEffect(() => {
         //const L = require("leaflet");
     

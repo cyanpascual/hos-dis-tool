@@ -54,6 +54,8 @@ export default function FilterDialog() {
   const supplyChoices=["Alcohol","Strerilium/Disinfectant","Antibacterial Soap","Sanitizing agents","Masks/respirators","Hepa filter and UV light radiation","Gloves (disposable)/ Foot socks","Bedside patient equipments","Testing Kits","Ventilators","Tissue"]
  
   const supplyLevelChoices=["Well stocked","Low", "Critically Low"]
+
+  
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen} startIcon={<FilterListIcon/>} color="primary" > Filter</Button>
