@@ -58,7 +58,7 @@ const hospitalSchema = new Schema({
   },
   "geometry": {
     "type": {"type": "String"},
-    "coordinates": {
+    "Coordinates": {
       "type": ["Number"]
     }
   }
