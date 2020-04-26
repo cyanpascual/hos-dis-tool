@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -49,12 +49,22 @@ export default function FilterDialog() {
     setOpen(false);
   };
   
-  const { setCurrentPage,hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+  const { selectedProvince,setSelectedProvince, setCurrentPage,hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
  
   const supplyChoices=["Alcohol","Strerilium/Disinfectant","Antibacterial Soap","Sanitizing agents","Masks/respirators","Hepa filter and UV light radiation","Gloves (disposable)/ Foot socks","Bedside patient equipments","Testing Kits","Ventilators","Tissue"]
  
   const supplyLevelChoices=["Well stocked","Low", "Critically Low"]
 
+
+  const [provincesList, setProvincesList] = useState(null);
+
+  useEffect(()=>{
+    if(hospitalList){
+      const provinces = hospitalList.map((hospital)=>{return(hospital.properties.Province)})
+      const uniqueProvinces = Array.from(new Set(provinces)) 
+      setProvincesList(uniqueProvinces)
+    }
+  }, hospitalList)
   
   return (
     <div>
@@ -79,13 +89,15 @@ export default function FilterDialog() {
 
           <Autocomplete
             onInputChange={(obj,value)=>{
-                console.log(value)
+                setSelectedProvince(value)
+                setHospitalList(hospitalList.filter((hospital)=>{return hospital.properties.Province == value}))
             }}
-            options={hospitalList}
-            getOptionLabel={(option) => option.properties["City/Municipality"]}
+            options={provincesList}
+            getOptionLabel={(option) => option}
             size="small"
             style={{margin:10}}
-            renderInput={(params) => <TextField {...params} label="Search by hospital name"  />}
+            value={selectedProvince}
+            renderInput={(params) => <TextField {...params} label="Filter by province"  />}
             />
          
         </DialogContent>

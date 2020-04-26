@@ -72,8 +72,10 @@ const HospitalInfo = () => {
             variant="contained" 
             color="primary"
             onClick={()=>{
-            mapReference.closePopup();
-            setMapReference(null)
+            if(mapReference){
+              mapReference.closePopup();
+              setMapReference(null)
+            }
             setSelectedHospital(null)
             }} >
               Deselect
