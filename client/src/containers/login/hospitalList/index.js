@@ -6,23 +6,20 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import glass from '../../../assets/logos/magnifying-glass-md.png';
 import Typography from '@material-ui/core/Typography';
 
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import { TextField } from '@material-ui/core';
+import { Box, Grid, TextField, IconButton } from '@material-ui/core';
+import {sizing} from '@material-ui/system';
 
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
+import {Table, Paper, TableHead, TableBody, TableCell} from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+
+import {SortByAlpha, FormatListNumbered} from '@material-ui/icons';
 
 const ExpansionPanel = withStyles({
   root: {
@@ -96,7 +93,7 @@ const useStyles = makeStyles({
     }
   },
   table: {
-    maxHeight: "90vh",
+    maxHeight: "87vh",
     overflowY: "scroll"
   }
 });
@@ -108,6 +105,7 @@ const HospitalList = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sort, setSort] = useState(true)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -145,6 +143,24 @@ const HospitalList = (props) => {
     )
   }
 
+  if (sort === true){
+    setHospitalList(hospitalList.sort(function(a,b){
+      var x = a.properties.Name_of_Ho.toLowerCase();
+      var y = b.properties.Name_of_Ho.toLowerCase();
+      if (x<y) {return -1;}
+      if (x>y) {return 1;}
+      return 0;
+    }));
+  } else {
+    setHospitalList(hospitalList.sort(function(a,b){
+      var x = a.properties.HospitalID;
+      var y = b.properties.HospitalID;
+      if (x<y) {return -1;}
+      if (x>y) {return 1;}
+      return 0;
+    }));
+  }
+
   return(
     <Grid container direction="column" spacing={0}>
       <Grid item xs={12}>
@@ -152,17 +168,24 @@ const HospitalList = (props) => {
           <Table stickyHeader size="small">
             <TableHead position="sticky">
               <TableRow position="sticky">
-                <TableCell position="sticky">
+                <Box display="flex" flexWrap="wrap" justifyContent="flex-start" alignItems="center" p={1} height="10vh">
+                  <Box p={1}>
+                    {sort?
+                      <IconButton onClick={() => setSort(!sort)}><FormatListNumbered/></IconButton> :
+                      <IconButton onClick={() => setSort(!sort)}><SortByAlpha/></IconButton>}
+                  </Box>
+                  <Box p={1} alignSelf="flex-start">
                   <form noValidate>  
                     <TextField style={{ width: "120vh" }} label="Search Hospitals"
                       value={ searchTerm } onChange={e => searchTermChanged(e.target.value)}/>
                   </form>
-                </TableCell >
-                <TableCell position="sticky">
+                  </Box>
+                  <Box p={1} alignSelf="flex-end">
                   <TablePagination rowsPerPageOptions={[5, 10, 25]} component="div" 
                     count={hospitalList.length} rowsPerPage={rowsPerPage} page={page}
                     onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
-                </TableCell>
+                  </Box>
+                </Box>
               </TableRow>
             </TableHead>
           </Table>
@@ -171,7 +194,7 @@ const HospitalList = (props) => {
       <Grid item>
         <Paper className={classes.table}>
           <TableContainer>
-            <Table>
+            <Table size="small">
               <TableBody>
                 {hospitalList ? 
                 hospitalList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((obj) => { 

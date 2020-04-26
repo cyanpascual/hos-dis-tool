@@ -45,6 +45,7 @@ function Login(props) {
   const [helperText, setHelperText] = useState('');
   const [login, setLogin] = useState(false);
   const [error, setError] = useState(false);
+  const [accountType, setAccountType] = useState('');
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -69,10 +70,10 @@ function Login(props) {
     let ob = users.filter(data => data.properties.Username === username);
     console.log(ob);
     if (ob.length > 0){
-      let ob1 = users.filter(data => data.properties.Password === password);
       if (ob[0].properties.Password === password){
         setLogin(true)
         setError(false);
+        setAccountType(ob[0].properties.type)
         setHelperText('Login Successfully');
       } else {
         setError(true);
