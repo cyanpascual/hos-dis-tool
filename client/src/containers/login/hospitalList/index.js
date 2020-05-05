@@ -121,6 +121,7 @@ const HospitalList = (props) => {
       const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
       
       setHospitals(res2.data);
+      console.log('hospitals in')
       setHospitalList(res2.data);
     }
     fetchData();

@@ -2,9 +2,9 @@ import React, {useContext,useState, useEffect} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 
-import simple_high from '../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../assets/levelIndicators/simple_low.png'
+// import simple_high from '../../assets/levelIndicators/simple_high.png'
+// import simple_med from '../../assets/levelIndicators/simple_mid.png'
+// import simple_low from '../../assets/levelIndicators/simple_low.png'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,25 +13,29 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import CancelIcon from '@material-ui/icons/Cancel';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import RoomIcon from '@material-ui/icons/Room';
+import PhoneIcon from '@material-ui/icons/Phone';
+import LanguageIcon from '@material-ui/icons/Language';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const HospitalInfo = () => {
-    const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
-    const { mapReference, setMapReference, defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+    const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    const { closePopups, mapReference, setMapReference, defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
     const [userInput, setUserInput] = useState("")
 
-    const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
-    const imageChoose = (currHospital, supply) =>{
-        if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
-          return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
-        } else if((currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] >= 0.20) && (currHospital.properties.Supply_Cur[filterSetting]/currHospital.properties.Supply_Cap[filterSetting] <= 0.5)){
-          return(<img style={{width:20}} src={simple_med} alt="low"/>)
-        }
-        return(<img style={{width:20}} src={simple_high} alt="well-supplied"/>)
-      }
+    const supplies = Object.keys(selectedHospital.properties.Supply_Cap)
+
     const getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
       var R = 6371; // Radius of the earth in km
       var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -65,53 +69,74 @@ const HospitalInfo = () => {
     }, selectedHospital)
 
     return (
-      <Box  m={1}   p={1} >
-        <Box style={{ textAlign:"center"} } p={1}>
-          <Box  p={0.5}>          
-            <Button  
+      <List component="nav">
+        <ListItem>
+          <IconButton  
             variant="contained" 
             color="primary"
             onClick={()=>{
-            if(mapReference){
-              mapReference.closePopup();
-              setMapReference(null)
-            }
+            closePopups()
+            setViewport(defaultMapSettings)
             setSelectedHospital(null)
             }} >
-              Deselect
-            </Button>
-            <Box color="white" bgcolor="maroon" fontSize={16} p={1} mt={1} fontWeight="fontWeightBold">
-              {selectedHospital.properties.Name_of_Ho}
-            </Box>
-          </Box>
-          
-          <Box p={1} m={1} bgcolor='#E3E2DF' height={{xs:200, sm:300}}  style={{overflowY:"auto"}}>  
-            <Divider/>
-            <Box color="black" fontWeight={500}>
-              <Box>Address: {selectedHospital.properties.Address}</Box>
-              <Box>Contact Person: {selectedHospital.properties.Head}</Box>
-              <Box>Website: {selectedHospital.properties.Website}</Box>
-              <Box>Contact Numbers: {selectedHospital.properties["Contact Numbers"]}</Box>
-            </Box>
-            <Divider />
-            {supplies.map((supply)=>{
-                if(supply === "Other Needs"){
+              <ArrowBackIosIcon/>
+            </IconButton>
+        </ListItem>
+        <ListItem>
+          <Typography variant="h5" gutterBottom>{selectedHospital.properties.Name_of_Ho}</Typography>  
+        </ListItem>
+        <ListItem>
+          <Typography variant="subtitle1" color='textSecondary' gutterBottom>
+            DOH Level: <span style={{color:"red"}}>{selectedHospital.properties["DOH Level"]}</span>
+          </Typography>
+            
+                
+        </ListItem>
+        
+        <Divider light style={{marginBottom:5}}/>
+        <Typography variant='body1'>
+          <ListItem>
+            <ListItemIcon><RoomIcon/></ListItemIcon>
+            Address: {selectedHospital.properties.Address}</ListItem>
+          <ListItem>
+          <ListItemIcon><PhoneIcon/></ListItemIcon>
+            Contact Numbers: {selectedHospital.properties["Contact Numbers"]}</ListItem>
+          <ListItem>
+          <ListItemIcon><LanguageIcon/></ListItemIcon>
+            Website: {selectedHospital.properties.Website}</ListItem>
+            </Typography>
+          <ListItem>
+        
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Item</TableCell>
+                <TableCell>Supply Count</TableCell>
+                <TableCell>Supply Cap</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+                {supplies.map((supply)=>{
                   return(
-                    <Box fontWeight={500} m={1}> 
-                          {supply} : {selectedHospital.properties.Supply_Cur[supply]}
-                    </Box>
+                    <TableRow>
+                      <TableCell>{supply}</TableCell>
+                      <TableCell>{selectedHospital.properties.Supply_Cur[supply]}</TableCell>
+                      <TableCell>{selectedHospital.properties.Supply_Cap[supply]}</TableCell>
+                    </TableRow>
                   )
-                }
-                  
-              return(
-                  <Box  m={1} fontWeight={500}>
-                      {supply}: {selectedHospital.properties.Supply_Cur[supply]}/{selectedHospital.properties.Supply_Cap[supply]}              
-                  </Box>)
-              })}
-          </Box>
-          <Box bgcolor='#E3E2DF' p={1} m={1} height={{xs:200, sm:300}}  style={{overflowY:"auto"}}> 
-            <List disablePadding >
-              {selectedHospital ? (
+                })}
+            </TableBody>
+          </Table>
+        </ListItem>
+        <Divider light/>
+        <ListItem>
+          <Typography variant="h6">FACILITIES NEAR</Typography>
+                
+        </ListItem>
+        <Divider light/>
+        
+          
+          {selectedHospital ? (
                   facilitiesList.length !== 0 ?(
                     facilities.filter((facility)=>getDistanceFromLatLonInKm(
                         selectedHospital.geometry.Coordinates[1],
@@ -121,24 +146,25 @@ const HospitalInfo = () => {
                         ) <= 0.6).map((facility) => {
                         if(facility.properties != null){
                             return(
-                            <ListItem>
-                                
+                              <React.Fragment>
+                              <ListItem>
+                              <List>
+                              <ListItem>Facility:{facility.properties.Name_of_Fa}</ListItem>
+                              <ListItem>Address:{facility.properties.Address}</ListItem>
+                              <ListItem>Contact Number:{facility.properties["Contact Numbers"]}</ListItem>
+                              </List>
+                              
+                              </ListItem>
+                              <Divider light/>
+                              </React.Fragment>
 
-                                        <div>
-                                            <div>Facility: {facility.properties.Name_of_Fa}</div>
-                                            <div>Address: {facility.properties.Address}</div>
-                                            <div>Contact Person: {facility.properties["Contact Person"]}</div>
-                                            <div>Contact Number{facility.properties["Contact Numbers"]}</div>
-                                        </div>
-                      
-                                      
-                            </ListItem>
+
                         )}})): (<Box mt="50%" width={1} fontWeight={500}>No recorded facilities within walking distance of selected hospital.</Box>)
               ): (null)}
-            </List>
-          </Box>
-        </Box>
-      </Box>
+          
+        
+        
+      </List>
     )
 }
 
