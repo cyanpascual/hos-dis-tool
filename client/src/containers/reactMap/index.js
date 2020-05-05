@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import { Map, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -10,6 +10,10 @@ import L from 'leaflet'
 
 
 export default function App() {
+
+
+    
+
 
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
@@ -32,8 +36,8 @@ export default function App() {
     var facilityIcon = L.icon({
           iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
           iconSize:[25,44],
-          iconAnchor:[12,98],
-          popupAnchor: [0,-90]
+          iconAnchor:[12,44],
+          popupAnchor: [0,-40]
       })
 
  
@@ -41,7 +45,7 @@ export default function App() {
     
       useEffect(() => {
         //const L = require("leaflet");
-    
+        
         delete L.Icon.Default.prototype._getIconUrl;
     
         L.Icon.Default.mergeOptions({
@@ -53,15 +57,17 @@ export default function App() {
 
 
     const {facilities, hospitalList } = useContext(FeaturesContext);
-    const { setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+    const { closePopups,mapReference, setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
     const things = {
         lat: 51.505,
         lng: -0.09,
         zoom: 13,
     }
     const position = [viewport.lat, viewport.lng]
+
+
     return (
-        <Map className='map' center={position} zoom={viewport.zoom} >
+        <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={closePopups}>
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
@@ -83,11 +89,9 @@ export default function App() {
                     <Marker 
                         position={[hospital.geometry.Coordinates[1],hospital.geometry.Coordinates[0]]}
                         onClick={(e)=>{
-                            setMapReference(e.target)
                             setSelectedHospital(hospital);
                             goToSelected(hospital);
                         }}
-   
                     >
                     <Popup
                     >

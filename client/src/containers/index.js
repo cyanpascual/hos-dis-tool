@@ -162,21 +162,19 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+
+
+
 
   useEffect(()=>{
-    /*
-    setHospitals(hospitalData.features)
-    setHospitalList(hospitalData.features)
-    setFacilities(facilitiesData.features)
-    setFacilitiesList(facilitiesData.features)
-    */
+
     
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      setHospitals(res.data);
-      setHospitalList(res.data);
+      setHospitals(res.data.sort(compareValues('Name_of_Ho')));
+      setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
     };

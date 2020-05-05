@@ -133,7 +133,7 @@ function Navigator(props) {
     setOpen(false);
   };
 
-  const numberOfHospitalsPerPage= hospitalsShown[1] +1 - hospitalsShown[0];
+
   return (
     <Drawer variant="permanent" {...other} >
     { !selectedHospital ?(
@@ -148,15 +148,10 @@ function Navigator(props) {
                 </Grid>
             </Grid>
         </ListItem>
-            <div style={{overflowY:"scroll", height:"75vh"}}>
+            <div >
             <FilterList/>
             </div>
-        <ListItem  style={{textAlign:"center"}}>
-            {hospitalList && <Pagination count={Math.ceil(hospitalList.length/numberOfHospitalsPerPage)}  style={{paddingLeft:"25px", width:"100%",}} size='small' onChange={(e,page)=>{
-                setHospitalsShown([page*numberOfHospitalsPerPage-numberOfHospitalsPerPage,page*numberOfHospitalsPerPage-1])
-                setCurrentPage(page)
-            }} siblingCount={0} variant="outlined" />}
-        </ListItem>
+
       </List>) : (<HospitalInfo/>)
     }
     </Drawer>

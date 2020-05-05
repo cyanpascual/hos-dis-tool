@@ -173,14 +173,12 @@ function Update(props) {
 
   useEffect(()=>{   
     const fetchData = async () => {
-      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      setHospitals(res.data);
-      setHospitalList(res.data);
-      setFacilities(res2.data);
-      setFacilitiesList(res2.data);
-    };
-
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
+      
+      setHospitals(res2.data);
+      console.log('hospitals in')
+      setHospitalList(res2.data);
+    }
     fetchData();
   }, [])
   return (

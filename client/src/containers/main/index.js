@@ -126,7 +126,8 @@ theme = {
   },
 };
 
-const drawerWidth = 300;
+const drawerWidthSmall = 250;
+const drawerWidthMedium = 500
 
 const styles = {
   root: {
@@ -135,7 +136,11 @@ const styles = {
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: drawerWidthSmall,
+      flexShrink: 0,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: drawerWidthMedium,
       flexShrink: 0,
     },
     overflow:"hidden"
@@ -160,33 +165,14 @@ function Main(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { compareValues, setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
   const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  useEffect(()=>{
-    /*
-    setHospitals(hospitalData.features)
-    setHospitalList(hospitalData.features)
-    setFacilities(facilitiesData.features)
-    setFacilitiesList(facilitiesData.features)
-    */
-    
-    const fetchData = async () => {
-      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      setHospitals(res.data);
-      setHospitalList(res.data);
-      setFacilities(res2.data);
-      setFacilitiesList(res2.data);
-    };
 
-    fetchData();
-  }, [])
-  console.log(hospitalList);
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -195,14 +181,14 @@ function Main(props) {
 
           <Hidden smUp implementation="js">
             <Navigator
-              PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }}
+              PaperProps={{ style: { width: drawerWidthSmall, backgroundColor:"#BAB8B2" } }}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
+            <Navigator PaperProps={{ style: { width: drawerWidthMedium, backgroundColor:"#BAB8B2" } }} />
           </Hidden>
         </nav>
         <div className={classes.app}>
