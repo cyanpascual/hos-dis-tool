@@ -24,6 +24,9 @@ app.use('/hospitals', hospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/user', userRouter);
 
+app.get('*', (request, response) =>{
+  response.sendFile(path.join(__dirname,'client/build', 'index.html'));
+});
 
 
 //MongoDB connection string
