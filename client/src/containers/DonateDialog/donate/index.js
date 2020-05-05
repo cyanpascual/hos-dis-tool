@@ -4,11 +4,12 @@ import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import {Link, Grid, Paper, Typography} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import HospitalUpdate from '../hospitalUpdate';
-import Navigator from '../drawer';
-import Header from '../header';
+import HospitalDonate from '../donateScreen';
+import Navigator from '../../login/drawer';
+import Header from '../../login/header';
 import 'typeface-roboto';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
@@ -132,11 +133,6 @@ const styles = {
     display: 'flex',
     minHeight: '100vh',
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -160,7 +156,7 @@ const styles = {
   },
 };
 
-function Update(props) {
+function DonateUser(props) {
   const { classes, user } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -171,14 +167,16 @@ function Update(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  useEffect(()=>{   
+  useEffect(()=>{    
     const fetchData = async () => {
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
-      
-      setHospitals(res2.data);
-      console.log('hospitals in')
-      setHospitalList(res2.data);
-    }
+      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
+      setHospitals(res.data);
+      setHospitalList(res.data);
+      setFacilities(res2.data);
+      setFacilitiesList(res2.data);
+    };
+
     fetchData();
   }, [])
   return (
@@ -202,13 +200,10 @@ function Update(props) {
         <div className={classes.app}>
           <Header user={user} onDrawerToggle={handleDrawerToggle} />  
           {selectedHospital ? 
-          <HospitalUpdate/> : 
-          <div style={{margin: 'auto'}}>
+          <HospitalDonate/> : 
             <Typography style={{fontSize:16, color:"gray", textAlign: 'center'}} >
               Select a hospital
             </Typography>
-          </div>
-            
           }
         </div>
       </div>
@@ -216,9 +211,9 @@ function Update(props) {
   );
 }
 
-Update.propTypes = {
+DonateUser.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Update);
+export default withStyles(styles)(DonateUser);
 

@@ -15,6 +15,7 @@ import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import Login from './login';
 import Main from './main'
+import Donate from './DonateDialog';
 
 
 
@@ -186,6 +187,7 @@ function App(props) {
       <Switch>
         <Route path='/' component={Main} exact/>
         <Route path='/validatorUpdate' component={Login} exact/>
+        <Route path='/donate' component={Donate}/>
       </Switch>
     </BrowserRouter>
   );
