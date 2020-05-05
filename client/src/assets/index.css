@@ -12,6 +12,7 @@ body {
   background-color: #bbbbbb;
 }
 
+
 .map {
   height: 100%;
   z-index: 999;
@@ -25,9 +26,10 @@ body {
 .filterList ul{
     list-style-type: none;
 }
+
 .filterList img{
-  height: 15px;
-  width: 15px;
+  height: 35px;
+  width: 35px;
 }
 
 /* width */
@@ -49,3 +51,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+

@@ -58,13 +58,12 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
   const {setSelectedHospital, goToSelected} = useContext(MapsContext)
   var hospitalNames =[]
     if(hospitalList){
         hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
     }
-    console.log(hospitalNames[0])
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>

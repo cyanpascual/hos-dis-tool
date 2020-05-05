@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,10 +11,10 @@ import Header from './Header';
 import ReactMap from './reactMap'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import * as hospitalData from '../data/hospitals.json';
-import * as facilitiesData from '../data/facilities.json';
 import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
+import Login from './login';
+import Main from './main'
 
 
 
@@ -62,15 +62,14 @@ theme = {
       },
     },
     MuiButton: {
-      label: {
-        textTransform: 'none',
-      },
-      contained: {
-        boxShadow: 'none',
-        '&:active': {
-          boxShadow: 'none',
+      root:{
+        [theme.breakpoints.up('xs')]: {
+          fontSize:12
         },
-      },
+        [theme.breakpoints.up('md')]: {
+          fontSize:16
+        }
+      }
     },
     MuiTabs: {
       root: {
@@ -162,45 +161,19 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
-  const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+  const { compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+
+
 
   useEffect(()=>{
-    /*
-    axios.get('http://trams-up-dge.herokuapp.com/hospitals/')
-      .then(response =>{
-        setHospitals(response.data)
-        setHospitalList(response.data)
-      })
-      .catch((err)=>{
-        console.log(err);
-        window.alert("Failed to communicate with server")
-      });
-    axios.get('http://trams-up-dge.herokuapp.com/facility/')
-      .then(response =>{
-        setFacilities(response.data)
-        setFacilitiesList(response.data)
-      })
-      .catch((err)=>{
-        console.log(err);
-        window.alert("Failed to communicate with server")
-    });*/
-    /*
-    setHospitals(hospitalData.features)
-    setHospitalList(hospitalData.features)
-    setFacilities(facilitiesData.features)
-    setFacilitiesList(facilitiesData.features)
-    */
+
     
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      setHospitals(res.data);
-      setHospitalList(res.data);
+      setHospitals(res.data.sort(compareValues('Name_of_Ho')));
+      setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
     };
@@ -208,37 +181,14 @@ function App(props) {
     fetchData();
   }, [])
 
-  return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        
-        <nav className={classes.drawer}>
-
-          <Hidden smUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
-          </Hidden>
-        </nav>
-        <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />  
-          <ReactMap/>
-        </div>
-      </div>
-    </ThemeProvider>
+  return(
+    <BrowserRouter>
+      <Switch>
+        <Route path='/' component={Main} exact/>
+        <Route path='/validatorUpdate' component={Login} exact/>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(App);
-
+export default App;

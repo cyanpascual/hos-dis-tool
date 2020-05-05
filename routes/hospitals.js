@@ -46,7 +46,7 @@ router.route('/update/:id').post((req, res) => {
       hospital.geometry = req.body.geometry;
 
       hospital.save()
-        .then(() => res.json('Hospital updated!'))
+        .then(() => res.json('Hospital updated!' + req.body))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

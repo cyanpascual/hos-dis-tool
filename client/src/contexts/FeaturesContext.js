@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import * as hospitalData from "../data/hospitals.json";
+
 
 export const FeaturesContext = createContext();
 
@@ -7,24 +7,53 @@ export const FeaturesContext = createContext();
 const FeaturesContextProvider = (props) => {
   const [hospitals, setHospitals] = useState();
   const [hospitalList, setHospitalList] = useState()
-  const [filterSetting, setFilterSetting] = useState(null);
-  const [filterLevel, setFilterLevel] = useState(null);
+  const [filterSetting, setFilterSetting] = useState('');
+  const [filterLevel, setFilterLevel] = useState('');
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
-  const [hospitalsShown,setHospitalsShown] = useState([0,4]);
+  const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
+  const [selectedProvince,setSelectedProvince] = useState('')
+  const [sortSetting, setSortSetting] = React.useState('Name_of_Ho');
+  const [sortOrder, setSortOrder] = React.useState('Ascending');
+
+  function compareValues(key, order = 'Ascending') {
+    return function innerSort(a, b) {
+      if (!a.properties.hasOwnProperty(key) || !b.properties.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+  
+      const varA = (typeof a.properties[key] === 'string')
+        ? a.properties[key].toUpperCase() : a.properties[key];
+      const varB = (typeof b.properties[key] === 'string')
+        ? b.properties[key].toUpperCase() : b.properties[key];
+  
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return (
+        (order === 'Descending') ? (comparison * -1) : comparison
+      );
+    };
+  }
   
   const resetHospitals = () => {
       setHospitalList(hospitals)
-      setFilterLevel(null);
-      setFilterSetting(null);
+      setFilterLevel('');
+      setFilterSetting('');
+      setSelectedProvince('');
+      
   } 
 
 
   
 
   return (
-    <FeaturesContext.Provider value={{ currentPage,setCurrentPage,hospitalsShown,setHospitalsShown,facilities, setFacilities, facilitiesList, setFacilitiesList, hospitals, setHospitals, hospitalList, setHospitalList, filterSetting, setFilterSetting, filterLevel, setFilterLevel, resetHospitals }}>
+    <FeaturesContext.Provider value={{sortSetting, setSortSetting, sortOrder, setSortOrder,compareValues,selectedProvince,setSelectedProvince,currentPage,setCurrentPage,hospitalsShown,setHospitalsShown,facilities, setFacilities, facilitiesList, setFacilitiesList, hospitals, setHospitals, hospitalList, setHospitalList, filterSetting, setFilterSetting, filterLevel, setFilterLevel, resetHospitals }}>
       {props.children}
     </FeaturesContext.Provider>
   );
