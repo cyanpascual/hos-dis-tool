@@ -90,9 +90,17 @@ function Login(props) {
       isButtonDisabled || handleLogin();
     }
   };
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    setLogin(false)
+    console.log(login)
+    setHelperText('')
+  }
+
   if (login){
     return(
-      <HospitalList />
+      <HospitalList user={username} />
     )
   };
   return (

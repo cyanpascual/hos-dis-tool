@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const HospitalUpdate = (props) => {
+const HospitalDonate = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const [hos, setHos] = useState(selectedHospital);
   const [origHos, setOrigHos] = useState(selectedHospital);
@@ -93,19 +93,6 @@ const HospitalUpdate = (props) => {
           <IconButton onClick={() => setSelectedHospital(null)}>
             <ArrowBackIcon/> <Typography variant="subtitle2">Back</Typography>
           </IconButton>
-          {isEditMode ? 
-            <div>
-              
-              <IconButton onClick={handleCancel}>
-                <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
-              </IconButton>
-              <IconButton onClick={handleSubmit}>
-                <DoneIcon/> <Typography variant="subtitle2">Done</Typography>
-              </IconButton>
-            </div>  
-            : <IconButton onClick={() => setIsEditMode(!isEditMode)}>
-              <EditIcon/> <Typography variant="subtitle2">Edit</Typography>
-            </IconButton>}
           <Typography style={{fontSize:16, fontWeight:500}}>{hos.properties.Name_of_Ho}</Typography>
           <Divider/>
           <Typography style={{fontSize:12, fontWeight:500}}>DOH Level:</Typography>
@@ -142,9 +129,7 @@ const HospitalUpdate = (props) => {
                           <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
                         </TableCell>
                         <TableCell>
-                          {isEditMode? 
-                            <Input width="50px" name={supply} value={hos.properties.Supply_Cur[supply]} onChange={handleOnChange}/> 
-                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{hos.properties.Supply_Cur[supply]}</Typography>}                      
+                          <Typography align="center" style={{fontSize:12, fontWeight:350}}>{hos.properties.Supply_Cur[supply]}</Typography>
                         </TableCell>
                         <TableCell/>
                       </TableRow>
@@ -156,11 +141,7 @@ const HospitalUpdate = (props) => {
                         <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
                       </TableCell>
                       <TableCell align="center">
-                      {isEditMode? 
-                        <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={hos.properties.Supply_Cur[supply]} 
-                            onChange={handleOnChange}/> </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{hos.properties.Supply_Cur[supply]}</Typography>}
+                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{hos.properties.Supply_Cur[supply]}</Typography>
                       </TableCell>
                       <TableCell>
                         <Typography align="center" variant="subtitle2">{hos.properties.Supply_Cap[supply]}</Typography>
@@ -177,5 +158,5 @@ const HospitalUpdate = (props) => {
   )
 }
 
-export default HospitalUpdate
+export default HospitalDonate
 
