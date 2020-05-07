@@ -1,0 +1,71 @@
+{
+  "type": "Feature",
+  "typeOfFeat": "Hospital",
+  "data_drop": true,
+  "priority": true,
+  "test_center": true,
+  "properties": {
+    "cfname": "MANDALUYONG CITY MEDICAL CENTER (MCMC)",
+    "hfhudcode": "5688",
+    "address": "605 Boni Avenue, Mandaluyong City",
+    "city": "City of Mandaluyong",
+    "prov": "NCR, Second District",
+    "region": "NCR",
+    "doh_level": "Level 2",
+    "capacity": {
+      "icu_v": 150,
+      "icu_o": 22,
+      "isolbed_v": 0,
+      "isolbed_o": 0,
+      "beds_ward_v": 150,
+      "beds_ward_o": 22,
+      "mechvent_v": 0,
+      "mechvent_o": 0
+    },
+    "supply_need": {
+      "alcohol": 0,
+      "disinfectant": 0,
+      "soap": 0,
+      "gown": 0,
+      "surgmask": 105,
+      "n95mask": 105,
+      "gloves": 0,
+      "shoe_cover": 105,
+      "coverall": 105,
+      "goggles": 105,
+      "face_shield": 105,
+      "head_cover": 0,
+      "tissue": 0,
+      "vitamins": 0
+    },
+    "supply_cur": {
+      "alcohol": 0,
+      "disinfectant": 0,
+      "soap": 0,
+      "gown": 0,
+      "surgmask": 105,
+      "n95mask": 105,
+      "gloves": 0,
+      "shoe_cover": 105,
+      "coverall": 105,
+      "goggles": 105,
+      "face_shield": 105,
+      "head_cover": 0,
+      "tissue": 0,
+      "vitamins": 0,
+      "other": ""
+    },
+    "cont_person": "",
+    "cont_num": "654 4363; 8532-0480",
+    "email": "mcmc.mandaluyong@gmail.com",
+    "website": "httpsde",
+    "reportdate": "Wed6"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      121.0354784,
+      14.5762165
+    ]
+  }
+}

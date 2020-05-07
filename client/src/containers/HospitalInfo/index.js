@@ -120,7 +120,7 @@ const HospitalInfo = () => {
               <TableRow>
                 <TableCell>Item</TableCell>
                 <TableCell>Supply Count</TableCell>
-                <TableCell>Supply Cap</TableCell>
+                <TableCell>Weekly Needs</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
