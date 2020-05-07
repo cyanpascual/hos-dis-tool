@@ -19,15 +19,17 @@ app.use(express.urlencoded({extended: true}));
 const hospitalsRouter = require('./routes/hospitals');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
+const loginRouter = require('./routes/login');
+
 
 app.use('/hospitals', hospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/user', userRouter);
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('*', (request, response) =>{
-  response.sendFile(path.join(__dirname,'client/build', 'index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
-
 
 //MongoDB connection string
 const uri = "mongodb://rvramos:r3m3mb3R*@ds041144.mlab.com:41144/heroku_4gm4k4rf"

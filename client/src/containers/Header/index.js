@@ -115,9 +115,9 @@ function Header(props) {
             <Grid item>
                 <FeedbackDialog/>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
                 <DonateDialog/>
-            </Grid>
+            </Grid> */}
             {/* <Grid item>
                 <VolunteerDialog/>
             </Grid> */}

@@ -2,6 +2,7 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 //gets facility data from database
+// commented out for data privacy
 router.route('/').get((req, res) => {
   User.find()
     .then(users => res.json(users))
