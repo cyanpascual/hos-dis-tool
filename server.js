@@ -25,10 +25,10 @@ const loginRouter = require('./routes/login');
 app.use('/hospitals', hospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/user', userRouter);
-app.use('/validatorUpdate', express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 //MongoDB connection string
