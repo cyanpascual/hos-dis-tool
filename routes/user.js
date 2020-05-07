@@ -2,11 +2,12 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 //gets facility data from database
-router.route('/').get((req, res) => {
-  User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// commented out for data privacy
+// router.route('/').get((req, res) => {
+//   User.find()
+//     .then(users => res.json(users))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 //adds facility info in the facility database
 router.route('/add').post((req, res) => {

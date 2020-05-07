@@ -19,11 +19,13 @@ app.use(express.urlencoded({extended: true}));
 const hospitalsRouter = require('./routes/hospitals');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
+const loginRouter = require('./routes/login');
+
 
 app.use('/hospitals', hospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/user', userRouter);
-
+app.use('/validatorUpdate', loginRouter);
 
 
 //MongoDB connection string
