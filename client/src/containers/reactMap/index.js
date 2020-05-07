@@ -71,13 +71,7 @@ export default function App() {
     return (
  
         <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={closePopups}>
-                   <Chip
-        icon={<FaceIcon />}
-        label="Search for closest hospital in need"
-        clickable
-        color="primary"
-
-      />
+        
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
