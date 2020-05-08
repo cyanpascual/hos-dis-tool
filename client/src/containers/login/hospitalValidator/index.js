@@ -1,5 +1,6 @@
 import React, {useContext,useState,useEffect} from 'react';
 import { MapsContext } from '../../../contexts/MapsContext';
+import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -8,9 +9,16 @@ import simple_med from '../../../assets/levelIndicators/simple_mid.png'
 import simple_low from '../../../assets/levelIndicators/simple_low.png'
 import simple_none from '../../../assets/levelIndicators/simple_none.png'
 
-import { Divider, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import {IconButton, Input, Grid} from '@material-ui/core';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -29,14 +37,33 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const HospitalUpdate = (props) => {
+const HospitalValidate = (props) => {
+  const { hosID } = props;
+  const { setHospitalList, hospitalList } = useContext(FeaturesContext);
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const [hos, setHos] = useState(selectedHospital);
   const [origHos, setOrigHos] = useState(selectedHospital);
   
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const [hospitals, setHospitals] = useState(hospitalList)
   const classes = useStyles();
+
+  useEffect(() => {
+
+    /*
+    setSelectedHospital(hospitalList.filter(hospital =>
+      hospital.properties.HospitalID === hosID,
+    ))
+    setHos(selectedHospital)
+    setOrigHos(selectedHospital)*/
+    /*setHospitalList(hosID ? hospitals.filter(hospital =>
+        hospital.properties.HospitalID === hosID,
+    ) : hospitals)*/
+  }, []);
+
+  console.log(hos)
+  console.log(hosID)
 
   const handleOnChange = (event) => {
     const {name, value} = event.target;
@@ -56,6 +83,12 @@ const HospitalUpdate = (props) => {
 
   const handleSubmit = () => {
     console.log(hos);
+    /*
+    fetch(`https://trams-up-dge.herokuapp.com/hospitals/update/${hos._id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(hos),
+    }).then(response => console.log(response.json()));*/
     axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${hos._id}`, hos )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
@@ -77,9 +110,6 @@ const HospitalUpdate = (props) => {
     <div className={classes.container}>
       <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={0}>
         <Grid item xs={5}>
-          <IconButton onClick={() => setSelectedHospital(null)}>
-            <ArrowBackIcon/> <Typography variant="subtitle2">Back</Typography>
-          </IconButton>
           {isEditMode ? 
             <div>
               
@@ -144,13 +174,15 @@ const HospitalUpdate = (props) => {
                       </TableCell>
                       <TableCell align="center">
                       {isEditMode? 
-                        <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={hos.properties.Supply_Cur[supply]} 
-                            onChange={handleOnChange}/> </Typography>
+                        <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={hos.properties.Supply_Cur[supply]} 
+                          onChange={handleOnChange}/>
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{hos.properties.Supply_Cur[supply]}</Typography>}
                       </TableCell>
                       <TableCell>
-                        <Typography align="center" variant="subtitle2">{hos.properties.Supply_Cap[supply]}</Typography>
+                      {isEditMode?
+                        <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={hos.properties.Supply_Cap[supply]} 
+                          onChange={handleOnChange}/>
+                        :<Typography align="center" variant="subtitle2">{hos.properties.Supply_Cap[supply]}</Typography>}
                       </TableCell>
                     </TableRow>
                   )  
@@ -164,5 +196,5 @@ const HospitalUpdate = (props) => {
   )
 }
 
-export default HospitalUpdate
+export default HospitalValidate
 

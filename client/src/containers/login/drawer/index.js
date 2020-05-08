@@ -10,7 +10,6 @@ import {Grid, TextField, IconButton} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import FilterDialog from '../dialog';
-import SortDialog from '../../SortDialog';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
 
@@ -18,12 +17,6 @@ import {Table, Paper, TableHead, TableBody, TableCell} from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TuneIcon from '@material-ui/icons/Tune';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 import {SortByAlpha, FormatListNumbered} from '@material-ui/icons';
 
@@ -100,11 +93,10 @@ const styles = (theme) => ({
 function Navigator(props) {
   const { classes, ...other } = props;
   const [age, setAge] = React.useState('');
-  const { hospitalList, setHospitalList, hospitalsShown,setHospitalsShown, currentPage,setCurrentPage } = useContext(FeaturesContext);
+  const { hospitalList, setHospitalList } = useContext(FeaturesContext);
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const [open, setOpen] = React.useState(false);
   const [sort, setSort] = useState(true);
-  const [expanded, setExpanded] = useState();
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

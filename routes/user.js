@@ -3,11 +3,11 @@ let User = require('../models/user.model');
 
 //gets facility data from database
 // commented out for data privacy
-// router.route('/').get((req, res) => {
-//   User.find()
-//     .then(users => res.json(users))
-//     .catch(err => res.status(400).json('Error: ' + err));
-// });
+router.route('/').get((req, res) => {
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
 //adds facility info in the facility database
 router.route('/add').post((req, res) => {

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { MapsContext } from '../../contexts/MapsContext';
+import { FeaturesContext } from '../../contexts/FeaturesContext';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -6,7 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
-import HospitalList from './hospitalList';
+import HospitalList from './userValidator';
+import HospitalValidate from './hospitalValidator'
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) =>
@@ -36,6 +39,8 @@ const useStyles = makeStyles((theme) =>
 );
 
 function Login(props) {
+  const { setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const classes = useStyles();
   const [users, setUsers] = useState('');
   const [username, setUsername] = useState('');
@@ -58,10 +63,13 @@ function Login(props) {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/user', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
     
       setUsers(res.data);
-    };
-    console.log(users);
+      setHospitalList(res2.data);
+      console.log("data in")
+    }
+    
     fetchData();
   }, [])
   
@@ -74,6 +82,10 @@ function Login(props) {
         setLogin(true)
         setError(false);
         setAccountType(ob[0].properties.type)
+        if (ob[0].properties.type == 'Hospital'){
+          let hos = hospitalList.filter(hospital => hospital.properties.HospitalID === username);
+          setSelectedHospital(hos[0]);
+        }
         setHelperText('Login Successfully');
       } else {
         setError(true);
@@ -99,9 +111,15 @@ function Login(props) {
   }
 
   if (login){
-    return(
-      <HospitalList user={username} />
-    )
+    if (accountType == 'Validator'){
+      return(
+        <HospitalList user={username} />
+      )
+    } else if (accountType == 'Hospital'){
+      return(
+        <HospitalValidate hosID={username} />
+      )
+    }
   };
   return (
     <React.Fragment>
