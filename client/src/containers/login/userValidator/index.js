@@ -200,7 +200,7 @@ function Update(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-          <Header user={user} onDrawerToggle={handleDrawerToggle} />  
+          <Header onDrawerToggle={handleDrawerToggle} />  
           {selectedHospital ? 
           <HospitalUpdate/> : 
           <div style={{margin: 'auto'}}>
