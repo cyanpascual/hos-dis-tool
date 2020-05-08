@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {AppBar, Button, Grid, Hidden, IconButton, Toolbar} from '@material-ui/core';
+import { LoginContext } from '../../../contexts/LoginContext';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -38,7 +39,9 @@ const styles = (theme) => ({
 });
 
 function Header(props) {
-  const { classes, onDrawerToggle, user } = props;
+  const { classes, onDrawerToggle } = props;
+  const { login, setLogin, user, setUser, logout } = useContext(LoginContext);
+
   return (
     <div position="absolute">
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -88,13 +91,13 @@ function Header(props) {
                 <WelcomeDialog/>
             </Grid> */}
             <Grid item>
-              <Typography style={{fontSize: 16, fontWeight: 500}}>Welcome, {user}!</Typography>
+              <Typography style={{fontSize: 16, fontWeight: 500}}>Welcome, {user.properties.Username}!</Typography>
             </Grid>
             <Grid item>
-                <FeedbackDialog/>
+              <FeedbackDialog/>
             </Grid>
             <Grid item>
-                <Button style={{color: "white"}}>Logout</Button>
+              <Button style={{color: "white"}} onClick={() => logout()}>Logout</Button>
             </Grid>
           </Grid>
         </Toolbar>

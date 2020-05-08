@@ -5,13 +5,16 @@ import App from './containers'
 import * as serviceWorker from './serviceWorker';
 import FeaturesContextProvider from './contexts/FeaturesContext';
 import MapsContextProvider from './contexts/MapsContext';
+import LoginContextProvider from './contexts/LoginContext';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <MapsContextProvider>
       <FeaturesContextProvider>
-        <App />
+        <LoginContextProvider>
+          <App />
+          </LoginContextProvider>
       </FeaturesContextProvider>
     </MapsContextProvider>
   </React.StrictMode>,
