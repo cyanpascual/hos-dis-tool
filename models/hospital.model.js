@@ -9,6 +9,8 @@ const hospitalSchema = new Schema({
     "Name_of_Ho": {"type": "String"},
     "HospitalID": {"type": "String"}, //Hospital ID from DOH?
     "Address": {"type": "String"},
+    "City/Municipality": {"type": "String"},
+    "Province": {"type": "String"},
     "Region": {"type": "String"},
     "DOH Level": {"type": "String"},
     "Capacity": {"type": "String"},
