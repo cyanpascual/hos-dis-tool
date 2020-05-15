@@ -1,15 +1,15 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../contexts/MapsContext';
-import { LoginContext } from '../../../contexts/LoginContext';
+import { MapsContext } from '../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../contexts/LoginContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
-import simple_high from '../../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../../assets/levelIndicators/simple_low.png'
-import simple_none from '../../../assets/levelIndicators/simple_none.png'
+import simple_high from '../../../../assets/levelIndicators/simple_high.png'
+import simple_med from '../../../../assets/levelIndicators/simple_mid.png'
+import simple_low from '../../../../assets/levelIndicators/simple_low.png'
+import simple_none from '../../../../assets/levelIndicators/simple_none.png'
 
-import { Divider, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import {IconButton, Input, Grid} from '@material-ui/core';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const HospitalUpdate = (props) => {
+const HospitalSupply = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { username } = useContext(LoginContext);
 
@@ -44,13 +44,7 @@ const HospitalUpdate = (props) => {
     const {name, value} = event.target;
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
-    /*setHos((prevState) => {
-      prevState.properties.Supply_Cur[name] = value;
-      prevState.properties["Last Update"] = username + ' on ' + date;
-      return({
-        ...prevState
-      })
-    })*/
+
     if (value === '' || re.test(value)){
       setSelectedHospital({
         ...selectedHospital,
@@ -65,13 +59,27 @@ const HospitalUpdate = (props) => {
     }
   };
 
-  const handleEdit = () => {
-    setHos(selectedHospital)
-    setIsEditMode(!isEditMode)
-  }
+  const handleOnChangeNeed = (event) => {
+    const {name, value} = event.target;
+    var date = new Date().toLocaleString()
+    const re = /^[0-9\b]+$/;
 
-  const handleCancel = () => {
-    setSelectedHospital(hos);
+    if (value === '' || re.test(value)){
+      setSelectedHospital({
+        ...selectedHospital,
+        properties: {
+          ...selectedHospital.properties,
+          Supply_Cap:{
+            ...selectedHospital.properties.Supply_Cap,
+            [name]: Math.abs(value),
+          }, "Last Update": username + ' on ' + date,
+        }
+      })
+    }
+  };
+
+  const handleCancel = (event) => {
+    setSelectedHospital(hos)
     console.log(selectedHospital);
     setIsEditMode(!isEditMode)
   }
@@ -82,65 +90,45 @@ const HospitalUpdate = (props) => {
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
+    setHos(selectedHospital)
   }
 
   const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
   const imageChoose = (currHospital, supply) =>{
-    if (supply === "Other Needs"){
-      return null
-    }else{
-      if (currHospital.properties.Supply_Cur[supply] > 0){
-        if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
-          return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
-        } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
-          return(<img style={{width:20}} src={simple_high} alt="well-supplied"/>)
-        } else return(<img style={{width:20}} src={simple_med} alt="low"/>)
-      } else return(<img style={{width:20}} src={simple_none} alt="none"/>)
-    }
+    if (currHospital.properties.Supply_Cur[supply] > 0){
+      if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
+        return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
+      } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
+        return(<img style={{width:20}} src={simple_high} alt="well-supplied"/>)
+      } else return(<img style={{width:20}} src={simple_med} alt="low"/>)
+    } else return(<img style={{width:20}} src={simple_none} alt="none"/>)
   }
-
+  
   return (
     <div className={classes.container}>
-      <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={0}>
-        <Grid item xs={5}>
+      <Grid container direction="column" justify="flex-start" alignItems="flex-start" spacing={0}>
+        <Grid item xs>
           <IconButton onClick={() => setSelectedHospital(null)}>
             <ArrowBackIcon/> <Typography variant="subtitle2">Back</Typography>
           </IconButton>
           {isEditMode ? 
-            <div>
-              
-              <IconButton onClick={() => handleCancel()}>
-                <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
-              </IconButton>
-              <IconButton onClick={() => handleSubmit()}>
-                <DoneIcon/> <Typography variant="subtitle2">Done</Typography>
-              </IconButton>
-            </div>  
-            : <IconButton onClick={() => handleEdit()}>
+            <Grid container direction="row">
+              <Grid item xs>
+                <IconButton onClick={() => handleCancel()}>
+                  <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
+                </IconButton>
+              </Grid>
+              <Grid item xs>
+                <IconButton onClick={() => handleSubmit()}>
+                  <DoneIcon/> <Typography variant="subtitle2">Done</Typography>
+                </IconButton>
+              </Grid>
+            </Grid>  
+            : <IconButton onClick={() => setIsEditMode(!isEditMode)}>
               <EditIcon/> <Typography variant="subtitle2">Edit</Typography>
             </IconButton>}
-          <Typography style={{fontSize:16, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
-          <Divider/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>DOH Level:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Address:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>City/Municipality:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Province:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Region:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Head/Contact Person:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Contact Number/s:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Website:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Last Updated:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs>
           <TableContainer>
             <Table className={classes.table} size="small" aria-label="Hospital Supplies">
               <TableHead className={classes.head}>
@@ -181,8 +169,12 @@ const HospitalUpdate = (props) => {
                             onChange={handleOnChange}/> </Typography>
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}
                       </TableCell>
-                      <TableCell>
-                        <Typography align="center" variant="subtitle2">{selectedHospital.properties.Supply_Cap[supply]}</Typography>
+                      <TableCell align="center">
+                      {isEditMode? 
+                        <Typography align="center" variant="subtitle2">
+                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cap[supply]} 
+                            onChange={handleOnChangeNeed}/> </Typography>
+                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cap[supply]}</Typography>}
                       </TableCell>
                     </TableRow>
                   )  
@@ -196,5 +188,5 @@ const HospitalUpdate = (props) => {
   )
 }
 
-export default HospitalUpdate
+export default HospitalSupply
 

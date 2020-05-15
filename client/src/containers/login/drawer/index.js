@@ -131,7 +131,8 @@ function Navigator(props) {
   const liveSearch = (searchTerm) => {
     setHospitalList( searchTerm ? 
       hospitals.filter(hospital =>
-        hospital.properties.Name_of_Ho.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1,
+        hospital.properties.Name_of_Ho.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        hospital.properties.HospitalID.indexOf(searchTerm) > -1,
       ) : hospitals
     )
   }
@@ -158,15 +159,15 @@ function Navigator(props) {
     <Drawer variant="permanent" {...other} >
       <List disablePadding >
         <ListItem className={clsx(classes.header, classes.item)}>
-          <Grid container alignItems="center" spacing={0}>
-            <Grid item xs={2}>
+          <Grid container alignItems="flex-end" spacing={1}>
+            <Grid item xs={1}>
               {sort?
                 <IconButton onClick={() => setSort(!sort)}><FormatListNumbered/></IconButton> :
                 <IconButton onClick={() => setSort(!sort)}><SortByAlpha/></IconButton>}
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={11}>
               <form noValidate>  
-                <TextField style={{ width:300 }}label="Search Hospitals" value={ searchTerm } onChange={e => searchTermChanged(e.target.value)}/>
+                <TextField style={{ width:"100%" }}label="Search Hospitals" value={ searchTerm } onChange={e => searchTermChanged(e.target.value)}/>
               </form>
             </Grid>
           </Grid>
@@ -179,7 +180,7 @@ function Navigator(props) {
           </Grid>
         </ListItem>
         <br/>
-        <div style={{height:'65vh', overflowX: 'hidden' ,overflowY: 'auto'}}>
+        <div style={{height:'70vh', overflowX: 'hidden' ,overflowY: 'auto'}}>
           <Paper className={classes.table}><TableContainer><Table size="small">
             <TableBody>
               {hospitalList ? 
@@ -202,7 +203,7 @@ function Navigator(props) {
             </TableBody>
           </Table></TableContainer></Paper>
         </div>
-        <TablePagination rowsPerPageOptions={[5, 10, 25]} component="div" 
+        <TablePagination style={{display: 'flex', padding: 0, alignSelf: 'center'}} rowsPerPageOptions={[5, 10, 25]} component="div" 
           count={hospitalList.length} rowsPerPage={rowsPerPage} page={page}
           onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
       </List>

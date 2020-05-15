@@ -8,7 +8,7 @@ import Input from '@material-ui/core/Input';
 export default function FilterInput(props){
 
   return (
-    <FormControl style={{margin:8 , minWidth: 150,}}>
+    <FormControl style={{margin:8 , width: "100%",}}>
       <InputLabel>{props.label}</InputLabel>
       <Select
         value={props.value}
@@ -16,12 +16,12 @@ export default function FilterInput(props){
         input={<Input/>}
       >
         
-        <MenuItem value="">
+        <MenuItem value="" key='0'>
           <em>None</em>
         </MenuItem>
-        {props.choices.map((option)=>{
-          return(<MenuItem value={option}>{option}</MenuItem>)
-        })}
+        {props.choices ? props.choices.map((option)=>{
+          return(<MenuItem value={option} key={option}>{option}</MenuItem>)
+        }): null}
       </Select>
     </FormControl>
   )
