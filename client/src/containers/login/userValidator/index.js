@@ -1,16 +1,13 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import {Link, Grid, Paper, Typography} from '@material-ui/core';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import {Typography} from '@material-ui/core';
 import HospitalUpdate from '../hospitalUpdate';
 import Navigator from '../drawer';
 import Header from '../header';
 import 'typeface-roboto';
-import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
 
 
@@ -125,7 +122,7 @@ theme = {
   },
 };
 
-const drawerWidth = 400;
+const drawerWidth = 475;
 
 const styles = {
   root: {
@@ -161,26 +158,14 @@ const styles = {
 };
 
 function Update(props) {
-  const { classes, user } = props;
+  const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
-  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
+  const { selectedHospital } = useContext(MapsContext)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  useEffect(()=>{   
-    const fetchData = async () => {
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
-      
-      setHospitals(res2.data);
-      console.log('hospitals in')
-      setHospitalList(res2.data);
-    }
-    fetchData();
-  }, [])
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -189,7 +174,7 @@ function Update(props) {
 
           <Hidden smUp implementation="js">
             <Navigator
-              PaperProps={{ style: { width: 300, backgroundColor:"#BAB8B2" } }}
+              PaperProps={{ style: { width: '90%', backgroundColor:"#BAB8B2" } }}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}

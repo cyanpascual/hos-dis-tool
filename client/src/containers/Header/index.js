@@ -2,6 +2,8 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import HelpIcon from '@material-ui/icons/Help';
@@ -30,6 +32,7 @@ import VolunteerDialog from '../VolunteerDialog';
 import UpdateDialog from '../UpdateDialog'
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
+import CardActions from '@material-ui/core/CardActions';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -58,12 +61,18 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues } = useContext(FeaturesContext);
   const {setSelectedHospital, goToSelected} = useContext(MapsContext)
   var hospitalNames =[]
-    if(hospitalList){
-        hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
-    }
+  var prioritizedHospitals=[]
+  if(hospitalList){
+      hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
+      prioritizedHospitals = Array.from(hospitalList.sort(compareValues("priorityScore",'Descending')),x=>x)
+  }
+  console.log('************')
+  console.log(prioritizedHospitals)
+
+  
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -156,6 +165,38 @@ function Header(props) {
 
         
       </AppBar>
+      {/* <AppBar color="secondary" position="sticky" elevation={0}>
+        <Grid xs={12}>
+        <Typography style={{textAlign: 'center'}} className={classes.title}  gutterBottom>
+                  Priority Hospitals
+        </Typography>
+        </Grid>
+        
+        <Grid container direction="row"> 
+          {hospitalList && prioritizedHospitals.slice(0,4).map((hospital)=>{
+            return(
+              <Grid item xs={3}
+              style={{height:'22vh'}}>
+              <Card style={{height:'20vh'}}>
+                <CardContent>
+                  <Typography className={classes.title}  gutterBottom>
+                  {hospital.properties.Name_of_Ho}
+                  </Typography> 
+                </CardContent>
+                <CardActions>
+                <Button size="small" color="primary">
+                  Donate
+                </Button>
+                <Button size="small" color="primary">
+                  Share on Facebook
+                </Button>
+              </CardActions>
+              </Card>
+              </Grid>
+            )
+          })}
+        </Grid>
+      </AppBar> */}
     </React.Fragment>
   );
 }

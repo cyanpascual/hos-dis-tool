@@ -11,7 +11,7 @@ import tramslogo from '../../../assets/logos/tramsLogo.png';
 import uplogo from '../../../assets/logos/up.png';
 import dgelogo from '../../../assets/logos/dge.png';
 import engglogo from '../../../assets/logos/engineering.png';
-import geoplogo from '../../../assets/logos/geop_light.png';
+//import geoplogo from '../../../assets/logos/geop_light.png';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -40,7 +40,7 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { login, setLogin, user, setUser, logout } = useContext(LoginContext);
+  const { user, logout } = useContext(LoginContext);
 
   return (
     <div position="absolute">
@@ -48,7 +48,7 @@ function Header(props) {
       <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <img src={tramslogo} style={{height:"30px"}}/>
+              <img src={tramslogo} style={{height:"30px"}} alt="logo"/>
             </Grid>
             <Grid item>
                 <img src={uplogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
@@ -59,45 +59,38 @@ function Header(props) {
             <Grid item>
                 <img src={dgelogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
             </Grid>
-            <Grid item>
+            {/*<Grid item>
                 <img src={geoplogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
-            </Grid>
+            </Grid>*/}
           </Grid>
         </Toolbar>
       </AppBar>
-      <AppBar
-        component="div"
-        className={classes.secondaryBar}
-        color="primary"
-        position="static"
-        elevation={0}
-      >
-          <Toolbar>
+      <AppBar component="div" className={classes.secondaryBar} color="primary"
+        position="static" elevation={0}>
+        <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>
-              <Grid item>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={onDrawerToggle}
-                  className={classes.menuButton}
-                >
+              <Grid item xs={2}>
+                <IconButton color="inherit" aria-label="open drawer"
+                  onClick={onDrawerToggle} className={classes.menuButton}>
                   <MenuIcon />
                 </IconButton>
               </Grid>
             </Hidden>
             <Grid item xs />
-            {/* <Grid item>
+            {/*<Grid item>
                 <WelcomeDialog/>
             </Grid> */}
-            <Grid item>
-              <Typography style={{fontSize: 16, fontWeight: 500}}>Welcome, {user.properties.Username}!</Typography>
-            </Grid>
-            <Grid item>
-              <FeedbackDialog/>
-            </Grid>
-            <Grid item>
-              <Button style={{color: "white"}} onClick={() => logout()}>Logout</Button>
+            <Grid item container spacing={1} alignItems="center" justify="flex-end" xs={10}>
+              <Grid item>
+                <Typography style={{fontSize: 16, fontWeight: 500}}>Welcome, {user.properties.Firstname}!</Typography>
+              </Grid>
+              <Grid item>
+                <FeedbackDialog/>
+              </Grid>
+              <Grid item>
+                <Button style={{color: "white"}} onClick={() => logout()}>Logout</Button>
+              </Grid>
             </Grid>
           </Grid>
         </Toolbar>

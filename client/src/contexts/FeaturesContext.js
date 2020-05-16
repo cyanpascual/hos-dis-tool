@@ -14,8 +14,9 @@ const FeaturesContextProvider = (props) => {
   const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
   const [selectedProvince,setSelectedProvince] = useState('')
-  const [sortSetting, setSortSetting] = React.useState('Name_of_Ho');
-  const [sortOrder, setSortOrder] = React.useState('Ascending');
+  const [sortSetting, setSortSetting] = useState('Name_of_Ho');
+  const [sortOrder, setSortOrder] = useState('Ascending');
+  const [highlightedHospitals, setHightlightedHospitals] = useState([]);
 
   function compareValues(key, order = 'Ascending') {
     return function innerSort(a, b) {
@@ -40,6 +41,7 @@ const FeaturesContextProvider = (props) => {
       );
     };
   }
+
   
   const resetHospitals = () => {
       setHospitalList(hospitals)
@@ -53,7 +55,21 @@ const FeaturesContextProvider = (props) => {
   
 
   return (
-    <FeaturesContext.Provider value={{sortSetting, setSortSetting, sortOrder, setSortOrder,compareValues,selectedProvince,setSelectedProvince,currentPage,setCurrentPage,hospitalsShown,setHospitalsShown,facilities, setFacilities, facilitiesList, setFacilitiesList, hospitals, setHospitals, hospitalList, setHospitalList, filterSetting, setFilterSetting, filterLevel, setFilterLevel, resetHospitals }}>
+    <FeaturesContext.Provider value={{
+      sortSetting, setSortSetting, 
+      sortOrder, setSortOrder,
+      compareValues,
+      selectedProvince,setSelectedProvince,
+      currentPage,setCurrentPage,
+      hospitalsShown,setHospitalsShown,
+      facilities, setFacilities, 
+      facilitiesList, setFacilitiesList, 
+      hospitals, setHospitals, 
+      hospitalList, setHospitalList, 
+      filterSetting, setFilterSetting, 
+      filterLevel, setFilterLevel, 
+      highlightedHospitals, setHightlightedHospitals,
+      resetHospitals }}>
       {props.children}
     </FeaturesContext.Provider>
   );
