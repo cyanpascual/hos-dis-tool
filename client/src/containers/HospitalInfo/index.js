@@ -90,16 +90,16 @@ const HospitalInfo = () => {
             DOH Level: <span style={{color:"red"}}>{selectedHospital.properties["DOH Level"]}</span>
           </Typography>
         </ListItem>
-        <ListItem>
+        {/* <ListItem>
           <Typography variant="subtitle1" gutterBottom>
             Donate through:
           </Typography>
-          {/* <List>
+          <List>
             <ListItem><a href="#">Donation Drive 1</a></ListItem>
             <ListItem><a href="#">Donation Drive 2</a></ListItem>
             <ListItem><a href="#">Donation Drive 3</a></ListItem>
-          </List> */}
-        </ListItem>
+          </List>
+        </ListItem> */}
         
         <Divider light style={{marginBottom:5}}/>
         <Typography variant='body1'>

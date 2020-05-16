@@ -163,21 +163,49 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
 
 
 
 
   useEffect(()=>{
-
+    const supplyList = ["Alcohol",
+    "Disinfectant (Sterilium)",
+    "Antibacterial Soap",
+    "Surgical Gowns",
+    "Surgical Masks",
+    "N95 Masks",
+    "Gloves",
+    "Shoe covers",
+    "PPE",
+    "Goggles and face shields",
+    "Testing Kits",
+    "Tissue",
+    "Vitamins",
+    "Food (Meals)"]
     
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
+
+      res.data.forEach(hospital => {
+        hospital.properties.priorityScore = 0
+        supplyList.forEach(supply => {
+          if(hospital.properties.Supply_Cap[supply]!==0){
+            if(hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] < 0.2){
+              hospital.properties.priorityScore += 2
+            } else if((hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] >= 0.20) && (hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] <= 0.5)){
+              hospital.properties.priorityScore += 1
+            }            
+          }
+      });
+       
+      });
       setHospitals(res.data.sort(compareValues('Name_of_Ho')));
       setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
+
     };
 
     fetchData();
