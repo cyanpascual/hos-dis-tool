@@ -14,6 +14,7 @@ const FeaturesContextProvider = (props) => {
   const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
   const [selectedProvince,setSelectedProvince] = useState('')
+  const [selectedCity,setSelectedCity] = useState('')
   const [sortSetting, setSortSetting] = useState('Name_of_Ho');
   const [sortOrder, setSortOrder] = useState('Ascending');
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
@@ -69,6 +70,7 @@ const FeaturesContextProvider = (props) => {
       filterSetting, setFilterSetting, 
       filterLevel, setFilterLevel, 
       highlightedHospitals, setHightlightedHospitals,
+      selectedCity,setSelectedCity,
       resetHospitals }}>
       {props.children}
     </FeaturesContext.Provider>

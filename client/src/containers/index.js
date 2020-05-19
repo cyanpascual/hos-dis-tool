@@ -190,13 +190,20 @@ function App(props) {
 
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
+        hospital.properties.SupplyStatus = {}
         supplyList.forEach(supply => {
           if(hospital.properties.Supply_Cap[supply]!==0){
             if(hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] < 0.2){
+              hospital.properties.SupplyStatus[supply] = "Critically Low"
               hospital.properties.priorityScore += 2
             } else if((hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] >= 0.20) && (hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] <= 0.5)){
+              hospital.properties.SupplyStatus[supply] = "Low"
               hospital.properties.priorityScore += 1
-            }            
+            } else{
+              hospital.properties.SupplyStatus[supply] = "Well stocked"
+            }           
+          } else{
+            hospital.properties.SupplyStatus[supply] = "No Data"
           }
       });
        
@@ -205,7 +212,6 @@ function App(props) {
       setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
-
     };
 
     fetchData();

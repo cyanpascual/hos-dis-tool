@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  },
+  },  
 }));
 
 export default function FilterDialog() {
@@ -51,9 +51,18 @@ export default function FilterDialog() {
     setAlertOpen(false);
   };
 
+  const generateCitiesList = (province) =>{
+    var initialList = hospitals.filter((hospital)=>{return("City/Municipality" in hospital.properties)})
+    initialList = initialList.filter(hospital => hospital.properties.Province === province)
+    const cities = initialList.map((hospital)=>{return(hospital.properties["City/Municipality"])})
+    const uniqueCities = Array.from(new Set(cities))
+    setCitiesList(uniqueCities) 
+  }
 
   
-  const { setHospitals, compareValues, sortOrder, setSortOrder,sortSetting, setSortSetting,selectedProvince,setSelectedProvince, setCurrentPage,hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setHospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+  const { 
+    selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting, 
+    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
  
   const supplyChoices=["Alcohol",
                       "Disinfectant (Sterilium)",
@@ -74,6 +83,7 @@ export default function FilterDialog() {
 
 
   const [provincesList, setProvincesList] = useState(null);
+  const [citiesList, setCitiesList] = useState(null);
 
   useEffect(()=>{
     if(hospitalList){
@@ -84,19 +94,23 @@ export default function FilterDialog() {
       const provinces = initialList.map((hospital)=>{
           return(hospital.properties.Province)
       })
-      const uniqueProvinces = Array.from(new Set(provinces)) 
+      const uniqueProvinces = Array.from(new Set(provinces))
+      
       setProvincesList(uniqueProvinces)
  
     }
   }, hospitalList)
   
+
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen} startIcon={<FilterListIcon/>} color="primary" > Filter</Button>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+      <Dialog fullWidth disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle><Button variant="contained" color="primary" 
           onClick={()=>{
-          resetHospitals()
+            setFilterSetting('')
+            setFilterLevel('')
+            setSelectedProvince('')
 
           }} 
           style={{marginLeft:"5px"}}>Reset</Button> </DialogTitle>
@@ -109,18 +123,23 @@ export default function FilterDialog() {
           value={filterSetting}
           />
 
-          <FilterInput 
-          label="Supply Level" 
-          onChange={setFilterLevel} 
-          choices={supplyLevelChoices}
-          value={filterLevel}
-          />
+          {filterSetting !== '' ?
+          (<FilterInput 
+            label="Supply Level" 
+            onChange={setFilterLevel} 
+            choices={supplyLevelChoices}
+            value={filterLevel}
+            />):(null)
+          }
+
+
 
           <Autocomplete
             onInputChange={(obj,value)=>{
                 setSelectedProvince(value)
-                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.Province == value}))
-            }}
+                generateCitiesList(value)
+                setSelectedCity('')
+              }}
             options={provincesList}
             getOptionLabel={(option) => option}
             size="small"
@@ -128,47 +147,28 @@ export default function FilterDialog() {
             value={selectedProvince}
             renderInput={(params) => <TextField value={selectedProvince} {...params} label="Filter by province"  />}
             />
+
+          {selectedProvince !== '' ? 
+          (<Autocomplete
+            onInputChange={(obj,value)=>{
+                setSelectedCity(value)
+                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.Province == value}))
+            }}
+            options={citiesList}
+            getOptionLabel={(option) => option}
+            size="small"
+            style={{margin:10}}
+            value={selectedCity}
+            renderInput={(params) => <TextField value={selectedCity} {...params} label="Filter by City/Municipality"  />}
+            />):(null)}
+          
          
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>{
-            handleClose() 
-            }} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={(e)=>{
-            var tempHospitalList = Array.from(hospitals);
-            if((filterLevel === '' && filterSetting !== '') || (filterLevel !== '' && filterSetting === '')){
-              setAlertOpen(true)
-            }
-            else{
-              
-  
 
-              switch(filterLevel){
-                case "No Data":
-                    tempHospitalList = (hospitals.filter((hospital) => hospital.properties.Supply_Cap[filterSetting] === 0));
-                    break
-                case "Critically Low":
-                    tempHospitalList = (hospitals.filter((hospital) => hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] < 0.2));
-                    break
-                case "Low":
-                    tempHospitalList = (hospitals.filter((hospital)=> ((hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] >= 0.20) && (hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] <= 0.5))))
-                    break
-                    
-                case "Well stocked":
-                    tempHospitalList = (hospitals.filter((hospital)=> hospital.properties.Supply_Cur[filterSetting]/hospital.properties.Supply_Cap[filterSetting] > 0.5));
-            }
-            if(selectedProvince!==''){
-                tempHospitalList = (tempHospitalList.filter((hospital)=>{return hospital.properties.Province == selectedProvince}))
-            }
-              setHospitalList(tempHospitalList)
-              handleClose()
-            }
-
-          }
-          
-          } color="primary">
+          <Button
+          onClick={handleClose} 
+          color="primary">
             Ok
           </Button>
         </DialogActions>

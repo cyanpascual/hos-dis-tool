@@ -58,7 +58,7 @@ export default function App() {
       }, []);
 
 
-    const {facilities, hospitalList } = useContext(FeaturesContext);
+    const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity} = useContext(FeaturesContext);
     const { closePopups,mapReference, setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
     const things = {
         lat: 51.505,
@@ -88,7 +88,16 @@ export default function App() {
 
        
             
-             {hospitalList? (hospitalList.map((hospital) => {
+             {hospitalList? (hospitalList
+             .filter((hospital)=> {
+                if (filterSetting === '' || filterLevel=== ''){
+                  return(hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                } else{
+                  return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                }
+                 
+              })
+             .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
                         position={[hospital.geometry.Coordinates[1],hospital.geometry.Coordinates[0]]}
