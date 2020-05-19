@@ -1,19 +1,11 @@
 import React, {useContext, useEffect} from 'react';
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Navigator from './Navigator';
-import Header from './Header';
-import ReactMap from './reactMap'
+import { createMuiTheme} from '@material-ui/core/styles';
+
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
-import { LoginContext } from '../contexts/LoginContext';
 import Login from './login';
 import Main from './main'
 import Donate from './DonateDialog';
@@ -131,33 +123,6 @@ theme = {
 
 const drawerWidth = 300;
 
-const styles = {
-  root: {
-    display: 'flex',
-    minHeight: '100vh',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    overflow:"hidden"
-  },
-  app: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  main: {
-    flex: 1,
-    padding: theme.spacing(6, 4),
-    background: '#eaeff1',
-  },
-  footer: {
-    padding: theme.spacing(2),
-    background: '#eaeff1',
-  },
-};
 
 function App(props) {
   const { classes } = props;
