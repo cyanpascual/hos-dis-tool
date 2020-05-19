@@ -118,9 +118,9 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
-            {/* <Grid item>
+            <Grid item>
                 <WelcomeDialog/>
-            </Grid> */}
+            </Grid>
             <Grid item>
                 <FeedbackDialog/>
             </Grid>

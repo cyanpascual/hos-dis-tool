@@ -159,7 +159,7 @@ export default function FilterDialog() {
             size="small"
             style={{margin:10}}
             value={selectedCity}
-            renderInput={(params) => <TextField value={selectedCity} {...params} label="Filter by City/Municipality"  />}
+            renderInput={(params) => <TextField autoComplete={false} value={selectedCity} {...params} label="Filter by City/Municipality"  />}
             />):(null)}
           
          

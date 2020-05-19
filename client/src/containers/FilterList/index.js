@@ -211,7 +211,7 @@ const FilterList = () => {
         })
         .map((hospital)=>{
           return(<React.Fragment>
-          <div style={{borderLeft: `3px solid maroon`, width:"100%", maxWidth:500, padding:"10px", whiteSpace: 'nowrap'}}>
+          <div style={{width:"100%", maxWidth:500, padding:"15px", whiteSpace: 'nowrap'}}>
             <Grid container>
             <Grid item xs={12}>
               <Typography>
@@ -264,7 +264,7 @@ const FilterList = () => {
         )
       } 
           </div>
-        ) : (<div className="empty">No results.</div>)}
+        ) : (<div className="empty" style={{textAlign:"center"}}>No results.</div>)}
         
       </div>
     )
