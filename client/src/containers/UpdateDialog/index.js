@@ -64,9 +64,9 @@ export default function UpdateDialog() {
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
         <DialogContent dividers>
           <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQrqBzL9y151vkI-Y6v9pvh4y44G-tftbDO6OoGHCnd3aTg/viewform?embedded=true"
-            frameborder="0" marginheight="0" marginwidth="0" className="formWindow" width="100%" height="100%">Loading…</iframe>
+            frameborder="0" marginheight="0" marginwidth="0" className="formWindow" width="100%" height="100%" title="updateForm">Loading…</iframe>
         </DialogContent>
-      </Dialog>
+      </Dialog> 
     </div>
   );
 }

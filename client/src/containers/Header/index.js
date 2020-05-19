@@ -1,23 +1,13 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+
 import Grid from '@material-ui/core/Grid';
-import HelpIcon from '@material-ui/icons/Help';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import TextField from '@material-ui/core/TextField';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { withStyles } from '@material-ui/core/styles';
 import tramslogo from '../../assets/logos/tramsLogo.png';
@@ -27,12 +17,9 @@ import engglogo from '../../assets/logos/engineering.png';
 import geoplogo from '../../assets/logos/geop_light.png';
 import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
-import DonateDialog from '../DonateDialog';
-import VolunteerDialog from '../VolunteerDialog';
 import UpdateDialog from '../UpdateDialog'
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
-import CardActions from '@material-ui/core/CardActions';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -61,7 +48,7 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues } = useContext(FeaturesContext);
+  const { hospitalList,compareValues } = useContext(FeaturesContext);
   const {setSelectedHospital, goToSelected} = useContext(MapsContext)
   var hospitalNames =[]
   var prioritizedHospitals=[]
@@ -69,8 +56,6 @@ function Header(props) {
       hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
       prioritizedHospitals = Array.from(hospitalList.sort(compareValues("priorityScore",'Descending')),x=>x)
   }
-  console.log('************')
-  console.log(prioritizedHospitals)
 
   
   return (
@@ -79,7 +64,7 @@ function Header(props) {
       <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <img src={tramslogo} style={{height:"30px"}}/>
+              <img src={tramslogo} style={{height:"30px"}} alt="logo"/>
             </Grid>
             <Grid item>
                 <img src={uplogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
@@ -118,9 +103,9 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
-            {/* <Grid item>
+            <Grid item>
                 <WelcomeDialog/>
-            </Grid> */}
+            </Grid>
             <Grid item>
                 <FeedbackDialog/>
             </Grid>

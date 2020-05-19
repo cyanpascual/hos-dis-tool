@@ -19,30 +19,62 @@ export default function WelcomeCarousel(props)
 
     return (
         <Carousel autoPlay={false}>
-            <div style={{width:"40vw"}}>
+            <div >
                 <DialogTitle id="alert-dialog-title"><Typography variant="h6" gutterBottom>
-                        Introducing TrAMS
+                        Introducing TrAMS+
                     </Typography></DialogTitle>
                 <DialogContent dividers>
                     
                     <Typography align="left" gutterBottom>
-                    The Tracing for Allocation of Medical Supplies or known as TrAMS is an initiative of the UP College of Engineering (UPCoE) together with the 
-            UP Department of Geodetic Engineering (UPDGE) as response to the ongoing crisis of our health care system against COVID-19. The TrAMS project is
-            part of Project 3: Tracking-High Risk Individual (headed by Dr. Ariel C. Blanco) and is currently led by Asst. Prof. Roseanne Ramos and 
-            Asst. Prof. Ransie Joy Apura with team members from the UP Society of Geodetic Engineering Majors (UPGEOP).
+                    The UP College of Engineering (UP CoE) has formed a COVID19 response team which aims to provide engineering solutions to the critical needs of the country. One of the project initiatives of the UP CoE is the Tracing for Allocation of Medical Supplies (TrAMS+). Implemented by the UP Training Center for Applied Geodesy and Photogrammetry (UP TCAGP), the research and extension arm of the UP Department of Geodetic Engineering, this project is funded by the Department of Science and Technology (DOST) & monitor-managed by the Philippine Council for Industry, Energy, and Emerging Technology Research and Development (PCIEERD).
                     </Typography>
                 </DialogContent>
             </div>
-            <div style={{width:"40vw"}}>
+            <div >
                 <DialogTitle id="alert-dialog-title"><Typography variant="h6" gutterBottom>
-                        Filter
+                    Goals and Objectives of TrAMS+
                     </Typography></DialogTitle>
                 <DialogContent dividers>
                     
                     <Typography align="left" gutterBottom>
-                    Hospitals can be classified based on their current capacity on medical supplies. Filter by supply works by choosing a certain supply 
-                  (alcohol, disinfectant, sanitizing kits, PPE,etc) and a supply level category (whether chosen supply is well-stocked, low or critically-low in stock).
+                        TrAMS+ project aims to help the government to properly allocate medical resources through an online tracking system that provides information on hospital resources and inventory, collects real-time requests for medical supplies, and maps out possible sources of medical supplies. TrAMS+ project also aims to complement the systems of the Department of Health (DOH) by providing verified information on the needs of the hospitals. 
                     </Typography>
+                </DialogContent>
+            </div>
+            <div >
+                <DialogTitle id="alert-dialog-title"><Typography variant="h6" gutterBottom>
+                Who are the target users of TrAMS+?
+                    </Typography></DialogTitle>
+                <DialogContent dividers>
+                    
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Hospitals.</span><br/> TrAMS+ offers a web platform for hospital personnel to present their medical supplies inventory which could be used by proper channels to effectively allocate and distribute medical supplies.
+                    </Typography>
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Government Agencies.</span><br/> Government agencies, such as Local Government Units, could use the TrAMS+ platform in identifying hospitals within their jurisdiction which might need assistance especially during the COVID-19 pandemic. 
+
+                    </Typography>
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Donors.</span><br/> Individuals, groups of people or organizations that are willing to help by donating medical supplies and other necessary resources may use TrAMS+ to identify hospitals that greatly need assistance during this pandemic.
+                    </Typography> 
+                </DialogContent>
+            </div>
+            <div >
+                <DialogTitle id="alert-dialog-title"><Typography variant="h6" gutterBottom>
+                Main Features
+                    </Typography></DialogTitle>
+                <DialogContent dividers>
+                    
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Hospitals & Supplies </span><br/>Medical supplies tracking made easier! Use this feature to sort and filter hospitals according to their needs.
+                    </Typography>
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Donate </span><br/> Click to donate! Reach out to hospitals through the TrAMS Donate feature. 
+
+                    </Typography>
+                    <Typography align="left" gutterBottom>
+                        <span style={{fontWeight:500}}>Map</span><br/> Click on a hospital and find their locations on the map! Click on its location to also see nearby medical suppliers.
+                    </Typography> 
                 </DialogContent>
             </div>
         

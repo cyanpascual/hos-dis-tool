@@ -114,8 +114,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 const FilterList = () => {
-    const { hospitalsShown,setHospitalsShown,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
-    const [userInput, setUserInput] = useState("")
+    const {hospitalList, filterSetting, filterLevel,selectedProvince, selectedCity } = useContext(FeaturesContext);
     const { setSelectedHospital,goToSelected } = useContext(MapsContext)
 
     
@@ -193,18 +192,26 @@ const FilterList = () => {
       return(<img title={supply + ': Well Supplied'} className="smallPicture" src={iconList[supply+"_high"]} alt="well-supplied"/>)
     }
 
-   
-
-    const [selected, setSelected] = useState([]);
+    console.log('fasdfadfasdfa')
+    console.log(hospitalList)
     
     return (
       <div className="filterList" style={{backgroundColor:'#E3E2DF', minHeight:"75vh"}}>
         {hospitalList ? (
           <div>
             {
-        hospitalList.map((hospital)=>{
+        hospitalList
+        .filter((hospital)=> {
+          if (filterSetting === '' || filterLevel=== ''){
+            return(hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+          } else{
+            return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+          }
+           
+        })
+        .map((hospital)=>{
           return(<React.Fragment>
-          <div style={{borderLeft: `3px solid maroon`, width:"100%", maxWidth:500, padding:"10px", whiteSpace: 'nowrap'}}>
+          <div style={{width:"100%", maxWidth:500, padding:"15px", whiteSpace: 'nowrap'}}>
             <Grid container>
             <Grid item xs={12}>
               <Typography>
@@ -257,7 +264,7 @@ const FilterList = () => {
         )
       } 
           </div>
-        ) : (<div className="empty">No results.</div>)}
+        ) : (<div className="empty" style={{textAlign:"center"}}>No results.</div>)}
         
       </div>
     )

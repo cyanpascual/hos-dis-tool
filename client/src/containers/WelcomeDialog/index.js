@@ -62,10 +62,10 @@ export default function WelcomeDialog() {
 
   return (
     <div>
-      <Button color="primary" onClick={handleClickOpen}>
-        <Typography>How To Use</Typography>
+      <Button  color="secondary" onClick={handleClickOpen}>
+        About Us
       </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
 
         <DialogContent dividers>
           <WelcomeCarousel/>
