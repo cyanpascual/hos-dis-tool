@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const HospitalInfo = (props) => {
+const ValidatorInfo = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { username, setPage, user, setUser } = useContext(LoginContext);
 
@@ -100,33 +100,37 @@ const HospitalInfo = (props) => {
         </Grid>
         <Grid item container justify="flex-start" alignItems="flex-start" spacing={2}>
           <Grid item>
-            <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
-            <Divider />
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>DOH Level:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>City/Municipality:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Province:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>
-            {isEditMode ? <Input type="text" style={{width: 300, fontSize: 14}} name="Head" value={selectedHospital.properties.Head} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography>}<br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number/s:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Contact Numbers" value={selectedHospital.properties["Contact Numbers"]} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]} </Typography>}<br/>
-            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Website:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Website" value={selectedHospital.properties.Website} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website} </Typography>} <br/>
-          </Grid>  
+            <Typography style={{fontSize:18, fontWeight:500}}>Personnel</Typography>
+            <Divider/>
+            {!isEditMode? <div>
+              <Typography noWrap style={{fontSize:14, fontWeight:500}}>Surname:</Typography>
+              <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{user.properties.Surname}</Typography><br/>
+              <Typography noWrap style={{fontSize:14, fontWeight:500}}>First Name:</Typography>
+              <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{user.properties.Firstname}</Typography><br/>
+              <Typography noWrap style={{fontSize:14, fontWeight:500}}>Designation:</Typography>
+              <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{user.properties.Designation}</Typography><br/>
+              <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number:</Typography>
+              <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{user.properties.Contact}</Typography><br/>
+              <Typography noWrap style={{fontSize:14, fontWeight:500}}>E-mail Address:</Typography>
+              <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{user.properties.Email}</Typography><br/>
+            </div> : <div>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Surname:</Typography>
+            <Input type="text" style={{width: 300, fontSize: 14}} name="Surname" value={user.properties.Surname} onChange={handleOnChangeUser}/><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>First Name:</Typography>
+            <Input type="text" style={{width: 300, fontSize: 14}} name="Firstname" value={user.properties.Firstname} onChange={handleOnChangeUser}/><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Designation:</Typography>
+            <Input type="text" style={{width: 300, fontSize: 14}} name="Designation" value={user.properties.Designation} onChange={handleOnChangeUser}/><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number:</Typography>
+            <Input type="text" style={{width: 300, fontSize: 14}} name="Contact" value={user.properties.Contact} onChange={handleOnChangeUser}/><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>E-mail Address:</Typography>
+            <Input type="text" style={{width: 300, fontSize: 14}} name="Email" value={user.properties.Email} onChange={handleOnChangeUser}/>
+            </div>}
+          </Grid>
         </Grid>
       </Grid>
     </div>
   )
 }
 
-export default HospitalInfo
+export default ValidatorInfo
 
