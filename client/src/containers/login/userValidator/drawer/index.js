@@ -10,8 +10,8 @@ import {Grid, TextField, IconButton} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import FilterDialog from '../dialog';
-import { FeaturesContext } from '../../../contexts/FeaturesContext';
-import { MapsContext } from '../../../contexts/MapsContext';
+import { FeaturesContext } from '../../../../contexts/FeaturesContext';
+import { MapsContext } from '../../../../contexts/MapsContext';
 
 import {Table, Paper, TableHead, TableBody, TableCell} from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -93,11 +93,10 @@ const styles = (theme) => ({
 function Navigator(props) {
   const { classes, ...other } = props;
   const [age, setAge] = React.useState('');
-  const { hospitalList, setHospitalList } = useContext(FeaturesContext);
+  const { hospitalList, setHospitalList, searchTerm, setSearchTerm } = useContext(FeaturesContext);
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const [open, setOpen] = React.useState(false);
   const [sort, setSort] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   
@@ -126,6 +125,10 @@ function Navigator(props) {
   const searchTermChanged = (value) => {
     liveSearch(value)
     setSearchTerm(value);
+  }
+  const handleDefault = (e) => {
+    if (e.keyCode === 13 || e.which === 13)
+    e.preventDefault();
   }
 
   const liveSearch = (searchTerm) => {
@@ -159,15 +162,16 @@ function Navigator(props) {
     <Drawer variant="permanent" {...other} >
       <List disablePadding >
         <ListItem className={clsx(classes.header, classes.item)}>
-          <Grid container alignItems="flex-end" spacing={1}>
-            <Grid item xs={1}>
+          <Grid container alignItems="flex-end" spacing={0}>
+            <Grid item >
               {sort?
                 <IconButton onClick={() => setSort(!sort)}><FormatListNumbered/></IconButton> :
                 <IconButton onClick={() => setSort(!sort)}><SortByAlpha/></IconButton>}
             </Grid>
-            <Grid item xs={11}>
+            <Grid item xs>
               <form noValidate>  
-                <TextField style={{ width:"100%" }}label="Search Hospitals" value={ searchTerm } onChange={e => searchTermChanged(e.target.value)}/>
+                <TextField style={{ width:"100%" }} label="Search Hospitals" value={ searchTerm } 
+                onChange={e => searchTermChanged(e.target.value)} onKeyPress={handleDefault}/>
               </form>
             </Grid>
           </Grid>
@@ -180,7 +184,7 @@ function Navigator(props) {
           </Grid>
         </ListItem>
         <br/>
-        <div style={{height:'70vh', overflowX: 'hidden' ,overflowY: 'auto'}}>
+        <div style={{height:'63vh', overflowX: 'hidden' ,overflowY: 'auto'}}>
           <Paper className={classes.table}><TableContainer><Table size="small">
             <TableBody>
               {hospitalList ? 

@@ -6,6 +6,7 @@ import { createMuiTheme} from '@material-ui/core/styles';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 import { FeaturesContext } from '../contexts/FeaturesContext';
+import NotFound from './notFound';
 import Login from './login';
 import Main from './main'
 import Donate from './DonateDialog';
@@ -188,6 +189,9 @@ function App(props) {
         <Route path='/' component={Main} exact/>
         <Route path='/validatorUpdate' component={Login} exact/>
         <Route path='/donate' component={Donate}/>
+        <Route path="*">
+          <NotFound/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

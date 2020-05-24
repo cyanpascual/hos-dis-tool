@@ -58,7 +58,7 @@ export default function UpdateDialog() {
   return (
     <div>
       <Button color="secondary" onClick={handleClickOpen} >
-        Update
+        Update Hospitals
       </Button>
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
