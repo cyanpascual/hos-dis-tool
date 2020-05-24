@@ -1,13 +1,13 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../../contexts/MapsContext';
-import { LoginContext } from '../../../../contexts/LoginContext';
+import { MapsContext } from '../../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../../contexts/LoginContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
-import simple_high from '../../../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../../../assets/levelIndicators/simple_low.png'
-import simple_none from '../../../../assets/levelIndicators/simple_none.png'
+import simple_high from '../../../../../assets/levelIndicators/simple_high.png'
+import simple_med from '../../../../../assets/levelIndicators/simple_mid.png'
+import simple_low from '../../../../../assets/levelIndicators/simple_low.png'
+import simple_none from '../../../../../assets/levelIndicators/simple_none.png'
 
 import { Typography } from '@material-ui/core';
 

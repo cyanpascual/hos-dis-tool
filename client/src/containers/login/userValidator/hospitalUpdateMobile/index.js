@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useContext,useState} from 'react';
+import { createStyles, makeStyles, useTheme} from '@material-ui/core/styles';
+
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import HospitalSupply from '../hospitalSupply';
-import ValidatorInfo from '../validatorInfo';
-import HospitalInfo from '../hospitalInfo';
+
+import HospitalSupply from './hospitalSupplies';
+import HospitalInfo from './hospitalInfo';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      padding: 0,
+      margin: 0
+    }
+
+  }),
+);
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,17 +57,13 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: '100%',
-  },
-}));
 
-export default function HospitalTabs() {
+const HospitalUpdateMobile = (props) => {
+  const [value, setValue] = React.useState(0);
+
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -65,13 +74,12 @@ export default function HospitalTabs() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.container}>
       <AppBar position="static" color="default">
         <Tabs value={value} onChange={handleChange} indicatorColor="primary"
           textColor="primary" variant="fullWidth">
           <Tab label="Hospital Details" {...a11yProps(0)} />
           <Tab label="Hospital Supplies" {...a11yProps(1)} />
-          <Tab label="Personnel Details" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -82,10 +90,10 @@ export default function HospitalTabs() {
         <TabPanel value={value} index={1} dir={theme.direction}>
           <HospitalSupply/>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <ValidatorInfo/>
-        </TabPanel>
       </SwipeableViews>
     </div>
-  );
+  )
 }
+
+export default HospitalUpdateMobile
+
