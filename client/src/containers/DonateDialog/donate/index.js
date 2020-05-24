@@ -1,13 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import {Typography} from '@material-ui/core';
-import HospitalUpdate from '../hospitalUpdate';
-import Navigator from '../drawer';
-import Header from '../header';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import HospitalDonate from '../donateScreen';
+import Navigator from '../../login/drawer';
+import Header from '../../login/header';
 import 'typeface-roboto';
+import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
 
 
@@ -122,17 +126,12 @@ theme = {
   },
 };
 
-const drawerWidth = 475;
+const drawerWidth = 400;
 
 const styles = {
   root: {
     display: 'flex',
     minHeight: '100vh',
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -157,15 +156,29 @@ const styles = {
   },
 };
 
-function Update(props) {
-  const { classes } = props;
+function DonateUser(props) {
+  const { classes, user } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { selectedHospital } = useContext(MapsContext)
+
+  const { setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  useEffect(()=>{    
+    const fetchData = async () => {
+      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
+      setHospitals(res.data);
+      setHospitalList(res.data);
+      setFacilities(res2.data);
+      setFacilitiesList(res2.data);
+    };
+
+    fetchData();
+  }, [])
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -174,7 +187,7 @@ function Update(props) {
 
           <Hidden smUp implementation="js">
             <Navigator
-              PaperProps={{ style: { width: '90%', backgroundColor:"#BAB8B2" } }}
+              PaperProps={{ style: { width: 300, backgroundColor:"#BAB8B2" } }}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
@@ -185,15 +198,12 @@ function Update(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />  
+          <Header user={user} onDrawerToggle={handleDrawerToggle} />  
           {selectedHospital ? 
-          <HospitalUpdate/> : 
-          <div style={{margin: 'auto'}}>
+          <HospitalDonate/> : 
             <Typography style={{fontSize:16, color:"gray", textAlign: 'center'}} >
               Select a hospital
             </Typography>
-          </div>
-            
           }
         </div>
       </div>
@@ -201,9 +211,9 @@ function Update(props) {
   );
 }
 
-Update.propTypes = {
+DonateUser.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Update);
+export default withStyles(styles)(DonateUser);
 

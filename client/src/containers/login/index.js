@@ -69,7 +69,7 @@ function Login() {
       setUsers(res.data);
       setHospitals(res2.data);
       setHospitalList(res2.data);
-      console.log(res2)
+      //console.log(res2.data)
     }
     
     fetchData();

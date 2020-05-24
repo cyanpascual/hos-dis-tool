@@ -26,7 +26,7 @@ import FeedbackDialog from '../FeedbackDialog';
 import UpdateDialog from '../UpdateDialog'
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
-import {FacebookShareButton, FacebookIcon, TwitterIcon, TwitterShareButton} from "react-share";
+
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
