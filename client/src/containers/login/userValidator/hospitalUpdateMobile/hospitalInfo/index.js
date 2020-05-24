@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      padding: 0,
-      margin: 0
+      padding: 5,
+      margin: 5
     }
 
   }),
