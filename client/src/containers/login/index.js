@@ -4,6 +4,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -77,7 +78,6 @@ function Login() {
   
   const handleLogin = () => {
     let ob = users.filter(data => data.properties.Username === username);
-    console.log(ob);
     if (ob.length > 0){
       if (ob[0].properties.Password === password){
         if (ob[0].type === 'Hospital'){

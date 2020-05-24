@@ -13,10 +13,9 @@ import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
-import { LoginContext } from '../contexts/LoginContext';
 import Login from './login';
-import Main from './main'
-import Donate from './DonateDialog';
+import Main from './main';
+import NotFound from './notFound';
 
 
 
@@ -222,7 +221,9 @@ function App(props) {
       <Switch>
         <Route path='/' component={Main} exact/>
         <Route path='/validatorUpdate' component={Login} exact/>
-        <Route path='/donate' component={Donate}/>
+        <Route path='*'>
+          <NotFound/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

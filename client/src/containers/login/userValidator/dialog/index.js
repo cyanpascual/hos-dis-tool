@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { FeaturesContext } from '../../../contexts/FeaturesContext';
+import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import IconButton from '@material-ui/core/IconButton';
 import FilterInput from './filterInput';
@@ -26,7 +26,7 @@ export default function FilterDialog() {
   const [region, setRegion] = React.useState('');
   const [province, setProvince] = React.useState('');
 
-  const { hospitals, resetHospitals, hospitalList, setHospitalList } = useContext(FeaturesContext);
+  const { hospitals, resetHospitals, hospitalList, setHospitalList, setSearchTerm } = useContext(FeaturesContext);
 
   const handleFilterChange = (event) => {
     setAge(Number(event.target.value) || '');
@@ -48,6 +48,7 @@ export default function FilterDialog() {
     setHospitalList(hospitals)
     setRegion('')
     setProvince('')
+    setSearchTerm('');
   }
 
   const liveFilterRegion = (region) => {

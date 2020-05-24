@@ -4,9 +4,10 @@ import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/sty
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import {Typography} from '@material-ui/core';
-import HospitalUpdate from '../hospitalUpdate';
-import Navigator from '../drawer';
-import Header from '../header';
+import HospitalUpdate from './hospitalUpdate';
+import HospitalUpdateMobile from './hospitalUpdateMobile'
+import Navigator from './drawer';
+import Header from './header';
 import 'typeface-roboto';
 import { MapsContext } from '../../../contexts/MapsContext';
 
@@ -128,6 +129,9 @@ const styles = {
   root: {
     display: 'flex',
     minHeight: '100vh',
+    [theme.breakpoints.up('md')]: {
+      width: '100vw'
+    }
   },
   paper: {
     padding: theme.spacing(2),
@@ -135,7 +139,7 @@ const styles = {
     color: theme.palette.text.secondary,
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -145,6 +149,7 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    width: '100%'
   },
   main: {
     flex: 1,
@@ -172,22 +177,30 @@ function Update(props) {
         <CssBaseline />
         <nav className={classes.drawer}>
 
-          <Hidden smUp implementation="js">
+          <Hidden mdUp implementation="js">
             <Navigator
-              PaperProps={{ style: { width: '90%', backgroundColor:"#BAB8B2" } }}
+              PaperProps={{ style: { width: '85vw', backgroundColor:"#BAB8B2" } }}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
             />
           </Hidden>
-          <Hidden xsDown implementation="css">
+          <Hidden smDown implementation="css">
             <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
           </Hidden>
         </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />  
           {selectedHospital ? 
-          <HospitalUpdate/> : 
+          <div>
+            <Hidden smUp implementation='js'>
+              <HospitalUpdateMobile/>
+            </Hidden>
+            <Hidden xsDown implementation='js'>
+              <HospitalUpdate/>
+            </Hidden>
+          </div>
+           : 
           <div style={{margin: 'auto'}}>
             <Typography style={{fontSize:16, color:"gray", textAlign: 'center'}} >
               Select a hospital
