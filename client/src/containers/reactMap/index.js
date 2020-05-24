@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useContext, useEffect} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import { Map, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -6,8 +6,7 @@ import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import L from 'leaflet'
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Search';
+
 
 
 

@@ -1,10 +1,9 @@
-import React, {useContext,useState} from 'react';
+import React, {useContext} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
-import { makeStyles } from '@material-ui/core/styles';
-import glass from '../../assets/logos/magnifying-glass-md.png';
+
 import Typography from '@material-ui/core/Typography';
-import Pagination from '@material-ui/lab/Pagination';
+
 
 import alcohol_high from '../../assets/levelIndicators/alcohol-green.png'
 import alcohol_med from '../../assets/levelIndicators/alcohol-yellow.png'
@@ -56,7 +55,7 @@ import ppe_med from '../../assets/levelIndicators/ppe-yellow.png'
 import ppe_low from '../../assets/levelIndicators/ppe-red.png'
 import ppe_none from '../../assets/levelIndicators/ppe-gray.png'
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+
  
 // import sanitizer_high from '../../assets/levelIndicators/sanitizer-green.png'
 // import sanitizer_med from '../../assets/levelIndicators/sanitizer-yellow.png'
@@ -98,16 +97,9 @@ import vitamins_none from '../../assets/levelIndicators/vitamins-gray.png'
 // import venti_low from '../../assets/levelIndicators/venti-red.png'
 // import venti_none from '../../assets/levelIndicators/venti-gray.png'
 
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box'
 import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
@@ -228,6 +220,7 @@ const FilterList = () => {
             <Grid item xs={10}>
               <Typography style={{fontSize:12, color:"gray"} } noWrap  gutterBottom>{"DOH Level: "}<span style={{color:"red"}}>{hospital.properties["DOH Level"]}</span></Typography>
               <Typography style={{fontSize:12, color:"gray"}} noWrap  gutterBottom>{hospital.properties.Address}</Typography>
+              <Typography style={{fontSize:12, color:"gray"}} noWrap  gutterBottom>Last Update: {hospital.properties["Last Update"]}</Typography>
               <div>
                 {imageChooser(hospital,"Alcohol")}
                 {imageChooser(hospital,"Disinfectant (Sterilium)")}

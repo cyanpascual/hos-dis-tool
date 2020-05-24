@@ -90,6 +90,11 @@ const HospitalInfo = () => {
             DOH Level: <span style={{color:"red"}}>{selectedHospital.properties["DOH Level"]}</span>
           </Typography>
         </ListItem>
+        <ListItem>
+          <Typography variant="subtitle1" color='textSecondary' gutterBottom>
+            Last Updated: <span style={{color:"red"}}>{selectedHospital.properties["Last Update"]}</span>
+          </Typography>
+        </ListItem>
         {/* <ListItem>
           <Typography variant="subtitle1" gutterBottom>
             Donate through:
@@ -136,42 +141,8 @@ const HospitalInfo = () => {
             </TableBody>
           </Table>
         </ListItem>
-        <Divider light/>
-        <ListItem>
-          <Typography variant="h6">FACILITIES NEAR</Typography>
-                
-        </ListItem>
-        <Divider light/>
-        
-          
-          {selectedHospital ? (
-                  facilitiesList.length !== 0 ?(
-                    facilities.filter((facility)=>getDistanceFromLatLonInKm(
-                        selectedHospital.geometry.Coordinates[1],
-                        selectedHospital.geometry.Coordinates[0],
-                        facility.geometry.coordinates[1],
-                        facility.geometry.coordinates[0],
-                        ) <= 0.6).map((facility) => {
-                        if(facility.properties != null){
-                            return(
-                              <React.Fragment>
-                              <ListItem>
-                              <List>
-                              <ListItem>Facility:{facility.properties.Name_of_Fa}</ListItem>
-                              <ListItem>Address:{facility.properties.Address}</ListItem>
-                              <ListItem>Contact Number:{facility.properties["Contact Numbers"]}</ListItem>
-                              </List>
-                              
-                              </ListItem>
-                              <Divider light/>
-                              </React.Fragment>
 
-
-                        )}})): (<Box mt="50%" width={1} fontWeight={500}>No recorded facilities within walking distance of selected hospital.</Box>)
-              ): (null)}
-          
-        
-        
+   
       </List>
     )
 }
