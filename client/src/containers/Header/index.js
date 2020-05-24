@@ -1,13 +1,26 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import HelpIcon from '@material-ui/icons/Help';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { withStyles } from '@material-ui/core/styles';
 import tramslogo from '../../assets/logos/tramsLogo.png';
@@ -17,9 +30,12 @@ import engglogo from '../../assets/logos/engineering.png';
 import geoplogo from '../../assets/logos/geop_light.png';
 import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
+import DonateDialog from '../DonateDialog';
+import VolunteerDialog from '../VolunteerDialog';
 import UpdateDialog from '../UpdateDialog'
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
+
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -48,14 +64,17 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { hospitalList,compareValues } = useContext(FeaturesContext);
+  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues } = useContext(FeaturesContext);
   const {setSelectedHospital, goToSelected} = useContext(MapsContext)
   var hospitalNames =[]
   var prioritizedHospitals=[]
   if(hospitalList){
       hospitalNames=hospitalList.map((hospital)=>{return(hospital.properties.Name_of_Ho)})
-      prioritizedHospitals = Array.from(hospitalList.sort(compareValues("priorityScore",'Descending')),x=>x)
+      
+      prioritizedHospitals = Array.from([...hospitalList].sort(compareValues("priorityScore",'Descending')),x=>x)
   }
+  console.log('************')
+  console.log(prioritizedHospitals)
 
   
   return (
@@ -64,7 +83,7 @@ function Header(props) {
       <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <img src={tramslogo} style={{height:"30px"}} alt="logo"/>
+              <img src={tramslogo} style={{height:"30px"}}/>
             </Grid>
             <Grid item>
                 <img src={uplogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
@@ -150,38 +169,68 @@ function Header(props) {
 
         
       </AppBar>
-      {/* <AppBar color="secondary" position="sticky" elevation={0}>
+      {/* {selectedHospital ? (null):
+      (<AppBar color="secondary" position="sticky" elevation={0}>
         <Grid xs={12}>
         <Typography style={{textAlign: 'center'}} className={classes.title}  gutterBottom>
                   Priority Hospitals
         </Typography>
         </Grid>
         
-        <Grid container direction="row"> 
+        <Grid container direction="row" spacing={2}  style={{flexGrow: 1}}> 
           {hospitalList && prioritizedHospitals.slice(0,4).map((hospital)=>{
             return(
               <Grid item xs={3}
-              style={{height:'22vh'}}>
-              <Card style={{height:'20vh'}}>
-                <CardContent>
-                  <Typography className={classes.title}  gutterBottom>
-                  {hospital.properties.Name_of_Ho}
-                  </Typography> 
-                </CardContent>
-                <CardActions>
-                <Button size="small" color="primary">
-                  Donate
-                </Button>
-                <Button size="small" color="primary">
-                  Share on Facebook
-                </Button>
-              </CardActions>
+              style={{height:'18vh', marginBottom:'10px'}}
+              spacing={2}>
+              <Card style={{height:'150px',padding:'20px'}}>
+                <Grid>
+                  <Grid item xs={12} style={{ width: 300, whiteSpace: 'nowrap' }}>
+                  <Box
+                    component="div"
+                    my={2}
+                    textOverflow="ellipsis"
+                    overflow="hidden"
+                    bgcolor="background.paper"
+                  >
+                  
+                    {hospital.properties.Name_of_Ho}
+               
+                  </Box>
+                  
+                  </Grid>
+
+                  <Grid item xs={6} >
+                    <Button size="small" color="primary"  onClick={()=>{
+                      setSelectedHospital(hospital);
+                      goToSelected(hospital);
+                    }}>
+                      Donate
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}  >
+                  <FacebookShareButton
+                  url={"https://trams.com.ph/"}
+                  quote={"Help " + hospital.properties.Name_of_Ho +" get donations"}
+                  className="Demo__some-network__share-button"
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+                <TwitterShareButton
+                  title={"Help"}
+                  url={"https://trams.com.ph/"}
+                >
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
+                  </Grid>
+                </Grid>
+
               </Card>
               </Grid>
             )
           })}
         </Grid>
-      </AppBar> */}
+      </AppBar>)} */}
     </React.Fragment>
   );
 }

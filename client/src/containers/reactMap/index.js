@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useContext, useEffect} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import { Map, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -6,8 +6,7 @@ import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import L from 'leaflet'
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Search';
+
 
 
 
@@ -36,10 +35,10 @@ export default function App() {
     }
 
     var facilityIcon = L.icon({
-          iconUrl: require("../../assets/markers/green.png"),
-          iconSize:[44,44],
-          iconAnchor:[22,44],
-          popupAnchor: [0,-40]  
+          iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
+          iconSize:[25,44],
+          iconAnchor:[12,44],
+          popupAnchor: [0,-40]
       })
 
  
@@ -49,21 +48,22 @@ export default function App() {
         //const L = require("leaflet");
         
         delete L.Icon.Default.prototype._getIconUrl;
-        
-        //for some reason, you need to do this too load the icons
+    
         L.Icon.Default.mergeOptions({
           iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-          iconUrl: require("../../assets/markers/red.png"),
-          iconSize:[44,44],
-          iconAnchor:[22,44],
-         
+          iconUrl: require("leaflet/dist/images/marker-icon.png"),
+          shadowUrl: require("leaflet/dist/images/marker-shadow.png")
         });
       }, []);
 
 
     const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity} = useContext(FeaturesContext);
-    const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport,  selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
-
+    const { closePopups,mapReference, setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
+    const things = {
+        lat: 51.505,
+        lng: -0.09,
+        zoom: 13,
+    }
     const position = [viewport.lat, viewport.lng]
 
 
@@ -91,8 +91,10 @@ export default function App() {
              .filter((hospital)=> {
                 if (filterSetting === '' || filterLevel=== ''){
                   return(hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
-                } 
-                return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                } else{
+                  return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                }
+                 
               })
              .map((hospital) => {
                 if(hospital.properties != null){return(
@@ -147,11 +149,7 @@ export default function App() {
                         </Popup>
                             
                         </Marker>
-                    )
-                
-                }
-                return(null)
-            })
+                    )}})
             ): null} 
         {selectedHospital ? (
         <Circle center={[selectedHospital.geometry.Coordinates[1],selectedHospital.geometry.Coordinates[0]]} radius={600}>
