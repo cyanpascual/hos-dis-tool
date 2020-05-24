@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
+import DonatePage from '../DonatePage'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 import { MapsContext } from '../../contexts/MapsContext';
@@ -192,7 +193,8 @@ function Main(props) {
           </Hidden>
         </nav>
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} />  
+          <Header onDrawerToggle={handleDrawerToggle} /> 
+          {/* {selectedHospital? (<DonatePage/>):(<ReactMap/>)} */}
           <ReactMap/>
         </div>
       </div>

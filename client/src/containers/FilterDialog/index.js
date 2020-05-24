@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,19 +13,9 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import FilterInput from './FilterInput';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },  
-}));
+
 
 export default function FilterDialog() {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [alertOpen, setAlertOpen] = React.useState(false);
 
@@ -39,9 +29,7 @@ export default function FilterDialog() {
     setOpen(false);
   };
 
-  const handleAlertOpen = () => {
-    setAlertOpen(true);
-  };
+
 
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
