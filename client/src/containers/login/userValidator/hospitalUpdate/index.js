@@ -1,6 +1,7 @@
 import React, {useContext,useState} from 'react';
 import { MapsContext } from '../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../contexts/LoginContext';
+import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalUpdate = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
+  const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -90,6 +92,12 @@ const HospitalUpdate = (props) => {
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
+    setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
+    setHospitalList(prevState => [
+      ...prevState,
+      selectedHospital
+    ])
+    setHospitals(hospitalList)
   }
 
   const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
@@ -97,7 +105,7 @@ const HospitalUpdate = (props) => {
     if (supply === "Other Needs"){
       return null
     }else{
-      if (currHospital.properties.Supply_Cur[supply] > 0){
+      if (currHospital.properties.Supply_Cap[supply] > 0){
         if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
           return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
         } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){

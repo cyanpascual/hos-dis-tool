@@ -78,7 +78,6 @@ function Login() {
   
   const handleLogin = () => {
     let ob = users.filter(data => data.properties.Username === username);
-    console.log(ob);
     if (ob.length > 0){
       if (ob[0].properties.Password === password){
         if (ob[0].type === 'Hospital'){
