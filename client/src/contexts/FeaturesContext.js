@@ -17,6 +17,7 @@ const FeaturesContextProvider = (props) => {
   const [selectedCity,setSelectedCity] = useState('')
   const [sortSetting, setSortSetting] = useState('Name_of_Ho');
   const [sortOrder, setSortOrder] = useState('Ascending');
+  const [searchTerm, setSearchTerm] = useState('');
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
 
   function compareValues(key, order = 'Ascending') {
@@ -49,7 +50,7 @@ const FeaturesContextProvider = (props) => {
       setFilterLevel('');
       setFilterSetting('');
       setSelectedProvince('');
-      
+      setSearchTerm('')
   } 
 
 
@@ -71,7 +72,8 @@ const FeaturesContextProvider = (props) => {
       filterLevel, setFilterLevel, 
       highlightedHospitals, setHightlightedHospitals,
       selectedCity,setSelectedCity,
-      resetHospitals }}>
+      resetHospitals, searchTerm,
+      setSearchTerm }}>
       {props.children}
     </FeaturesContext.Provider>
   );

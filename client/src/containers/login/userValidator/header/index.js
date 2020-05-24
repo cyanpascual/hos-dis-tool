@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {AppBar, Button, Grid, Hidden, IconButton, Toolbar} from '@material-ui/core';
-import { LoginContext } from '../../../contexts/LoginContext';
+import { LoginContext } from '../../../../contexts/LoginContext';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import FeedbackDialog from '../../FeedbackDialog';
-import tramslogo from '../../../assets/logos/tramsLogo.png';
-import uplogo from '../../../assets/logos/up.png';
-import dgelogo from '../../../assets/logos/dge.png';
-import engglogo from '../../../assets/logos/engineering.png';
+import FeedbackDialog from '../../../FeedbackDialog';
+import tramslogo from '../../../../assets/logos/tramsLogo.png';
+import uplogo from '../../../../assets/logos/up.png';
+import dgelogo from '../../../../assets/logos/dge.png';
+import engglogo from '../../../../assets/logos/engineering.png';
 //import geoplogo from '../../../assets/logos/geop_light.png';
 
 
@@ -69,14 +69,14 @@ function Header(props) {
         position="static" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
-            <Hidden smUp>
+            <Hidden mdUp>
               <Grid item xs={2}>
                 <IconButton color="inherit" aria-label="open drawer"
                   onClick={onDrawerToggle} className={classes.menuButton}>
                   <MenuIcon />
                 </IconButton>
               </Grid>
-            </Hidden>
+              </Hidden>
             <Grid item xs />
             {/*<Grid item>
                 <WelcomeDialog/>

@@ -23,8 +23,10 @@ const useStyles = makeStyles((theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      padding: '10px',
-      margin: '10px'
+      position: 'relative',
+      justifyContent: "center",
+      padding: 0,
+      margin: 0
     }
 
   }),
@@ -64,17 +66,30 @@ const HospitalSupply = (props) => {
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
-    if (value === '' || re.test(value)){
+    if (name !== "Other Needs"){
+      if (value === '' || re.test(value)){
+        setSelectedHospital({
+          ...selectedHospital,
+          properties: {
+            ...selectedHospital.properties,
+            Supply_Cur:{
+              ...selectedHospital.properties.Supply_Cur,
+             [name]: Math.abs(value),
+            }, "Last Update": username + ' on ' + date,
+          }
+        })
+      }
+    } else {
       setSelectedHospital({
         ...selectedHospital,
         properties: {
           ...selectedHospital.properties,
-          Supply_Cap:{
-            ...selectedHospital.properties.Supply_Cap,
-            [name]: Math.abs(value),
+          Supply_Cur:{
+            ...selectedHospital.properties.Supply_Cur,
+           [name]: value,
           }, "Last Update": username + ' on ' + date,
         }
-      })
+      })      
     }
   };
 
@@ -95,7 +110,7 @@ const HospitalSupply = (props) => {
 
   const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
   const imageChoose = (currHospital, supply) =>{
-    if (currHospital.properties.Supply_Cur[supply] > 0){
+    if (currHospital.properties.Supply_Cap[supply] > 0){
       if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
         return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
       } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
@@ -106,11 +121,8 @@ const HospitalSupply = (props) => {
   
   return (
     <div className={classes.container}>
-      <Grid container direction="column" justify="flex-start" alignItems="flex-start" spacing={0}>
+      <Grid container direction="column" justify="center" alignItems="flex-start" spacing={0}>
         <Grid item xs>
-          <IconButton onClick={() => setSelectedHospital(null)}>
-            <ArrowBackIcon/> <Typography variant="subtitle2">Back</Typography>
-          </IconButton>
           {isEditMode ? 
             <Grid container direction="row">
               <Grid item xs>
@@ -150,13 +162,14 @@ const HospitalSupply = (props) => {
                         </TableCell>
                         <TableCell>
                           {isEditMode? 
-                            <Input width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={() => handleOnChange()}/> 
-                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}                      
+                            <Input width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={handleOnChange}/> 
+                            : <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}                      
                         </TableCell>
                         <TableCell/>
                       </TableRow>
                     ) 
-                  } return(
+                  } else {
+                  return (
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                       <TableCell>
@@ -177,7 +190,7 @@ const HospitalSupply = (props) => {
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cap[supply]}</Typography>}
                       </TableCell>
                     </TableRow>
-                  )  
+                  )}  
                 })}
               </TableBody>
             </Table>
