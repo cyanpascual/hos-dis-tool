@@ -17,12 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const hospitalsRouter = require('./routes/hospitals');
+const newhospitalsRouter = require('./routes/hospital');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
 const loginRouter = require('./routes/login');
 
 
 app.use('/hospitals', hospitalsRouter);
+app.use('/h0zPiTaLs', newhospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/user', userRouter);
 app.use(express.static(path.join(__dirname, 'client/build')));
