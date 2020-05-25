@@ -1,13 +1,14 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../contexts/MapsContext';
-import { LoginContext } from '../../../contexts/LoginContext';
+import { MapsContext } from '../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../contexts/LoginContext';
+import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
-import simple_high from '../../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../../assets/levelIndicators/simple_low.png'
-import simple_none from '../../../assets/levelIndicators/simple_none.png'
+import simple_high from '../../../../assets/levelIndicators/simple_high.png'
+import simple_med from '../../../../assets/levelIndicators/simple_mid.png'
+import simple_low from '../../../../assets/levelIndicators/simple_low.png'
+import simple_none from '../../../../assets/levelIndicators/simple_none.png'
 
 import { Divider, Typography } from '@material-ui/core';
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+      width: '95%',
       padding: '10px',
       margin: '10px'
     }
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalUpdate = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
+  const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -44,21 +47,28 @@ const HospitalUpdate = (props) => {
     const {name, value} = event.target;
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
-    /*setHos((prevState) => {
-      prevState.properties.Supply_Cur[name] = value;
-      prevState.properties["Last Update"] = username + ' on ' + date;
-      return({
-        ...prevState
-      })
-    })*/
-    if (value === '' || re.test(value)){
+
+    if (name !== "Other Needs"){
+      if (value === '' || re.test(value)){
+        setSelectedHospital({
+          ...selectedHospital,
+          properties: {
+            ...selectedHospital.properties,
+            Supply_Cur:{
+              ...selectedHospital.properties.Supply_Cur,
+              [name]: Math.abs(value),
+            }, "Last Update": username + ' on ' + date,
+          }
+        })
+      }
+    }else {
       setSelectedHospital({
         ...selectedHospital,
         properties: {
           ...selectedHospital.properties,
           Supply_Cur:{
             ...selectedHospital.properties.Supply_Cur,
-            [name]: Math.abs(value),
+            [name]: value,
           }, "Last Update": username + ' on ' + date,
         }
       })
@@ -82,6 +92,12 @@ const HospitalUpdate = (props) => {
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
+    setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
+    setHospitalList(prevState => [
+      ...prevState,
+      selectedHospital
+    ])
+    setHospitals(hospitalList)
   }
 
   const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
@@ -89,7 +105,7 @@ const HospitalUpdate = (props) => {
     if (supply === "Other Needs"){
       return null
     }else{
-      if (currHospital.properties.Supply_Cur[supply] > 0){
+      if (currHospital.properties.Supply_Cap[supply] > 0){
         if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
           return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
         } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
@@ -101,7 +117,7 @@ const HospitalUpdate = (props) => {
 
   return (
     <div className={classes.container}>
-      <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={0}>
+      <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={1}>
         <Grid item xs={5}>
           <IconButton onClick={() => setSelectedHospital(null)}>
             <ArrowBackIcon/> <Typography variant="subtitle2">Back</Typography>
@@ -121,24 +137,26 @@ const HospitalUpdate = (props) => {
             </IconButton>}
           <Typography style={{fontSize:16, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
           <Divider/>
+          <Typography noWrap style={{fontSize:14, fontWeight:500}}>Hospital ID:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.HospitalID}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>DOH Level:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Address:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>City/Municipality:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Province:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Region:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Head/Contact Person:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Contact Number/s:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Website:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website}</Typography><br/>
           <Typography noWrap style={{fontSize:12, fontWeight:500}}>Last Updated:</Typography>
-          <Typography noWrap style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
+          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
         </Grid>
         <Grid item xs={7}>
           <TableContainer>
@@ -162,7 +180,7 @@ const HospitalUpdate = (props) => {
                         </TableCell>
                         <TableCell>
                           {isEditMode? 
-                            <Input width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={() => handleOnChange()}/> 
+                            <Input width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={(e) => handleOnChange(e)}/> 
                             :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}                      
                         </TableCell>
                         <TableCell/>

@@ -4,12 +4,9 @@ import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/sty
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import {Grid} from '@material-ui/core';
-import SideDrawer from './drawer';
-import HospitalInfo from './hospitalInfo';
-import HospitalSupply from './hospitalSupply';
-import Header from '../header';
+import TabPanel from './tabs';
+import Header from './header';
 import 'typeface-roboto';
-import { LoginContext } from '../../../contexts/LoginContext';
 
 
 
@@ -123,7 +120,7 @@ theme = {
   },
 };
 
-const drawerWidth = 475;
+
 
 const styles = {
   root: {
@@ -135,17 +132,11 @@ const styles = {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    overflow:"hidden"
-  },
   app: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    width: '100%'
   },
   main: {
     flex: 1,
@@ -162,7 +153,6 @@ function HospitalValidate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { page } = useContext(LoginContext)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -172,28 +162,9 @@ function HospitalValidate(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <nav className={classes.drawer}>
-
-          <Hidden smUp implementation="js">
-            <SideDrawer
-              PaperProps={{ style: { width: '90%', backgroundColor:"#BAB8B2" } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <SideDrawer PaperProps={{ style: { width: drawerWidth, backgroundColor:"#BAB8B2" } }} />
-          </Hidden>
-        </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} /> 
-          <Grid container direction="row" alignItems="flex-start" justify="flex-start" spacing={0}>
-            {page === '0' ? <p/>
-            :page === '1' ? <HospitalInfo/> 
-            :page === '2' ? <HospitalSupply/>
-            :<p/>}
-          </Grid>
+          <TabPanel/>
         </div>
       </div>
     </ThemeProvider>

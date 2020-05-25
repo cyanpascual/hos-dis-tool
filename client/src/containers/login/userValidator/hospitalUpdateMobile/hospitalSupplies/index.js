@@ -1,13 +1,13 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../../contexts/MapsContext';
-import { LoginContext } from '../../../../contexts/LoginContext';
+import { MapsContext } from '../../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../../contexts/LoginContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
-import simple_high from '../../../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../../../assets/levelIndicators/simple_low.png'
-import simple_none from '../../../../assets/levelIndicators/simple_none.png'
+import simple_high from '../../../../../assets/levelIndicators/simple_high.png'
+import simple_med from '../../../../../assets/levelIndicators/simple_mid.png'
+import simple_low from '../../../../../assets/levelIndicators/simple_low.png'
+import simple_none from '../../../../../assets/levelIndicators/simple_none.png'
 
 import { Typography } from '@material-ui/core';
 
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-      padding: 5,
-      margin: 5
+      padding: 0,
+      margin: 0
     }
 
   }),
@@ -72,24 +72,6 @@ const HospitalSupply = (props) => {
     }
   };
 
-  const handleOnChangeNeed = (event) => {
-    const {name, value} = event.target;
-    var date = new Date().toLocaleString()
-    const re = /^[0-9\b]+$/;
-
-    if (value === '' || re.test(value)){
-      setSelectedHospital({
-        ...selectedHospital,
-        properties: {
-          ...selectedHospital.properties,
-          Supply_Cap:{
-            ...selectedHospital.properties.Supply_Cap,
-            [name]: Math.abs(value),
-          }, "Last Update": username + ' on ' + date,
-        }
-      })
-    }
-  };
 
   const handleCancel = (event) => {
     setSelectedHospital(hos)
@@ -166,7 +148,7 @@ const HospitalSupply = (props) => {
                         </TableCell>
                         <TableCell/>
                       </TableRow>
-                    ) 
+                    )  
                   } return(
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
@@ -181,11 +163,7 @@ const HospitalSupply = (props) => {
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}
                       </TableCell>
                       <TableCell align="center">
-                      {isEditMode? 
-                        <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cap[supply]} 
-                            onChange={handleOnChangeNeed}/> </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cap[supply]}</Typography>}
+                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cap[supply]}</Typography>
                       </TableCell>
                     </TableRow>
                   )  

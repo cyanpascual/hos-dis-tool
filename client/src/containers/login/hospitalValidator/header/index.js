@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {AppBar, Button, Grid, Hidden, IconButton, Toolbar} from '@material-ui/core';
-import { LoginContext } from '../../../contexts/LoginContext';
+import { LoginContext } from '../../../../contexts/LoginContext';
 
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import FeedbackDialog from '../../FeedbackDialog';
-import tramslogo from '../../../assets/logos/tramsLogo.png';
-import uplogo from '../../../assets/logos/up.png';
-import dgelogo from '../../../assets/logos/dge.png';
-import engglogo from '../../../assets/logos/engineering.png';
+import tramslogo from '../../../../assets/logos/tramsLogo.png';
+import uplogo from '../../../../assets/logos/up.png';
+import dgelogo from '../../../../assets/logos/dge.png';
+import engglogo from '../../../../assets/logos/engineering.png';
 //import geoplogo from '../../../assets/logos/geop_light.png';
 
 
@@ -38,11 +38,56 @@ const styles = (theme) => ({
   },
 });
 
+const theme = createMuiTheme(
+  {
+    palette: {
+      primary: {
+        light: '#993232',
+        main: '#800000',
+        dark: '#660000',
+      },
+      secondary: {
+        light: '#993232',
+        main: '#FFFFFE',
+        dark: '#660000',
+      },
+    },
+    shape: {
+      borderRadius: 8,
+    },
+    props: {
+      MuiTab: {
+        disableRipple: true,
+      },
+    },
+    mixins: {
+      toolbar: {
+        minHeight: 48,
+      },
+    },
+  }
+);
+
+theme.typography.h3 = {
+  fontSize: '4vw',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: 18,
+  }, fontWeight: 500
+};
+
+theme.typography.h4 = {
+  fontSize: '3vw',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: 14,
+  }, fontWeight: 500
+};
+
 function Header(props) {
   const { classes, onDrawerToggle } = props;
   const { user, logout } = useContext(LoginContext);
 
   return (
+    <ThemeProvider theme={theme}>
     <div position="absolute">
       <AppBar color="primary" position="sticky" elevation={0}>
       <Toolbar>
@@ -69,27 +114,18 @@ function Header(props) {
         position="static" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
-            <Hidden smUp>
-              <Grid item xs={2}>
-                <IconButton color="inherit" aria-label="open drawer"
-                  onClick={onDrawerToggle} className={classes.menuButton}>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-            </Hidden>
-            <Grid item xs />
             {/*<Grid item>
                 <WelcomeDialog/>
             </Grid> */}
-            <Grid item container spacing={1} alignItems="center" justify="flex-end" xs={10}>
+            <Grid item container spacing={0} alignItems="center" justify="flex-end" xs={12}>
               <Grid item>
-                <Typography style={{fontSize: 16, fontWeight: 500}}>Welcome, {user.properties.Firstname}!</Typography>
+                <Typography variant='h3'>Welcome, {user.properties.Firstname}!</Typography>
               </Grid>
               <Grid item>
                 <FeedbackDialog/>
               </Grid>
               <Grid item>
-                <Button style={{color: "white"}} onClick={() => logout()}>Logout</Button>
+                <Button style={{color: "white"}} onClick={() => logout()}><Typography variant='h4'>LOGOUT</Typography></Button>
               </Grid>
             </Grid>
           </Grid>
@@ -97,6 +133,7 @@ function Header(props) {
         
       </AppBar>
     </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../../contexts/MapsContext';
-import { LoginContext } from '../../../../contexts/LoginContext';
+import { MapsContext } from '../../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../../contexts/LoginContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -88,6 +88,8 @@ const HospitalInfo = (props) => {
           <Grid item>
             <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
             <Divider/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Hospital ID:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.HospitalID}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>DOH Level:</Typography>
             <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
@@ -99,14 +101,11 @@ const HospitalInfo = (props) => {
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
             <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>
-            {isEditMode ? <Input type="text" style={{width: 300, fontSize: 14}} name="Head" value={selectedHospital.properties.Head} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography>}<br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number/s:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Contact Numbers" value={selectedHospital.properties["Contact Numbers"]} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]} </Typography>}<br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]} </Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Website:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Website" value={selectedHospital.properties.Website} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website} </Typography>} <br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website} </Typography> <br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Last Updated:</Typography>
             <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
           </Grid>  
