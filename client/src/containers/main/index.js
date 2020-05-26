@@ -7,7 +7,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
-import DonatePage from '../DonatePage'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 

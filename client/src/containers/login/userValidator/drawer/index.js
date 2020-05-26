@@ -2,7 +2,6 @@ import React,{useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import {Drawer, List, ListItem} from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
@@ -13,7 +12,7 @@ import FilterDialog from '../dialog';
 import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../../contexts/MapsContext';
 
-import {Table, Paper, TableHead, TableBody, TableCell} from '@material-ui/core';
+import {Table, Paper, TableBody, TableCell} from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
@@ -95,10 +94,8 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
-  const [age, setAge] = React.useState('');
-  const { hospitalList, setHospitalList, searchTerm, setSearchTerm } = useContext(FeaturesContext);
-  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const [open, setOpen] = React.useState(false);
+  const { hospitalList, setHospitalList, hospitals, searchTerm, setSearchTerm } = useContext(FeaturesContext);
+  const { setSelectedHospital } = useContext(MapsContext)
   const [sort, setSort] = useState(true);
   
   const [page, setPage] = useState(0);
@@ -111,19 +108,6 @@ function Navigator(props) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-  const [hospitals, setHospitals] = useState(hospitalList);
-
-  const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const searchTermChanged = (e) => {
@@ -157,8 +141,8 @@ function Navigator(props) {
     }));
   } else {
     setHospitalList(hospitalList.sort(function(a,b){
-      var x = a.properties.HospitalID;
-      var y = b.properties.HospitalID;
+      var x = parseInt(a.properties.HospitalID);
+      var y = parseInt(b.properties.HospitalID);
       if (x<y) {return -1;}
       if (x>y) {return 1;}
       return 0;
@@ -206,6 +190,9 @@ function Navigator(props) {
                       </Grid>
                       <Grid item xs={10}>
                         <Typography style={{fontSize:10, color:"gray"}} gutterBottom>{hospital.properties.Address}</Typography>
+                      </Grid>
+                      <Grid item xs={10}>
+                        <Typography style={{fontSize:10, color:"gray"}} gutterBottom>HospitalID: {hospital.properties.HospitalID}</Typography>
                       </Grid>
                     </Grid>
                   </div></Button></TableCell>

@@ -1,9 +1,7 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import {Grid} from '@material-ui/core';
 import TabPanel from './tabs';
 import Header from './header';
 import 'typeface-roboto';

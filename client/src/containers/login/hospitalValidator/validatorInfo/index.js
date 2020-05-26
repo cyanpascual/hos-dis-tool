@@ -1,5 +1,4 @@
 import React, {useContext,useState} from 'react';
-import { MapsContext } from '../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../contexts/LoginContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
@@ -10,7 +9,6 @@ import {IconButton, Input, Grid} from '@material-ui/core';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,13 +23,9 @@ const useStyles = makeStyles((theme) =>
 );
 
 const HospitalInfo = (props) => {
-  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { username, setPage, user, setUser } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
 
-  const [hos, setHos] = useState(selectedHospital);
   const [origUser, setOrigUser] = useState(user)
-
-  
   const [isEditMode, setIsEditMode] = useState(false);
 
   const classes = useStyles();
@@ -48,21 +42,15 @@ const HospitalInfo = (props) => {
   }
 
   const handleCancel = (event) => {
-    setSelectedHospital(hos)
     setUser(origUser)
     setIsEditMode(!isEditMode)
   }
 
   const handleSubmit = () => {
-    console.log(selectedHospital);
-    axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
-      .then(res => console.log(res.data))
-      .catch(error => console.log(error))
-    axios.post(`https://trams-up-dge.herokuapp.com/user/update/${user._id}`, user )
+    axios.post(`https://trams-up-dge.herokuapp.com/uz3rz/update/${user._id}`, user )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
-    setHos(selectedHospital);
     setOrigUser(user);
   }
   
