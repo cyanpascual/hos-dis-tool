@@ -12,6 +12,7 @@ body {
   background-color: #bbbbbb;
 }
 
+svg {height: auto; width: auto}
 
 .map {
   height: 100%;

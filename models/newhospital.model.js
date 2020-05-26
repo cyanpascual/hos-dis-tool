@@ -23,7 +23,7 @@ const hospitalSchema = new Schema({
       "type": "String" // Facility Name
     },
     "hfhudcode": {
-      "type": "Date"  // Unique identifier for the health facility based on the National Health Facility Registry
+      "type": "String"  // Unique identifier for the health facility based on the National Health Facility Registry
     },
     "address": {
       "type": "String" // Full Address
@@ -185,6 +185,6 @@ const hospitalSchema = new Schema({
   }
 });
 
-const Hospital = mongoose.model('Hospital', hospitalSchema);
+const Hospital = mongoose.model('New Hospital', hospitalSchema, 'newhospitals');
 
 module.exports = Hospital;
