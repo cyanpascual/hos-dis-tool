@@ -10,12 +10,8 @@ import L from 'leaflet'
 
 
 
+
 export default function App() {
-
-
-    
-
-
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -36,8 +32,8 @@ export default function App() {
 
     var facilityIcon = L.icon({
           iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
-          iconSize:[25,44],
-          iconAnchor:[12,44],
+          iconSize:[50,50],
+          iconAnchor:[25,50],
           popupAnchor: [0,-40]
       })
 
@@ -50,20 +46,16 @@ export default function App() {
         delete L.Icon.Default.prototype._getIconUrl;
     
         L.Icon.Default.mergeOptions({
-          iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-          iconUrl: require("leaflet/dist/images/marker-icon.png"),
-          shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+          iconUrl: require("../../assets/markers/red50.png"),
+          iconSize:[50,50],
+          iconAnchor:[25,50],
+          popupAnchor: [0,-40]
         });
       }, []);
 
 
     const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity} = useContext(FeaturesContext);
-    const { closePopups,mapReference, setMapReference, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
-    const things = {
-        lat: 51.505,
-        lng: -0.09,
-        zoom: 13,
-    }
+    const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
     const position = [viewport.lat, viewport.lng]
 
 

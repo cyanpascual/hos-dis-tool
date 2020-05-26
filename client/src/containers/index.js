@@ -1,17 +1,9 @@
 import React, {useContext, useEffect} from 'react';
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Navigator from './Navigator';
-import Header from './Header';
-import ReactMap from './reactMap'
+import { createMuiTheme} from '@material-ui/core/styles';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import { MapsContext } from '../contexts/MapsContext';
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import Login from './login';
 import Main from './main';

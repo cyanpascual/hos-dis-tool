@@ -1,19 +1,15 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
 import DonatePage from '../DonatePage'
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import { MapsContext } from '../../contexts/MapsContext';
-import { FeaturesContext } from '../../contexts/FeaturesContext';
 
 
 
@@ -166,8 +162,6 @@ function Main(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { compareValues, setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
-  const { viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
