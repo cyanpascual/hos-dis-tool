@@ -27,6 +27,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { CircularProgressbar, buildStyles, CircularProgressbarWithChildren, } from 'react-circular-progressbar';
 
 const HospitalInfo = () => {
     const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
@@ -124,8 +125,7 @@ const HospitalInfo = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Item</TableCell>
-                <TableCell>Supply Count</TableCell>
-                <TableCell>Weekly Needs</TableCell>
+                <TableCell>Current Supply vs Weekly Supply</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -133,8 +133,29 @@ const HospitalInfo = () => {
                   return(
                     <TableRow>
                       <TableCell>{supply}</TableCell>
-                      <TableCell>{selectedHospital.properties.Supply_Cur[supply]}</TableCell>
-                      <TableCell>{selectedHospital.properties.Supply_Cap[supply]}</TableCell>
+                      <TableCell style={{ width: 150,height: 150}}>
+                      <CircularProgressbarWithChildren
+                          value={(selectedHospital.properties.Supply_Cur[supply]/selectedHospital.properties.Supply_Cap[supply])*100}
+    
+                          styles={buildStyles({
+                            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                            strokeLinecap: 'butt',
+                        
+                            // Text size
+                        
+                            textAlign:"center",
+                        
+                            // Colors
+                            pathColor: `rgba(128, 0, 0, ${selectedHospital.properties.Supply_Cur[supply]/selectedHospital.properties.Supply_Cap[supply]})`,
+                            textColor: '#000',
+                            trailColor: '#d6d6d6',
+                            backgroundColor: '#3e98c7',
+                          })}
+                        >
+                        {`${(selectedHospital.properties.Supply_Cur[supply])}/${selectedHospital.properties.Supply_Cap[supply]}`} 
+                        </CircularProgressbarWithChildren>
+                      </TableCell>
+         
                     </TableRow>
                   )
                 })}
