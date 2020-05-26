@@ -16,7 +16,6 @@ import {IconButton, Input, Grid, TextField} from '@material-ui/core';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -35,9 +34,7 @@ const HospitalSupply = (props) => {
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
-  
   const [isEditMode, setIsEditMode] = useState(false);
-
   const classes = useStyles();
 
   const handleOnChange = (event) => {
@@ -75,12 +72,10 @@ const HospitalSupply = (props) => {
 
   const handleCancel = (event) => {
     setSelectedHospital(hos)
-    console.log(selectedHospital);
     setIsEditMode(!isEditMode)
   }
 
   const handleSubmit = () => {
-    console.log(selectedHospital);
     axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))

@@ -1,11 +1,10 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, Grid, Hidden, IconButton, Toolbar} from '@material-ui/core';
+import {AppBar, Button, Grid, Toolbar} from '@material-ui/core';
 import { LoginContext } from '../../../../contexts/LoginContext';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import FeedbackDialog from '../../FeedbackDialog';
 import tramslogo from '../../../../assets/logos/tramsLogo.png';
 import uplogo from '../../../../assets/logos/up.png';
@@ -83,7 +82,7 @@ theme.typography.h4 = {
 };
 
 function Header(props) {
-  const { classes, onDrawerToggle } = props;
+  const { classes } = props;
   const { user, logout } = useContext(LoginContext);
 
   return (

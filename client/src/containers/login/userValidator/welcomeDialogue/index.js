@@ -2,12 +2,12 @@ import React from 'react';
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
+import { Typography } from '@material-ui/core';
 
 const styles = (theme) => ({
   root: {
@@ -59,11 +59,43 @@ theme.typography.h4 = {
   }, fontWeight: 500
 };
 
+const styles = {
+  root: {
+    display: 'flex',
+    minHeight: '100vh',
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidthSmall,
+      flexShrink: 0,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: drawerWidthMedium,
+      flexShrink: 0,
+    },
+    overflow:"hidden"
+  },
+  app: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  main: {
+    flex: 1,
+    padding: theme.spacing(6, 4),
+    background: '#eaeff1',
+  },
+  footer: {
+    padding: theme.spacing(2),
+    background: '#eaeff1',
+  },
+};
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-export default function WelcomeSlide() {
+function WelcomeSlide() {
   const { user } = useContext(LoginContext);
   const [open, setOpen] = React.useState(false);
 
@@ -78,26 +110,23 @@ export default function WelcomeSlide() {
   return (
     <div>
       <Button color="inherit" onClick={handleClickOpen}>
-        Welcome
+        <Typography variant='h3'>HELP</Typography>
       </Button>
       <Dialog open={open} TransitionComponent={Transition}
         keepMounted onClose={handleClose}>
-        <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">Hello, {user.properties.Firstname}!</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            This interface is solely for volunteers and staff under the TrAMS project. 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Agree
+            Close
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+} 
+export default withStyles(style)(WelcomeDialogue)

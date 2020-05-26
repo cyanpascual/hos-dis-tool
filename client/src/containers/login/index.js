@@ -4,7 +4,6 @@ import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -64,7 +63,7 @@ function Login() {
   useEffect(() => {
     setHelperText('');
     const fetchData = async () => {
-      const res = await axios('https://trams-up-dge.herokuapp.com/user', );
+      const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
       
       setUsers(res.data);

@@ -8,7 +8,6 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 const styles = (theme) => ({
   root: {
@@ -80,12 +79,6 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
 
 export default function FeedbackDialog() {
   const [open, setOpen] = React.useState(false);
@@ -109,7 +102,7 @@ export default function FeedbackDialog() {
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
         <DialogContent dividers>
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdrIYT9pmBIra0N6oBko4IMkoOeRLLZaHMiEyT4-MtdZEkg5A/viewform?embedded=true" 
+          <iframe title="feedback" src="https://docs.google.com/forms/d/e/1FAIpQLSdrIYT9pmBIra0N6oBko4IMkoOeRLLZaHMiEyT4-MtdZEkg5A/viewform?embedded=true" 
             frameborder="0" marginheight="0" marginwidth="0" className="formWindow" width="100%" height="100%">Loading…</iframe>
         </DialogContent>
       </Dialog>
