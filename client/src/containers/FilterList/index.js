@@ -183,9 +183,6 @@ const FilterList = () => {
       } 
       return(<img title={supply + ': Well Supplied'} className="smallPicture" src={iconList[supply+"_high"]} alt="well-supplied"/>)
     }
-
-    console.log('fasdfadfasdfa')
-    console.log(hospitalList)
     
     return (
       <div className="filterList" style={{backgroundColor:'#E3E2DF', minHeight:"75vh"}}>
@@ -221,24 +218,35 @@ const FilterList = () => {
               <Typography style={{fontSize:12, color:"gray"} } noWrap  gutterBottom>{"DOH Level: "}<span style={{color:"red"}}>{hospital.properties["DOH Level"]}</span></Typography>
               <Typography style={{fontSize:12, color:"gray"}} noWrap  gutterBottom>{hospital.properties.Address}</Typography>
               <Typography style={{fontSize:12, color:"gray"}} noWrap  gutterBottom>Last Update: {hospital.properties["Last Update"]}</Typography>
-              <div>
-                {imageChooser(hospital,"Alcohol")}
-                {imageChooser(hospital,"Disinfectant (Sterilium)")}
-                {imageChooser(hospital,"Antibacterial Soap")}
-                {imageChooser(hospital,"Surgical Gowns")} 
-                {imageChooser(hospital,"Surgical Masks")} 
-                {imageChooser(hospital,"N95 Masks")} 
-                {imageChooser(hospital,"Gloves")} 
-              </div>
-              <div>
-                {imageChooser(hospital,"Shoe covers")} 
-                {imageChooser(hospital,"PPE")} 
-                {imageChooser(hospital,"Goggles and face shields")} 
-                {imageChooser(hospital,"Testing Kits")}
-                {imageChooser(hospital,"Tissue")}
-                {imageChooser(hospital,"Vitamins")}
-                {imageChooser(hospital,"Food (Meals)")}
-              </div>
+              {
+                filterSetting === '' ? (<React.Fragment>
+                  <div>
+                  {imageChooser(hospital,"Alcohol")}
+                  {imageChooser(hospital,"Disinfectant (Sterilium)")}
+                  {imageChooser(hospital,"Antibacterial Soap")}
+                  {imageChooser(hospital,"Surgical Gowns")} 
+                  {imageChooser(hospital,"Surgical Masks")} 
+                  {imageChooser(hospital,"N95 Masks")} 
+                  {imageChooser(hospital,"Gloves")} 
+                </div>
+                <div>
+                  {imageChooser(hospital,"Shoe covers")} 
+                  {imageChooser(hospital,"PPE")} 
+                  {imageChooser(hospital,"Goggles and face shields")} 
+                  {imageChooser(hospital,"Testing Kits")}
+                  {imageChooser(hospital,"Tissue")}
+                  {imageChooser(hospital,"Vitamins")}
+                  {imageChooser(hospital,"Food (Meals)")}
+                </div></React.Fragment>):(
+                  <Grid container width>
+                    <Grid item xs={6}>{imageChooser(hospital,filterSetting)}</Grid>
+
+                  </Grid>
+                  
+                  )
+              }
+              
+              
             </Grid>
             <Grid style={{ paddingTop:"8%"}} alignItems="baseline" item xs={2}>
               <IconButton onClick={(e)=>{
