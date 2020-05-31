@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
+import Drawer from '@material-ui/core/Drawer';
+import { useMediaQuery } from '@material-ui/core';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 
@@ -129,6 +134,7 @@ const styles = {
   root: {
     display: 'flex',
     minHeight: '100vh',
+    flexGrow: 1,
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -155,6 +161,9 @@ const styles = {
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
+  MuiGridContainer:{
+    backgroundColor:"blue"
+  }
 };
 
 function Main(props) {
@@ -166,14 +175,24 @@ function Main(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true
+  });
 
+
+  var variant = isDesktop ? "permanent":"temporary"
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
-        <CssBaseline />
-        <nav className={classes.drawer}>
-
-          <Hidden smUp implementation="js">
+        <CssBaseline/>
+        <Drawer
+          anchor="left"
+          variant={variant}
+        >
+          Hello World
+        </Drawer>
+        {/* <nav className={classes.drawer}>
+          <Hidden lgUp implementation="js">
             <Navigator
               PaperProps={{ style: { width: drawerWidthSmall, backgroundColor:"#BAB8B2" } }}
               variant="temporary"
@@ -181,15 +200,31 @@ function Main(props) {
               onClose={handleDrawerToggle}
             />
           </Hidden>
-          <Hidden xsDown implementation="css">
+          <Hidden mdDown implementation="css">
             <Navigator PaperProps={{ style: { width: drawerWidthMedium, backgroundColor:"#BAB8B2" } }} />
           </Hidden>
-        </nav>
-        <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} /> 
-          {/* {selectedHospital? (<DonatePage/>):(<ReactMap/>)} */}
-          <ReactMap/>
-        </div>
+        </nav> */}
+        <main style={{width:"100%"}}>
+          <Grid style={{backgroundColor:"brown"}} container spacing={3}>
+            <Grid item 
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+            >
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+            <Grid item           
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}>
+              <Paper className={classes.paper}>xs=3</Paper>
+            </Grid>
+          </Grid>
+        </main>
+        
+
       </div>
     </ThemeProvider>
   );
