@@ -188,6 +188,7 @@ function Main(props) {
         <Drawer
           anchor="left"
           variant={variant}
+          width
         >
           Hello World
         </Drawer>

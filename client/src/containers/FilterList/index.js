@@ -240,7 +240,6 @@ const FilterList = () => {
                 </div></React.Fragment>):(
                   <Grid container width>
                     <Grid item xs={6}>{imageChooser(hospital,filterSetting)}</Grid>
-
                   </Grid>
                   
                   )
