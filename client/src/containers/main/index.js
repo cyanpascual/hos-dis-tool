@@ -136,6 +136,9 @@ const styles = {
     minHeight: '100vh',
     flexGrow: 1,
   },
+  shiftContent: {
+    paddingLeft: 240
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidthSmall,
@@ -161,9 +164,9 @@ const styles = {
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
-  MuiGridContainer:{
-    backgroundColor:"blue"
-  }
+  paper:{
+    height: "100%"
+  },
 };
 
 function Main(props) {
@@ -181,15 +184,18 @@ function Main(props) {
 
 
   var variant = isDesktop ? "permanent":"temporary"
+
+
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
+      <div className={`${props.classes.root} ${isDesktop ? props.classes.shiftContent: ""}`}>
         <CssBaseline/>
         <Drawer
           anchor="left"
           variant={variant}
+          style={{maxWidth:240}}
         >
-          Hello World
+          Hello Worldfasdfasdfasdfadfafasdfasdfa
         </Drawer>
         {/* <nav className={classes.drawer}>
           <Hidden lgUp implementation="js">
@@ -204,8 +210,7 @@ function Main(props) {
             <Navigator PaperProps={{ style: { width: drawerWidthMedium, backgroundColor:"#BAB8B2" } }} />
           </Hidden>
         </nav> */}
-        <main style={{width:"100%"}}>
-          <Grid style={{backgroundColor:"brown"}} container spacing={3}>
+          <Grid style={{backgroundColor:"brown", padding:"2% 5%"}} container spacing={5}>
             <Grid item 
             lg={8}
             md={12}
@@ -222,7 +227,6 @@ function Main(props) {
               <Paper className={classes.paper}>xs=3</Paper>
             </Grid>
           </Grid>
-        </main>
         
 
       </div>
