@@ -291,7 +291,7 @@ function Main(props) {
             xl={3}
             xs={12}>
               <div>
-                Marikina City
+                City Name
 
               </div>
               <FilterList/>
