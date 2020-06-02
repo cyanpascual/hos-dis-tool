@@ -213,7 +213,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path='/' component={Main} exact/>
-        <Route path='/loginUpdate' component={Login}/>
+        <Route path='/Login' component={Login}/>
         <PrivateRoute path='/privateUpdate' component={Login}/>
         <Route path='*'>
           <NotFound/>
