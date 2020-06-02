@@ -132,7 +132,7 @@ function PageFour(props){
         <Typography variant='h3' gutterBottom>
         Should you have any question or concerns, you may contact us through the following: <br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <EmailIcon/> trams.upd.edu.ph <br/>
+        <EmailIcon/> trams.upd@up.edu.ph <br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <FacebookIcon/> facebook.com/TheTrAMSProject. 
         </Typography>
