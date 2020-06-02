@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
+import { List, ListItem, Button, colors } from '@material-ui/core';
+
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
@@ -14,6 +16,12 @@ import Drawer from '@material-ui/core/Drawer';
 import { useMediaQuery } from '@material-ui/core';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
+import WorkIcon from '@material-ui/icons/Work';
+import BusinessIcon from '@material-ui/icons/Business';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import HelpIcon from '@material-ui/icons/Help';
+import FilterList from '../FilterList';
 
 
 
@@ -49,7 +57,7 @@ let theme = createMuiTheme({
     toolbar: {
       minHeight: 48,
     },
-  },
+  }
 });
 
 theme = {
@@ -133,8 +141,10 @@ const drawerWidthMedium = 500
 const styles = {
   root: {
     display: 'flex',
-    minHeight: '100vh',
     flexGrow: 1,
+  },
+  shiftContent: {
+    paddingLeft:0,
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -161,8 +171,36 @@ const styles = {
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
-  MuiGridContainer:{
-    backgroundColor:"blue"
+  paper:{
+    height: "92vh"
+  },
+  item: {
+    display: 'flex',
+    paddingTop: 0,
+    paddingBottom: 0,
+    width: "200px"
+  },
+  button: {
+    color: colors.blueGrey[800],
+    padding: '10px 30px',
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    letterSpacing: 0,
+    width: '100%',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '10px'
+  },
+  active: {
+    backgroundColor: "white",
+    fontWeight: 500,
+    '& $icon': {
+      color: "red"
+    }
   }
 };
 
@@ -181,17 +219,57 @@ function Main(props) {
 
 
   var variant = isDesktop ? "permanent":"temporary"
+
+
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline/>
+      <div className={`${props.classes.root} ${isDesktop ? props.classes.shiftContent: ""}`}>
+   
         <Drawer
           anchor="left"
           variant={variant}
-          width
+          style={{width:200}}
         >
-          Hello World
+          <List>
+            <ListItem
+            className={classes.item}
+            disableGutters
+              >
+                <Button activeClassName={classes.active} className={classes.button}>
+                  <div className={classes.icon}><BusinessIcon/></div>
+                {"Hospitals"}
+                </Button>
+            </ListItem>
+            <ListItem
+            className={classes.item}
+            disableGutters
+              >
+                <Button activeClassName={classes.active} className={classes.button}>
+                  <div className={classes.icon}><WorkIcon/></div>
+                {"Suppliers"}
+                </Button>
+            </ListItem>
+            <ListItem
+            className={classes.item}
+            disableGutters
+              >
+                <Button activeClassName={classes.active} className={classes.button}>
+                  <div className={classes.icon}><LocalHospitalIcon/></div>
+                {"Donation Drives"}
+                </Button>
+            </ListItem>
+            <ListItem
+            className={classes.item}
+            disableGutters
+              >
+                <Button activeClassName={classes.active} className={classes.button}>
+                  <div className={classes.icon}><HelpIcon/></div>
+                {"Help"}
+                </Button>
+            </ListItem>
+          </List>
         </Drawer>
+        
         {/* <nav className={classes.drawer}>
           <Hidden lgUp implementation="js">
             <Navigator
@@ -205,25 +283,29 @@ function Main(props) {
             <Navigator PaperProps={{ style: { width: drawerWidthMedium, backgroundColor:"#BAB8B2" } }} />
           </Hidden>
         </nav> */}
-        <main style={{width:"100%"}}>
-          <Grid style={{backgroundColor:"brown"}} container spacing={3}>
+
+          <Grid style={{ padding:"1% 1%"}} container spacing={4}>
+          <Grid item           
+            lg={4}
+            md={12}
+            xl={3}
+            xs={12}>
+              <div>
+                Marikina City
+
+              </div>
+              <FilterList/>
+            </Grid>
             <Grid item 
             lg={8}
             md={12}
             xl={9}
             xs={12}
             >
-              <Paper className={classes.paper}>xs=3</Paper>
+              <Paper className={classes.paper}><ReactMap/></Paper>
             </Grid>
-            <Grid item           
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}>
-              <Paper className={classes.paper}>xs=3</Paper>
-            </Grid>
+
           </Grid>
-        </main>
         
 
       </div>
