@@ -8,6 +8,7 @@ import { FeaturesContext } from '../contexts/FeaturesContext';
 import Login from './login';
 import Main from './main';
 import NotFound from './notFound';
+import PrivateRoute from "./login/PrivateRoute"
 
 
 
@@ -212,7 +213,8 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path='/' component={Main} exact/>
-        <Route path='/validatorUpdate' component={Login} exact/>
+        <Route path='/loginUpdate' component={Login}/>
+        <PrivateRoute path='/privateUpdate' component={Login}/>
         <Route path='*'>
           <NotFound/>
         </Route>

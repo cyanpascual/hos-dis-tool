@@ -162,7 +162,7 @@ const styles = {
   },
 };
 
-function Update(props) {
+function HospitalList(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { selectedHospital } = useContext(MapsContext)
@@ -214,9 +214,8 @@ function Update(props) {
   );
 }
 
-Update.propTypes = {
+HospitalList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Update);
-
+export default withStyles(styles)(HospitalList);

@@ -8,6 +8,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden'
+import FeedbackIcon from '@material-ui/icons/Feedback';
 
 const styles = (theme) => ({
   root: {
@@ -19,6 +21,9 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+  button: {
+    marginRight: -theme.spacing(1)
   },
 });
 
@@ -80,7 +85,8 @@ const DialogContent = withStyles((theme) => ({
 }))(MuiDialogContent);
 
 
-export default function FeedbackDialog() {
+function FeedbackDialog(props) {
+  const {classes} = props
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -92,12 +98,20 @@ export default function FeedbackDialog() {
 
   return (
     <ThemeProvider theme={theme}>
-      
+      <Hidden smDown>
         <Button color="inherit" onClick={handleClickOpen}>
           <Typography variant='h4'>
             FEEDBACK
           </Typography>
         </Button>
+      </Hidden>
+
+      <Hidden mdUp>
+        <IconButton color="inherit" onClick={handleClickOpen} className={classes.button}>
+          <FeedbackIcon/>
+        </IconButton>
+      </Hidden>
+
 
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
@@ -109,3 +123,5 @@ export default function FeedbackDialog() {
       </ThemeProvider>
   );
 }
+
+export default withStyles(styles)(FeedbackDialog)
