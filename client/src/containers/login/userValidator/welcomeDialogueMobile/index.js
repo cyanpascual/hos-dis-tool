@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {LoginContext} from '../../../../contexts/LoginContext.js'
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import {IconButton, Button} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,12 +9,16 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import { Typography } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 import HelpCarousel from './carousel';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
+  },
+  icon: {
+    marginLeft: -theme.spacing(2)
   },
   closeButton: {
     position: 'absolute',
@@ -44,6 +48,9 @@ const styles = (theme) => ({
   footer: {
     padding: theme.spacing(2),
     background: '#eaeff1',
+  },  
+  button: {
+    marginRight: -theme.spacing(1)
   },
 });
 
@@ -89,7 +96,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-function WelcomeSlide(props) {
+function WelcomeSlideMobile(props) {
   const { classes } = props
   const { user, page, setPage, setLocPage } = useContext(LoginContext);
   const [open, setOpen] = React.useState(false);
@@ -106,9 +113,9 @@ function WelcomeSlide(props) {
 
   return (
     <div>
-      <Button color="inherit" onClick={handleClickOpen}>
-        <Typography variant='h4'>HELP</Typography>
-      </Button>
+      <IconButton color="inherit" onClick={handleClickOpen} className={classes.button}>
+        <InfoIcon/>
+      </IconButton>
       <Dialog disablePadding fullScreen open={open} TransitionComponent={Transition} keepMounted onClose={handleClose}
         BackdropProps={{
           style:{
@@ -119,7 +126,7 @@ function WelcomeSlide(props) {
         <DialogContent style={{margin: 0, padding: 0}}>
           <HelpCarousel user={user} pageno={0}/>
         </DialogContent>
-        {page === 5 ?        
+        {page === 3 ?        
           <DialogActions>
             <Button className={classes.dialogText} onClick={handleClose} color="primary">
               Close
@@ -130,4 +137,4 @@ function WelcomeSlide(props) {
     </div>
   );
 } 
-export default withStyles(styles)(WelcomeSlide)
+export default withStyles(styles)(WelcomeSlideMobile)

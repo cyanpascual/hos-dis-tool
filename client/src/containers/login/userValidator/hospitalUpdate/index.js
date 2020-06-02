@@ -49,14 +49,25 @@ const HospitalUpdate = (props) => {
     const re = /^[0-9\b]+$/;
 
     if (name !== "Other Needs"){
-      if (value === '' || re.test(value)){
+      if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
           properties: {
             ...selectedHospital.properties,
             Supply_Cur:{
               ...selectedHospital.properties.Supply_Cur,
-              [name]: Math.abs(value),
+              [name]: Math.abs(parseInt(value)),
+            }, "Last Update": username + ' on ' + date,
+          }
+        })
+      } else if (value === '') {
+        setSelectedHospital({
+          ...selectedHospital,
+          properties: {
+            ...selectedHospital.properties,
+            Supply_Cur:{
+              ...selectedHospital.properties.Supply_Cur,
+              [name]: value,
             }, "Last Update": username + ' on ' + date,
           }
         })
@@ -195,7 +206,7 @@ const HospitalUpdate = (props) => {
                       <TableCell align="center">
                       {isEditMode? 
                         <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cur[supply]} 
+                          <Input style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cur[supply]} 
                             onChange={handleOnChange}/> </Typography>
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}
                       </TableCell>
