@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) =>
     },
     card: {
       marginTop: theme.spacing(10)
+    },
+    dialog: {
+      
     }
 
   }),

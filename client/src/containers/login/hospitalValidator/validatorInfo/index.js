@@ -36,7 +36,7 @@ const HospitalInfo = (props) => {
       ...user,
       properties: {
         ...user.properties,
-        [name]: [value],
+        [name]: value,
         }
     })
   }
@@ -52,6 +52,7 @@ const HospitalInfo = (props) => {
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setOrigUser(user);
+    
   }
   
   return (
