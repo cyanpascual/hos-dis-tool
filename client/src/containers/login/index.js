@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) =>
     },
     card: {
       marginTop: theme.spacing(10)
+    },
+    dialog: {
+      
     }
 
   }),
@@ -95,10 +98,10 @@ function Login() {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
   const { hospitalList, setHospitalList, setHospitals } = useContext(FeaturesContext)
   const { setSelectedHospital } = useContext(MapsContext);
-  const { login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
+  const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
 
   const classes = useStyles();
-  const [users, setUsers] = useState('');
+  
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState(false);

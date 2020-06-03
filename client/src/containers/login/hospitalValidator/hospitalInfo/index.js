@@ -1,6 +1,7 @@
 import React, {useContext,useState} from 'react';
 import { MapsContext } from '../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../contexts/LoginContext';
+import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalInfo = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
+  const { hospitals, setHospitals, hospitalList, setHospitalList } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -39,7 +41,7 @@ const HospitalInfo = (props) => {
       ...selectedHospital,
       properties: {
         ...selectedHospital.properties,
-        [name]: [value],
+        [name]: value,
         }, "Last Update": username + ' on ' + date,
     })
   }
@@ -55,6 +57,12 @@ const HospitalInfo = (props) => {
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHos(selectedHospital);
+    setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
+    setHospitalList(prevState => [
+      ...prevState,
+      selectedHospital
+    ])
+    setHospitals(hospitalList)
   }
   
   return (
