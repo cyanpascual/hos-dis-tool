@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) =>
 );
 
 const HospitalInfo = (props) => {
-  const { user, setUser } = useContext(LoginContext);
+  const { user, setUser, users, setUsers } = useContext(LoginContext);
 
   const [origUser, setOrigUser] = useState(user)
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const [userList, setUserList] = useState(users)
   const classes = useStyles();
 
   const handleOnChangeUser = (event) => {
@@ -52,6 +52,12 @@ const HospitalInfo = (props) => {
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setOrigUser(user);
+    setUsers(userList.filter(usr => usr._id !== user._id))
+    setUsers(prevState => [
+      ...prevState,
+      user
+    ])
+    setUserList(users)
     
   }
   

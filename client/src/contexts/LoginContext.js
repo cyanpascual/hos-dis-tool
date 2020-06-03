@@ -12,17 +12,18 @@ const LoginContextProvider = (props) => {
   const [helperText, setHelperText] = useState('');
   const [page, setPage] = useState(0);
   const [locPage, setLocPage] = useState(0)
+  const [users, setUsers] = useState('');
 
   const logout = () => {
     setLogin(false);
     setUser(null);
     setUsername('');
-    setPassword('');
+    setPassword(''); 
     setHelperText('');
   }
 
   return(
-    <LoginContext.Provider value={{ login, setLogin, user, setUser, username, setUsername, password, setPassword, helperText, setHelperText, logout, page, setPage, locPage, setLocPage }}>
+    <LoginContext.Provider value={{ login, setLogin, user, setUser, username, setUsername, password, setPassword, helperText, setHelperText, logout, page, setPage, locPage, setLocPage, users, setUsers }}>
       {props.children}
     </LoginContext.Provider>
   );
