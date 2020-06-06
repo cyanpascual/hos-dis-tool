@@ -7,8 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
-import { List, ListItem, Button, colors } from '@material-ui/core';
-
+import { List, ListItem, Button, colors, Typography, AppBar, Divider } from '@material-ui/core';
 import Navigator from '../Navigator';
 import Header from '../Header';
 import ReactMap from '../reactMap'
@@ -22,6 +21,10 @@ import BusinessIcon from '@material-ui/icons/Business';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import HelpIcon from '@material-ui/icons/Help';
 import FilterList from '../FilterList';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 
 
@@ -142,9 +145,16 @@ const styles = {
   root: {
     display: 'flex',
     flexGrow: 1,
+    paddingTop:50
   },
-  shiftContent: {
-    paddingLeft:0,
+  mainGrid:{
+    margin: 20,
+
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+      maxWidth:"90vw",
+      paddingLeft: "9%",
+    }
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -172,7 +182,11 @@ const styles = {
     background: '#eaeff1',
   },
   paper:{
-    height: "92vh"
+    height: "50vh",
+    padding: "5px",
+    [theme.breakpoints.up('sm')]: {
+      height: "83vh"
+    }
   },
   item: {
     display: 'flex',
@@ -180,6 +194,25 @@ const styles = {
     paddingBottom: 0,
     width: "200px"
   },
+  mapCard:{
+    order: 3,
+    [theme.breakpoints.down('sm')]: {
+      order: 2,
+    },
+  },
+  listCard:{
+    order: 2,
+    [theme.breakpoints.down('sm')]: {
+      order: 3,
+    },
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    justifyContent: 'flex-end',
+  },
+    
   button: {
     color: colors.blueGrey[800],
     padding: '10px 30px',
@@ -207,10 +240,15 @@ const styles = {
 function Main(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  
+  const handleDrawerOpen = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -223,13 +261,37 @@ function Main(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={`${props.classes.root} ${isDesktop ? props.classes.shiftContent: ""}`}>
-   
+      <div className={`${props.classes.root}`}>
+        <AppBar>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              Persistent drawer
+            </Typography>
+          </Toolbar>
+          </AppBar>
         <Drawer
-          anchor="left"
+          anchor={isDesktop?"left":"bottom"}
           variant={variant}
+          open={drawerOpen}
           style={{width:200}}
         >
+          {!isDesktop ? (
+            <div className={classes.drawerHead}>
+              <IconButton onClick={handleDrawerOpen}>
+                <KeyboardArrowDownIcon/>
+              </IconButton>
+              <Divider/>
+            </div>):(null)}  
+
           <List>
             <ListItem
             className={classes.item}
@@ -284,27 +346,27 @@ function Main(props) {
           </Hidden>
         </nav> */}
 
-          <Grid style={{ padding:"1% 1%"}} container spacing={4}>
+        <Grid className={classes.mainGrid} container spacing={2}>
           <Grid item           
             lg={4}
             md={12}
             xl={3}
-            xs={12}>
+            xs={12}
+            className={classes.listCard}
+            >
               <div>
                 City Name
 
               </div>
               <FilterList/>
             </Grid>
-            <Grid item 
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-            >
+            <Grid item className={classes.mapCard} 
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}>
               <Paper className={classes.paper}><ReactMap/></Paper>
             </Grid>
-
           </Grid>
         
 
