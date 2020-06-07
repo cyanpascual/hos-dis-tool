@@ -19,7 +19,7 @@ const FeaturesContextProvider = (props) => {
   const [sortOrder, setSortOrder] = useState('Ascending');
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [supplyList, setSupplyList] = useState([]);
   function compareValues(key, order = 'Ascending') {
     return function innerSort(a, b) {
       if (!a.properties.hasOwnProperty(key) || !b.properties.hasOwnProperty(key)) {
@@ -72,7 +72,8 @@ const FeaturesContextProvider = (props) => {
       filterLevel, setFilterLevel, 
       highlightedHospitals, setHightlightedHospitals,
       selectedCity,setSelectedCity,
-      resetHospitals, searchTerm, 
+      resetHospitals, searchTerm,
+      supplyList, setSupplyList, 
       setSearchTerm}}>
       {props.children}
     </FeaturesContext.Provider>

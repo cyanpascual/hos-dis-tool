@@ -31,14 +31,14 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 let theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#993232',
+      light: '#b73d2a',
       main: '#800000',
-      dark: '#660000',
+      dark: '#4f0000',
     },
     secondary: {
-      light: '#993232',
-      main: '#FFFFFE',
-      dark: '#660000',
+      light: '#4f5b62',
+      main: '#263238',
+      dark: '#000a12',
     },
   },
   typography: {
@@ -68,7 +68,7 @@ theme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: '#BAB8B2',
+        backgroundColor: '#7f0000',
       },
     },
     MuiButton: {
@@ -117,7 +117,7 @@ theme = {
     },
     MuiDivider: {
       root: {
-        backgroundColor: '#404854',
+        backgroundColor: 'white',
       },
     },
     MuiListItemText: {
@@ -138,14 +138,16 @@ theme = {
   },
 };
 
-const drawerWidthSmall = 250;
-const drawerWidthMedium = 500
+const drawerWidthSmall = 1000;
+const drawerWidthMedium = 600
 
 const styles = {
   root: {
     display: 'flex',
     flexGrow: 1,
-    paddingTop:50
+    [theme.breakpoints.down('md')]: {
+      paddingTop: 50,
+    }
   },
   mainGrid:{
     margin: 20,
@@ -158,7 +160,6 @@ const styles = {
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidthSmall,
       flexShrink: 0,
     },
     [theme.breakpoints.up('lg')]: {
@@ -172,39 +173,34 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-  main: {
-    flex: 1,
-    padding: theme.spacing(6, 4),
-    background: '#eaeff1',
-  },
-  footer: {
-    padding: theme.spacing(2),
-    background: '#eaeff1',
-  },
   paper:{
-    height: "50vh",
+    height: "40vh",
     padding: "5px",
-    [theme.breakpoints.up('sm')]: {
-      height: "83vh"
+    [theme.breakpoints.up("lg")]: {
+      height: "90vh"
     }
   },
   item: {
     display: 'flex',
     paddingTop: 0,
     paddingBottom: 0,
-    width: "200px"
+    width: "250px",
   },
   mapCard:{
-    order: 3,
-    [theme.breakpoints.down('sm')]: {
-      order: 2,
+    order: 2,
+    [theme.breakpoints.up('lg')]: {
+      order: 3,
     },
   },
   listCard:{
-    order: 2,
-    [theme.breakpoints.down('sm')]: {
-      order: 3,
+    order: 3,
+    height: "42vh",
+    [theme.breakpoints.up('lg')]: {
+      order: 2,
+      height: "92vh"
     },
+    overflow: "auto",
+    
   },
   drawerHeader: {
     display: 'flex',
@@ -214,7 +210,7 @@ const styles = {
   },
     
   button: {
-    color: colors.blueGrey[800],
+    color: "#530000",
     padding: '10px 30px',
     justifyContent: 'flex-start',
     textTransform: 'none',
@@ -229,10 +225,16 @@ const styles = {
     marginRight: '10px'
   },
   active: {
-    backgroundColor: "white",
+    color: "#ffffff",
+    padding: '10px 30px',
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    letterSpacing: 0,
+    width: '100%',
+    backgroundColor: "#f05545",
     fontWeight: 500,
     '& $icon': {
-      color: "red"
+      color: "white"
     }
   }
 };
@@ -241,6 +243,7 @@ function Main(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [activeView, setActiveView] = React.useState('Hospitals');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -262,7 +265,7 @@ function Main(props) {
   return (
     <ThemeProvider theme={theme}>
       <div className={`${props.classes.root}`}>
-        <AppBar>
+        {!isDesktop ? (<AppBar>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -277,7 +280,8 @@ function Main(props) {
               Persistent drawer
             </Typography>
           </Toolbar>
-          </AppBar>
+          </AppBar>) : (null)
+          }
         <Drawer
           anchor={isDesktop?"left":"bottom"}
           variant={variant}
@@ -292,12 +296,13 @@ function Main(props) {
               <Divider/>
             </div>):(null)}  
 
-          <List>
+          <List style={{width:"100%"}}>
             <ListItem
             className={classes.item}
             disableGutters
+            style={{width:"100%"}}
               >
-                <Button activeClassName={classes.active} className={classes.button}>
+                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Hospitals' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Hospitals')}>
                   <div className={classes.icon}><BusinessIcon/></div>
                 {"Hospitals"}
                 </Button>
@@ -305,8 +310,9 @@ function Main(props) {
             <ListItem
             className={classes.item}
             disableGutters
+            style={{width:"100%"}}
               >
-                <Button activeClassName={classes.active} className={classes.button}>
+                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Suppliers' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Suppliers')}>
                   <div className={classes.icon}><WorkIcon/></div>
                 {"Suppliers"}
                 </Button>
@@ -314,8 +320,9 @@ function Main(props) {
             <ListItem
             className={classes.item}
             disableGutters
+            style={{width:"100%"}}
               >
-                <Button activeClassName={classes.active} className={classes.button}>
+                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Donation Drives' ? (props.classes.active):(props.classes.button)}`} onClick={()=>  setActiveView('Donation Drives')}>
                   <div className={classes.icon}><LocalHospitalIcon/></div>
                 {"Donation Drives"}
                 </Button>
@@ -323,8 +330,9 @@ function Main(props) {
             <ListItem
             className={classes.item}
             disableGutters
+            style={{width:"100%"}}
               >
-                <Button activeClassName={classes.active} className={classes.button}>
+                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Help' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Help')}>
                   <div className={classes.icon}><HelpIcon/></div>
                 {"Help"}
                 </Button>
