@@ -41,8 +41,8 @@ export default function FilterDialog() {
 
   const generateCitiesList = (province) =>{
     var initialList = hospitals.filter((hospital)=>{return("City/Municipality" in hospital.properties)})
-    initialList = initialList.filter(hospital => hospital.properties.Province === province)
-    const cities = initialList.map((hospital)=>{return(hospital.properties["City/Municipality"])})
+    initialList = initialList.filter(hospital => hospital.properties.prov === province)
+    const cities = initialList.map((hospital)=>{return(hospital.properties.city)})
     const uniqueCities = Array.from(new Set(cities))
     setCitiesList(uniqueCities) 
   }
@@ -80,7 +80,7 @@ export default function FilterDialog() {
         return("Province" in hospital.properties)
     })
       const provinces = initialList.map((hospital)=>{
-          return(hospital.properties.Province)
+          return(hospital.properties.prov)
       })
       const uniqueProvinces = Array.from(new Set(provinces))
       
@@ -140,7 +140,7 @@ export default function FilterDialog() {
           (<Autocomplete
             onInputChange={(obj,value)=>{
                 setSelectedCity(value)
-                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.Province == value}))
+                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.prov == value}))
             }}
             options={citiesList}
             getOptionLabel={(option) => option}

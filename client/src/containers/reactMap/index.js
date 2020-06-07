@@ -82,16 +82,16 @@ export default function App() {
              {hospitalList? (hospitalList
              .filter((hospital)=> {
                 if (filterSetting === '' || filterLevel=== ''){
-                  return(hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                  return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
                 } else{
-                  return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.Province.includes(selectedProvince) && hospital.properties['City/Municipality'].includes(selectedCity))
+                  return(hospital.properties.SupplyStatus[filterSetting] === filterLevel && hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
                 }
                  
               })
              .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
-                        position={[hospital.geometry.Coordinates[1],hospital.geometry.Coordinates[0]]}
+                        position={[hospital.geometry.coordinates[1],hospital.geometry.coordinates[0]]}
                         onClick={(e)=>{
                             setSelectedHospital(hospital);
                             goToSelected(hospital);
@@ -113,8 +113,8 @@ export default function App() {
             </MarkerClusterGroup>
              {selectedHospital ? (
                 facilities.filter((facility)=>getDistanceFromLatLonInKm(
-                    selectedHospital.geometry.Coordinates[1],
-                    selectedHospital.geometry.Coordinates[0],
+                    selectedHospital.geometry.coordinates[1],
+                    selectedHospital.geometry.coordinates[0],
                     facility.geometry.coordinates[1],
                     facility.geometry.coordinates[0],
                     ) <= 0.6).map((facility) => {
@@ -144,7 +144,7 @@ export default function App() {
                     )}})
             ): null} 
         {selectedHospital ? (
-        <Circle center={[selectedHospital.geometry.Coordinates[1],selectedHospital.geometry.Coordinates[0]]} radius={600}>
+        <Circle center={[selectedHospital.geometry.coordinates[1],selectedHospital.geometry.coordinates[0]]} radius={600}>
             <Popup>
                 <div>
                     Walkable Distance

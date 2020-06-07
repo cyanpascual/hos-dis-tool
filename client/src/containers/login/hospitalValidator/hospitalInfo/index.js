@@ -83,9 +83,9 @@ const HospitalInfo = (props) => {
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
             <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>City/Municipality:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.city}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Province:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.prov}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
             <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>

@@ -59,8 +59,8 @@ const HospitalInfo = () => {
       if(selectedHospital){
         
         const facilitiesNearby = facilities.filter((facility)=>getDistanceFromLatLonInKm(
-        selectedHospital.geometry.Coordinates[1],
-        selectedHospital.geometry.Coordinates[0],
+        selectedHospital.geometry.coordinates[1],
+        selectedHospital.geometry.coordinates[0],
         facility.geometry.coordinates[1],
         facility.geometry.coordinates[0],
         ) <= 0.6)
