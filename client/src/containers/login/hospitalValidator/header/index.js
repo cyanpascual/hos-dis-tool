@@ -12,6 +12,7 @@ import dgelogo from '../../../../assets/logos/dge.png';
 import engglogo from '../../../../assets/logos/engineering.png';
 //import geoplogo from '../../../assets/logos/geop_light.png';
 
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -124,10 +125,17 @@ function Header(props) {
                 <FeedbackDialog/>
               </Grid>
               <Grid item>
-                <Button style={{color: "white"}} onClick={() => logout()}><Typography variant='h4'>LOGOUT</Typography></Button>
+              <Hidden smDown>
+                  <Button style={{color: "white"}} onClick={() => logout()} ><Typography variant='h4'>LOGOUT</Typography></Button>
+                </Hidden>
+                <Hidden mdUp>
+                  <IconButton color="inherit" onClick={() => logout()} className={classes.button}>
+                    <ExitToAppIcon/>
+                  </IconButton>
+                </Hidden>
               </Grid>
             </Grid>
-          </Grid>
+          </Grid> 
         </Toolbar>
         
       </AppBar>
