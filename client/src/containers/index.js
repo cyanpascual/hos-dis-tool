@@ -1,15 +1,22 @@
 import React, {useContext, useEffect} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from "react-redux";
 import axios from 'axios';
 import { createMuiTheme} from '@material-ui/core/styles';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import Login from './login';
+import Dashboard from './login/dashboard';
 import Main from './main';
 import NotFound from './notFound';
 import PrivateRoute from "./login/PrivateRoute"
 
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./login/utils";
+
+import { setCurrentUser, logoutUser } from "./login/redux/actions/authActions";
+import store from "./login/redux/store";
 
 
 let theme = createMuiTheme({
@@ -151,6 +158,26 @@ const styles = {
   },
 };
 
+
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+  // Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
+
 function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -158,7 +185,7 @@ function App(props) {
   const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
 
 
-
+  
 
   useEffect(()=>{
     const supplyList = ["Alcohol",
@@ -210,16 +237,18 @@ function App(props) {
   }, [])
 
   return(
-    <BrowserRouter>
-      <Switch>
-        <Route path='/' component={Main} exact/>
-        <Route path='/Login' component={Login}/>
-        <PrivateRoute path='/privateUpdate' component={Login}/>
-        <Route path='*'>
-          <NotFound/>
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path='/' component={Main} exact/>
+          <Route path='/login' component={Login}/>      
+          <PrivateRoute path='/dashboard' component={Dashboard}/>
+          <Route path='*'>
+            <NotFound/>
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

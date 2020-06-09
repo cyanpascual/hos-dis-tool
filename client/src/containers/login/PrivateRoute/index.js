@@ -1,26 +1,24 @@
-import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
-import { useAuth0 } from "../../../react-auth0-spa";
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
-
-  useEffect(() => {
-    if (loading || isAuthenticated) {
-      return;
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      auth.isAuthenticated === true ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      )
     }
-    const fn = async () => {
-      await loginWithRedirect({
-        appState: {targetUrl: window.location.pathname}
-      });
-    };
-    fn();
-  }, [loading, isAuthenticated, loginWithRedirect, path]);
-
-  const render = props =>
-    isAuthenticated === true ? <Component {...props} /> : null;
-
-  return <Route path={path} render={render} {...rest} />;
+  />
+);
+PrivateRoute.propTypes = {
+  auth: PropTypes.object.isRequired
 };
-
-export default PrivateRoute; 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(PrivateRoute);
