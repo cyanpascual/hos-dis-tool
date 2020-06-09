@@ -90,7 +90,6 @@ theme.typography.h4 = {
 };
 
 function Header(props) {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const { classes, onDrawerToggle } = props;
   const { user, logout } = useContext(LoginContext);
 

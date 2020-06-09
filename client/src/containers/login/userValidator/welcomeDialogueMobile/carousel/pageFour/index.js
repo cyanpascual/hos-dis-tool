@@ -134,7 +134,7 @@ function PageFour(props){
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <EmailIcon/> trams.upd@up.edu.ph <br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FacebookIcon/> facebook.com/TheTrAMSProject. 
+        <FacebookIcon/> facebook.com/TrAMSProject. 
         </Typography>
         <br/>
         <Typography variant='h4' gutterBottom>

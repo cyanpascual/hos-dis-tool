@@ -161,8 +161,9 @@ function HospitalValidate(props) {
       <div className={classes.root}>
         <CssBaseline />
         <div className={classes.app}>
-          <Header onDrawerToggle={handleDrawerToggle} /> 
+          <Header onDrawerToggle={handleDrawerToggle} />
           <TabPanel/>
+
         </div>
       </div>
     </ThemeProvider>

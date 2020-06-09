@@ -17,6 +17,8 @@ import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
 
+import * as supplyNames from './supplyNames/supply.json'
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
@@ -43,15 +45,26 @@ const HospitalSupply = (props) => {
     const re = /^[0-9\b]+$/;
 
     if (name !== "Other Needs"){
-      if (value === '' || re.test(value)){
+      if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
           properties: {
             ...selectedHospital.properties,
-            Supply_Cur:{
-              ...selectedHospital.properties.Supply_Cur,
-              [name]: Math.abs(value),
-            }, "Last Update": username + ' on ' + date,
+            supply_cur:{
+              ...selectedHospital.properties.supply_cur,
+              [name]: Math.abs(parseInt(value)),
+            }, reportdate: username + ' on ' + date,
+          }
+        })
+      } else if (value === '') {
+        setSelectedHospital({
+          ...selectedHospital,
+          properties: {
+            ...selectedHospital.properties,
+            supply_cur:{
+              ...selectedHospital.properties.supply_cur,
+              [name]: value,
+            }, reportdate: username + ' on ' + date,
           }
         })
       }
@@ -60,10 +73,10 @@ const HospitalSupply = (props) => {
         ...selectedHospital,
         properties: {
           ...selectedHospital.properties,
-          Supply_Cur:{
-            ...selectedHospital.properties.Supply_Cur,
+          supply_cur:{
+            ...selectedHospital.properties.supply_cur,
             [name]: value,
-          }, "Last Update": username + ' on ' + date,
+          }, reportdate: username + ' on ' + date,
         }
       })
     }
@@ -76,19 +89,19 @@ const HospitalSupply = (props) => {
   }
 
   const handleSubmit = () => {
-    axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
+    axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHos(selectedHospital)
   }
 
-  const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
+  const supplies = Object.keys(selectedHospital.properties.supply_cur)
   const imageChoose = (currHospital, supply) =>{
-    if (currHospital.properties.Supply_Cap[supply] > 0){
-      if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
+    if (currHospital.properties.supply_need[supply] > 0){
+      if(currHospital.properties.supply_cur[supply]/currHospital.properties.supply_need[supply] < 0.2){
         return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
-      } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
+      } else if((currHospital.properties.supply_cur[supply]/currHospital.properties.supply_need[supply] > 0.5)){
         return(<img style={{width:20}} src={simple_high} alt="well-supplied"/>)
       } else return(<img style={{width:20}} src={simple_med} alt="low"/>)
     } else return(<img style={{width:20}} src={simple_none} alt="none"/>)
@@ -134,12 +147,12 @@ const HospitalSupply = (props) => {
                       <TableRow key={supply} className="supplies">
                         <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                         <TableCell>
-                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
+                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply]}</Typography>
                         </TableCell>
                         <TableCell>
                           {isEditMode? 
-                            <TextField width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={(e) => handleOnChange(e)}/> 
-                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}                      
+                            <TextField width="50px" name={supply} value={selectedHospital.properties.supply_cur[supply]} onChange={(e) => handleOnChange(e)}/> 
+                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_cur[supply]}</Typography>}                      
                         </TableCell>
                         <TableCell/>
                       </TableRow>
@@ -148,17 +161,17 @@ const HospitalSupply = (props) => {
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                       <TableCell>
-                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply]}</Typography>
                       </TableCell>
                       <TableCell align="center">
                       {isEditMode? 
                         <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cur[supply]} 
+                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.supply_cur[supply]} 
                             onChange={handleOnChange}/> </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}
+                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_cur[supply]}</Typography>}
                       </TableCell>
                       <TableCell align="center">
-                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cap[supply]}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_need[supply]}</Typography>
                       </TableCell>
                     </TableRow>
                   )  

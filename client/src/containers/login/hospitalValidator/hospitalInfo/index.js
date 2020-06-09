@@ -42,7 +42,7 @@ const HospitalInfo = (props) => {
       properties: {
         ...selectedHospital.properties,
         [name]: value,
-        }, "Last Update": username + ' on ' + date,
+        }, reportdate: username + ' on ' + date,
     })
   }
 
@@ -52,7 +52,7 @@ const HospitalInfo = (props) => {
   }
 
   const handleSubmit = () => {
-    axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
+    axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
@@ -84,29 +84,29 @@ const HospitalInfo = (props) => {
         </Grid>
         <Grid item container justify="flex-start" alignItems="flex-start" spacing={0}>
           <Grid item>
-            <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
+            <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.cfname}</Typography>
             <Divider/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>DOH Level:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.doh_level}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.address}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>City/Municipality:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.city}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Province:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.prov}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.region}</Typography><br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>
-            {isEditMode ? <Input type="text" style={{width: 300, fontSize: 14}} name="Head" value={selectedHospital.properties.Head} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography>}<br/>
+            {isEditMode ? <Input type="text" style={{width: 300, fontSize: 14}} name="cont_person" value={selectedHospital.properties.cont_person} onChange={handleOnChange}/>
+            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_person} </Typography>}<br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number/s:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Contact Numbers" value={selectedHospital.properties["Contact Numbers"]} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]} </Typography>}<br/>
+            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="cont_num" value={selectedHospital.properties.cont_num} onChange={handleOnChange}/>
+            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_num} </Typography>}<br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Website:</Typography>
-            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="Website" value={selectedHospital.properties.Website} onChange={handleOnChange}/>
-            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website} </Typography>} <br/>
+            {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="website" value={selectedHospital.properties.website} onChange={handleOnChange}/>
+            : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.website} </Typography>} <br/>
             <Typography noWrap style={{fontSize:14, fontWeight:500}}>Last Updated:</Typography>
-            <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.reportdate}</Typography><br/>
           </Grid>  
         </Grid>
       </Grid>

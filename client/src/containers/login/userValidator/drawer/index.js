@@ -125,24 +125,24 @@ function Navigator(props) {
   const liveSearch = (searchTerm) => {
     setHospitalList( searchTerm ? 
       hospitals.filter(hospital =>
-        hospital.properties.Name_of_Ho.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        hospital.properties.HospitalID.indexOf(searchTerm) > -1,
+        hospital.properties.cfname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        hospital.properties.hfhudcode.indexOf(searchTerm) > -1,
       ) : hospitals
     )
   }
 
   if (sort === true){
     setHospitalList(hospitalList.sort(function(a,b){
-      var x = a.properties.Name_of_Ho.toLowerCase();
-      var y = b.properties.Name_of_Ho.toLowerCase();
+      var x = a.properties.cfname.toLowerCase();
+      var y = b.properties.cfname.toLowerCase();
       if (x<y) {return -1;}
       if (x>y) {return 1;}
       return 0;
     }));
   } else {
     setHospitalList(hospitalList.sort(function(a,b){
-      var x = parseInt(a.properties.HospitalID);
-      var y = parseInt(b.properties.HospitalID);
+      var x = parseInt(a.properties.hfhudcode);
+      var y = parseInt(b.properties.hfhudcode);
       if (x<y) {return -1;}
       if (x>y) {return 1;}
       return 0;
@@ -181,18 +181,18 @@ function Navigator(props) {
               {hospitalList ? 
               hospitalList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((hospital) => { 
               return(
-                <TableRow key={hospital.properties.Name_of_Ho} tabIndex={-1}>
+                <TableRow key={hospital.properties.cfname} tabIndex={-1}>
                   <TableCell colSpan={4}><Button style={{align: "left"}} onClick={() => {setSelectedHospital(hospital)}}>
                   <div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
                     <Grid container>
                       <Grid item xs={12}>
-                        <Typography style={{fontSize:14, fontWeight:500}} gutterBottom>{hospital.properties.Name_of_Ho}</Typography>
+                        <Typography style={{fontSize:14, fontWeight:500}} gutterBottom>{hospital.properties.cfname}</Typography>
                       </Grid>
                       <Grid item xs={10}>
-                        <Typography style={{fontSize:10, color:"gray"}} gutterBottom>{hospital.properties.Address}</Typography>
+                        <Typography style={{fontSize:10, color:"gray"}} gutterBottom>{hospital.properties.address}</Typography>
                       </Grid>
                       <Grid item xs={10}>
-                        <Typography style={{fontSize:10, color:"gray"}} gutterBottom>HospitalID: {hospital.properties.HospitalID}</Typography>
+                        <Typography style={{fontSize:10, color:"gray"}} gutterBottom>HospitalID: {hospital.properties.hfhudcode}</Typography>
                       </Grid>
                     </Grid>
                   </div></Button></TableCell>

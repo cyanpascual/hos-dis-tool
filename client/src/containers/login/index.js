@@ -8,12 +8,16 @@ import { createStyles, makeStyles, createMuiTheme, ThemeProvider, withStyles } f
 import { Card, CardContent, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HospitalList from './userValidator';
-import HospitalValidate from './hospitalValidator'
+import HospitalValidate from './hospitalValidator';
+import Personnel from './Personnel';
 import axios from 'axios';
-import { useAuth0 } from '../../react-auth0-spa'
-import history from '../../utils/history'
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
+
+import PropTypes from "prop-types";
+import { connect, useDispatch } from "react-redux";
+import { loginUser } from "./redux/actions/authActions";
+import classnames from "classnames";
 
 
 const useStyles = makeStyles((theme) =>
@@ -94,19 +98,26 @@ theme.typography.h2 = {
   }, fontWeight: 500
 };
 
-function Login() {
-  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
+
+
+function Login(props) {
   const { hospitalList, setHospitalList, setHospitals } = useContext(FeaturesContext)
   const { setSelectedHospital } = useContext(MapsContext);
   const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
 
   const classes = useStyles();
+  const dispatch = useDispatch(); 
   
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if(props.auth.isAuthenticated){
+      props.history.push('/dashboard')
+    }
+  }, [])
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -121,23 +132,34 @@ function Login() {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', ); 
+      const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
       
       setUsers(res.data);
-      setHospitals(res2.data);
-      setHospitalList(res2.data);
+      setHospitals(res3.data);
+      setHospitalList(res3.data);
       //console.log(res2.data)
     }
     
     fetchData();
   }, [])
   
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    //e.preventDefault();
+
+    /*const userData = {
+      email: username,
+      password: password,
+    };
+
+    dispatch(loginUser(userData));*/
+
     let ob = users.filter(data => data.properties.Username === username);
     if (ob.length > 0){
       if (ob[0].properties.Password === password){
         if (ob[0].type === 'Hospital'){
-          let hos = hospitalList.filter(hospital => hospital.properties.HospitalID === username);
+          let hos = hospitalList.filter(hospital => hospital.properties.hfhudcode === username);
+          console.log(hos)
           setSelectedHospital(hos[0]);
         } else {
           setSelectedHospital(null)
@@ -157,20 +179,6 @@ function Login() {
     }
   };
 
-  if (loading) {
-    return (
-      <div style={{
-        height: '100vh',
-        width: '100vw',
-        display: 'flex',
-        alignItems: 'center',
-        justify: 'center'
-      }}>
-        <CircularProgress/>
-      </div>
-    
-    );
-  }
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
@@ -185,13 +193,12 @@ function Login() {
       )
     } else if (accountType === 'Hospital'){
       return(
-        <HospitalValidate hosID={username} />
+        <HospitalValidate />
       )
     }
   } else {
   return (
     <ThemeProvider theme={theme}>
-      <Router history={history}>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="TrAMS Update Login" />
@@ -200,7 +207,7 @@ function Login() {
               <TextField
                 error={error}
                 fullWidth
-                id="username"
+                id="email"
                 type="email"
                 label="Username"
                 placeholder="Username"
@@ -241,7 +248,7 @@ function Login() {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <EmailIcon/> trams.upd@up.edu.ph <br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <FacebookIcon/> facebook.com/TheTrAMSProject. 
+                    <FacebookIcon/> facebook.com/TrAMSProject. 
                   </Typography><br/><br/>
                 </DialogContent>
                 <DialogActions>
@@ -257,17 +264,29 @@ function Login() {
               variant="contained"
               size="large"
               className={classes.loginBtn}
-              onClick={()=>handleLogin()}
+              onClick={(e)=>handleLogin(e)}
               disabled={isButtonDisabled}>
               Login
             </Button>
           </CardActions>
         </Card>
       </form>
-      </Router>
     </ThemeProvider>
-  );
-  }
+  );}
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
