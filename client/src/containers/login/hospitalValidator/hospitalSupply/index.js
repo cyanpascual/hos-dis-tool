@@ -1,7 +1,6 @@
 import React, {useContext,useState} from 'react';
 import { MapsContext } from '../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../contexts/LoginContext';
-import { FeaturesContext } from '../../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -34,7 +33,6 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalSupply = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { hospitals, setHospitals, hospitalList, setHospitalList } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -118,21 +116,21 @@ const HospitalSupply = (props) => {
 
   const handleCancel = (event) => {
     setSelectedHospital(hos)
+    console.log(selectedHospital);
     setIsEditMode(!isEditMode)
   }
 
   const handleSubmit = () => {
+<<<<<<< HEAD
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
+=======
+    console.log(selectedHospital);
+    axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
+>>>>>>> parent of 6edc597... Merge pull request #46 from cyanpascual/develop
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHos(selectedHospital)
-    setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
-    setHospitalList(prevState => [
-      ...prevState,
-      selectedHospital
-    ])
-    setHospitals(hospitalList)
   }
 
   const supplies = Object.keys(selectedHospital.properties.supply_cur)
