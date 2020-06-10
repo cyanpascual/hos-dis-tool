@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, Grid, Toolbar} from '@material-ui/core';
+import {AppBar, Button, Grid, Toolbar, Hidden, IconButton} from '@material-ui/core';
 import { LoginContext } from '../../../../contexts/LoginContext';
 
 import Typography from '@material-ui/core/Typography';
