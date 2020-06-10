@@ -171,8 +171,6 @@ const FilterList = () => {
     }
    
     const imageChooser = (currHospital,supply) =>{
-     
-      
       if(currHospital.properties.Supply_Cap[supply]===0){
         return(<img  title={supply + ': No data'} className="smallPicture" src={iconList[supply+"_none"]} alt="none"/>)
       }

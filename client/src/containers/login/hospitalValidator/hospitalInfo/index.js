@@ -39,13 +39,8 @@ const HospitalInfo = (props) => {
       ...selectedHospital,
       properties: {
         ...selectedHospital.properties,
-<<<<<<< HEAD
-        [name]: value,
-        }, reportdate: username + ' on ' + date,
-=======
         [name]: [value],
         }, "Last Update": username + ' on ' + date,
->>>>>>> parent of 6edc597... Merge pull request #46 from cyanpascual/develop
     })
   }
 

@@ -121,12 +121,8 @@ const HospitalSupply = (props) => {
   }
 
   const handleSubmit = () => {
-<<<<<<< HEAD
-    axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
-=======
     console.log(selectedHospital);
     axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
->>>>>>> parent of 6edc597... Merge pull request #46 from cyanpascual/develop
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);

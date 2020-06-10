@@ -103,13 +103,8 @@ function Login(props) {
   const { login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
 
   const classes = useStyles();
-<<<<<<< HEAD
-  const dispatch = useDispatch(); 
-  
-=======
   const [users, setUsers] = useState('');
 
->>>>>>> parent of 6edc597... Merge pull request #46 from cyanpascual/develop
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
