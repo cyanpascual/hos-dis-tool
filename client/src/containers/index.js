@@ -165,11 +165,17 @@ function App(props) {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      setSupplyList(Object.keys(res.data[0].properties.supply_need)) 
+      console.log('fasdfadfa');
+      console.log(Object.keys(res.data[0].properties.supply_need))
+      var temp = Object.keys(res.data[0].properties.supply_need)
+      console.log(temp)
+      //this is because supplyList won't update before this function is over 
+      setSupplyList(temp) 
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
         hospital.properties.supply_status = {}
-        supplyList.forEach(supply => {
+        temp.forEach(supply => {
+          console.log("dfgsdfgsdfgsdfgsdf")
           if(hospital.properties.supply_need[supply]!==0){
             if(hospital.properties.supply_cur[supply]/hospital.properties.supply_need[supply] < 0.2){
               hospital.properties.supply_status[supply] = "Critically Low"
@@ -184,10 +190,11 @@ function App(props) {
             hospital.properties.supply_status[supply] = "No Data"
           }
       });
+
        
       });
-      setHospitals(res.data.sort(compareValues('Name_of_Ho')));
-      setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
+      setHospitals(res.data.sort(compareValues('cfname')));
+      setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
     };

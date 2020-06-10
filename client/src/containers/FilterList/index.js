@@ -8,7 +8,8 @@ import {
   Divider,
   Grid,
   IconButton,
-  Chip
+  Chip,
+  Card
 } from '@material-ui/core/'
 
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -17,18 +18,43 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   chipContainer:{
     display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    overflow:'auto',
+    height:"60px"
   },
   chip:{
-    margin: "3px"
+    margin: "3px",
+    color: 'white',
+    backgroundColor: "#9b2b2b"
+  },
+  title:{
+    width: "100%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  },
+  root:{
+    overflow: "auto",
+    height:"86vh",
+    maxwidth:"190px",
+    paddingRight:"15px",
+  },
+  rootMobile:{
+    overflow: "auto",
+    height:"39vh",
+    maxwidth:"190px",
+    paddingRight:"15px",
+  },
+  listItem:{
+    padding:"15px 0px  15px 40px"
   }
 
 }
 
 const FilterList = (props) => {
     const {classes } = props;
-    const {hospitalList, filterSetting, filterLevel,selectedProvince, selectedCity,supplyList } = useContext(FeaturesContext);
+    const {hospitalList, filterSetting, filterLevel,selectedProvince, selectedCity,supplyList,desktop,justTestCenters } = useContext(FeaturesContext);
     const { setSelectedHospital,goToSelected } = useContext(MapsContext)
     const supplyLabelMap = {
       "alcohol": 'Alcohol',
@@ -50,23 +76,31 @@ const FilterList = (props) => {
 
    
     const imageChooser = (currHospital,supply) =>{
-      if(currHospital.properties.supply_status==='No Data'){
-        return(<Chip className={classes.chip} size="small" label={supplyLabelMap[supply]} />)
+      if(currHospital.properties.supply_status[supply]==='No Data'){
+        return(<Chip  className={classes.chip} style={{opacity:0.2, fontWeight:200}} size="small" label={supplyLabelMap[supply]}/>)
       }
-        else if(currHospital.properties.supply_status==="Critically Low"){
-          return(<Chip className={classes.chip} size="small" label={supplyLabelMap[supply]}/>)
-      } else if(currHospital.properties.supply_status==="Low"){
-        return(<Chip className={classes.chip} size="small" label={supplyLabelMap[supply]}/>)
+        else if(currHospital.properties.supply_status[supply]==="Critically Low"){
+          return(<Chip  className={classes.chip} style={{opacity:1,fontWeight:500}} size="small" label={supplyLabelMap[supply]} />)
+      } else if(currHospital.properties.supply_status[supply]==="Low"){
+        return(<Chip className={classes.chip} style={{opacity:0.6, fontWeight:200 }} size="small" label={supplyLabelMap[supply]} />)
       } 
-      return(<Chip className={classes.chip} size="small" label={supplyLabelMap[supply]}/>)
+      return(<Chip  className={classes.chip} style={{opacity:0.2, fontWeight:200}} size="small" label={supplyLabelMap[supply]} />)
     }
     
     return (
-      <div className="filterList" style={{backgroundColor:'#E3E2DF', minHeight:"75vh"}}>
+      <div >
         {hospitalList ? (
-          <div>
+          <div className={`${desktop ? (classes.root):(classes.rootMobile)} `}>
             {
         hospitalList
+        .filter((hospital)=>{
+          if(justTestCenters){
+              return(hospital.test_center == true)
+          }
+          else{
+              return(hospital)
+          }
+      })
         .filter((hospital)=> {
           if (filterSetting === '' || filterLevel=== ''){
             return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
@@ -76,22 +110,28 @@ const FilterList = (props) => {
            
         })
         .map((hospital)=>{
-          return(<React.Fragment>
-          <div style={{width:"100%", maxWidth:500, padding:"15px", whiteSpace: 'nowrap'}}>
-            <Grid container>
-            <Grid item xs={12}>
+          return(<Card style={{margin: "10px 0"}}>
+            <Grid container className={classes.listItem}>
+
+            <Grid item xs={9}>
               {/* HOSPiTAL NAME */}
-              <Typography>
+              
                 <Box         
                   component="div"
-                  my={0}
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  fontWeight={600} 
-                  fontSize={20}   
-                  gutterBottom>{hospital.properties.cfname}
+                  fontWeight={500} 
+                  fontSize={16}    
+                  gutterBottom
+                  className={classes.title}>
+                    {hospital.properties.cfname}
+                  
                   </Box>
-              </Typography>
+           
+            </Grid>
+            <Grid alignItems="baseline" item xs={2} style={{textAlign:"right"}}>
+              <IconButton onClick={(e)=>{
+                            setSelectedHospital(hospital);
+                            goToSelected(hospital);
+                        }}  size="small"><ArrowForwardIosIcon/></IconButton>
             </Grid>
             <Grid item xs={10}>
               {/* DOH level, Address & Last Update */}
@@ -106,7 +146,6 @@ const FilterList = (props) => {
                 </React.Fragment>):(
                   <Grid container width>
                     <Grid item xs={6}>{imageChooser(hospital,filterSetting)}</Grid>
-
                   </Grid>
                   
                   )
@@ -114,17 +153,12 @@ const FilterList = (props) => {
               
               
             </Grid>
-            <Grid style={{ paddingTop:"8%"}} alignItems="baseline" item xs={2}>
-              <IconButton onClick={(e)=>{
-                            setSelectedHospital(hospital);
-                            goToSelected(hospital);
-                        }}  size="small"><ArrowForwardIosIcon/></IconButton>
-            </Grid>
+
           
             </Grid>
-          </div>
-            <Divider light  component="li" />
-          </React.Fragment>)
+        
+            <Divider light />
+          </Card>)
           
         }
           

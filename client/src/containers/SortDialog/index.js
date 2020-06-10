@@ -53,13 +53,13 @@ export default function SortDialog() {
   
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen} startIcon={<SortIcon/>} color="primary" > Sort</Button>
+      <Button variant="outlined" onClick={handleClickOpen} style={{height:"39px", opacity:0.6, fontSize:"80%"}} startIcon={<SortIcon/>} color="secondary" fullWidth> Sort</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogContent>
           <FormControl component="fieldset">
             <FormLabel component="legend">Sort by...</FormLabel>
             <RadioGroup aria-label="Sort hospitals by " name="sortSetting"  value={sortSetting} onChange={handleSortSettingChange}>
-              <FormControlLabel value="Name_of_Ho" control={<Radio color="primary"/>} label="Alphabetical" />
+              <FormControlLabel value="cfname" control={<Radio color="primary"/>} label="Alphabetical" />
               <FormControlLabel value="Capacity" control={<Radio color="primary"/>} label="Capacity" />
               <FormControlLabel value="DOH Level" control={<Radio color="primary"/>} label="Level" />
             </RadioGroup>

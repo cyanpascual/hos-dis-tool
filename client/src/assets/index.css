@@ -1,5 +1,5 @@
 html{
-  background-color: #bbbbbb;
+  background-color: #fafafa;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #bbbbbb;
+  background-color: #fafafa;
 }
 
 svg {height: auto; width: auto}
@@ -22,15 +22,6 @@ svg {height: auto; width: auto}
 .MuiDrawer-root{
   height: 300px;
   overflow-y:hidden;
-}
-
-.filterList ul{
-    list-style-type: none;
-}
-
-.filterList img{
-  height: 35px;
-  width: 35px;
 }
 
 /* width */

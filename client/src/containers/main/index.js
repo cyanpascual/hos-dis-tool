@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -25,14 +24,20 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-
+import FilterDialog from '../FilterDialog';
+import SortDialog from '../SortDialog';
+import HospitalInfo  from '../HospitalInfo';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { FeaturesContext } from '../../contexts/FeaturesContext';
+import { MapsContext } from '../../contexts/MapsContext';
+import {TextField} from '@material-ui/core'
 
 
 let theme = createMuiTheme({
   palette: {
     primary: {
       light: '#b73d2a',
-      main: '#800000',
+      main: '#9b2b2b',
       dark: '#4f0000',
     },
     secondary: {
@@ -68,7 +73,8 @@ theme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: '#7f0000',
+        //changes the drawers background color
+        backgroundColor: '#9b2b2b',
       },
     },
     MuiButton: {
@@ -117,7 +123,7 @@ theme = {
     },
     MuiDivider: {
       root: {
-        backgroundColor: 'white',
+        backgroundColor: '#800000',
       },
     },
     MuiListItemText: {
@@ -180,6 +186,14 @@ const styles = {
       height: "90vh"
     }
   },
+  paperList:{
+    height: "40vh",
+    padding: "5px",
+    backgroundColor:"#fafafa",
+    [theme.breakpoints.up("lg")]: {
+      height: "90vh"
+    }
+  },
   item: {
     display: 'flex',
     paddingTop: 0,
@@ -199,7 +213,7 @@ const styles = {
       order: 2,
       height: "92vh"
     },
-    overflow: "auto",
+    
     
   },
   drawerHeader: {
@@ -231,7 +245,7 @@ const styles = {
     textTransform: 'none',
     letterSpacing: 0,
     width: '100%',
-    backgroundColor: "#f05545",
+    backgroundColor: "#9b2b2b",
     fontWeight: 500,
     '& $icon': {
       color: "white"
@@ -244,7 +258,9 @@ function Main(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [activeView, setActiveView] = React.useState('Hospitals');
-
+  const {setSelectedHospital, goToSelected} = useContext(MapsContext)
+  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop } = useContext(FeaturesContext);
+  const { selectedHospital } = useContext(MapsContext);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -258,6 +274,7 @@ function Main(props) {
     defaultMatches: true
   });
 
+  setDesktop(isDesktop)
 
   var variant = isDesktop ? "permanent":"temporary"
 
@@ -277,7 +294,6 @@ function Main(props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Persistent drawer
             </Typography>
           </Toolbar>
           </AppBar>) : (null)
@@ -312,7 +328,7 @@ function Main(props) {
             disableGutters
             style={{width:"100%"}}
               >
-                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Suppliers' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Suppliers')}>
+                <Button style={{borderRadius:0}} disabled fullWidth className={`${activeView === 'Suppliers' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Suppliers')}>
                   <div className={classes.icon}><WorkIcon/></div>
                 {"Suppliers"}
                 </Button>
@@ -322,7 +338,7 @@ function Main(props) {
             disableGutters
             style={{width:"100%"}}
               >
-                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Donation Drives' ? (props.classes.active):(props.classes.button)}`} onClick={()=>  setActiveView('Donation Drives')}>
+                <Button style={{borderRadius:0}} disabled fullWidth className={`${activeView === 'Donation Drives' ? (props.classes.active):(props.classes.button)}`} onClick={()=>  setActiveView('Donation Drives')}>
                   <div className={classes.icon}><LocalHospitalIcon/></div>
                 {"Donation Drives"}
                 </Button>
@@ -332,7 +348,7 @@ function Main(props) {
             disableGutters
             style={{width:"100%"}}
               >
-                <Button style={{borderRadius:0}} fullWidth className={`${activeView === 'Help' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Help')}>
+                <Button style={{borderRadius:0}} disabled fullWidth className={`${activeView === 'Help' ? (props.classes.active):(props.classes.button)}`} onClick={()=> setActiveView('Help')}>
                   <div className={classes.icon}><HelpIcon/></div>
                 {"Help"}
                 </Button>
@@ -362,18 +378,40 @@ function Main(props) {
             xs={12}
             className={classes.listCard}
             >
-              <div>
-                City Name
-
-              </div>
-              <FilterList/>
+              <Paper elevation={0} className={classes.paperList}>
+                {selectedHospital ? (<HospitalInfo/>):(
+                <React.Fragment>
+                <Grid container spacing={1}>
+                  <Grid item xs={3}>
+                    <FilterDialog/>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <SortDialog/>
+                  </Grid>
+                  <Grid item xs={6}>
+                  {hospitalList && <Autocomplete
+                    onInputChange={(obj,value)=>{
+                    goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    }}
+                    options={hospitalList}
+                    getOptionLabel={(option) => option.properties.cfname}
+                    size="small"
+                    style={{marginBottom:'5px'}}
+                    renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
+                    />}
+                    </Grid>
+                </Grid>
+                <FilterList/>
+                </React.Fragment>)}
+              </Paper>
             </Grid>
             <Grid item className={classes.mapCard} 
               lg={8}
               md={12}
               xl={9}
               xs={12}>
-              <Paper className={classes.paper}><ReactMap/></Paper>
+              <Paper variant="outlined" className={classes.paper}><ReactMap/></Paper>
             </Grid>
           </Grid>
         

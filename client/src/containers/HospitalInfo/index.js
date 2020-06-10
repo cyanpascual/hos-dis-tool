@@ -28,14 +28,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { CircularProgressbar, buildStyles, CircularProgressbarWithChildren, } from 'react-circular-progressbar';
-
+import SupplyCard from './supplyCard'
 const HospitalInfo = () => {
-    const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,supplyList } = useContext(FeaturesContext);
     const { closePopups, mapReference, setMapReference, defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
     const [userInput, setUserInput] = useState("")
 
-    const supplies = Object.keys(selectedHospital.properties.Supply_Cap)
+    const supplies = supplyList
 
     const getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
       var R = 6371; // Radius of the earth in km
@@ -72,6 +72,9 @@ const HospitalInfo = () => {
     return (
       <List component="nav">
         <ListItem>
+          
+        </ListItem>
+        <ListItem>
           <IconButton  
             variant="contained" 
             color="primary"
@@ -84,16 +87,16 @@ const HospitalInfo = () => {
             </IconButton>
         </ListItem>
         <ListItem>
-          <Typography variant="h5" gutterBottom>{selectedHospital.properties.Name_of_Ho}</Typography>  
+          <Typography variant="h5" gutterBottom>{selectedHospital.properties.cfname}</Typography>  
         </ListItem>
         <ListItem>
           <Typography variant="subtitle1" color='textSecondary' gutterBottom>
-            DOH Level: <span style={{color:"red"}}>{selectedHospital.properties["DOH Level"]}</span>
+            DOH Level: <span style={{color:"red"}}>{selectedHospital.properties.doh_level}</span>
           </Typography>
         </ListItem>
         <ListItem>
           <Typography variant="subtitle1" color='textSecondary' gutterBottom>
-            Last Updated: <span style={{color:"red"}}>{selectedHospital.properties["Last Update"]}</span>
+            Last Updated: <span style={{color:"red"}}>{selectedHospital.properties.reportdate}</span>
           </Typography>
         </ListItem>
         {/* <ListItem>
@@ -111,56 +114,25 @@ const HospitalInfo = () => {
         <Typography variant='body1'>
           <ListItem>
             <ListItemIcon><RoomIcon/></ListItemIcon>
-            Address: {selectedHospital.properties.Address}</ListItem>
+            address: {selectedHospital.properties.address}</ListItem>
           <ListItem>
           <ListItemIcon><PhoneIcon/></ListItemIcon>
-            Contact Numbers: {selectedHospital.properties["Contact Numbers"]}</ListItem>
+            Contact Numbers: {selectedHospital.properties.cont_num}</ListItem>
           <ListItem>
           <ListItemIcon><LanguageIcon/></ListItemIcon>
-            Website: {selectedHospital.properties.Website}</ListItem>
+            website: {selectedHospital.properties.website}</ListItem>
             </Typography>
           <ListItem>
+            <List>
         
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Item</TableCell>
-                <TableCell>Current Supply vs Weekly Supply</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+
                 {supplies.map((supply)=>{
                   return(
-                    <TableRow>
-                      <TableCell>{supply}</TableCell>
-                      <TableCell style={{ width: 150,height: 150}}>
-                      <CircularProgressbarWithChildren
-                          value={(selectedHospital.properties.Supply_Cur[supply]/selectedHospital.properties.Supply_Cap[supply])*100}
-    
-                          styles={buildStyles({
-                            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                            strokeLinecap: 'butt',
-                        
-                            // Text size
-                        
-                            textAlign:"center",
-                        
-                            // Colors
-                            pathColor: `rgba(128, 0, 0, ${selectedHospital.properties.Supply_Cur[supply]/selectedHospital.properties.Supply_Cap[supply]})`,
-                            textColor: '#000',
-                            trailColor: '#d6d6d6',
-                            backgroundColor: '#3e98c7',
-                          })}
-                        >
-                        {`${(selectedHospital.properties.Supply_Cur[supply])}/${selectedHospital.properties.Supply_Cap[supply]}`} 
-                        </CircularProgressbarWithChildren>
-                      </TableCell>
-         
-                    </TableRow>
-                  )
-                })}
-            </TableBody>
-          </Table>
+                    <ListItem>
+                    <SupplyCard name={supply} current={selectedHospital.properties.supply_cur[supply]} cap={selectedHospital.properties.supply_need[supply]}/>
+                    </ListItem>
+                )})}
+          </List>
         </ListItem>
 
    

@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 
 import Button from '@material-ui/core/Button';
+import Checkbox   from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -40,7 +41,7 @@ export default function FilterDialog() {
   };
 
   const generateCitiesList = (province) =>{
-    var initialList = hospitals.filter((hospital)=>{return("City/Municipality" in hospital.properties)})
+    var initialList = hospitals.filter((hospital)=>{return("city" in hospital.properties)})
     initialList = initialList.filter(hospital => hospital.properties.prov === province)
     const cities = initialList.map((hospital)=>{return(hospital.properties.city)})
     const uniqueCities = Array.from(new Set(cities))
@@ -50,7 +51,8 @@ export default function FilterDialog() {
   
   const { 
     selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting, 
-    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel, supplyList,  desktop,justTestCenters, setJustTestCenters } = useContext(FeaturesContext);
+    
  
   const supplyChoices=["Alcohol",
                       "Disinfectant (Sterilium)",
@@ -72,42 +74,55 @@ export default function FilterDialog() {
 
   const [provincesList, setProvincesList] = useState(null);
   const [citiesList, setCitiesList] = useState(null);
-
+  
+  const handleTestCenterToggle= () =>{
+    setJustTestCenters(!justTestCenters)
+  }
   useEffect(()=>{
     if(hospitalList){
       const initialList = hospitals.filter((hospital)=>{
         //this makes sure the website will still work even when the "Province" field is missing
-        return("Province" in hospital.properties)
+        return("prov" in hospital.properties)
     })
       const provinces = initialList.map((hospital)=>{
+
           return(hospital.properties.prov)
       })
+   
       const uniqueProvinces = Array.from(new Set(provinces))
       
       setProvincesList(uniqueProvinces)
  
     }
   }, hospitalList)
-  
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen} startIcon={<FilterListIcon/>} color="primary" > Filter</Button>
+      <Button variant="outlined" fullWidth onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="secondary" style={{height:"39px", opacity:0.6, fontSize:"80%"}} > Filter</Button>
       <Dialog fullWidth disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle><Button variant="contained" color="primary" 
+        <DialogTitle>
+
+        <Button variant="contained" color="primary" 
           onClick={()=>{
             setFilterSetting('')
             setFilterLevel('')
             setSelectedProvince('')
 
           }} 
-          style={{marginLeft:"5px"}}>Reset</Button> </DialogTitle>
-        
+          style={{marginLeft:"5px", marginRight:"5px"}}>Reset</Button> 
+                  Show only test centers
+        <Checkbox
+          checked={justTestCenters}
+          onChange={handleTestCenterToggle}
+          inputProps={{ 'aria-label': 'Show only text centers?' }}
+          style={{marginLeft:5}}
+        />
+        </DialogTitle>
         <DialogContent>
           <FilterInput 
           label="Supply" 
           onChange={setFilterSetting} 
-          choices={supplyChoices}
+          choices={supplyList}
           value={filterSetting}
           />
 
