@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Hospital = require('../models/newhospital.model');
+let Hospital = require('../models/hospitallog.model');
 
 router.route('/').get((req, res) => {
   Hospital.find()
@@ -29,7 +29,7 @@ router.route('/add').post((req, res) => {
 });
 
   newHospital.save()
-    .then(() => res.json('Hospital added!'))
+    .then(() => res.json('Hospital Log added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -41,7 +41,7 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
   Hospital.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Hospital deleted.'))
+    .then(() => res.json('Hospital Log deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -58,7 +58,7 @@ router.route('/update/:id').post((req, res) => {
       hospital.geometry = req.body.geometry;
 
       hospital.save()
-        .then(() => res.json('Hospital updated!' + req.body))
+        .then(() => res.json('Hospital Log updated!' + req.body))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

@@ -22,7 +22,7 @@ app.use(
 
 app.use(bodyParser.json());
 if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build')); 
+  app.use(express.static('client/build'));
 }
 
 app.use(cors());
@@ -34,11 +34,16 @@ const hospitalsRouter = require('./routes/hospitals');
 const newhospitalsRouter = require('./routes/newhospitals');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
+const hospitallogsRouter = require('./routes/hospitallogs');
+const loginRouter = require('./routes/login');
+
 
 app.use('/hospitals', hospitalsRouter);
 app.use('/h0zPiTaLs', newhospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/uz3rz', userRouter);
+app.use('/hl0gs', hospitallogsRouter);
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('*', (req, res) => {
