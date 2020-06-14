@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(10)
     },
     dialog: {
-      
+
     }
 
   }),
@@ -123,18 +123,18 @@ function Login(props) {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', ); 
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
       const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
-      
+
       setUsers(res.data);
       setHospitals(res3.data);
       setHospitalList(res3.data);
       //console.log(res2.data)
     }
-    
+
     fetchData();
   }, [])
-  
+
   const handleLogin = (e) => {
     //e.preventDefault();
 
@@ -176,7 +176,7 @@ function Login(props) {
       isButtonDisabled || handleLogin();
     }
   };
-  
+
   if (login){
     if (accountType === 'Validator'){
       return(
@@ -239,7 +239,7 @@ function Login(props) {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <EmailIcon/> trams.upd@up.edu.ph <br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <FacebookIcon/> facebook.com/TrAMSProject. 
+                    <FacebookIcon/> facebook.com/TrAMSProject.
                   </Typography><br/><br/>
                 </DialogContent>
                 <DialogActions>
