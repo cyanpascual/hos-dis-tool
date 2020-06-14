@@ -1,6 +1,7 @@
 import React, {useContext,useState} from 'react';
 import { MapsContext } from '../../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../../contexts/LoginContext';
+import { FeaturesContext } from '../../../../../contexts/FeaturesContext';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
 
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalSupply = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
+  const { hospitalList, setHospitalList, hospitals, setHospitals, setSearchTerm} = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -92,8 +94,15 @@ const HospitalSupply = (props) => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
+    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
+      .then(res => console.log(res.data))
+      .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
-    setHos(selectedHospital)
+    setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
+    setHospitalList(prevState => [
+      ...prevState,
+      selectedHospital
+    ])
   }
 
   const supplies = Object.keys(selectedHospital.properties.supply_cur)

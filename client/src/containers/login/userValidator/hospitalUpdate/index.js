@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalUpdate = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
+  const { setHospitalList, hospitals } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -100,12 +100,15 @@ const HospitalUpdate = (props) => {
   const handleCancel = () => {
     setSelectedHospital(hos);
     console.log(selectedHospital);
-    setIsEditMode(!isEditMode)
+    setIsEditMode(!isEditMode) 
   }
 
   const handleSubmit = () => {
     console.log(selectedHospital);
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
+      .then(res => console.log(res.data))
+      .catch(error => console.log(error))
+    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
@@ -114,7 +117,6 @@ const HospitalUpdate = (props) => {
       ...prevState,
       selectedHospital
     ])
-    setHospitals(hospitalList)
   }
 
   const supplies = Object.keys(selectedHospital.properties.supply_cur)
