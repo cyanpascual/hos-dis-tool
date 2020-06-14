@@ -202,7 +202,7 @@ function Personnel(props) {
           <div style={{overflow: "auto", height:'86vh'}}>
             {landing === 0 ? <Dashboard/> 
             :landing === 1 ? <HospitalSupply/>
-            :landing === 3 ? <ManageAccount/>:<p/>}
+            :landing === 4 ? <ManageAccount/>:<p/>}
           </div>  
         </div>
       </div>
