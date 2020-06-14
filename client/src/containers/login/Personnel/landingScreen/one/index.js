@@ -1,4 +1,4 @@
-import React, {useContext,useState,useStyles} from 'react';
+import React, {useContext,useState,useEffect} from 'react';
 import { MapsContext } from '../../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../../contexts/LoginContext';
 import { createMuiTheme, makeStyles, withStyles, ThemeProvider} from '@material-ui/core/styles';
@@ -79,32 +79,45 @@ const Dashboard = (props) => {
   const { classes, ...other } = props;
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { username } = useContext(LoginContext);
-
+  
+  const [announcements, setAnnouncements] = useState('')
   const [hos, setHos] = useState(selectedHospital);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios('https://trams-up-dge.herokuapp.com/ann0unc3m3nt', );
+
+      setAnnouncements(res.data);
+      //console.log(res2.data)
+    }
+    
+    fetchData();
+  })
   
   return (
     <ThemeProvider theme={theme}>
     <div className={classes.container}>
       <Grid container direction="row">
-        <Grid item xs={7}>
+        <Grid item xs={6}>
           <Card className={classes.card}>
             <CardHeader className={classes.header} title="Announcements" />
-            <CardContent className={classes.container} style={{height:'30vh'}}>
+            <CardContent className={classes.container} style={{height:'65vh'}}>
               <Typography variant='h3'>No announcements</Typography>
             </CardContent>
           </Card>
-          <Card className={classes.card}>
+
+
+          {/*<Card className={classes.card}>
             <CardHeader className={classes.header} title="Supplies summary" />
             <CardContent className={classes.container} style={{height:'30vh'}}>
               <Typography variant='h3'>No graphs to show yet</Typography>
             </CardContent>
-          </Card>
+          </Card>*/}
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Card className={classes.card}>
             <CardHeader className={classes.header} title="Donations Tracking" />
-            <CardContent className={classes.container} style={{height:'60vh'}}>
+            <CardContent className={classes.container} style={{height:'65vh'}}>
               <Typography variant='h3'>No donations yet</Typography>
             </CardContent>
           </Card>
