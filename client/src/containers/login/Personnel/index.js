@@ -13,7 +13,7 @@ import { MapsContext } from '../../../contexts/MapsContext';
 import { LoginContext } from '../../../contexts/LoginContext';
 
 import Dashboard from './landingScreen/one';
-import HospitalSupply from './landingScreen/two'
+import HospitalUpdate from './landingScreen/two'
 import ManageAccount from './landingScreen/four'
 
 
@@ -201,7 +201,7 @@ function Personnel(props) {
           <Header onDrawerToggle={handleDrawerToggle} />
           <div style={{overflow: "auto", height:'86vh'}}>
             {landing === 0 ? <Dashboard/> 
-            :landing === 1 ? <HospitalSupply/>
+            :landing === 1 ? <HospitalUpdate/>
             :landing === 3 ? <ManageAccount/>:<p/>}
           </div>  
         </div>

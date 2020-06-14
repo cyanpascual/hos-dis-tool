@@ -120,14 +120,19 @@ function Navigator(props) {
           Dashboard
         </Button>
         <br/>
-        <Button variant="contained" size="large" className={classes.button} onClick={()=>setLanding(1)}>
-          Supply Inventory
-        </Button>
-        <br/>
         <Button variant="contained" size="large" className={classes.button} onClick={()=>setLanding(2)}>
           Donations tracker
         </Button>
-        <br/><br/>
+        <br/>
+        <Button variant="contained" size="large" className={classes.button} onClick={()=>setLanding(1)}>
+          Medical Supplies
+        </Button>
+        <br/>
+        {selectedHospital.test_center === true ?
+          <Button variant="contained" size="large" className={classes.button} onClick={()=>setLanding(4)}>
+            Laboratory Supplies
+          </Button> : <p/>}
+        <br/>
         <Grid item xs/>
       </Grid>
       <Button variant="contained" size="large" className={classes.manageButton} onClick={()=>setLanding(3)}>

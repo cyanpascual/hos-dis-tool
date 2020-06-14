@@ -279,6 +279,6 @@ const hospitalSchema = new Schema({
   }
 });
 
-const Hospital = mongoose.model('New Hospital', hospitalSchema, 'newhospitals');
+const Hospital = mongoose.model('Hospital Log', hospitalSchema, 'hospitallogs');
 
 module.exports = Hospital;

@@ -1,4 +1,4 @@
-import React, {useContext,useState} from 'react';
+import React, {useContext,useState, useEffect} from 'react';
 import { MapsContext } from '../../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../../contexts/LoginContext';
 import { FeaturesContext } from '../../../../../contexts/FeaturesContext';
@@ -7,11 +7,13 @@ import axios from 'axios';
 
 import { Divider, Typography } from '@material-ui/core';
 
-import {IconButton, TextField, Input, Grid, Button} from '@material-ui/core';
+import {IconButton, TextField, Input, Grid, Button, Collapse} from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CloseIcon from '@material-ui/icons/Close';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -35,17 +37,31 @@ const useStyles = makeStyles((theme) =>
 const ManageAccount = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { hospitals, setHospitals, hospitalList, setHospitalList } = useContext(FeaturesContext)
-  const { username } = useContext(LoginContext);
+  const { user, setUser, users, setUsers, username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
+  const [origUser, setOrigUser] = useState(user);
+  const [userList, setUserList] = useState(users);
   const [isEditMode, setIsEditMode] = useState(false);
   const [expanded, setExpanded] = useState('')
+  const [changed, setChanged] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (selectedHospital !== hos){
+      setChanged(true)
+    } else if (user !== origUser){
+      setChanged(true)
+    } else {
+      setChanged(false)
+    }
+  }, [selectedHospital, user])
 
   const handleOnChange = (event) => {
     const {name, value} = event.target;
@@ -59,7 +75,7 @@ const ManageAccount = (props) => {
     })
   }
 
-  const handleCancel = (event) => {
+  const handleCancel = () => {
     setSelectedHospital(hos)
     setIsEditMode(!isEditMode)
   }
@@ -67,6 +83,7 @@ const ManageAccount = (props) => {
   const handleSubmit = () => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
+      .then(setOpen(true))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHos(selectedHospital);
@@ -76,6 +93,39 @@ const ManageAccount = (props) => {
       selectedHospital
     ])
     setHospitals(hospitalList)
+    setChanged(false)
+  }
+
+  const handleOnChangeUser = (event) => {
+    const {name, value} = event.target;
+    setUser({
+      ...user,
+      properties: {
+        ...user.properties,
+        [name]: value,
+        }
+    })
+  }
+
+  const handleCancelUser = () => {
+    setUser(origUser)
+    setIsEditMode(!isEditMode)
+  }
+
+  const handleSubmitUser = () => {
+    axios.post(`https://trams-up-dge.herokuapp.com/uz3rz/update/${user._id}`, user )
+      .then(res => console.log(res.data))
+      .then(setOpen(true))
+      .catch(error => console.log(error))
+    setIsEditMode(!isEditMode);
+    setOrigUser(user);
+    setUsers(userList.filter(usr => usr._id !== user._id))
+    setUsers(prevState => [
+      ...prevState,
+      user
+    ])
+    setUserList(users)
+    setChanged(false)
   }
   
   return (
@@ -116,7 +166,7 @@ const ManageAccount = (props) => {
             <Grid item container direction="row" justify="center" alignItems="flex-start" spacing={2}>
               <Grid item xs={4}>
                 <TextField required name="cont_person" label="Head/Contact Person" value={selectedHospital.properties.cont_person} onChange={handleOnChange} style={{width: '100%'}}/>
-              </Grid>
+              </Grid> 
               <Grid item xs={4}>
                 <TextField required name="cont_num" label="Contact Numbers" value={selectedHospital.properties.cont_num} onChange={handleOnChange} style={{width: '100%'}}/>
               </Grid>
@@ -124,13 +174,23 @@ const ManageAccount = (props) => {
                 <TextField required name="website" label="Website" value={selectedHospital.properties.website} onChange={handleOnChange} style={{width: '100%'}}/>
               </Grid>
             </Grid>
+            <Collapse in={open}>
+              {!selectedHospital.properties.cont_person || !selectedHospital.properties.cont_num || !selectedHospital.properties.website ? 
+              <Alert action={<IconButton color="inherit" size="small" onClick={() => {setOpen(false);}}>
+                <CloseIcon fontSize="inherit" />
+                </IconButton>} severity="error">Fill all necessary details</Alert>: 
+              <Alert action={<IconButton color="inherit" size="small" onClick={() => {setOpen(false);}}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>} severity="success">Changes are saved!
+              </Alert>}
+            </Collapse>
           </Grid>
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
-          <Button className={classes.cancelButton} onClick={() => handleCancel()}>
+          <Button className={classes.cancelButton} disabled={!changed} onClick={() => handleCancel()}>
             <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
           </Button><br/><br/>
-          <Button className={classes.button} onClick={() => handleSubmit()}>
+          <Button className={classes.button} disabled={!changed} onClick={() => {if (!selectedHospital.properties.cont_person || !selectedHospital.properties.cont_num || !selectedHospital.properties.website) {setOpen(true)} else {handleSubmit()}}}>
             <DoneIcon/> <Typography variant="subtitle2">Save</Typography>
           </Button>
         </ExpansionPanelActions>
@@ -140,36 +200,46 @@ const ManageAccount = (props) => {
           <Typography className={classes.heading}>Personnel information</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={0}>
-            <Grid item container justify="flex-start" alignItems="flex-start" spacing={0}>
-              <Grid item>
-                <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.cfname}</Typography>
-                <Divider/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>DOH Level:</Typography>
-                <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.doh_level}</Typography><br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
-                <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.address}</Typography><br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>City/Municipality:</Typography>
-                <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.city}</Typography><br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Province:</Typography>
-                <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.prov}</Typography><br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
-                <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.region}</Typography><br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>
-                {isEditMode ? <Input type="text" style={{width: 300, fontSize: 14}} name="cont_person" value={selectedHospital.properties.cont_person} onChange={handleOnChange}/>
-                : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_person} </Typography>}<br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number/s:</Typography>
-                {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="cont_num" value={selectedHospital.properties.cont_num} onChange={handleOnChange}/>
-                : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_num} </Typography>}<br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Website:</Typography>
-                {isEditMode? <Input type="text" style={{width: 300, fontSize: 14}} name="website" value={selectedHospital.properties.website} onChange={handleOnChange}/>
-                : <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.website} </Typography>} <br/>
-                <Typography noWrap style={{fontSize:14, fontWeight:500}}>Last Updated:</Typography>
-                <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.reportdate}</Typography><br/>
-              </Grid>  
+          <Grid container direction="column" justify="flex-start" alignItems="flex-start" spacing={1}>
+            <Grid item container direction="row" justify="center" alignItems="flex-start" spacing={2}>
+              <Grid item xs={3}>
+                <TextField required label="Surname" name="Surname" value={user.properties.Surname} onChange={handleOnChangeUser} style={{width: '100%'}}/>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField required label="First name" name="Firstname" value={user.properties.Firstname} onChange={handleOnChangeUser} style={{width: '100%'}}/>
+              </Grid>
+              <Grid item xs={5}>
+                <TextField disabled label="Designation" defaultValue={user.properties.Designation} style={{width: '100%'}}/>
+              </Grid>
             </Grid>
+            <Grid item container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
+              <Grid item xs={4}>
+                <TextField required label="Contact Numbers" name="Contact" value={user.properties.Contact} onChange={handleOnChangeUser} style={{width: '100%'}}/>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField required label="Email Address" name="Email" value={user.properties.Email} onChange={handleOnChangeUser} style={{width: '100%'}}/>
+              </Grid>
+            </Grid>
+            <Collapse in={open}>
+              {!user.properties.Surname || !user.properties.Firstname || !user.properties.Contact || !user.properties.Email  ? 
+              <Alert action={<IconButton color="inherit" size="small" onClick={() => {setOpen(false);}}>
+                <CloseIcon fontSize="inherit" />
+                </IconButton>} severity="error">Fill all necessary details</Alert>: 
+              <Alert action={<IconButton color="inherit" size="small" onClick={() => {setOpen(false);}}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>} severity="success">Changes are saved!
+              </Alert>}
+            </Collapse>
           </Grid>
         </ExpansionPanelDetails>
+        <ExpansionPanelActions>
+          <Button className={classes.cancelButton} disabled={!changed} onClick={() => {if (!user.properties.Surname || !user.properties.Firstname || !user.properties.Contact || !user.properties.Email) {setOpen(true)} else {handleCancelUser()}}}>
+            <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
+          </Button><br/><br/>
+          <Button className={classes.button} disabled={!changed} onClick={() => handleSubmitUser()}>
+            <DoneIcon/> <Typography variant="subtitle2">Save</Typography>
+          </Button>
+        </ExpansionPanelActions>
       </ExpansionPanel>
     </div>
   )

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Router, Route, Switch } from "react-router-dom";
 import { MapsContext } from '../../contexts/MapsContext';
 import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -15,9 +14,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
 import PropTypes from "prop-types";
-import { connect, useDispatch } from "react-redux";
-import { loginUser } from "./redux/actions/authActions";
-import classnames from "classnames";
+
 
 
 const useStyles = makeStyles((theme) =>
@@ -41,6 +38,10 @@ const useStyles = makeStyles((theme) =>
     },
     card: {
       marginTop: theme.spacing(10)
+
+    },
+    dialog: {
+
     }
 
   }),
@@ -103,18 +104,12 @@ function Login(props) {
   const { login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
 
   const classes = useStyles();
-  const [users, setUsers] = useState('');
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if(props.auth.isAuthenticated){
-      props.history.push('/dashboard')
-    }
-  }, [])
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -129,18 +124,18 @@ function Login(props) {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', ); 
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
       const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
-      
+
       setUsers(res.data);
       setHospitals(res3.data);
       setHospitalList(res3.data);
       //console.log(res2.data)
     }
-    
+
     fetchData();
   }, [])
-  
+
   const handleLogin = (e) => {
     //e.preventDefault();
 
@@ -182,7 +177,7 @@ function Login(props) {
       isButtonDisabled || handleLogin();
     }
   };
-  
+
   if (login){
     if (accountType === 'Validator'){
       return(
@@ -245,7 +240,7 @@ function Login(props) {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <EmailIcon/> trams.upd@up.edu.ph <br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <FacebookIcon/> facebook.com/TrAMSProject. 
+                    <FacebookIcon/> facebook.com/TrAMSProject.
                   </Typography><br/><br/>
                 </DialogContent>
                 <DialogActions>
@@ -272,18 +267,5 @@ function Login(props) {
   );}
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Login);
+export default Login;
