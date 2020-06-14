@@ -5,30 +5,21 @@ import { MapsContext } from '../../contexts/MapsContext';
 // import simple_high from '../../assets/levelIndicators/simple_high.png'
 // import simple_med from '../../assets/levelIndicators/simple_mid.png'
 // import simple_low from '../../assets/levelIndicators/simple_low.png'
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Box from '@material-ui/core/Box'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import CancelIcon from '@material-ui/icons/Cancel';
+
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LanguageIcon from '@material-ui/icons/Language';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { CircularProgressbar, buildStyles, CircularProgressbarWithChildren, } from 'react-circular-progressbar';
 import SupplyCard from './supplyCard'
+
+
+
 const HospitalInfo = () => {
     const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,supplyList } = useContext(FeaturesContext);
     const { closePopups, mapReference, setMapReference, defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
@@ -75,7 +66,8 @@ const HospitalInfo = () => {
           
         </ListItem>
         <ListItem>
-          <IconButton  
+          <IconButton 
+            small 
             variant="contained" 
             color="primary"
             onClick={()=>{
@@ -124,8 +116,6 @@ const HospitalInfo = () => {
             </Typography>
           <ListItem>
             <List>
-        
-
                 {supplies.map((supply)=>{
                   return(
                     <ListItem>

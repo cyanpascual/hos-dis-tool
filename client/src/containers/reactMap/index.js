@@ -106,8 +106,7 @@ export default function App() {
                             goToSelected(hospital);
                         }}
                     >
-                    <Popup
-                    >
+                    <Popup className="request-popup">
                         {selectedHospital ? (
                             <div>
                                 {selectedHospital.properties.cfname}
