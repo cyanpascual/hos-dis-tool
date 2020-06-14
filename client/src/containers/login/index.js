@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Router, Route, Switch } from "react-router-dom";
 import { MapsContext } from '../../contexts/MapsContext';
 import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -15,9 +14,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
 import PropTypes from "prop-types";
-import { connect, useDispatch } from "react-redux";
-import { loginUser } from "./redux/actions/authActions";
-import classnames from "classnames";
+
 
 
 const useStyles = makeStyles((theme) =>
@@ -106,18 +103,12 @@ function Login(props) {
   const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
 
   const classes = useStyles();
-  const dispatch = useDispatch(); 
   
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if(props.auth.isAuthenticated){
-      props.history.push('/dashboard')
-    }
-  }, [])
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -275,18 +266,5 @@ function Login(props) {
   );}
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Login);
+export default Login;
