@@ -41,7 +41,7 @@ const hospitalSchema = new Schema({
       "type": "String" // Region (for sorting purposes)
     },
     "doh_level": {
-      "type": "String" // DOH Level whether primary (1), secondary (2), tertiary (3), specialty
+      "type": "String" // DOH Level whether primary (1), secondary (2), tertiary (3), specialty, other
     },
     "capacity": {
       "icu_v": {
@@ -53,7 +53,7 @@ const hospitalSchema = new Schema({
       "isolbed_v": {
         "type": "Number" // number of vacant isolation beds
       },
-      "isolbed_o": {
+      "isolbed_v": {
         "type": "Number" // number of occupied isolation beds
       },
       "beds_ward_v": {
@@ -111,6 +111,14 @@ const hospitalSchema = new Schema({
       },
       "vitamins": {
         "type": "Number" // Vitamins (in pieces)
+      }
+    },
+    "lab_need": { // Weekly Laboratory Supply Needs
+      "rtpcr": {
+        "type": ["Mixed"]
+      },
+      "rna_extraction": {
+        "type": ["Mixed"]
       },
       "filter_tip_1000": {
         "type": "Number" // Filter pipette tips, 1000 uL
@@ -192,6 +200,17 @@ const hospitalSchema = new Schema({
       "vitamins": {
         "type": "Number" // Vitamins (in pieces)
       },
+      "other": {
+        "type": "String" // For other hospital needs (may be left blank)
+      }
+    },
+    "lab_cur": { // Current Laboratory Needs
+      "rtpcr": {
+        "type": ["Mixed"] // RT-PCR Machines
+      },
+      "rna_extraction": {
+        "type": ["Mixed"] // RNA Extraction Machines
+      },
       "filter_tip_1000": {
         "type": "Number" // Filter pipette tips, 1000 uL
       },
@@ -229,7 +248,7 @@ const hospitalSchema = new Schema({
         "type": "Number" // NaCl (for diluting viscous samples, other than NPS/OPS)
       },
       "other": {
-        "type": "String" // For other hospital needs (may be left blank)
+        "type": "String" // For other laboratory needs (may be left blank)
       }
     },
     "cont_person": {
