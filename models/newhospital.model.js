@@ -115,10 +115,10 @@ const hospitalSchema = new Schema({
     },
     "lab_need": { // Weekly Laboratory Supply Needs
       "rtpcr": {
-        "type": ["Mixed"]
+        "type": "Mixed"
       },
       "rna_extraction": {
-        "type": ["Mixed"]
+        "type": "Mixed"
       },
       "filter_tip_1000": {
         "type": "Number" // Filter pipette tips, 1000 uL
@@ -206,10 +206,10 @@ const hospitalSchema = new Schema({
     },
     "lab_cur": { // Current Laboratory Needs
       "rtpcr": {
-        "type": ["Mixed"] // RT-PCR Machines
+        "type": "Mixed" // RT-PCR Machines
       },
       "rna_extraction": {
-        "type": ["Mixed"] // RNA Extraction Machines
+        "type": "Mixed" // RNA Extraction Machines
       },
       "filter_tip_1000": {
         "type": "Number" // Filter pipette tips, 1000 uL
