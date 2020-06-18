@@ -78,6 +78,7 @@ const FilterList = (props) => {
     const imageChooser = (currHospital,supply) =>{
       if(currHospital.properties.supply_status[supply]==='No Data'){
         return(<Chip  className={classes.chip} style={{opacity:0.2, fontWeight:200}} size="small" label={supplyLabelMap[supply]}/>)
+
       }
         else if(currHospital.properties.supply_status[supply]==="Critically Low"){
           return(<Chip  className={classes.chip} style={{opacity:1,fontWeight:500}} size="small" label={supplyLabelMap[supply]} />)
