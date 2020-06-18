@@ -54,7 +54,7 @@ const HospitalUpdate = (props) => {
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
-    if (name !== "Other Needs"){
+    if (name !== "other"){
       if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
@@ -78,7 +78,7 @@ const HospitalUpdate = (props) => {
           }
         })
       }
-    }else {
+    } else {
       setSelectedHospital({
         ...selectedHospital,
         properties: {

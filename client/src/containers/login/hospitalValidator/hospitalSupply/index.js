@@ -188,7 +188,7 @@ const HospitalSupply = (props) => {
                         <TableCell>
                           <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Others Needs</Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="center">
                           {isEditMode? 
                             <TextField width="50px" name={supply} value={selectedHospital.properties.supply_cur[supply]} onChange={(e) => handleOnChange(e)}/> 
                             :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_cur[supply]}</Typography>}                      

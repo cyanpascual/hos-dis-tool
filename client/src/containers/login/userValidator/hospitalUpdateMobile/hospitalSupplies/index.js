@@ -46,7 +46,7 @@ const HospitalSupply = (props) => {
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
-    if (name !== "Other Needs"){
+    if (name !== "other"){
       if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
@@ -151,12 +151,12 @@ const HospitalSupply = (props) => {
               </TableHead>
               <TableBody>
                 {supplies.map((supply)=>{
-                  if(supply === "Other Needs"){
+                  if(supply === "other"){
                     return(
                       <TableRow key={supply} className="supplies">
                         <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                         <TableCell>
-                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply]}</Typography>
+                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Other Needs</Typography>
                         </TableCell>
                         <TableCell>
                           {isEditMode? 
