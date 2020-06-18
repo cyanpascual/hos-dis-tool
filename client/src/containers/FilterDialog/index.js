@@ -99,7 +99,7 @@ export default function FilterDialog() {
         <Box className={flexStyles.parent}>
         <Button variant="contained" color="primary" 
           onClick={()=>{
-            setFilterSetting("alcohol")
+            setFilterSetting("coverall")
             setFilterLevel('')
             setSelectedProvince('')
             setJustTestCenters(false)
