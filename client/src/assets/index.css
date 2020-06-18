@@ -1,5 +1,4 @@
 html{
-  background-color: #bbbbbb;
 }
 
 body {
@@ -9,33 +8,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #bbbbbb;
 }
 
-svg {height: auto; width: auto}
 
 .map {
   height: 100%;
   z-index: 999;
+  
 }
 
-.MuiDrawer-root{
-  height: 300px;
-  overflow-y:hidden;
-}
+.request-popup .leaflet-popup-content-wrapper {
 
-.filterList ul{
-    list-style-type: none;
-}
-
-.filterList img{
-  height: 35px;
-  width: 35px;
 }
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
+  height: 5px;
 }
 
 /* Track */
