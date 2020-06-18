@@ -155,53 +155,46 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList } = useContext(FeaturesContext);
+  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
 
 
   
 
   useEffect(()=>{
-    const supplyList = ["Alcohol",
-    "Disinfectant (Sterilium)",
-    "Antibacterial Soap",
-    "Surgical Gowns",
-    "Surgical Masks",
-    "N95 Masks",
-    "Gloves",
-    "Shoe covers",
-    "PPE",
-    "Goggles and face shields",
-    "Testing Kits",
-    "Tissue",
-    "Vitamins",
-    "Food (Meals)"]
+
     
     const fetchData = async () => {
-      const res = await axios('https://trams-up-dge.herokuapp.com/hospitals/', );
+      const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-
+      console.log('fasdfadfa');
+      console.log(Object.keys(res.data[0].properties.supply_need))
+      var temp = Object.keys(res.data[0].properties.supply_need)
+      console.log(temp)
+      //this is because supplyList won't update before this function is over 
+      setSupplyList(temp) 
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
-        hospital.properties.SupplyStatus = {}
-        supplyList.forEach(supply => {
-          if(hospital.properties.Supply_Cap[supply]!==0){
-            if(hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] < 0.2){
-              hospital.properties.SupplyStatus[supply] = "Critically Low"
+        hospital.properties.supply_status = {}
+        temp.forEach(supply => {
+          if(hospital.properties.supply_need[supply]!==0){
+            if(hospital.properties.supply_cur[supply]/hospital.properties.supply_need[supply] < 0.2){
+              hospital.properties.supply_status[supply] = "Critically Low"
               hospital.properties.priorityScore += 2
-            } else if((hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] >= 0.20) && (hospital.properties.Supply_Cur[supply]/hospital.properties.Supply_Cap[supply] <= 0.5)){
-              hospital.properties.SupplyStatus[supply] = "Low"
+            } else if((hospital.properties.supply_cur[supply]/hospital.properties.supply_need[supply] >= 0.20) && (hospital.properties.supply_cur[supply]/hospital.properties.supply_need[supply] <= 0.5)){
+              hospital.properties.supply_status[supply] = "Low"
               hospital.properties.priorityScore += 1
             } else{
-              hospital.properties.SupplyStatus[supply] = "Well stocked"
+              hospital.properties.supply_status[supply] = "Well stocked"
             }           
           } else{
-            hospital.properties.SupplyStatus[supply] = "No Data"
+            hospital.properties.supply_status[supply] = "No Data"
           }
       });
+
        
       });
-      setHospitals(res.data.sort(compareValues('Name_of_Ho')));
-      setHospitalList(res.data.sort(compareValues('Name_of_Ho')));
+      setHospitals(res.data.sort(compareValues('cfname')));
+      setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
     };

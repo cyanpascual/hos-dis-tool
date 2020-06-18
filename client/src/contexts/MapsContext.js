@@ -27,8 +27,8 @@ const MapsContextProvider = (props) => {
     const goToSelected = (givenHospital) => {
       if(givenHospital){        const newViewport = {
         ...viewport,
-        lat: givenHospital.geometry.Coordinates[1],
-        lng: givenHospital.geometry.Coordinates[0],
+        lat: givenHospital.geometry.coordinates[1],
+        lng: givenHospital.geometry.coordinates[0],
         zoom: 15
 
     };

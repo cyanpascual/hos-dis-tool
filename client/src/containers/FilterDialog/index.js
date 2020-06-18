@@ -1,11 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 
 import Button from '@material-ui/core/Button';
+import Checkbox   from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -13,13 +16,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import FilterInput from './FilterInput';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-
+import { useRowFlexStyles } from '@mui-treasury/styles/flex/row';
 
 export default function FilterDialog() {
   const [open, setOpen] = React.useState(false);
   const [alertOpen, setAlertOpen] = React.useState(false);
 
-
+  const flexStyles = useRowFlexStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,9 +43,9 @@ export default function FilterDialog() {
   };
 
   const generateCitiesList = (province) =>{
-    var initialList = hospitals.filter((hospital)=>{return("City/Municipality" in hospital.properties)})
-    initialList = initialList.filter(hospital => hospital.properties.Province === province)
-    const cities = initialList.map((hospital)=>{return(hospital.properties["City/Municipality"])})
+    var initialList = hospitals.filter((hospital)=>{return("city" in hospital.properties)})
+    initialList = initialList.filter(hospital => hospital.properties.prov === province)
+    const cities = initialList.map((hospital)=>{return(hospital.properties.city)})
     const uniqueCities = Array.from(new Set(cities))
     setCitiesList(uniqueCities) 
   }
@@ -50,64 +53,74 @@ export default function FilterDialog() {
   
   const { 
     selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting, 
-    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel } = useContext(FeaturesContext);
+    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel, supplyList,  desktop,justTestCenters, setJustTestCenters, supplyLabels } = useContext(FeaturesContext);
+    
  
-  const supplyChoices=["Alcohol",
-                      "Disinfectant (Sterilium)",
-                      "Antibacterial Soap",
-                      "Surgical Gowns",
-                      "Surgical Masks",
-                      "N95 Masks",
-                      "Gloves",
-                      "Shoe covers",
-                      "PPE",
-                      "Goggles and face shields",
-                      "Testing Kits",
-                      "Tissue",
-                      "Vitamins",
-                      "Food (Meals)"]
+
  
   const supplyLevelChoices=["Well stocked","Low", "Critically Low","No Data"]
 
 
   const [provincesList, setProvincesList] = useState(null);
   const [citiesList, setCitiesList] = useState(null);
-
+  
+  const handleTestCenterToggle= () =>{
+    setJustTestCenters(!justTestCenters)
+  }
   useEffect(()=>{
     if(hospitalList){
       const initialList = hospitals.filter((hospital)=>{
         //this makes sure the website will still work even when the "Province" field is missing
-        return("Province" in hospital.properties)
+        return("prov" in hospital.properties)
     })
       const provinces = initialList.map((hospital)=>{
-          return(hospital.properties.Province)
+
+          return(hospital.properties.prov)
       })
+   
       const uniqueProvinces = Array.from(new Set(provinces))
       
       setProvincesList(uniqueProvinces)
  
     }
   }, hospitalList)
-  
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen} startIcon={<FilterListIcon/>} color="primary" > Filter</Button>
+      <Button fullWidth variant="contained" onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="primary" style={{height:"39px",fontSize:"0.9rem"}}>{"Filter"} </Button>
+       
+ 
+      
+      
       <Dialog fullWidth disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle><Button variant="contained" color="primary" 
+        <DialogTitle >
+        <Box className={flexStyles.parent}>
+        <Button variant="contained" color="primary" 
           onClick={()=>{
-            setFilterSetting('')
+            setFilterSetting("alcohol")
             setFilterLevel('')
             setSelectedProvince('')
+            setJustTestCenters(false)
 
           }} 
-          style={{marginLeft:"5px"}}>Reset</Button> </DialogTitle>
-        
+          style={{marginLeft:"5px", marginRight:"5px"}}>Reset</Button> 
+          <Box
+            className={flexStyles.rightChild}>
+                Show only test centers
+          <Checkbox
+            checked={justTestCenters}
+            onChange={handleTestCenterToggle}
+            inputProps={{ 'aria-label': 'Show only text centers?' }}
+            style={{marginLeft:5}}
+          />
+        </Box>
+        </Box>
+        </DialogTitle>
         <DialogContent>
           <FilterInput 
           label="Supply" 
           onChange={setFilterSetting} 
-          choices={supplyChoices}
+          choices={supplyList}
           value={filterSetting}
           />
 
@@ -140,7 +153,7 @@ export default function FilterDialog() {
           (<Autocomplete
             onInputChange={(obj,value)=>{
                 setSelectedCity(value)
-                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.Province == value}))
+                //setHospitalList(hospitals.filter((hospital)=>{return hospital.properties.prov == value}))
             }}
             options={citiesList}
             getOptionLabel={(option) => option}
