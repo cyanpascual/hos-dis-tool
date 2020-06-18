@@ -57,8 +57,7 @@ export default function App() {
     const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters} = useContext(FeaturesContext);
     const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
     const position = [viewport.lat, viewport.lng]
-    console.log("fdsfa")
-    console.log(justTestCenters)
+
 
     return (
  
@@ -90,7 +89,7 @@ export default function App() {
                  }
              })
              .filter((hospital)=> {
-                if (filterSetting === '' || filterLevel=== ''){
+                if (filterLevel=== ''){
                   return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
                 } else{
                   return(hospital.properties.supply_status[filterSetting] === filterLevel && hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))

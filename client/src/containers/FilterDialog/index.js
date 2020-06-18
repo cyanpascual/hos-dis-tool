@@ -5,8 +5,10 @@ import Checkbox   from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -14,13 +16,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import FilterInput from './FilterInput';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-
+import { useRowFlexStyles } from '@mui-treasury/styles/flex/row';
 
 export default function FilterDialog() {
   const [open, setOpen] = React.useState(false);
   const [alertOpen, setAlertOpen] = React.useState(false);
 
-
+  const flexStyles = useRowFlexStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,23 +53,10 @@ export default function FilterDialog() {
   
   const { 
     selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting, 
-    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel, supplyList,  desktop,justTestCenters, setJustTestCenters } = useContext(FeaturesContext);
+    selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel, supplyList,  desktop,justTestCenters, setJustTestCenters, supplyLabels } = useContext(FeaturesContext);
     
  
-  const supplyChoices=["Alcohol",
-                      "Disinfectant (Sterilium)",
-                      "Antibacterial Soap",
-                      "Surgical Gowns",
-                      "Surgical Masks",
-                      "N95 Masks",
-                      "Gloves",
-                      "Shoe covers",
-                      "PPE",
-                      "Goggles and face shields",
-                      "Testing Kits",
-                      "Tissue",
-                      "Vitamins",
-                      "Food (Meals)"]
+
  
   const supplyLevelChoices=["Well stocked","Low", "Critically Low","No Data"]
 
@@ -98,25 +87,34 @@ export default function FilterDialog() {
 
   return (
     <div>
-      <Button variant="outlined" fullWidth onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="secondary" style={{height:"39px", opacity:0.6, fontSize:"80%"}} > Filter</Button>
+      <Button fullWidth variant="contained" onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="primary" style={{height:"39px",fontSize:"0.9rem"}}>{"Filter"} </Button>
+       
+ 
+      
+      
       <Dialog fullWidth disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>
-
+        <DialogTitle >
+        <Box className={flexStyles.parent}>
         <Button variant="contained" color="primary" 
           onClick={()=>{
-            setFilterSetting('')
+            setFilterSetting("alcohol")
             setFilterLevel('')
             setSelectedProvince('')
+            setJustTestCenters(false)
 
           }} 
           style={{marginLeft:"5px", marginRight:"5px"}}>Reset</Button> 
-                  Show only test centers
-        <Checkbox
-          checked={justTestCenters}
-          onChange={handleTestCenterToggle}
-          inputProps={{ 'aria-label': 'Show only text centers?' }}
-          style={{marginLeft:5}}
-        />
+          <Box
+            className={flexStyles.rightChild}>
+                Show only test centers
+          <Checkbox
+            checked={justTestCenters}
+            onChange={handleTestCenterToggle}
+            inputProps={{ 'aria-label': 'Show only text centers?' }}
+            style={{marginLeft:5}}
+          />
+        </Box>
+        </Box>
         </DialogTitle>
         <DialogContent>
           <FilterInput 

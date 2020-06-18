@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -29,7 +29,7 @@ export default function WelcomeDialog() {
 
   return (
     <div>
-      <Button  color="secondary" onClick={handleClickOpen}>
+      <Button  color="inherit" onClick={handleClickOpen}>
         About Us
       </Button>
         <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >

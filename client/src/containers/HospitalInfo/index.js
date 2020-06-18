@@ -1,27 +1,22 @@
 import React, {useContext,useState, useEffect} from 'react';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
-
-// import simple_high from '../../assets/levelIndicators/simple_high.png'
-// import simple_med from '../../assets/levelIndicators/simple_mid.png'
-// import simple_low from '../../assets/levelIndicators/simple_low.png'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
-
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LanguageIcon from '@material-ui/icons/Language';
 import SupplyCard from './supplyCard'
-
+import DonationDialog from '../DonationDialog'
 
 
 const HospitalInfo = () => {
-    const { facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,supplyList } = useContext(FeaturesContext);
+    const { supplyIconGetter,facilities, setFacilitiesList, facilitiesList, hospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,supplyList } = useContext(FeaturesContext);
     const { closePopups, mapReference, setMapReference, defaultMapSettings,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected } = useContext(MapsContext)
 
     const [userInput, setUserInput] = useState("")
@@ -68,6 +63,7 @@ const HospitalInfo = () => {
         <ListItem>
           <IconButton 
             small 
+            style={{width: '30px', height: '30px', padding: '7.5px'}}
             variant="contained" 
             color="primary"
             onClick={()=>{
@@ -75,51 +71,48 @@ const HospitalInfo = () => {
             setViewport(defaultMapSettings)
             setSelectedHospital(null)
             }} >
-              <ArrowBackIosIcon/>
+              <ArrowBackIosIcon style={{width: '30px', height: '30px', padding: '7.5px'}}/>
             </IconButton>
         </ListItem>
         <ListItem>
-          <Typography variant="h5" gutterBottom>{selectedHospital.properties.cfname}</Typography>  
+          <Typography style={{fontWeight:500}} variant="h5" gutterBottom>{selectedHospital.properties.cfname}</Typography>  
         </ListItem>
         <ListItem>
           <Typography variant="subtitle1" color='textSecondary' gutterBottom>
-            DOH Level: <span style={{color:"red"}}>{selectedHospital.properties.doh_level}</span>
+            DOH Level: <span >{selectedHospital.properties.doh_level}</span>
           </Typography>
         </ListItem>
         <ListItem>
           <Typography variant="subtitle1" color='textSecondary' gutterBottom>
-            Last Updated: <span style={{color:"red"}}>{selectedHospital.properties.reportdate}</span>
+            Last Updated: <span style={{color:"red"}}>{selectedHospital.properties.reportdate.slice(-22)}</span>
           </Typography>
         </ListItem>
         {/* <ListItem>
-          <Typography variant="subtitle1" gutterBottom>
-            Donate through:
-          </Typography>
-          <List>
-            <ListItem><a href="#">Donation Drive 1</a></ListItem>
-            <ListItem><a href="#">Donation Drive 2</a></ListItem>
-            <ListItem><a href="#">Donation Drive 3</a></ListItem>
-          </List>
-        </ListItem> */}
+            <DonationDialog name={selectedHospital.properties.cfname}/>
+        </ListItem>  */}
         
         <Divider light style={{marginBottom:5}}/>
         <Typography variant='body1'>
           <ListItem>
             <ListItemIcon><RoomIcon/></ListItemIcon>
-            address: {selectedHospital.properties.address}</ListItem>
+            {selectedHospital.properties.address}</ListItem>
           <ListItem>
           <ListItemIcon><PhoneIcon/></ListItemIcon>
-            Contact Numbers: {selectedHospital.properties.cont_num}</ListItem>
-          <ListItem>
-          <ListItemIcon><LanguageIcon/></ListItemIcon>
-            website: {selectedHospital.properties.website}</ListItem>
+            {selectedHospital.properties.cont_num}</ListItem>
+          
+          {selectedHospital.properties.website.toLowerCase() !="none"? 
+            <ListItem>
+              <ListItemIcon><LanguageIcon/></ListItemIcon>
+              <a href={selectedHospital.properties.website}>{selectedHospital.properties.website}</a>
+            </ListItem>:
+            null}
             </Typography>
           <ListItem>
             <List>
                 {supplies.map((supply)=>{
                   return(
                     <ListItem>
-                    <SupplyCard name={supply} current={selectedHospital.properties.supply_cur[supply]} cap={selectedHospital.properties.supply_need[supply]}/>
+                    <SupplyCard name={supply} current={selectedHospital.properties.supply_cur[supply]} cap={selectedHospital.properties.supply_need[supply]} level={selectedHospital.properties.supply_status}/>
                     </ListItem>
                 )})}
           </List>

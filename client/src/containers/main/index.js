@@ -10,7 +10,7 @@ import { List, ListItem, colors, Typography, AppBar, Divider } from '@material-u
 import Navigator from '../Navigator';
 import ReactMap from '../reactMap'
 import Drawer from '@material-ui/core/Drawer';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery, createMuiTheme} from '@material-ui/core';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
@@ -23,6 +23,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import FilterDialog from '../FilterDialog';
+import UpdateDialog from '../UpdateDialog';
+import WelcomeDialog from '../WelcomeDialog';
+import FeedbackDialog from '../FeedbackDialog';
 import SortDialog from '../SortDialog';
 import HospitalInfo  from '../HospitalInfo';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -30,8 +33,8 @@ import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
 import SidebarMenu from './components/sidebar'
-
-
+import { makeStyles } from '@material-ui/core/styles';
+import tramsLogo from '../../assets/logos/tramsLogo.png'
 
 
 //material ui stuff
@@ -41,7 +44,7 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
-import ChatzListItemDemo from './components/faceStyles'
+import HospitalDeck from './components/HospitalDeck'
 //styled components stuff    
 import styled from 'styled-components';
 
@@ -67,6 +70,9 @@ import {
   FooterMockUp,
 } from '@mui-treasury/mockup/layout';
 
+
+
+
 //creates the component objects
 const scheme = Layout();
 const Header = getHeader(styled);
@@ -85,7 +91,7 @@ scheme.configureHeader((builder) => {
     .registerConfig("xs", {
       position: "sticky",
     })
-    .registerConfig("md", {
+    .registerConfig("lg", {
       position: "relative", // won't stick to top when scroll down
     });
 });
@@ -105,25 +111,92 @@ scheme.configureEdgeSidebar(builder => {
     });
 });
 
+let theme = createMuiTheme({
+    palette: {
+      primary: {
+        light: '#b73d2a',
+        main: '#9b2b2b',
+        dark: '#4f0000',
+      },
+      secondary: {
+        light: '#4f5b62',
+        main: '#263238',
+        dark: '#000a12',
+      },
+    },
+
+  });
+
+  const useStyles = makeStyles(() => ({
+    header: {
+      backgroundColor: '#fff',
+      borderBottom: '1px solid hsl(210, 32%, 93%)',
+    },
+    collapseBtn: {
+      color: '#fff',
+      minWidth: 0,
+      width: 40,
+      borderRadius: '50%',
+      border: 'none',
+      backgroundColor: 'rgba(0,0,0,0.24)',
+      margin: '0 auto 16px',
+      '&:hover': {
+        backgroundColor: 'rgba(0,0,0,0.38)',
+      },
+    },
+    sidebar: {
+      backgroundColor: '#9b2b2b',
+      border: 'none',
+      fontSize:"1rem",
+      fontWeight:600,
+      color:"white"
+    },
+    content: {
+      backgroundColor: '#f9f9f9',
+    },
+  }));
+
 
 //Main function that returns the component
 const Main = () => {
+  const styles = useStyles();
+  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
+  const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
+  
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true
+  });
 
+  setDesktop(isDesktop)
+
+  
   return (
-    <Root scheme={scheme}>
+    <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
         <>
           <CssBaseline />
-          {/* <Header style={{height:"7vh"}}>
+          {isDesktop?(null):( <Header style={{height:"8vh"}}>
             <Toolbar>
               <SidebarTrigger sidebarId="unique_id" />
-              <HeaderMockUp />
             </Toolbar>
-          </Header> */}
-          <DrawerSidebar sidebarId="unique_id">
+          </Header>)}
+          <DrawerSidebar sidebarId="unique_id" PaperProps={{ className: styles.sidebar }}>
             <SidebarContent>
-              <NavHeaderMockUp collapsed={sidebar.unique_id.collapsed} />
-              <NavContentMockUp />
+            <Container>
+             <img src={tramsLogo} style={{width:200, marginTop:30}}/>
+            </Container>
+            <Divider style={{marginTop:20,marginBottom:20}}/>
+            <Box minWidth={240}>
+              <ListItem >
+                <WelcomeDialog/>
+              </ListItem>
+              <ListItem >
+                <FeedbackDialog/>
+              </ListItem>
+              <ListItem button>
+                <UpdateDialog/>
+              </ListItem>
+            </Box>
             </SidebarContent>
             <CollapseBtn />
           </DrawerSidebar>
@@ -149,33 +222,54 @@ const Main = () => {
                 )}
               </Box>
             </Container> */}
-          <Grid style={{ width:"100%", margin:"0 auto"}} container  >
-            <Grid item           
-                lg={6}
-                md={12}
-                xl={6}
-                xs={12}
-                style={{height:'100vh'}}
-                >
-                  <div id='header' style={{backgroundColor:"blue", height: "10vh", padding:"2vh"}}>
-                    <div style={{backgroundColor:"green", height: "6vh"}}>
-                      fgfgd
-                    </div>
-                  </div>
-                  <Container id="body" style={{backgroundColor:"pink", height: "90vh"}}>
-                    <ChatzListItemDemo/>
-                  </Container>
-                </Grid>
+          <Grid style={{ width:"100%", margin:"0 auto"}} container>
+
                 <Grid item 
                   lg={6}
                   md={12}
                   xl={6}
                   xs={12}
-                  style={{height:'100vh'}}
+                  style={{height: isDesktop ? "100vh": "40vh"}}
                   >
        
                   <ReactMap/>
 
+                </Grid>
+                <Grid item           
+                  lg={6}
+                  md={12}
+                  xl={6}
+                  xs={12}
+                  style={{height: isDesktop ? "100vh": "50vh"}}
+                  >
+                   {!selectedHospital?<div id='header' style={{ height: "10vh", padding:"2vh",marginBottom:"1vh"}}>
+                    <div style={{ height: "6vh"}}>
+                    <Grid container spacing={1}>
+                  {hospitalList ?<Grid item xs={3}>
+                     <FilterDialog/>
+                   </Grid>:null}
+
+                   <Grid item xs={9}>
+                   {hospitalList && <Autocomplete
+                    onInputChange={(obj,value)=>{
+                    goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    }}
+                    options={hospitalList}
+                    getOptionLabel={(option) => option.properties.cfname}
+                    size="small"
+                    style={{marginBottom:'5px'}}
+                    renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
+                    />}
+                    </Grid>
+                    {hospitalList ? <Grid>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
+                   
+                </Grid>
+                    </div>
+                  </div>:null}
+                  <Container id="body" style={{  height: isDesktop ? "90vh": "50vh", overflow:"auto"}}>
+                    {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
+                  </Container>
                 </Grid>
               </Grid>
           

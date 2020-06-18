@@ -175,7 +175,6 @@ function App(props) {
         hospital.properties.priorityScore = 0
         hospital.properties.supply_status = {}
         temp.forEach(supply => {
-          console.log("dfgsdfgsdfgsdfgsdf")
           if(hospital.properties.supply_need[supply]!==0){
             if(hospital.properties.supply_cur[supply]/hospital.properties.supply_need[supply] < 0.2){
               hospital.properties.supply_status[supply] = "Critically Low"
