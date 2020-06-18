@@ -160,7 +160,7 @@ let theme = createMuiTheme({
 //Main function that returns the component
 const Main = () => {
   const styles = useStyles();
-  const { hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
+  const {  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -169,7 +169,7 @@ const Main = () => {
 
   setDesktop(isDesktop)
 
-  
+
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
@@ -242,7 +242,7 @@ const Main = () => {
                   xs={12}
                   style={{height: isDesktop ? "100vh": "50vh"}}
                   >
-                   {!selectedHospital?<div id='header' style={{ height: "10vh", padding:"2vh",marginBottom:"1vh"}}>
+                   {!selectedHospital?<div id='header' style={{ height: "10vh", padding:"2vh",marginBottom:"2vh"}}>
                     <div style={{ height: "6vh"}}>
                     <Grid container spacing={1}>
                   {hospitalList ?<Grid item xs={3}>
@@ -262,7 +262,7 @@ const Main = () => {
                     renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
                     />}
                     </Grid>
-                    {hospitalList ? <Grid>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
+                    {hospitalList ? <Grid style={{fontSize:desktop?"20px":"12px"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
                    
                 </Grid>
                     </div>

@@ -171,6 +171,8 @@ const FeaturesContextProvider = (props) => {
   const [supplyList, setSupplyList] = useState([]);
   const [desktop, setDesktop] = useState(true);
   const [justTestCenters, setJustTestCenters] = useState(false);
+  const [provincesList, setProvincesList] = useState(null);
+  const [citiesList, setCitiesList] = useState(null);
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -248,6 +250,8 @@ const FeaturesContextProvider = (props) => {
       supplyList, setSupplyList,
       desktop, setDesktop,
       justTestCenters, setJustTestCenters,
+      provincesList, setProvincesList,
+      citiesList, setCitiesList,
       setSearchTerm,
       supplyLabels,
       supplyIconGetter}}>
