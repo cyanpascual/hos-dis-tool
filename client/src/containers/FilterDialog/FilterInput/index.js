@@ -16,9 +16,7 @@ export default function FilterInput(props){
           input={<Input/>}
         >
         
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
+
           {props.choices.map((option)=>{
               return(<MenuItem value={option}>{option}</MenuItem>)
           })}
