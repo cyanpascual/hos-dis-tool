@@ -116,6 +116,7 @@ const LabSupplies = (props) => {
   const [selectInputRna, setSelectInputRna] = useState('')
   const [selectInputRtpcr, setSelectInputRtpcr] = useState('')
   const [isEditMode, setIsEditMode] = useState(false);
+  const [date, setDate] = useState(new Date().toLocaleString())
 
   useEffect(() => {
     setRtpcrInputs(selectedHospital.properties.lab_cur.rtpcr.map((item) => {
@@ -162,10 +163,89 @@ const LabSupplies = (props) => {
     }))
   }, [])
 
+  useEffect(() => {
+    if (selectInputRna){
+      setSelectInputRna(rnaInputs.map((item) => {
+        return {
+          lab_cur: {
+            brand: item.brand,
+            value: item.value_cur
+          },
+          lab_need: {
+            brand: item.brand,
+            value: item.value_need
+          }
+        }
+      }))
+    }
+  }, [rnaInputs])
+
+  useEffect(() => {
+    if (selectInputRna){
+      setSelectedHospital({
+        ...selectedHospital,
+        properties: {
+          ...selectedHospital.properties,
+          lab_cur: {
+            ...selectedHospital.properties.lab_cur,
+            rna_extraction: selectInputRna.map((item) => {
+              return item.lab_cur
+            })
+          },
+          lab_need: {
+            ...selectedHospital.properties.lab_need,
+            rna_extraction: selectInputRna.map((item) => {
+              return item.lab_need
+            })
+          }, reportdate: username + ' on ' + date
+        }
+      })
+    }
+  }, [selectInputRna])
+
+  useEffect(() => {
+    if (selectInputRtpcr){
+      setSelectInputRtpcr(rtpcrInputs.map((item) => {
+        return {
+          lab_cur: {
+            brand: item.brand,
+            value: item.value_cur
+          },
+          lab_need: {
+            brand: item.brand,
+            value: item.value_need
+          }
+        }
+      }))
+    }
+  }, [rtpcrInputs])
+
+  useEffect(() => {
+    if (selectInputRna){
+      setSelectedHospital({
+        ...selectedHospital,
+        properties: {
+          ...selectedHospital.properties,
+          lab_cur: {
+            ...selectedHospital.properties.lab_cur,
+            rtpcr: selectInputRtpcr.map((item) => {
+              return item.lab_cur
+            })
+          },
+          lab_need: {
+            ...selectedHospital.properties.lab_need,
+            rtpcr: selectInputRtpcr.map((item) => {
+              return item.lab_need
+            })
+          }, reportdate: username + ' on ' + date
+        }
+      })
+    }
+  }, [selectInputRtpcr])
+
 
   const handleOnChange = (event) => {
     const {name, value} = event.target;
-    var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
     if (name !== "other"){
       if (re.test(value)){
@@ -207,7 +287,6 @@ const LabSupplies = (props) => {
 
   const handleOnChangeNeed = (event) => {
     const {name, value} = event.target;
-    var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
     if (re.test(value)){
@@ -245,56 +324,7 @@ const LabSupplies = (props) => {
     setIsEditMode(!isEditMode)
   }
 
-  const handleSubmit = () => {
-    setSelectInputRna(rnaInputs.map((item) => {
-      return {
-        lab_cur: {
-        brand: item.brand,
-        value: item.value_cur
-        },
-        lab_need: {
-          brand: item.brand,
-          value: item.value_need
-        }
-      }
-    }))
-    setSelectInputRtpcr(rtpcrInputs.map((item) => {
-      return {
-        lab_cur: {
-        brand: item.brand,
-        value: item.value_cur
-        },
-        lab_need: {
-          brand: item.brand,
-          value: item.value_need
-        }
-      }
-    }))
-    setSelectedHospital({
-      ...selectedHospital,
-      properties: {
-        ...selectedHospital.properties,
-        lab_cur: {
-          ...selectedHospital.properties.lab_cur,
-          rtpcr: selectInputRtpcr.map((item) => {
-            return item.lab_cur
-          }),
-          rna_extraction: selectInputRna.map((item) => {
-            return item.lab_cur
-          })
-        },
-        lab_need: {
-          ...selectedHospital.properties.lab_need,
-          rtpcr: selectInputRtpcr.map((item) => {
-            return item.lab_need
-          }),
-          rna_extraction: selectInputRna.map((item) => {
-            return item.lab_need
-          })
-        }
-      }
-    })
-    
+  const handleSubmit = () => {   
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
@@ -309,30 +339,41 @@ const LabSupplies = (props) => {
 
   const handleOnChangeRtpcr = index => event => {
     const {name, value} = event.target;
-    
-    rtpcrInputs[index][name] = value
-    setRtpcrInputs(rtpcrInputs)
-  }
 
-  /*const handleOnChangeRtpcr = index => event => {
-    const {name, value} = event.target;
-    if (name === 'value_need'){
-      setSelectedHospital({
-        ...selectedHospital
-      })
+    const newInput = [...rtpcrInputs];
+    const re = /^[0-9\b]+$/;
+    if (name !== 'brand'){
+      if (re.test(value)){
+        newInput[index][name] = Math.abs(value)
+      } else if (value === ''){
+        newInput[index][name] = value
+      }
+    } else {
+      newInput[index][name] = value
     }
-  }*/
+    setRtpcrInputs(newInput)
+  }
 
   const handleOnChangeRna = index => event => {
     const {name, value} = event.target;
+
     const newInput = [...rnaInputs];
-    newInput[index][name] = value
+    const re = /^[0-9\b]+$/;
+    if (name !== 'brand'){
+      if (re.test(value)){
+        newInput[index][name] = Math.abs(value)
+      } else if (value === ''){
+        newInput[index][name] = value
+      }
+    } else {
+      newInput[index][name] = value
+    }
     setRnaInputs(newInput)
+    
   }
 
 
   const addSupply = (name) =>{
-    var date = new Date().toLocaleString()
     const newInput = Object.create({
       brand: 'new brand',
       value_need: '',
@@ -351,64 +392,6 @@ const LabSupplies = (props) => {
     }
   }
   
-  /*const addSupply = (name) =>{
-    if (name === 'rtpcr'){
-      setSelectedHospital({
-        ...selectedHospital,
-        properties: {
-          ...selectedHospital.properties,
-          lab_cur: {
-            ...selectedHospital.properties.lab_cur,
-            rtpcr: [
-              ...selectedHospital.properties.lab_cur.rtpcr,
-              {
-                brand: '',
-                value: ''
-              }
-            ]
-          },
-          lab_need: {
-            ...selectedHospital.properties.lab_need,
-            rtpcr: [
-              ...selectedHospital.properties.lab_need.rtpcr,
-              {
-                brand: '',
-                value: ''
-              }
-            ]
-          }
-        }
-      })
-    } else if (name === 'rna_extraction'){
-      setSelectedHospital({
-        ...selectedHospital,
-        properties: {
-          ...selectedHospital.properties,
-          lab_cur: {
-            ...selectedHospital.properties.lab_cur,
-            rna_extraction: [
-              ...selectedHospital.properties.lab_cur.rna_extraction,
-              {
-                brand: '',
-                value: ''
-              }
-            ]
-          },
-          lab_need: {
-            ...selectedHospital.properties.lab_need,
-            rna_extraction: [
-              ...selectedHospital.properties.lab_need.rna_extraction,
-              {
-                brand: '',
-                value: ''
-              }
-            ]
-          }
-        }
-      })
-    }
-    console.log(selectedHospital)
-  }*/
 
   const deleteInput = (brand, type, index) => {
     if (type === 'rna'){
@@ -459,7 +442,7 @@ const LabSupplies = (props) => {
               <TableBody>
                 {selectedHospital.properties.lab_cur.rtpcr ? selectedHospital.properties.lab_cur.rtpcr.map((brand, index)=>{
                   return (isEditMode ? <div/> : 
-                    <TableRow key={brand.brand} className="supplies">
+                    <TableRow key={index} className="supplies">
                       <TableCell/>
                       <TableCell>
                         <Typography align="center" style={{fontSize:12, fontWeight:350}}>{brand.brand}</Typography>
@@ -468,7 +451,7 @@ const LabSupplies = (props) => {
                         <Typography align="center" style={{fontSize:12, fontWeight:350}}>{brand.value}</Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.lab_need.rtpcr[index].value}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.lab_need.rtpcr.filter((item)=> item.brand === brand.brand).map((item) => {return item.value})[0]}</Typography>
                       </TableCell>
                     </TableRow>
                   )}): <TableRow>
@@ -481,7 +464,6 @@ const LabSupplies = (props) => {
                         <IconButton size='small'onClick={() => deleteInput(item.brand, 'rtpcr', index)}>
                           <CancelIcon/>
                         </IconButton>
-                        {index}
                       </TableCell>
                       <TableCell align='center'>
                         <Input style={{width: 80, fontSize: 12}} name='brand' value={item.brand} 
@@ -521,9 +503,9 @@ const LabSupplies = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {selectedHospital.properties.lab_cur.rna_extraction ? selectedHospital.properties.lab_cur.rna_extraction.map((brand)=>{
-                  return (isEditMode ? <div/> : 
-                    <TableRow key={brand.brand} className="supplies">
+                {selectedHospital.properties.lab_cur.rna_extraction ? selectedHospital.properties.lab_cur.rna_extraction.map((brand, index)=>{
+                  return (isEditMode ? null : 
+                    <TableRow key={index} className="supplies">
                       <TableCell/>
                       <TableCell>
                         <Typography align="center" style={{fontSize:12, fontWeight:350}}>{brand.brand}</Typography>
@@ -532,7 +514,7 @@ const LabSupplies = (props) => {
                         <Typography align="center" style={{fontSize:12, fontWeight:350}}>{brand.value}</Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{brand.value}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.lab_need.rna_extraction.filter((item)=> item.brand === brand.brand).map((item) => {return item.value})[0]}</Typography>
                       </TableCell>
                     </TableRow>
                   )}): <TableRow>
@@ -540,7 +522,7 @@ const LabSupplies = (props) => {
                   </TableRow>}
                   {isEditMode ? rnaInputs ? rnaInputs.map((item, index) => {
                   return(
-                    <TableRow key={item.brand}>
+                    <TableRow key={index}>
                       <TableCell>
                         <IconButton size='small' onClick={() => deleteInput(item.brand, 'rna')}>
                           <CancelIcon/>
@@ -548,15 +530,15 @@ const LabSupplies = (props) => {
                       </TableCell>
                       <TableCell align='center'>
                         <Input style={{width: 80, fontSize: 12}} name='brand' value={item.brand} 
-                          onChange={() => handleOnChangeRna(index)}/>
+                          onChange={handleOnChangeRna(index)}/>
                       </TableCell>
                       <TableCell align='center'>
                         <Input style={{width: 80, fontSize: 12}} name='value_cur' value={item.value_cur} 
-                          onChange={() => handleOnChangeRna(index)}/>
+                          onChange={handleOnChangeRna(index)}/>
                       </TableCell>
                       <TableCell align='center'>
                         <Input style={{width: 80, fontSize: 12}} name='value_need' value={item.value_need} 
-                          onChange={() => handleOnChangeRna(index)}/>
+                          onChange={handleOnChangeRna(index)}/>
                       </TableCell>
                     </TableRow>
                   )
@@ -585,6 +567,22 @@ const LabSupplies = (props) => {
             <TableBody>
               {supplies ? supplies.map((supply)=>{
                 if (supply !== "rtpcr"){if (supply !== "rna_extraction"){
+                  if(supply === "other"){
+                    return(
+                      <TableRow key={supply} className="supplies">
+                        <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
+                        <TableCell>
+                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Other Needs</Typography>
+                        </TableCell>
+                        <TableCell>
+                          {isEditMode? 
+                            <Input width="50px" name={supply} value={selectedHospital.properties.lab_cur[supply]} onChange={(e) => handleOnChange(e)}/> 
+                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.lab_cur[supply]}</Typography>}                      
+                        </TableCell>
+                        <TableCell/>
+                      </TableRow>
+                    ) 
+                  }
                   return (
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>

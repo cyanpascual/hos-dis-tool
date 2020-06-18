@@ -121,7 +121,7 @@ const HospitalUpdate = (props) => {
 
   const supplies = Object.keys(selectedHospital.properties.supply_cur)
   const imageChoose = (currHospital, supply) =>{
-    if (supply === "Other Needs"){
+    if (supply === "other"){
       return null
     }else{
       if (currHospital.properties.supply_need[supply] > 0){

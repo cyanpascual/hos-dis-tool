@@ -128,7 +128,15 @@ const Dashboard = (props) => {
   }, [])
   
   useEffect(() => {
-    
+    if (announceList){
+      setAnnouncements(announceList.sort(function(a,b){
+        var x = (new Date(a.reportdate)).getTime();
+        var y = (new Date(b.reportdate)).getTime();
+        if (x<y) {return 1;}
+        if (x>y) {return -1;}
+        return 0;
+      }))
+    }
   },[announceList])
 
   const handleClick = (index, value) => {
@@ -141,16 +149,6 @@ const Dashboard = (props) => {
       ...prevState,
       selected[0]
     ])
-    setAnnouncements(announceList.sort(function(a,b){
-      var x = (new Date(a.reportdate)).getTime();
-      var y = (new Date(b.reportdate)).getTime();
-      if (x<y) {return 1;}
-      if (x>y) {return -1;}
-      return 0;
-    }))
-    console.log(announceList)
-    console.log(announcements)
-    console.log(selected)
   }
 
   return (

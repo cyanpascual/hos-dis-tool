@@ -141,7 +141,6 @@ const HospitalUpdate = (props) => {
     fetchData();
   }, [])
 
-  console.log(enabledDates)
 
   useEffect(() => {
     if(logs){
@@ -156,9 +155,10 @@ const HospitalUpdate = (props) => {
         }));
         let count = 0
         while (count < logs.length){
-          if (logs[count].properties.cfname === shownLog.properties.cfname){
+          if (logs[count].properties.cfname.toLowerCase() === shownLog.properties.cfname.toLowerCase()){
             if ((new Date(date.toLocaleDateString()).getTime() >= (new Date(logs[count].properties.reportdate.slice(-22, -12))).getTime())){
               setShownLog(logs[count])
+              console.log('i c u')
               break
             }
           } count = count + 1
@@ -303,9 +303,9 @@ const HospitalUpdate = (props) => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
-    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
+    /*axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
       .then(res => console.log(res.data))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error))*/
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
     setHospitalList(prevState => [
@@ -341,7 +341,6 @@ const HospitalUpdate = (props) => {
               <DatePicker autoOk disableToolbar disableFuture variant="static" openTo="date" value={date} onChange={handleChangeDate}
                 renderDay={(date, selectedDate, dayInCurrentMonth, dayComponent) => {
                   if (enabledDates.includes(date.toLocaleDateString())){
-                    console.log(enabledDates.includes(date.toLocaleDateString())) 
                     return <Badge badgeContent={<img src={green} style={{width: 7}}/>}>{dayComponent}</Badge>
                   } return dayComponent
                 }}/>
