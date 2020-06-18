@@ -11,14 +11,20 @@ body {
 }
 
 
-.map {
-  height: 100%;
-  z-index: 999;
-  
+
+
+@media screen and (min-width: 1025px) {
+  .map {
+    height: 100vh;
+    z-index: 999; 
+  }
 }
 
-.request-popup .leaflet-popup-content-wrapper {
-
+@media screen and (max-width: 1024px) {
+  .map {
+    height: 40vh;
+    z-index: 999; 
+  }
 }
 
 /* width */

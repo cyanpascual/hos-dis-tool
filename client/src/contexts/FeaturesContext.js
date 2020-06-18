@@ -156,7 +156,7 @@ const supplyIcons = {
 const FeaturesContextProvider = (props) => {
   const [hospitals, setHospitals] = useState();
   const [hospitalList, setHospitalList] = useState()
-  const [filterSetting, setFilterSetting] = useState("alcohol");
+  const [filterSetting, setFilterSetting] = useState("coverall");
   const [filterLevel, setFilterLevel] = useState('');
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
