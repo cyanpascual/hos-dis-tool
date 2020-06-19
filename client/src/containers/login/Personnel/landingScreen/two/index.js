@@ -230,6 +230,16 @@ const HospitalUpdate = (props) => {
           }, reportdate: username + ' on ' + date,
         }
       })
+      setShownLog({
+        ...shownLog,
+        properties: {
+          ...shownLog.properties,
+          supply_cur:{
+            ...shownLog.properties.supply_cur,
+            [name]: value,
+          }, reportdate: username + ' on ' + date,
+        }
+      })
     }
   };
 
