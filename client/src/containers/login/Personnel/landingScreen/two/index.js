@@ -147,8 +147,8 @@ const HospitalUpdate = (props) => {
       setLogs(logs.filter(log => log.properties.cfname.toLowerCase() === shownLog.properties.cfname.toLowerCase()))
       if (date.toLocaleDateString() !== (new Date()).toLocaleDateString()){
         setLogs(logs.filter(log => log.properties.reportdate.slice(-22, -12) <= date.toLocaleDateString()).sort(function(a,b){
-          var x = new Date(a.properties.reportdate.slice(-22, -12));
-          var y = new Date(b.properties.reportdate.slice(-22, -12));
+          var x = new Date(a.properties.reportdate.slice(-22));
+          var y = new Date(b.properties.reportdate.slice(-22));
           if (x<y) {return 1;}
           if (x>y) {return -1;}
           return 0;
@@ -313,9 +313,9 @@ const HospitalUpdate = (props) => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
-    /*axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
+    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
       .then(res => console.log(res.data))
-      .catch(error => console.log(error))*/
+      .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
     setHospitalList(prevState => [
@@ -352,7 +352,9 @@ const HospitalUpdate = (props) => {
                 renderDay={(date, selectedDate, dayInCurrentMonth, dayComponent) => {
                   if (enabledDates.includes(date.toLocaleDateString())){
                     return <Badge badgeContent={<img src={green} style={{width: 7}}/>}>{dayComponent}</Badge>
-                  } return dayComponent
+                  } else if (new Date(date.toLocaleDateString()).getTime() === new Date(today.toLocaleDateString()).getTime()){
+                    return <Badge badgeContent={<img src={green} style={{width: 7}}/>}>{dayComponent}</Badge>
+                  } else return dayComponent
                 }}/>
             </MuiPickersUtilsProvider>
           </Grid>
