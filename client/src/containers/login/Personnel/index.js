@@ -15,6 +15,7 @@ import { LoginContext } from '../../../contexts/LoginContext';
 import Dashboard from './landingScreen/one';
 import HospitalUpdate from './landingScreen/two'
 import ManageAccount from './landingScreen/four'
+import LabSupplies from './landingScreen/five'
 
 
 let theme = createMuiTheme({
@@ -202,6 +203,8 @@ function Personnel(props) {
           <div style={{overflow: "auto", height:'85vh'}}>
             {landing === 0 ? <Dashboard/> 
             :landing === 1 ? <HospitalUpdate/>
+            :landing === 2 ? <Typography align='center'>Feature under construction</Typography>
+            :landing === 4 ? <LabSupplies/>
             :landing === 3 ? <ManageAccount/>:<p/>}
           </div>  
         </div>

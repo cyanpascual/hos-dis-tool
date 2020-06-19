@@ -192,7 +192,7 @@ function HospitalList(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />  
           {selectedHospital ? 
-          <div style={{overflow: "auto", height:'86vh'}}>
+          <div style={{overflow: "auto", height:'85vh'}}>
             <Hidden smUp implementation='js'>
               <HospitalUpdateMobile/>
             </Hidden>

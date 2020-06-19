@@ -54,7 +54,7 @@ const HospitalUpdate = (props) => {
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
-    if (name !== "Other Needs"){
+    if (name !== "other"){
       if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
@@ -78,7 +78,7 @@ const HospitalUpdate = (props) => {
           }
         })
       }
-    }else {
+    } else {
       setSelectedHospital({
         ...selectedHospital,
         properties: {
@@ -121,7 +121,7 @@ const HospitalUpdate = (props) => {
 
   const supplies = Object.keys(selectedHospital.properties.supply_cur)
   const imageChoose = (currHospital, supply) =>{
-    if (supply === "Other Needs"){
+    if (supply === "other"){
       return null
     }else{
       if (currHospital.properties.supply_need[supply] > 0){

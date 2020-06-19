@@ -74,7 +74,7 @@ export default function HospitalTabs() {
           <Tab label="Personnel Details" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <div style={{height: '79vh', overflow: 'auto'}}>
+      <div style={{height: '78vh', overflow: 'auto'}}>
         <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={value} onChangeIndex={handleChangeIndex}>
           <TabPanel value={value} index={0} dir={theme.direction}>

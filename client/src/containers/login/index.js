@@ -150,7 +150,6 @@ function Login(props) {
       if (ob[0].properties.Password === password){
         if (ob[0].type === 'Hospital'){
           let hos = hospitalList.filter(hospital => hospital.properties.hfhudcode === username);
-          console.log(hos)
           setSelectedHospital(hos[0]);
         } else {
           setSelectedHospital(null)
@@ -184,7 +183,7 @@ function Login(props) {
       )
     } else if (accountType === 'Hospital'){
       return(
-        <HospitalValidate />
+        <Personnel />
       )
     }
   } else {
