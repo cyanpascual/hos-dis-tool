@@ -14,10 +14,13 @@ const donationdriveSchema = new Schema({
   },
   "properties": {
     "reportdate": {
-      "type": "String" // Date Registered
+      "type": "String" // Date Last Updated
     },
     "cfname": {
       "type": "String" // Donation Drive Name
+    },
+    "user_id": {
+      "type": "String" // Unique identifier for the Donation Drive
     },
     "address": {
       "type": "String" // Full Address
@@ -31,7 +34,7 @@ const donationdriveSchema = new Schema({
     "region": {
       "type": "String" // Region (for sorting purposes)
     },
-    "accepting": { // Weekly Supply Needs
+    "supply_need": { // Weekly Supply Needs
       "alcohol": {
         "type": "Boolean" // true or false whether came accepting or not
       },
@@ -87,6 +90,50 @@ const donationdriveSchema = new Schema({
         "type": "Boolean" // true or false whether came accepting or not
       },
       "monetary": {
+        "type": "Boolean" // true or false whether came accepting or not
+      }
+    },
+    "lab_need": { // Laboratory Supply Needs
+      "rtpcr": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "rna_extraction": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "filter_tip_1000": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "filter_tip_200": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "filter_tip_10": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "micro_tube": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "cryogenic_vial": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "biohazard_bag": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "qpcr_plate": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "adhesive_film": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "ethanol": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "trash_bag": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "abs_sheet": {
+        "type": "Boolean" // true or false whether came accepting or not
+      },
+      "nacl": {
         "type": "Boolean" // true or false whether came accepting or not
       }
     },
