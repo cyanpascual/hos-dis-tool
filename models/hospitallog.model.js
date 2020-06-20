@@ -53,7 +53,7 @@ const hospitalSchema = new Schema({
       "isolbed_v": {
         "type": "Number" // number of vacant isolation beds
       },
-      "isolbed_v": {
+      "isolbed_o": {
         "type": "Number" // number of occupied isolation beds
       },
       "beds_ward_v": {
