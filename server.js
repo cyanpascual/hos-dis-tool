@@ -36,6 +36,7 @@ const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
 const hospitallogsRouter = require('./routes/hospitallogs');
 const announcementsRouter = require('./routes/announcement');
+const donationsRouter = require('./routes/donation');
 const loginRouter = require('./routes/login');
 
 
@@ -45,6 +46,7 @@ app.use('/facility', facilityRouter);
 app.use('/uz3rz', userRouter);
 app.use('/hl0gs', hospitallogsRouter);
 app.use('/ann0unc3m3nt', announcementsRouter);
+app.use('/d0nati0n', donationsRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
