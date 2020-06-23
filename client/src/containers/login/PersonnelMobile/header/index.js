@@ -1,11 +1,15 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, Grid, Toolbar, Hidden, IconButton} from '@material-ui/core';
+import {AppBar, Button, Grid, Hidden, IconButton, Toolbar} from '@material-ui/core';
 import { LoginContext } from '../../../../contexts/LoginContext';
+import { useAuth0 } from '../../../../react-auth0-spa'
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
 import FeedbackDialog from '../../FeedbackDialog';
+//import WelcomeSlide from '../welcomeDialogue';
+//import WelcomeSlideMobile from '../welcomeDialogueMobile';
 import tramslogo from '../../../../assets/logos/tramsLogo.png';
 import uplogo from '../../../../assets/logos/up.png';
 import dgelogo from '../../../../assets/logos/dge.png';
@@ -15,16 +19,19 @@ import engglogo from '../../../../assets/logos/engineering.png';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
-
+ 
 const styles = (theme) => ({
   secondaryBar: {
     zIndex: 0,
   },
   menuButton: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: -theme.spacing(2),
   },
   iconButtonAvatar: {
-    padding: 4,
+    padding: 2,
+  },
+  button: {
+    marginRight: -theme.spacing(1)
   },
   link: {
     textDecoration: 'none',
@@ -83,18 +90,19 @@ theme.typography.h4 = {
 };
 
 function Header(props) {
-  const { classes } = props;
+  const { classes, onDrawerToggle } = props;
   const { user, logout } = useContext(LoginContext);
 
   return (
     <ThemeProvider theme={theme}>
     <div position="absolute">
       <AppBar color="primary" position="sticky" elevation={0}>
-      <Toolbar>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item xs>
+      <Toolbar className={classes.button}>
+          <Grid container alignItems="center" justify="flex-end" spacing={1}>
+            <Grid item>
               <img src={tramslogo} style={{height:"30px"}} alt="logo"/>
             </Grid>
+            <Grid item xs/>
             <Grid item>
                 <img src={uplogo} className="App-logo" alt="logo" style={{height:"30px"}}/>
             </Grid>
@@ -113,19 +121,27 @@ function Header(props) {
       <AppBar component="div" className={classes.secondaryBar} color="primary"
         position="static" elevation={0}>
         <Toolbar>
-          <Grid container spacing={1} alignItems="center">
-            {/*<Grid item>
-                <WelcomeDialog/>
-            </Grid> */}
-            <Grid item container spacing={0} alignItems="center" justify="flex-end" xs={12}>
+          <Grid container spacing={0} alignItems="center">
+
+            <Grid item container spacing={0} alignItems="center" justify="flex-end">
               <Grid item>
                 <Typography variant='h3'>Welcome, {user.properties.Firstname}!</Typography>
               </Grid>
+              {/*<Hidden smDown>
+                <Grid item>
+                  <WelcomeSlide/>
+                </Grid>
+              </Hidden>
+              <Hidden mdUp>
+                <Grid item>
+                  <WelcomeSlideMobile/>
+                </Grid>
+              </Hidden>*/}
               <Grid item>
                 <FeedbackDialog/>
               </Grid>
               <Grid item>
-              <Hidden smDown>
+                <Hidden smDown>
                   <Button style={{color: "white"}} onClick={() => logout()} ><Typography variant='h4'>LOGOUT</Typography></Button>
                 </Hidden>
                 <Hidden mdUp>
@@ -135,7 +151,7 @@ function Header(props) {
                 </Hidden>
               </Grid>
             </Grid>
-          </Grid> 
+          </Grid>
         </Toolbar>
         
       </AppBar>

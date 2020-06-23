@@ -1,4 +1,5 @@
 import React from 'react';
+import { MapsContext } from '../../../../../../contexts/MapsContext'
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -7,9 +8,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import HospitalSupply from '../hospitalSupply';
-import ValidatorInfo from '../validatorInfo';
-import HospitalInfo from '../hospitalInfo';
+import HospitalUpdate from '../medSupply';
+import LabSupplies from '../labSupply';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,6 +55,7 @@ export default function HospitalTabs() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const { selectedHospital } = React.useContext(MapsContext)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,28 +67,26 @@ export default function HospitalTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs value={value} onChange={handleChange} indicatorColor="primary"
-          textColor="primary" variant="fullWidth">
-          <Tab label="Hospital Details" {...a11yProps(0)} />
-          <Tab label="Hospital Supplies" {...a11yProps(1)} />
-          <Tab label="Personnel Details" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <div style={{height: '78vh', overflow: 'auto'}}>
-        <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={value} onChangeIndex={handleChangeIndex}>
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <HospitalInfo/>
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <HospitalSupply/>
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <ValidatorInfo/>
-          </TabPanel>
-        </SwipeableViews>
-      </div>
+      {selectedHospital.test_center ? <div>
+        <AppBar position="static" color="default">
+          <Tabs value={value} onChange={handleChange} indicatorColor="primary"
+            textColor="primary" variant="fullWidth">
+            <Tab label="Medical supplies" {...a11yProps(0)} />
+            <Tab label="Laboratory supplies" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <div>
+          <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            index={value} onChangeIndex={handleChangeIndex}>
+            <TabPanel value={value} index={0} dir={theme.direction}>
+              <HospitalUpdate/>
+            </TabPanel>
+            <TabPanel value={value} index={1} dir={theme.direction}>
+              <LabSupplies/>
+            </TabPanel>
+          </SwipeableViews>
+        </div>
+      </div> : <HospitalUpdate/>}
     </div>
   );
 }

@@ -1,0 +1,16 @@
+{
+    "features":{
+        "filter_tip_1000": "Filter Tips (1000uL)",
+        "filter_tip_200": "Filter Tips (200uL)",
+        "filter_tip_10": "Filter Tips (10uL)",
+        "micro_tube": "Microcentrifuge tubes (1.5mL)",
+        "cryogenic_vial": "Cryogenic vials (2mL)",
+        "biohazard_bag": "Biohazard bags (S, M, L)",
+        "qpcr_plate": "qPCR plates ",
+        "adhesive_film": "Adhesive films",
+        "ethanol": "Absolute ethanol",
+        "trash_bag": "Yellow trash bags (S, M, L)",
+        "abs_sheet": "Absorbent sheets",
+        "nacl": "NaCl"
+    }
+  }
