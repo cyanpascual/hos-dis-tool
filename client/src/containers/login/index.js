@@ -4,16 +4,17 @@ import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Hidden, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HospitalList from './userValidator';
-import HospitalValidate from './hospitalValidator';
 import Personnel from './Personnel';
+import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
 import PropTypes from "prop-types";
+import { DriveEtaRounded } from '@material-ui/icons';
 
 
 
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+      justify: 'center',
       width: 400,
       margin: `${theme.spacing(0)} auto`
     },
@@ -108,7 +110,7 @@ function Login(props) {
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
-
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -130,6 +132,7 @@ function Login(props) {
       setHospitals(res3.data);
       setHospitalList(res3.data);
       //console.log(res2.data)
+      setLoaded(true)
     }
 
     fetchData();
@@ -183,11 +186,33 @@ function Login(props) {
       )
     } else if (accountType === 'Hospital'){
       return(
-        <Personnel />
+        <div>
+          <Hidden smDown implementation="css">
+            <Personnel />
+          </Hidden>
+          <Hidden mdUp implementation='js'>
+            <PersonnelMobile/>
+          </Hidden>
+        </div>
+        
       )
     }
+  } else if(!loaded){
+    return(
+    <ThemeProvider theme={theme}>
+      <div className={classes.container}>
+        <Card className={classes.card} style={{width:400}}>
+          <CardHeader className={classes.header} title="TrAMS Update Login" />
+          <CardContent>
+            <Typography align="center"><CircularProgress/><br/></Typography>
+            <Typography align="center">Loading...</Typography>
+          </CardContent>
+        </Card>
+      </div>
+    </ThemeProvider>
+    )
   } else {
-  return (
+    return (
     <ThemeProvider theme={theme}>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>

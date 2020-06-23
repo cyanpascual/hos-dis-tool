@@ -55,7 +55,7 @@ export default function FilterDialog() {
     } else {
       setHospitalList(checked ?
         hospitals.filter(hospital =>
-          hospital.testCenter === true,
+          hospital.test_center === true,
         ): hospitals
       )
     }

@@ -4,12 +4,12 @@ import { LoginContext } from '../../../../../contexts/LoginContext';
 import { createMuiTheme, makeStyles, withStyles, ThemeProvider} from '@material-ui/core/styles';
 import axios from 'axios';
 
-import {Table, TableFooter, TableBody, TableCell} from '@material-ui/core';
+import {Table, TableBody, TableCell} from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Card, CardContent, CardActions, CardHeader, Link,  Typography, Grid, Button, Collapse } from '@material-ui/core';
+import { Card, CardContent, CircularProgress, CardHeader, Link,  Typography, Grid, Button, Collapse } from '@material-ui/core';
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -88,6 +88,7 @@ const Dashboard = (props) => {
   const [announceList, setAnnounceList] = useState('')
   const [selectAnnounce, setSelectAnnounce] = useState('')
   const [hos, setHos] = useState(selectedHospital);
+  const [loaded, setLoaded] = useState(false)
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -107,6 +108,7 @@ const Dashboard = (props) => {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/ann0unc3m3nt', );
 
+      
       setAnnouncements(res.data.sort(function(a,b){
         var x = (new Date(a.reportdate)).getTime();
         var y = (new Date(b.reportdate)).getTime();
@@ -122,6 +124,7 @@ const Dashboard = (props) => {
         expand: false
       }}))
       //console.log(res2.data)
+      
     }
     
     fetchData();
@@ -129,6 +132,7 @@ const Dashboard = (props) => {
   
   useEffect(() => {
     if (announceList){
+      setLoaded(true)
       setAnnouncements(announceList.sort(function(a,b){
         var x = (new Date(a.reportdate)).getTime();
         var y = (new Date(b.reportdate)).getTime();
@@ -160,8 +164,8 @@ const Dashboard = (props) => {
             <CardHeader className={classes.header} title="Announcements" />
             <CardContent className={classes.container} style={{height:'65vh'}}>
               <Grid container direction='column'>
-                <Grid item style={{height:'55vh', overflow: 'scroll', display: 'flex', flexDirection: 'column'}}>
-                  <TableContainer><Table size="small" style={{height: '100%', overflow: 'scroll'}}>
+                <Grid item style={{height:'55vh', overflow: 'scroll', display: 'flex', flexDirection: 'column'}} xs={12}>
+                  <TableContainer><Table size="small" style={{height: '100%', overflow: 'scroll', width:'100%'}}>
                     <TableBody>
                       {announcements ? 
                         announcements.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((announce) => { 
@@ -187,7 +191,18 @@ const Dashboard = (props) => {
                             </Grid>
                           </div></TableCell>
                         </TableRow>
-                      )}): <TableRow><TableCell><Typography variant='h3'>No announcements</Typography></TableCell></TableRow>}
+                      )}): loaded ? <TableRow><TableCell align='center'><Typography variant='h3'>No announcements</Typography></TableCell></TableRow>
+                      : <TableRow><TableCell colSpan={4} align='center'>
+                        <Grid container>
+                          <Grid item xs={12}>
+                            <CircularProgress />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='h3'>Loading...</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell></TableRow>
+                    }
                     </TableBody>
                   </Table></TableContainer>
                 </Grid>

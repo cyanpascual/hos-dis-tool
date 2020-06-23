@@ -101,8 +101,8 @@ const donationSchema = new Schema({
         "type": "Number" // NaCl (for diluting viscous samples, other than NPS/OPS)
       }
     },
-    "donor": {
-      "type": "String" // Name of Donor
+    "user_id": {
+      "type": "String" // Unique identifier for the Donation Drive or Donor
     },
     "cont_num": {
       "type": "String" // Contact Number of Donor

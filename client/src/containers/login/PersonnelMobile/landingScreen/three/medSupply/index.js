@@ -1,22 +1,22 @@
 import React, {useContext,useState, useEffect} from 'react';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
-import { MapsContext } from '../../../../../contexts/MapsContext';
-import { LoginContext } from '../../../../../contexts/LoginContext';
-import { FeaturesContext } from '../../../../../contexts/FeaturesContext';
+import { MapsContext } from '../../../../../../contexts/MapsContext';
+import { LoginContext } from '../../../../../../contexts/LoginContext';
+import { FeaturesContext } from '../../../../../../contexts/FeaturesContext';
 import { createMuiTheme, withStyles, ThemeProvider} from '@material-ui/core/styles';
 import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
 
-import simple_high from '../../../../../assets/levelIndicators/simple_high.png'
-import simple_med from '../../../../../assets/levelIndicators/simple_mid.png'
-import simple_low from '../../../../../assets/levelIndicators/simple_low.png'
-import simple_none from '../../../../../assets/levelIndicators/simple_none.png'
+import simple_high from '../../../../../../assets/levelIndicators/simple_high.png'
+import simple_med from '../../../../../../assets/levelIndicators/simple_mid.png'
+import simple_low from '../../../../../../assets/levelIndicators/simple_low.png'
+import simple_none from '../../../../../../assets/levelIndicators/simple_none.png'
 
 import { Divider, Typography, Badge } from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
-  DatePicker,
+  KeyboardDatePicker,
 } from '@material-ui/pickers';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
@@ -52,7 +52,7 @@ const styles = (theme) => ({
     color: '#a84343',
     textAlign: "center"
   }, button: {
-    width: '80%',
+    width: '100%',
     backgroundColor: '#BAB8B2',
     color: '#660000',
   }, cancelButton: {
@@ -343,12 +343,12 @@ const HospitalUpdate = (props) => {
   return (
     <ThemeProvider theme={theme}>
     <div className={classes.container}>
-      <Grid container direction="row" justify="center" alignItems="flex-start" spacing={2}>
-        <Grid container item xs={5} direction="column" justify="center" alignItems='flex-start'>
-          <br/><Typography variant="h3">Select a date to view log</Typography><br/>
-          <Grid item xs={10}>
+      <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
+        <Grid container item xs={12} direction="column" justify="center" alignItems='center'>
+          <Typography variant="h3">Supply log for</Typography>
+          <Grid item xs={12}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DatePicker autoOk disableToolbar disableFuture variant="static" openTo="date" value={date} onChange={handleChangeDate}
+              <KeyboardDatePicker autoOk disableToolbar disableFuture variant="inline" openTo="date" value={date} onChange={handleChangeDate}
                 renderDay={(date, selectedDate, dayInCurrentMonth, dayComponent) => {
                   if (enabledDates.includes(date.toLocaleDateString())){
                     return <Badge badgeContent={<img src={green} style={{width: 7}}/>}>{dayComponent}</Badge>
@@ -357,10 +357,10 @@ const HospitalUpdate = (props) => {
                   } else return dayComponent
                 }}/>
             </MuiPickersUtilsProvider>
-          </Grid>
-          <br/>Supply log for <Typography variant="h3">{date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Typography><br/><br/>
+          </Grid><br/>
+          <Grid item xs={12}>
             {isEditMode ? 
-              <div style={{width: '100%'}}>
+              <div>
                 <Button className={classes.cancelButton} onClick={() => handleCancel()}>
                   <CancelIcon/> <Typography variant="subtitle2">Cancel</Typography>
                 </Button><br/><br/>
@@ -368,13 +368,14 @@ const HospitalUpdate = (props) => {
                   <DoneIcon/> <Typography variant="subtitle2">Save</Typography>
                 </Button>
               </div>  
-              : date.toLocaleDateString() === today.toLocaleDateString() ? <div style={{width: '100%'}}>
+              : date.toLocaleDateString() === today.toLocaleDateString() ? <div>
                 <Button className={classes.button} onClick={() => handleEdit()}>
                   <EditIcon/> <Typography variant="subtitle2">Edit log</Typography>
                 </Button>
               </div> : <div/>}
+          </Grid>
         </Grid>
-        <Grid item xs={7} >
+        <Grid item xs={12} >
           <TableContainer>
             <Table className={classes.table} size="small" aria-label="Hospital Supplies">
               <TableHead className={classes.head}>
@@ -411,23 +412,15 @@ const HospitalUpdate = (props) => {
                       <TableCell align="center">
                       {isEditMode? 
                         <Typography align="center" variant="subtitle2">
-                          {shownLog.properties.supply_cur[supply] ?
                           <Input style={{width: 80, fontSize: 12}} name={supply} value={shownLog.properties.supply_cur[supply]} 
-                            onChange={handleOnChange}/> 
-                          : <Input style={{width: 80, fontSize: 12}} name={supply} value={0} 
-                            onChange={handleOnChange}/>}
-                        </Typography>
+                            onChange={handleOnChange}/> </Typography>
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_cur[supply]}</Typography>}
                       </TableCell>
                       <TableCell>
                       {isEditMode? 
                         <Typography align="center" variant="subtitle2">
-                          {shownLog.properties.supply_need[supply] ?
                           <Input style={{width: 80, fontSize: 12}} name={supply} value={shownLog.properties.supply_need[supply]} 
-                            onChange={handleOnChangeNeed}/> 
-                          : <Input style={{width: 80, fontSize: 12}} name={supply} value={0} 
-                            onChange={handleOnChangeNeed}/>}
-                        </Typography>
+                            onChange={handleOnChangeNeed}/> </Typography>
                         :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_need[supply]}</Typography>}
                       </TableCell>
                     </TableRow>
