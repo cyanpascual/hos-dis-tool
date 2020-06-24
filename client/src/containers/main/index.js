@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 
 
- import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
@@ -23,6 +23,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import FilterDialog from '../FilterDialog';
+import DonateDialog from '../DonateDialog';
 import UpdateDialog from '../UpdateDialog';
 import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
@@ -195,6 +196,9 @@ const Main = () => {
               </ListItem>
               <ListItem button>
                 <UpdateDialog/>
+              </ListItem>
+              <ListItem >
+                <DonateDialog/>
               </ListItem>
             </Box>
             </SidebarContent>

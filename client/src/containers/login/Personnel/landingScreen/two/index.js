@@ -134,8 +134,14 @@ const HospitalUpdate = (props) => {
       setLogs(res.data);
       setLogList(res.data);
       //console.log(res2.data)
-      setEnabledDates(res.data.filter(log => log.properties.cfname.toLowerCase() === shownLog.properties.cfname.toLowerCase())
-        .map(log => log.properties.reportdate.slice(-21, -12)))
+      setEnabledDates(res.data.filter(log => log.properties.hfhudcode.toLowerCase() === shownLog.properties.hfhudcode.toLowerCase())
+        .map(log => {
+          if (log.properties.reportdate.slice(-22)[0] === 'n'){
+            return new Date(log.properties.reportdate.slice(-21)).toLocaleDateString()    
+          } else {
+            return new Date(log.properties.reportdate.slice(-22)).toLocaleDateString()
+          }
+        }))
     }
 
     fetchData();
@@ -144,9 +150,9 @@ const HospitalUpdate = (props) => {
 
   useEffect(() => {
     if(logs){
-      setLogs(logs.filter(log => log.properties.cfname.toLowerCase() === shownLog.properties.cfname.toLowerCase()))
+      setLogs(logs.filter(log => log.properties.hfhudcode.toLowerCase() === shownLog.properties.hfhudcode.toLowerCase()))
       if (date.toLocaleDateString() !== (new Date()).toLocaleDateString()){
-        setLogs(logs.filter(log => log.properties.reportdate.slice(-22, -12) <= date.toLocaleDateString()).sort(function(a,b){
+        setLogs(logs.filter(log => log.properties.reportdate.slice(-22) <= date.toLocaleDateString()).sort(function(a,b){
           var x = new Date(a.properties.reportdate.slice(-22));
           var y = new Date(b.properties.reportdate.slice(-22));
           if (x<y) {return 1;}
@@ -155,11 +161,19 @@ const HospitalUpdate = (props) => {
         }));
         let count = 0
         while (count < logs.length){
-          if (logs[count].properties.cfname.toLowerCase() === shownLog.properties.cfname.toLowerCase()){
-            if ((new Date(date.toLocaleDateString()).getTime() >= (new Date(logs[count].properties.reportdate.slice(-22, -12))).getTime())){
-              setShownLog(logs[count])
-              console.log('i c u')
-              break
+          if (logs[count].properties.hfhudcode.toLowerCase() === shownLog.properties.hfhudcode.toLowerCase()){
+            if (logs[count].properties.reportdate.slice(-22)[0] === 'n'){
+              if ((new Date(date.toLocaleDateString()).getTime() >= new Date((new Date(logs[count].properties.reportdate.slice(-21)).toLocaleDateString()).getTime()))){
+                setShownLog(logs[count])
+                console.log('i c u')
+                break
+              }
+            } else {
+              if ((new Date(date.toLocaleDateString()).getTime() >= new Date(new Date(logs[count].properties.reportdate.slice(-22)).toLocaleDateString()).getTime())){
+                setShownLog(logs[count])
+                console.log('i c u')
+                break
+              }
             }
           } count = count + 1
         }
