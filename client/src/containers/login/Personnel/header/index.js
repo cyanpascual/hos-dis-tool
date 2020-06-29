@@ -83,7 +83,7 @@ theme.typography.h4 = {
 
 function Header(props) {
   const { classes } = props;
-  const { user, logout } = useContext(LoginContext);
+  const { user, logout, setLanding } = useContext(LoginContext);
 
   return (
     <ThemeProvider theme={theme}>
@@ -120,8 +120,11 @@ function Header(props) {
               <Grid item>
                 <Typography variant='h3'>Welcome, {user.properties.Firstname}!</Typography>
               </Grid>
-              <Grid item>
+              {/*<Grid item>
                 <FeedbackDialog/>
+              </Grid>*/}
+              <Grid item>
+                <Button style={{color: "white"}} onClick={() => setLanding('f')}><Typography variant='h4'>FEEDBACK</Typography></Button>
               </Grid>
               <Grid item>
                 <Button style={{color: "white"}} onClick={() => logout()}><Typography variant='h4'>LOGOUT</Typography></Button>

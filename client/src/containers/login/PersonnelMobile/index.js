@@ -17,6 +17,7 @@ import InsertChartIcon from '@material-ui/icons/InsertChart';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import donateIcon from './donateicon.png'
+import Contact from './contactUs'
 
 
 let theme = createMuiTheme({
@@ -231,7 +232,8 @@ function PersonnelMobile(props) {
             {landing === 0 ? <Dashboard/>
             :landing === 2 ? <HospitalTabs/>
             :landing === 1 ? <Typography align='center'>Feature under construction</Typography>
-            :landing === 3 ? <ManageAccount/>:<p/>}
+            :landing === 3 ? <ManageAccount/>
+            :landing === 'f' ? <Contact/>:<p/>}
           </div> 
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>

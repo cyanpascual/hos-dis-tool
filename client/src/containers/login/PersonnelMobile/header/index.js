@@ -17,6 +17,7 @@ import engglogo from '../../../../assets/logos/engineering.png';
 //import geoplogo from '../../../assets/logos/geop_light.png';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
  
@@ -91,7 +92,7 @@ theme.typography.h4 = {
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
-  const { user, logout } = useContext(LoginContext);
+  const { user, logout, setLanding } = useContext(LoginContext);
 
   return (
     <ThemeProvider theme={theme}>
@@ -138,7 +139,9 @@ function Header(props) {
                 </Grid>
               </Hidden>*/}
               <Grid item>
-                <FeedbackDialog/>
+                <IconButton color="inherit" onClick={() => setLanding('f')} className={classes.button}>
+                  <FeedbackIcon/>
+                </IconButton>
               </Grid>
               <Grid item>
                 <Hidden smDown>
