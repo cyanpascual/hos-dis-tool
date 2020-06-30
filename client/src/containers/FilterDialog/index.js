@@ -25,6 +25,8 @@ export default function FilterDialog() {
   const flexStyles = useRowFlexStyles();
 
   const handleClickOpen = () => {
+    console.log("checkTHIS")
+    console.log(citiesList)
     setOpen(true);
   };
 
@@ -47,12 +49,13 @@ export default function FilterDialog() {
     initialList = initialList.filter(hospital => hospital.properties.prov === province)
     const cities = initialList.map((hospital)=>{return(hospital.properties.city)})
     const uniqueCities = Array.from(new Set(cities))
+
     setCitiesList(uniqueCities) 
   }
 
   
   const { 
-    selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting, 
+    selectedProvince,setSelectedProvince,hospitals, hospitalList, setFilterSetting,provincesList, setProvincesList,citiesList, setCitiesList,
     selectedCity,setSelectedCity, filterSetting, filterLevel, setFilterLevel, supplyList,  desktop,justTestCenters, setJustTestCenters, supplyLabels } = useContext(FeaturesContext);
     
  
@@ -61,8 +64,7 @@ export default function FilterDialog() {
   const supplyLevelChoices=["Well stocked","Low", "Critically Low","All"]
 
 
-  const [provincesList, setProvincesList] = useState(null);
-  const [citiesList, setCitiesList] = useState(null);
+
   
   const handleTestCenterToggle= () =>{
     setJustTestCenters(!justTestCenters)
@@ -105,7 +107,9 @@ export default function FilterDialog() {
           }} 
           style={{marginLeft:"5px", marginRight:"5px"}}>Reset</Button> 
           <Box
-            className={flexStyles.rightChild}>
+            className={flexStyles.rightChild}
+            style={{fontSize:"0.9rem"}}
+            >
                 Show only test centers
           <Checkbox
             checked={justTestCenters}

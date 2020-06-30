@@ -6,10 +6,11 @@ import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import L from 'leaflet'
+import 'leaflet/dist/leaflet.css';
 
 
-
-
+import icon from "../../assets/markers/red50.png";
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export default function App() {
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
@@ -76,16 +77,16 @@ export default function App() {
       useEffect(() => {
         //const L = require("leaflet");
         
-        delete L.Icon.Default.prototype._getIconUrl;
-    
-        L.Icon.Default.mergeOptions({
-          iconUrl: require("../../assets/markers/red50.png"),
-          iconSize:[50,50],
-          iconAnchor:[25,50],
-          popupAnchor: [0,-40]
-        });
+        let DefaultIcon = L.icon({
+            iconUrl: icon,
+            iconSize:[50,50],
+            iconAnchor:[25,50],
+            popupAnchor: [0,-40]
+        }); 
+        L.Marker.prototype.options.icon = DefaultIcon;
       }, []);
 
+    
 
     const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,filterHospitalBySupply} = useContext(FeaturesContext);
     const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)

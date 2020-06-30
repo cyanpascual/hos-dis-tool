@@ -172,6 +172,8 @@ const FeaturesContextProvider = (props) => {
   const [desktop, setDesktop] = useState(true);
   const [justTestCenters, setJustTestCenters] = useState(false);
   const [hospitalScrollbarReference, setHospitalScrollbarReference] = useState(useRef(null));
+  const [provincesList, setProvincesList] = useState(null);
+  const [citiesList, setCitiesList] = useState(null);
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -254,6 +256,8 @@ const FeaturesContextProvider = (props) => {
       desktop, setDesktop,
       justTestCenters, setJustTestCenters,
       hospitalScrollbarReference, setHospitalScrollbarReference,
+      provincesList, setProvincesList,
+      citiesList, setCitiesList,
       setSearchTerm,
       supplyLabels,
       supplyIconGetter,

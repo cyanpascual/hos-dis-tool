@@ -8,7 +8,6 @@ import MapsContextProvider from './contexts/MapsContext';
 import LoginContextProvider from './contexts/LoginContext';
 import OrganizerContextProvider from './contexts/OrganizerContext';
 
-
 ReactDOM.render(
   <React.StrictMode>  
       <MapsContextProvider>
@@ -18,8 +17,8 @@ ReactDOM.render(
              <App />
             </OrganizerContextProvider>
           </LoginContextProvider>
-      </FeaturesContextProvider>
-    </MapsContextProvider>
+        </FeaturesContextProvider>
+      </MapsContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

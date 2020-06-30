@@ -10,6 +10,10 @@ import simple_med from '../../../../assets/levelIndicators/simple_mid.png'
 import simple_low from '../../../../assets/levelIndicators/simple_low.png'
 import simple_none from '../../../../assets/levelIndicators/simple_none.png'
 
+import dataDrop from '../../../../assets/logos/data_drop-01.png'
+import priority from '../../../../assets/logos/priority-01.png'
+import testCenter from '../../../../assets/logos/testing_centers-01.png'
+
 import { Divider, Typography } from '@material-ui/core';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
@@ -18,6 +22,8 @@ import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import * as supplyNames from './supplyNames/supply.json'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -34,7 +40,7 @@ const useStyles = makeStyles((theme) =>
 
 const HospitalUpdate = (props) => {
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
+  const { setHospitalList, hospitals } = useContext(FeaturesContext)
   const { username } = useContext(LoginContext);
 
   const [hos, setHos] = useState(selectedHospital);
@@ -48,28 +54,39 @@ const HospitalUpdate = (props) => {
     var date = new Date().toLocaleString()
     const re = /^[0-9\b]+$/;
 
-    if (name !== "Other Needs"){
-      if (value === '' || re.test(value)){
+    if (name !== "other"){
+      if (re.test(value)){
         setSelectedHospital({
           ...selectedHospital,
           properties: {
             ...selectedHospital.properties,
-            Supply_Cur:{
-              ...selectedHospital.properties.Supply_Cur,
-              [name]: Math.abs(value),
-            }, "Last Update": username + ' on ' + date,
+            supply_cur:{
+              ...selectedHospital.properties.supply_cur,
+              [name]: Math.abs(parseInt(value)),
+            }, reportdate: username + ' on ' + date,
+          }
+        })
+      } else if (value === '') {
+        setSelectedHospital({
+          ...selectedHospital,
+          properties: {
+            ...selectedHospital.properties,
+            supply_cur:{
+              ...selectedHospital.properties.supply_cur,
+              [name]: value,
+            }, reportdate: username + ' on ' + date,
           }
         })
       }
-    }else {
+    } else {
       setSelectedHospital({
         ...selectedHospital,
         properties: {
           ...selectedHospital.properties,
-          Supply_Cur:{
-            ...selectedHospital.properties.Supply_Cur,
+          supply_cur:{
+            ...selectedHospital.properties.supply_cur,
             [name]: value,
-          }, "Last Update": username + ' on ' + date,
+          }, reportdate: username + ' on ' + date,
         }
       })
     }
@@ -83,12 +100,15 @@ const HospitalUpdate = (props) => {
   const handleCancel = () => {
     setSelectedHospital(hos);
     console.log(selectedHospital);
-    setIsEditMode(!isEditMode)
+    setIsEditMode(!isEditMode) 
   }
 
   const handleSubmit = () => {
     console.log(selectedHospital);
-    axios.post(`https://trams-up-dge.herokuapp.com/hospitals/update/${selectedHospital._id}`, selectedHospital )
+    axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
+      .then(res => console.log(res.data))
+      .catch(error => console.log(error))
+    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
@@ -97,18 +117,17 @@ const HospitalUpdate = (props) => {
       ...prevState,
       selectedHospital
     ])
-    setHospitals(hospitalList)
   }
 
-  const supplies = Object.keys(selectedHospital.properties.Supply_Cur)
+  const supplies = Object.keys(selectedHospital.properties.supply_cur)
   const imageChoose = (currHospital, supply) =>{
-    if (supply === "Other Needs"){
+    if (supply === "other"){
       return null
     }else{
-      if (currHospital.properties.Supply_Cap[supply] > 0){
-        if(currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] < 0.2){
+      if (currHospital.properties.supply_need[supply] > 0){
+        if(currHospital.properties.supply_cur[supply]/currHospital.properties.supply_need[supply] < 0.2){
           return(<img style={{width:20}} src={simple_low} alt="critically-low"/>)
-        } else if((currHospital.properties.Supply_Cur[supply]/currHospital.properties.Supply_Cap[supply] > 0.5)){
+        } else if((currHospital.properties.supply_cur[supply]/currHospital.properties.supply_need[supply] > 0.5)){
           return(<img style={{width:20}} src={simple_high} alt="well-supplied"/>)
         } else return(<img style={{width:20}} src={simple_med} alt="low"/>)
       } else return(<img style={{width:20}} src={simple_none} alt="none"/>)
@@ -135,28 +154,32 @@ const HospitalUpdate = (props) => {
             : <IconButton onClick={() => handleEdit()}>
               <EditIcon/> <Typography variant="subtitle2">Edit</Typography>
             </IconButton>}
-          <Typography style={{fontSize:16, fontWeight:500}}>{selectedHospital.properties.Name_of_Ho}</Typography>
-          <Divider/>
-          <Typography noWrap style={{fontSize:14, fontWeight:500}}>Hospital ID:</Typography>
-            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.HospitalID}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>DOH Level:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["DOH Level"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Address:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Address}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>City/Municipality:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["City/Municipality"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Province:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Province}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Region:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Region}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Head/Contact Person:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Head} </Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Contact Number/s:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Contact Numbers"]}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Website:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.Website}</Typography><br/>
-          <Typography noWrap style={{fontSize:12, fontWeight:500}}>Last Updated:</Typography>
-          <Typography style={{fontSize:12, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties["Last Update"]}</Typography><br/>
+            <Typography style={{fontSize:18, fontWeight:500}}>{selectedHospital.properties.cfname}
+            {selectedHospital.data_drop ? <img style={{width: 30}} src={dataDrop} title='Part of DOH Data Drop'/>: <p/>}
+            {selectedHospital.priority ? <img style={{width: 30}} src={priority} title='Priority hospital'/>: <p/>}
+            {selectedHospital.test_center ? <img style={{width: 30}} src={testCenter} title='Testing center'/>: <p/>}
+            </Typography>
+            <Divider/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Hospital ID:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.hfhudcode}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>DOH Level:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.doh_level}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Address:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.address}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>City/Municipality:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.city}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Province:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.prov}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Region:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.region}</Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Head/Contact Person:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_person} </Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Contact Number/s:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.cont_num} </Typography><br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Website:</Typography>
+            <Typography style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.website} </Typography> <br/>
+            <Typography noWrap style={{fontSize:14, fontWeight:500}}>Last Updated:</Typography>
+            <Typography noWrap style={{fontSize:14, fontWeight:350, textAlign:'center'}}>{selectedHospital.properties.reportdate}</Typography><br/>
         </Grid>
         <Grid item xs={7}>
           <TableContainer>
@@ -171,17 +194,17 @@ const HospitalUpdate = (props) => {
               </TableHead>
               <TableBody>
                 {supplies.map((supply)=>{
-                  if(supply === "Other Needs"){
+                  if(supply === "other"){
                     return(
                       <TableRow key={supply} className="supplies">
                         <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                         <TableCell>
-                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
+                          <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Other Needs</Typography>
                         </TableCell>
                         <TableCell>
                           {isEditMode? 
-                            <Input width="50px" name={supply} value={selectedHospital.properties.Supply_Cur[supply]} onChange={(e) => handleOnChange(e)}/> 
-                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}                      
+                            <Input width="50px" name={supply} value={selectedHospital.properties.supply_cur[supply]} onChange={(e) => handleOnChange(e)}/> 
+                            :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_cur[supply]}</Typography>}                      
                         </TableCell>
                         <TableCell/>
                       </TableRow>
@@ -190,17 +213,17 @@ const HospitalUpdate = (props) => {
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(selectedHospital, supply)}</TableCell>
                       <TableCell>
-                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supply}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply]}</Typography>
                       </TableCell>
                       <TableCell align="center">
                       {isEditMode? 
                         <Typography align="center" variant="subtitle2">
-                          <Input type="number" style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.Supply_Cur[supply]} 
+                          <Input style={{width: 80, fontSize: 12}} name={supply} value={selectedHospital.properties.supply_cur[supply]} 
                             onChange={handleOnChange}/> </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.Supply_Cur[supply]}</Typography>}
+                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedHospital.properties.supply_cur[supply]}</Typography>}
                       </TableCell>
                       <TableCell>
-                        <Typography align="center" variant="subtitle2">{selectedHospital.properties.Supply_Cap[supply]}</Typography>
+                        <Typography align="center" variant="subtitle2">{selectedHospital.properties.supply_need[supply]}</Typography>
                       </TableCell>
                     </TableRow>
                   )  

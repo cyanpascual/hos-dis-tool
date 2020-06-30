@@ -13,6 +13,7 @@ router.route('/add').post((req, res) => {
   const data_drop = req.body.data_drop;
   const priority = req.body.priority;
   const test_center = req.body.test_center;
+  const numbers = req.body.numbers;
   const properties = req.body.properties;
   const geometry = req.body.geometry;
 
@@ -22,6 +23,7 @@ router.route('/add').post((req, res) => {
     data_drop,
     priority,
     test_center,
+    numbers,
     properties,
     geometry
 });
@@ -51,6 +53,7 @@ router.route('/update/:id').post((req, res) => {
       hospital.data_drop = req.body.data_drop;
       hospital.priority = req.body.priority;
       hospital.test_center = req.body.test_center;
+      hospital.numbers = req.body.numbers;
       hospital.properties = req.body.properties;
       hospital.geometry = req.body.geometry;
 

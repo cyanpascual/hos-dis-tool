@@ -199,10 +199,10 @@ const Main = () => {
               direction="column"
               justify="space-evenly"
               alignItems="left"
-              spacing={2}
+              spacing={1}
             >
               <Grid item >
-                <Typography style={{marginLeft:10}} fontWeight={800}>Legend</Typography>
+                <Typography  style={{marginLeft:10, fontWeight:500}} >Legend (Supply Level)</Typography>
               </Grid>
               <Grid item container direction="row">
                 <img src={'https://drive.google.com/uc?id=1jJQqQ0moEb7JeqwMjFyHeO0GlT4cfXr7'} alt="Critically Low" style={{width:50}}/>

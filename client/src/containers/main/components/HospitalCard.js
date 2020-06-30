@@ -109,8 +109,6 @@ const HospitalCard = ({
             <Button
       
               onClick={(e)=>{
-                hospitalScrollbarReference.scrollTo(0,0);
-                
                 setSelectedHospital(hospital);
                 goToSelected(hospital);
             }}

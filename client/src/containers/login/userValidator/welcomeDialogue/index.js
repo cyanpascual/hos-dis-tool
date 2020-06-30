@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {LoginContext} from '../../../../contexts/LoginContext.js'
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,6 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import { Typography } from '@material-ui/core';
+import HelpCarousel from './carousel';
 
 const styles = (theme) => ({
   root: {
@@ -19,6 +21,29 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },  root: {
+    display: 'flex',
+    minHeight: '100vh',
+  },
+  dialog: {
+    opacity: 0,
+  },
+  dialogText: {
+    opacity: 1,
+  },
+  app: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  main: {
+    flex: 1,
+    padding: theme.spacing(6, 4),
+    background: '#eaeff1',
+  },
+  footer: {
+    padding: theme.spacing(2),
+    background: '#eaeff1',
   },
 });
 
@@ -59,47 +84,19 @@ theme.typography.h4 = {
   }, fontWeight: 500
 };
 
-const styles = {
-  root: {
-    display: 'flex',
-    minHeight: '100vh',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidthSmall,
-      flexShrink: 0,
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: drawerWidthMedium,
-      flexShrink: 0,
-    },
-    overflow:"hidden"
-  },
-  app: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  main: {
-    flex: 1,
-    padding: theme.spacing(6, 4),
-    background: '#eaeff1',
-  },
-  footer: {
-    padding: theme.spacing(2),
-    background: '#eaeff1',
-  },
-};
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-function WelcomeSlide() {
-  const { user } = useContext(LoginContext);
+function WelcomeSlide(props) {
+  const { classes } = props
+  const { user, page, setPage, setLocPage } = useContext(LoginContext);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
+    setPage(0);
+    setLocPage(0)
     setOpen(true);
   };
 
@@ -110,23 +107,27 @@ function WelcomeSlide() {
   return (
     <div>
       <Button color="inherit" onClick={handleClickOpen}>
-        <Typography variant='h3'>HELP</Typography>
+        <Typography variant='h4'>HELP</Typography>
       </Button>
-      <Dialog open={open} TransitionComponent={Transition}
-        keepMounted onClose={handleClose}>
-        <DialogTitle id="alert-dialog-slide-title">Hello, {user.properties.Firstname}!</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            This interface is solely for volunteers and staff under the TrAMS project. 
-          </DialogContentText>
+      <Dialog disablePadding fullScreen open={open} TransitionComponent={Transition} keepMounted onClose={handleClose}
+        BackdropProps={{
+          style:{
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+          }
+        }} PaperProps={{ style:{ backgroundColor: 'transparent', margin: 0, padding: 0} }}>
+        <DialogContent style={{margin: 0, padding: 0}}>
+          <HelpCarousel user={user} pageno={0}/>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
+        {page === 5 ?        
+          <DialogActions>
+            <Button className={classes.dialogText} onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>: <div/>}
       </Dialog>
+
     </div>
   );
 } 
-export default withStyles(style)(WelcomeDialogue)
+export default withStyles(styles)(WelcomeSlide)

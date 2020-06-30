@@ -18,6 +18,9 @@ const hospitalSchema = new Schema({
   "test_center": {
     "type": "Boolean" // true or false whether testing center
   },
+  "numbers": {
+    "type": "Boolean" // true or false whether hospital wants to show hard numbers
+  },
   "properties": {
     "cfname": {
       "type": "String" // Facility Name
@@ -38,7 +41,7 @@ const hospitalSchema = new Schema({
       "type": "String" // Region (for sorting purposes)
     },
     "doh_level": {
-      "type": "String" // DOH Level whether primary (1), secondary (2), tertiary (3), specialty
+      "type": "String" // DOH Level whether primary (1), secondary (2), tertiary (3), specialty, other
     },
     "capacity": {
       "icu_v": {
@@ -110,6 +113,50 @@ const hospitalSchema = new Schema({
         "type": "Number" // Vitamins (in pieces)
       }
     },
+    "lab_need": { // Weekly Laboratory Supply Needs
+      "rtpcr": {
+        "type": ["Mixed"]
+      },
+      "rna_extraction": {
+        "type": ["Mixed"]
+      },
+      "filter_tip_1000": {
+        "type": "Number" // Filter pipette tips, 1000 uL
+      },
+      "filter_tip_200": {
+        "type": "Number" // Filter pipette tips, 200 uL
+      },
+      "filter_tip_10": {
+        "type": "Number" // Filter pipette tips, 10 uL
+      },
+      "micro_tube": {
+        "type": "Number" // Microcentrifuge tubes, 1.5mL
+      },
+      "cryogenic_vial": {
+        "type": "Number" // Cryogenic vials, 2mL
+      },
+      "biohazard_bag": {
+        "type": "Number" // Biohazard bags (S, M, L)
+      },
+      "qpcr_plate": {
+        "type": "Number" // qPCR plates
+      },
+      "adhesive_film": {
+        "type": "Number" // Adhesive films
+      },
+      "ethanol": {
+        "type": "Number" // Absolute ethanol
+      },
+      "trash_bag": {
+        "type": "Number" // Yellow trash bags (S, M, L)
+      },
+      "abs_sheet": {
+        "type": "Number" // Absorbent sheets
+      },
+      "nacl": {
+        "type": "Number" // NaCl (for diluting viscous samples, other than NPS/OPS)
+      }
+    },
     "supply_cur": { // Current Supply Needs
       "alcohol": {
         "type": "Number" // Alcohol (in liters)
@@ -155,6 +202,53 @@ const hospitalSchema = new Schema({
       },
       "other": {
         "type": "String" // For other hospital needs (may be left blank)
+      }
+    },
+    "lab_cur": { // Current Laboratory Needs
+      "rtpcr": {
+        "type": ["Mixed"] // RT-PCR Machines
+      },
+      "rna_extraction": {
+        "type": ["Mixed"] // RNA Extraction Machines
+      },
+      "filter_tip_1000": {
+        "type": "Number" // Filter pipette tips, 1000 uL
+      },
+      "filter_tip_200": {
+        "type": "Number" // Filter pipette tips, 200 uL
+      },
+      "filter_tip_10": {
+        "type": "Number" // Filter pipette tips, 10 uL
+      },
+      "micro_tube": {
+        "type": "Number" // Microcentrifuge tubes, 1.5mL
+      },
+      "cryogenic_vial": {
+        "type": "Number" // Cryogenic vials, 2mL
+      },
+      "biohazard_bag": {
+        "type": "Number" // Biohazard bags (S, M, L)
+      },
+      "qpcr_plate": {
+        "type": "Number" // qPCR plates
+      },
+      "adhesive_film": {
+        "type": "Number" // Adhesive films
+      },
+      "ethanol": {
+        "type": "Number" // Absolute ethanol
+      },
+      "trash_bag": {
+        "type": "Number" // Yellow trash bags (S, M, L)
+      },
+      "abs_sheet": {
+        "type": "Number" // Absorbent sheets
+      },
+      "nacl": {
+        "type": "Number" // NaCl (for diluting viscous samples, other than NPS/OPS)
+      },
+      "other": {
+        "type": "String" // For other laboratory needs (may be left blank)
       }
     },
     "cont_person": {

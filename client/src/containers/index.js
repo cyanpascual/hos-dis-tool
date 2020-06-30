@@ -204,7 +204,7 @@ function App(props) {
       <Switch>
         <Route path='/' component={Main} exact/>
         <Route path='/login' component={Login}/>  
-        <Route path='/organizer'component={OrganizerPage}/>    
+        <Route path='/0ffering'component={OrganizerPage}/>    
         <Route path='*'>
           <NotFound/>
         </Route>
