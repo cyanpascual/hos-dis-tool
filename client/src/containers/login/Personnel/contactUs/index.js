@@ -104,10 +104,9 @@ const Contact = (props) => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
-    console.log(message)
     axios({
         method: "POST", 
-        url:"http://trams.com.ph/send/send", 
+        url:"https://trams-up-dge.herokuapp.com/send/send", 
         data: {
             name: name,   
             email: email,  

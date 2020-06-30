@@ -169,6 +169,7 @@ const Dashboard = (props) => {
                 <TableBody>
                   {announcements ? 
                     announcements.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((announce) => {     
+                    if (new Date(announce.reportdate.slice(0,24)).getTime() < new Date().getTime()) {
                   return(
                     <TableRow key={announce.title} tabIndex={-1}>
                       <TableCell colSpan={4}><div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"2px", textAlign:'left'}}>
@@ -190,7 +191,7 @@ const Dashboard = (props) => {
                         </Grid>
                       </div></TableCell>
                     </TableRow>
-                  )}): loaded ? <TableRow><TableCell align='center'><Typography variant='h3'>No announcements</Typography></TableCell></TableRow>
+                  )}}): loaded ? <TableRow><TableCell align='center'><Typography variant='h3'>No announcements</Typography></TableCell></TableRow>
                   : <TableRow><TableCell colSpan={4} align='center'>
                     <Grid container>
                       <Grid item xs={12}>
