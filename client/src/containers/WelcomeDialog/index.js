@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import WelcomeCarousel from '../WelcomeCarousel';
@@ -28,16 +28,16 @@ export default function WelcomeDialog() {
   };
 
   return (
-    <div>
-      <Button  color="inherit" onClick={handleClickOpen}>
+    <React.Fragment>
+      <ListItem button  color="inherit" onClick={handleClickOpen}>
         About Us
-      </Button>
+      </ListItem>
         <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
 
         <DialogContent dividers>
           <WelcomeCarousel/>
         </DialogContent>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }

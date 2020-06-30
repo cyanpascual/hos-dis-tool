@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
-import { Map, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup, Circle,Pane } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -30,15 +30,48 @@ export default function App() {
     function deg2rad(deg) {
         return deg * (Math.PI/180)
     }
+ 
 
-    var facilityIcon = L.icon({
-          iconUrl:'https://upload.wikimedia.org/wikipedia/commons/c/c9/Font_Awesome_5_solid_map-marker-alt.svg',
+    var blueIcon = L.icon({
+        iconUrl:'https://drive.google.com/uc?id=1EffpdBTqDJcDZz2gphQ0os_SuuGmbYrr',
+        iconRetinaUrl:'https://drive.google.com/uc?id=1EffpdBTqDJcDZz2gphQ0os_SuuGmbYrr',
+        iconSize:[50,50],
+        iconAnchor:[25,50],
+        popupAnchor: [0,-40]
+    })
+    var redIcon = L.icon({
+          iconUrl:'https://drive.google.com/uc?id=1jJQqQ0moEb7JeqwMjFyHeO0GlT4cfXr7',
+          iconRetinaUrl:'https://drive.google.com/uc?id=1jJQqQ0moEb7JeqwMjFyHeO0GlT4cfXr7',
           iconSize:[50,50],
           iconAnchor:[25,50],
           popupAnchor: [0,-40]
       })
 
- 
+      var yellowIcon = L.icon({
+        iconUrl:'https://drive.google.com/uc?id=1epJ3DRUFK0tdUAcK7h0tzffAthAI-Djd',
+        iconRetinaUrl:'https://drive.google.com/uc?id=1epJ3DRUFK0tdUAcK7h0tzffAthAI-Djd',
+        iconSize:[50,50],
+        iconAnchor:[25,50],
+        popupAnchor: [0,-40]
+    })
+
+    var greenIcon = L.icon({
+        iconUrl:'https://drive.google.com/uc?id=1GsXWLN1d5aX7UjaG4wfjUHThNQz5DYkp',
+        iconRetinaUrl:'https://drive.google.com/uc?id=1GsXWLN1d5aX7UjaG4wfjUHThNQz5DYkp',
+        iconSize:[50,50],
+        iconAnchor:[25,50],
+        popupAnchor: [0,-40]
+    })
+
+    var grayIcon = L.icon({
+        iconUrl:'https://drive.google.com/uc?id=1LWRcCHnKWDkpJBX3lvK1WX_EY65_UxVR',
+        iconRetinaUrl:'https://drive.google.com/uc?id=1LWRcCHnKWDkpJBX3lvK1WX_EY65_UxVR',
+        iconSize:[50,50],
+        iconAnchor:[25,50],
+        popupAnchor: [0,-40]
+    })
+
+
 
     
       useEffect(() => {
@@ -55,32 +88,29 @@ export default function App() {
 
     
 
-    const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters} = useContext(FeaturesContext);
+    const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,filterHospitalBySupply} = useContext(FeaturesContext);
     const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
     const position = [viewport.lat, viewport.lng]
-
-
+    
+    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}):[]
+    const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
+    const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
+    const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]
     return (
  
         <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={closePopups}>
-        
+           
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
                 id='mapbox.light'
             />
-            <MarkerClusterGroup
-                spiderLegPolylineOptions={{
-                    weight: 0,
-                    opacity: 0,
-                  }}
-                removeOutsideVisibleBounds={true}
-                disableClusteringAtZoom={14}
-            >
+
 
        
-            
-             {hospitalList? (hospitalList
+
+            {(hospitalList  && (filterLevel==="Well stocked" || filterLevel==="All"))? (
+                greenHospitals
              .filter((hospital)=>{
                  if(justTestCenters){
                      return(hospital.test_center === true)
@@ -90,13 +120,8 @@ export default function App() {
                  }
              })
              .filter((hospital)=> {
-                if (filterLevel=== ''){
-                  return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
-                } else{
-                  return(hospital.properties.supply_status[filterSetting] === filterLevel && hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
-                }
-                 
-              })
+                return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
+            })
              .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
@@ -105,6 +130,8 @@ export default function App() {
                             setSelectedHospital(hospital);
                             goToSelected(hospital);
                         }}
+                        icon={greenIcon}
+                        zIndexOffset={300}
                     >
                     <Popup className="request-popup">
                         {selectedHospital ? (
@@ -118,7 +145,83 @@ export default function App() {
                     </Marker>
                 )}})) : null
             } 
-            </MarkerClusterGroup>
+
+            
+        {(hospitalList  && (filterLevel==="No Data" || filterLevel==="All"))? (
+                grayHospitals
+             .filter((hospital)=>{
+                 if(justTestCenters){
+                     return(hospital.test_center === true)
+                 }
+                 else{
+                     return(hospital)
+                 }
+             })
+             .filter((hospital)=> {
+                return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
+            })
+             .map((hospital) => {
+                if(hospital.properties != null){return(
+                    <Marker 
+                        position={[hospital.geometry.coordinates[1],hospital.geometry.coordinates[0]]}
+                        onClick={(e)=>{
+                            setSelectedHospital(hospital);
+                            goToSelected(hospital);
+                        }}
+                        icon={grayIcon}
+                        zIndexOffset={400}
+
+                    >
+                    <Popup className="request-popup">
+                        {selectedHospital ? (
+                            <div>
+                                {selectedHospital.properties.cfname}
+                            </div>
+                        ):null}
+                        
+                    </Popup>
+   
+                    </Marker>
+                )}})) : null
+            } 
+            
+            {(hospitalList  && (filterLevel==="Low" || filterLevel==="All"))?(
+            yellowHospitals
+             .filter((hospital)=>{
+                 if(justTestCenters){
+                     return(hospital.test_center === true)
+                 }
+                 else{
+                     return(hospital)
+                 }
+             })
+             .filter((hospital)=> {
+                return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
+            })
+             .map((hospital) => {
+                if(hospital.properties != null){return(
+                    <Marker 
+                        position={[hospital.geometry.coordinates[1],hospital.geometry.coordinates[0]]}
+                        onClick={(e)=>{
+                            setSelectedHospital(hospital);
+                            goToSelected(hospital);
+                        }}
+                        icon={yellowIcon}
+                        zIndexOffset={500}
+                    >
+                    <Popup className="request-popup">
+                        {selectedHospital ? (
+                            <div>
+                                {selectedHospital.properties.cfname}
+                            </div>
+                        ):null}
+                        
+                    </Popup>
+   
+                    </Marker>
+                )}})) : null
+            }
+
              {selectedHospital ? (
                 facilities.filter((facility)=>getDistanceFromLatLonInKm(
                     selectedHospital.geometry.coordinates[1],
@@ -133,7 +236,7 @@ export default function App() {
                             onClick={(e)=>{
                                 setClickedFacility(facility)
                             }}
-                            icon={facilityIcon}
+                            icon={blueIcon}
                         >
                             
                             <Popup>
@@ -161,6 +264,44 @@ export default function App() {
         </Circle>
 
         ):null}
+
+                    {/*for critically low markers*/}
+                    {(hospitalList && (filterLevel==="Critically Low" || filterLevel==="All"))? (
+            redHospitals
+             .filter((hospital)=>{
+                 if(justTestCenters){
+                     return(hospital.test_center === true)
+                 }
+                 else{
+                     return(hospital)
+                 }
+             })
+             .filter((hospital)=> {
+                  return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
+              })
+             .map((hospital) => {
+                if(hospital.properties != null){return(
+                    <Marker 
+                        position={[hospital.geometry.coordinates[1],hospital.geometry.coordinates[0]]}
+                        onClick={(e)=>{
+                            setSelectedHospital(hospital);
+                            goToSelected(hospital);
+                        }}
+                        icon={redIcon}
+                        zIndexOffset={604}
+                    >
+                    <Popup className="request-popup">
+                        {selectedHospital ? (
+                            <div>
+                                {selectedHospital.properties.cfname}
+                            </div>
+                        ):null}
+                        
+                    </Popup>
+   
+                    </Marker>
+                )}})) : null
+            } 
     </Map>
     );
 }

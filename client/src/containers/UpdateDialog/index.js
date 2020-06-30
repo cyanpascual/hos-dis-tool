@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -57,9 +57,9 @@ export default function UpdateDialog() {
 
   return (
     <div>
-      <Button color="inherit" onClick={handleClickOpen} >
+      <ListItem button color="inherit" onClick={handleClickOpen} >
         Update Hospitals
-      </Button>
+      </ListItem>
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
         <DialogContent dividers>
