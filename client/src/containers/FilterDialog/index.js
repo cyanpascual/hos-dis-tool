@@ -61,7 +61,7 @@ export default function FilterDialog() {
  
 
  
-  const supplyLevelChoices=["Well stocked","Low", "Critically Low","No Data"]
+  const supplyLevelChoices=["Well stocked","Low", "Critically Low","All"]
 
 
 
@@ -100,7 +100,7 @@ export default function FilterDialog() {
         <Button variant="contained" color="primary" 
           onClick={()=>{
             setFilterSetting("coverall")
-            setFilterLevel('')
+            setFilterLevel('All')
             setSelectedProvince('')
             setJustTestCenters(false)
 

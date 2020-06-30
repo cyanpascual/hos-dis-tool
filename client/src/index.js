@@ -6,13 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import FeaturesContextProvider from './contexts/FeaturesContext';
 import MapsContextProvider from './contexts/MapsContext';
 import LoginContextProvider from './contexts/LoginContext';
+import OrganizerContextProvider from './contexts/OrganizerContext';
 
 ReactDOM.render(
   <React.StrictMode>  
       <MapsContextProvider>
         <FeaturesContextProvider>
           <LoginContextProvider>
-            <App />
+            <OrganizerContextProvider>
+             <App />
+            </OrganizerContextProvider>
           </LoginContextProvider>
         </FeaturesContextProvider>
       </MapsContextProvider>

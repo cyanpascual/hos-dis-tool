@@ -11,8 +11,6 @@ import Navigator from '../Navigator';
 import ReactMap from '../reactMap'
 import Drawer from '@material-ui/core/Drawer';
 import { useMediaQuery, createMuiTheme} from '@material-ui/core';
-import 'leaflet/dist/leaflet.css'
-import 'typeface-roboto';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import WorkIcon from '@material-ui/icons/Work';
 import BusinessIcon from '@material-ui/icons/Business';
@@ -34,8 +32,10 @@ import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
 import SidebarMenu from './components/sidebar'
+
 import { makeStyles } from '@material-ui/core/styles';
 import tramsLogo from '../../assets/logos/tramsLogo.png'
+import MaterialTable from 'material-table'
 
 
 //material ui stuff
@@ -161,7 +161,7 @@ let theme = createMuiTheme({
 //Main function that returns the component
 const Main = () => {
   const styles = useStyles();
-  const {  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
+  const {  hospitalScrollbarReference,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -188,19 +188,45 @@ const Main = () => {
             </Container>
             <Divider style={{marginTop:20,marginBottom:20}}/>
             <Box minWidth={240}>
-              <ListItem >
-                <WelcomeDialog/>
-              </ListItem>
-              <ListItem >
+                <WelcomeDialog />
                 <FeedbackDialog/>
-              </ListItem>
-              <ListItem button>
                 <UpdateDialog/>
-              </ListItem>
-              <ListItem >
                 <DonateDialog/>
-              </ListItem>
             </Box>
+            <Divider style={{marginTop:20,marginBottom:20}}/>
+            <Grid
+              container
+              direction="column"
+              justify="space-evenly"
+              alignItems="left"
+              spacing={1}
+            >
+              <Grid item >
+                <Typography  style={{marginLeft:10, fontWeight:500}} >Legend (Supply Level)</Typography>
+              </Grid>
+              <Grid item container direction="row">
+                <img src={'https://drive.google.com/uc?id=1jJQqQ0moEb7JeqwMjFyHeO0GlT4cfXr7'} alt="Critically Low" style={{width:50}}/>
+                <Typography>Critically Low</Typography>
+              </Grid>
+              <Grid item container direction="row">
+                <img src={'https://drive.google.com/uc?id=1epJ3DRUFK0tdUAcK7h0tzffAthAI-Djd'} alt="Critically Low" style={{width:50}}/>
+                <Typography>Low</Typography>
+              </Grid>
+              <Grid item container direction="row">
+                <img src={'https://drive.google.com/uc?id=1GsXWLN1d5aX7UjaG4wfjUHThNQz5DYkp'} alt="Critically Low"  style={{width:50}}/>
+                <Typography>Well stocked</Typography>
+              </Grid>
+              <Grid item container direction="row">
+                <img src={'https://drive.google.com/uc?id=1LWRcCHnKWDkpJBX3lvK1WX_EY65_UxVR'} alt="Critically Low" style={{width:50}}/>
+                <Typography>No Data</Typography>
+              </Grid>
+
+
+
+
+
+
+            </Grid>
             </SidebarContent>
             <CollapseBtn />
           </DrawerSidebar>
@@ -226,12 +252,12 @@ const Main = () => {
                 )}
               </Box>
             </Container> */}
-          <Grid style={{ width:"100%", margin:"0 auto"}} container>
+          <Grid style={{ width:"100%", margin:"0 auto"}} container ref={hospitalScrollbarReference}>
 
                 <Grid item 
-                  lg={6}
+                  lg={9}
                   md={12}
-                  xl={6}
+                  xl={9}
                   xs={12}
                   style={{height: isDesktop ? "100vh": "40vh"}}
                   >
@@ -240,9 +266,9 @@ const Main = () => {
 
                 </Grid>
                 <Grid item           
-                  lg={6}
+                  lg={3}
                   md={12}
-                  xl={6}
+                  xl={3}
                   xs={12}
                   style={{height: isDesktop ? "100vh": "50vh"}}
                   >
@@ -275,7 +301,8 @@ const Main = () => {
                     {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
                   </Container>
                 </Grid>
-              </Grid>
+          
+          </Grid>
           
           </Content>
           <Footer>
