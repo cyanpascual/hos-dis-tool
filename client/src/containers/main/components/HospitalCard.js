@@ -76,7 +76,7 @@ const HospitalCard = ({
   const flexStyles = useRowFlexStyles();
 
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-  const {hospitalScrollbarReference} = useContext(FeaturesContext)
+  const {hospitalScrollbarReference,hospitalToDonateTo,setHospitalToDonateTo,donationDialogOpen,setDonationDialogOpen,dialogCount, setDialogCount} = useContext(FeaturesContext)
   return (
     <div className={styles.root}>
       <Column className={styles.card}>
@@ -118,9 +118,14 @@ const HospitalCard = ({
               More Info
             </Button>
           </Item>
-          {/* <Item position={'right'}>
-            {hospital?<DonationDialog name={hospital.properties.cfname}/>:null}
-          </Item> */}
+          <Item position={'right'}>
+            <Button variant={'contained'} color="primary" onClick={()=>{
+              setHospitalToDonateTo(hospital)
+            }}>
+              Donate
+            </Button>
+            
+          </Item> 
         </Row>
       </Column>
     </div>

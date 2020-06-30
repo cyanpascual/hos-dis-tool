@@ -89,7 +89,7 @@ export default function FilterDialog() {
 
   return (
     <div>
-      <Button fullWidth variant="contained" onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="primary" style={{height:"39px",fontSize:"0.9rem"}}>{"Filter"} </Button>
+      <Button fullWidth variant="contained" onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="primary" style={{height:"39px",fontSize:"0.7vw"}}>{"Filter"} </Button>
        
  
       

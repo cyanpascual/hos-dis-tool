@@ -160,10 +160,12 @@ const FeaturesContextProvider = (props) => {
   const [filterLevel, setFilterLevel] = useState('All');
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
+  const [dialogCount, setDialogCount] = useState(0);
   const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
   const [selectedProvince,setSelectedProvince] = useState('')
   const [selectedCity,setSelectedCity] = useState('')
+  const [hospitalToDonateTo,setHospitalToDonateTo] = useState(null)
   const [sortSetting, setSortSetting] = useState('cfname');
   const [sortOrder, setSortOrder] = useState('Ascending');
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
@@ -174,6 +176,7 @@ const FeaturesContextProvider = (props) => {
   const [hospitalScrollbarReference, setHospitalScrollbarReference] = useState(useRef(null));
   const [provincesList, setProvincesList] = useState(null);
   const [citiesList, setCitiesList] = useState(null);
+  const [donationDialogOpen,setDonationDialogOpen] = useState(false);
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -248,7 +251,8 @@ const FeaturesContextProvider = (props) => {
       hospitals, setHospitals, 
       hospitalList, setHospitalList, 
       filterSetting, setFilterSetting, 
-      filterLevel, setFilterLevel, 
+      filterLevel, setFilterLevel,
+      donationDialogOpen,setDonationDialogOpen,
       highlightedHospitals, setHightlightedHospitals,
       selectedCity,setSelectedCity,
       resetHospitals, searchTerm,
@@ -258,6 +262,8 @@ const FeaturesContextProvider = (props) => {
       hospitalScrollbarReference, setHospitalScrollbarReference,
       provincesList, setProvincesList,
       citiesList, setCitiesList,
+      hospitalToDonateTo,setHospitalToDonateTo,
+      dialogCount, setDialogCount,
       setSearchTerm,
       supplyLabels,
       supplyIconGetter,

@@ -27,6 +27,7 @@ import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
 import SortDialog from '../SortDialog';
 import HospitalInfo  from '../HospitalInfo';
+import DonationDialog  from '../DonationDialog';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
@@ -161,7 +162,7 @@ let theme = createMuiTheme({
 //Main function that returns the component
 const Main = () => {
   const styles = useStyles();
-  const {  hospitalScrollbarReference,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
+  const {hospitalToDonateTo,  hospitalScrollbarReference,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -253,7 +254,7 @@ const Main = () => {
               </Box>
             </Container> */}
           <Grid style={{ width:"100%", margin:"0 auto"}} container ref={hospitalScrollbarReference}>
-
+                {hospitalToDonateTo ?<DonationDialog />:null}
                 <Grid item 
                   lg={9}
                   md={12}
@@ -292,7 +293,7 @@ const Main = () => {
                     renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
                     />}
                     </Grid>
-                    {hospitalList ? <Grid style={{fontSize:desktop?"20px":"12px"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
+                    {hospitalList ? <Grid style={{fontSize:desktop?"0.9vw":"12px"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
                    
                 </Grid>
                     </div>
