@@ -87,7 +87,7 @@ const FilterList = (props) => {
       } 
       return(<Chip  className={classes.chip} style={{opacity:0.2, fontWeight:200}} size="small" label={supplyLabelMap[supply]} />)
     }
-    
+    console.log(filterLevel)
     return (
       <div >
         {hospitalList ? (
@@ -96,19 +96,19 @@ const FilterList = (props) => {
         hospitalList
         .filter((hospital)=>{
           if(justTestCenters){
-              return(hospital.test_center == true)
+              return(hospital.test_center === true)
           }
           else{
               return(hospital)
           }
       })
         .filter((hospital)=> {
-          if (filterSetting === '' || filterLevel=== ''){
+          if (filterLevel=== 'All'){
+            console.log(hospital.properties.prov.includes(selectedProvince))
             return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
           } else{
             return(hospital.properties.supply_status[filterSetting] === filterLevel && hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
           }
-           
         })
         .map((hospital)=>{
           return(<Card style={{margin: "10px 0"}}>
@@ -151,8 +151,6 @@ const FilterList = (props) => {
                   
                   )
               }
-              
-              
             </Grid>
 
           
