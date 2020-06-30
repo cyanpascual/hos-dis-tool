@@ -82,19 +82,26 @@ theme.typography.h2 = {
 const Dashboard = (props) => {
   const { classes, ...other } = props;
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { username } = useContext(LoginContext);
+  const { username, donations, setDonations } = useContext(LoginContext);
   
   const [announcements, setAnnouncements] = useState('')
   const [announceList, setAnnounceList] = useState('')
   const [selectAnnounce, setSelectAnnounce] = useState('')
   const [hos, setHos] = useState(selectedHospital);
   const [loaded, setLoaded] = useState(false)
+  const [dloaded, setDloaded] = useState(false)
 
   const [page, setPage] = useState(0);
+  const [dpage, setDpage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPageD, setRowsPerPageD] = useState(5);
   
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleChangePageD = (event, newPage) => {
+    setDpage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -102,11 +109,17 @@ const Dashboard = (props) => {
     setPage(0);
   };
 
+  const handleChangeRowsPerPageD = (event) => {
+    setRowsPerPageD(+event.target.value);
+    setDpage(0);
+  };
+
   
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/ann0unc3m3nt', );
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/d0nati0n', )
 
       
       setAnnouncements(res.data.sort(function(a,b){
@@ -123,8 +136,16 @@ const Dashboard = (props) => {
         ...item,
         expand: false
       }}))
+
+      setDonations(res2.data.sort(function(a,b){
+        var x = (new Date(a.properties.reportdate.slice(-22))).getTime();
+        var y = (new Date(b.properties.reportdate.slice(-22))).getTime();
+        if (x<y) {return 1;}
+        if (x>y) {return -1;}
+        return 0;
+      }).filter((donation) => donation.properties.hfhudcode === selectedHospital.properties.hfhudcode))
       //console.log(res2.data)
-      
+      setDloaded(true)
     }
     
     fetchData();
@@ -142,6 +163,7 @@ const Dashboard = (props) => {
       }))
     }
   },[announceList])
+
 
   const handleClick = (index, value) => {
     setAnnounceList(announcements.filter((item) => item.title !== index))
@@ -227,7 +249,51 @@ const Dashboard = (props) => {
           <Card className={classes.card}>
             <CardHeader className={classes.header} title="Donations Tracking" />
             <CardContent className={classes.container} style={{height:'65vh'}}>
-              <Typography variant='h3'>Feature under construction</Typography>
+              {/*<Grid container direction='column'>
+                <Grid item style={{height:'55vh', overflow: 'scroll', display: 'flex', flexDirection: 'column'}} xs={12}>
+                  <TableContainer><Table size="small" style={{height: '100%', overflow: 'scroll', width:'100%'}}>
+                    <TableBody>
+                      {donations ? donations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((donation) => { 
+                        return (
+                        <TableRow key={donation._id} tabIndex={-1}>
+                          <TableCell colSpan={4}><div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
+                            <Grid container>
+                              <Grid item xs={12}>
+                                <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.donor}</Typography>
+                              </Grid>
+                              <Grid item xs={10}>
+                                <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.reportdate.slice(-22)}</Typography>
+                              </Grid>
+                              <Grid item xs={10}>
+                                <Typography style={{fontSize:14, color:"black"}} gutterBottom>
+                                  Status: 
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </div></TableCell>
+                        </TableRow>
+                        )}): dloaded ? <TableRow><TableCell align='center'><Typography variant='h3'>No donations yet</Typography></TableCell></TableRow>
+                        : <TableRow><TableCell colSpan={4} align='center'>
+                        <Grid container>
+                          <Grid item xs={12}>
+                            <CircularProgress />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant='h3'>Loading...</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell></TableRow>
+                    }
+                    </TableBody>
+                  </Table></TableContainer>
+                </Grid>
+                <Grid item>
+                  <TablePagination style={{display: 'flex', padding: 0, alignSelf: 'center'}} component="div" 
+                    count={donations.length} rowsPerPage={rowsPerPageD} page={dpage} rowsPerPageOptions={[5]}
+                    onChangePage={handleChangePageD} onChangeRowsPerPage={handleChangeRowsPerPageD} />
+                </Grid>
+                  </Grid>*/}
+                  Feature under construction
             </CardContent>
           </Card>
         </Grid>
