@@ -49,8 +49,8 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   logo: {
-    width: 48,
-    height: 48,
+    width: 70,
+    height: 70,
     borderRadius: '0.75rem',
   },
   avatar: {
@@ -76,7 +76,7 @@ const HospitalCard = ({
   const flexStyles = useRowFlexStyles();
 
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-
+  const {hospitalScrollbarReference} = useContext(FeaturesContext)
   return (
     <div className={styles.root}>
       <Column className={styles.card}>
@@ -109,6 +109,8 @@ const HospitalCard = ({
             <Button
       
               onClick={(e)=>{
+                hospitalScrollbarReference.scrollTo(0,0);
+                
                 setSelectedHospital(hospital);
                 goToSelected(hospital);
             }}

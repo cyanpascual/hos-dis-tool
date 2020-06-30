@@ -2,10 +2,10 @@ import React, {useContext, useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import { createMuiTheme} from '@material-ui/core/styles';
-import 'leaflet/dist/leaflet.css'
-import 'typeface-roboto';
+
 import { FeaturesContext } from '../contexts/FeaturesContext';
 import Login from './login';
+import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
 
@@ -165,10 +165,8 @@ function App(props) {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      console.log('fasdfadfa');
-      console.log(Object.keys(res.data[0].properties.supply_need))
+
       var temp = Object.keys(res.data[0].properties.supply_need)
-      console.log(temp)
       //this is because supplyList won't update before this function is over 
       setSupplyList(temp) 
       res.data.forEach(hospital => {
@@ -205,7 +203,8 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path='/' component={Main} exact/>
-        <Route path='/validatorUpdate' component={Login} exact/>
+        <Route path='/login' component={Login}/>  
+        <Route path='/organizer'component={OrganizerPage}/>    
         <Route path='*'>
           <NotFound/>
         </Route>

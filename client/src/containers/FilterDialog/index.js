@@ -58,7 +58,7 @@ export default function FilterDialog() {
  
 
  
-  const supplyLevelChoices=["Well stocked","Low", "Critically Low","No Data"]
+  const supplyLevelChoices=["Well stocked","Low", "Critically Low","All"]
 
 
   const [provincesList, setProvincesList] = useState(null);
@@ -97,8 +97,8 @@ export default function FilterDialog() {
         <Box className={flexStyles.parent}>
         <Button variant="contained" color="primary" 
           onClick={()=>{
-            setFilterSetting("alcohol")
-            setFilterLevel('')
+            setFilterSetting("coverall")
+            setFilterLevel('All')
             setSelectedProvince('')
             setJustTestCenters(false)
 

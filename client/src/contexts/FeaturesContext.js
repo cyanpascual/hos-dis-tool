@@ -1,5 +1,5 @@
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useRef } from 'react';
 
 import alcohol_high from '../assets/levelIndicators/alcohol-green.png'
 import alcohol_med from '../assets/levelIndicators/alcohol-yellow.png'
@@ -156,8 +156,8 @@ const supplyIcons = {
 const FeaturesContextProvider = (props) => {
   const [hospitals, setHospitals] = useState();
   const [hospitalList, setHospitalList] = useState()
-  const [filterSetting, setFilterSetting] = useState("alcohol");
-  const [filterLevel, setFilterLevel] = useState('');
+  const [filterSetting, setFilterSetting] = useState("coverall");
+  const [filterLevel, setFilterLevel] = useState('All');
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
   const [hospitalsShown,setHospitalsShown] = useState([0,9]);
@@ -171,6 +171,7 @@ const FeaturesContextProvider = (props) => {
   const [supplyList, setSupplyList] = useState([]);
   const [desktop, setDesktop] = useState(true);
   const [justTestCenters, setJustTestCenters] = useState(false);
+  const [hospitalScrollbarReference, setHospitalScrollbarReference] = useState(useRef(null));
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -214,7 +215,7 @@ const FeaturesContextProvider = (props) => {
   
   const resetHospitals = () => {
       setHospitalList(hospitals)
-      setFilterLevel('');
+      setFilterLevel('All');
       setFilterSetting('');
       setSelectedProvince('');
       
@@ -224,6 +225,10 @@ const FeaturesContextProvider = (props) => {
 
   const supplyIconGetter = (supply, level) =>{
     return(supplyIcons[supply][level])
+  }
+
+  const filterHospitalBySupply = (supply,supplyLevel) =>{
+    return(hospitalList.filter((hospital)=>{return(hospital.properties.supply_status[supply] ===supplyLevel)}))
   }
 
  
@@ -248,9 +253,11 @@ const FeaturesContextProvider = (props) => {
       supplyList, setSupplyList,
       desktop, setDesktop,
       justTestCenters, setJustTestCenters,
+      hospitalScrollbarReference, setHospitalScrollbarReference,
       setSearchTerm,
       supplyLabels,
-      supplyIconGetter}}>
+      supplyIconGetter,
+      filterHospitalBySupply}}>
       {props.children}
     </FeaturesContext.Provider>
   );

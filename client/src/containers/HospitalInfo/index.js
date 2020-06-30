@@ -109,6 +109,7 @@ const HospitalInfo = () => {
             </Typography>
           <ListItem>
             <List>
+                <h4>Current supply vs Weekly need</h4>
                 {supplies.map((supply)=>{
                   return(
                     <ListItem>
