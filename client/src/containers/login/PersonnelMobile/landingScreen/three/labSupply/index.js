@@ -328,6 +328,9 @@ const LabSupplies = (props) => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
+    axios.post(`https://trams-up-dge.herokuapp.com/hl0gs/add`, selectedHospital )
+      .then(res => console.log(res.data))
+      .catch(error => console.log(error))
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
     setHospitalList(prevState => [

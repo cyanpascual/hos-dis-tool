@@ -19,7 +19,6 @@ const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justify: 'center',
     width: '98%',
     margin: 5,
     padding: 5,
@@ -125,12 +124,12 @@ const Donations = (props) => {
       <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
         <Grid container item xs={5} direction="column" justify="flex-start" alignItems='flex-start'>
           <Grid item>
-            <TableContainer><Table size="small" style={{height: '82vh', overflow: 'scroll', width:'100%'}}>
+            <Paper className={classes.table}><TableContainer><Table size="small" style={{height: '82vh', overflow: 'scroll', width:'100%'}}>
               <TableBody>
                 {donations ? donations.slice(dpage * rowsPerPageD, dpage * rowsPerPageD + rowsPerPageD).map((donation) => { 
                 return (
                   <TableRow key={donation._id} tabIndex={-1}>
-                    <TableCell colSpan={4}><Button style={{align: "left"}}>
+                    <TableCell colSpan={4}><Button style={{align: "left"}} onClick={() => setSelectedDonation(donation)}>
                       <div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
                       <Grid container>
                         <Grid item xs={12}>
@@ -154,10 +153,42 @@ const Donations = (props) => {
                     count={donations.length} rowsPerPage={rowsPerPageD} page={dpage} rowsPerPageOptions={[5]}
                     onChangePage={handleChangePageD} onChangeRowsPerPage={handleChangeRowsPerPageD} />
                   </TableFooter>
-                  </Table></TableContainer>
+                  </Table></TableContainer></Paper>
                 </Grid>
         </Grid>
-        <Grid item xs={7}>
+        <Grid container direction='column' item xs={7}>
+          {selectedDonation ? selectedHospital.test_center ? 
+          <div>
+          <Grid item container direction='row'>
+            <Grid item xs={4}>
+              <Typography variant="h4">From:</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="h3">{selectedDonation.properties.donor}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="h4">Status:</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography></Typography>
+            </Grid>
+          </Grid>
+          </div>
+          : <Grid item container direction='row'>
+            <Grid item xs={4}>
+              <Typography variant="h4">From:</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="h3">{selectedDonation.properties.donor}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="h4">Status:</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography></Typography>
+            </Grid>
+          </Grid> 
+          :<Typography variant='h4' align='center'>Select donation</Typography>}
         </Grid>
       </Grid>
     </div>
