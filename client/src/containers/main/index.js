@@ -32,7 +32,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
-import SidebarMenu from './components/sidebar'
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import tramsLogo from '../../assets/logos/tramsLogo.png'
@@ -254,56 +254,43 @@ const Main = () => {
               </Box>
             </Container> */}
           <Grid style={{ width:"100%", margin:"0 auto"}} container ref={hospitalScrollbarReference}>
-                {hospitalToDonateTo ?<DonationDialog />:null}
-                <Grid item 
-                  lg={9}
-                  md={12}
-                  xl={9}
-                  xs={12}
-                  style={{height: isDesktop ? "100vh": "40vh"}}
-                  >
-       
-                  <ReactMap/>
-
-                </Grid>
-                <Grid item           
-                  lg={3}
-                  md={12}
-                  xl={3}
-                  xs={12}
-                  style={{height: isDesktop ? "100vh": "50vh"}}
-                  >
-                   {!selectedHospital?<div id='header' style={{ height: "10vh", padding:"2vh",marginBottom:"2vh"}}>
-                    <div style={{ height: "6vh"}}>
-                    <Grid container spacing={1}>
-                  {hospitalList ?<Grid item xs={3}>
-                     <FilterDialog/>
-                   </Grid>:null}
-
-                   <Grid item xs={9}>
-                   {hospitalList && <Autocomplete
+            {hospitalToDonateTo ?<DonationDialog />:null}
+            <Grid id="map" item lg={9} md={12} xl={9} xs={12} style={{height: isDesktop ? "100vh": "40vh"}}>
+              <ReactMap/>
+            </Grid>
+            <Grid id="rightBar" spacing={3} item lg={3} md={12} xl={3} xs={12} style={{height: isDesktop ? "100vh": "50vh", padding:"0 20"}} container>
+              {!selectedHospital? 
+              <Grid id="topBar" item xs={12} container direction="row" spacing={2} justify="center" alignItems="center" style={{padding:"0 20"}}>
+                {hospitalList ?
+                <Grid item xs={3} id="filterButton">
+                      <FilterDialog/>
+                    </Grid>:null}
+                <Grid item xs={9} id="searchBar" >
+                  {hospitalList && <Autocomplete
                     onInputChange={(obj,value)=>{
                     goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
                     setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
                     }}
+                    fullWidth
                     options={hospitalList}
                     getOptionLabel={(option) => option.properties.cfname}
                     size="small"
-                    style={{marginBottom:'5px'}}
+                    style={{marginBottom:'5px', marginLeft:"20px", marginTop:"20px"}}
                     renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
                     />}
-                    </Grid>
-                    {hospitalList ? <Grid style={{fontSize:desktop?"0.9vw":"12px"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
-                   
-                </Grid>
-                    </div>
-                  </div>:null}
-                  <Container id="body" style={{  height: isDesktop ? "90vh": "50vh", overflow:"auto"}}>
-                    {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
-                  </Container>
-                </Grid>
-          
-          </Grid>
+                </Grid>                        
+              </Grid>:null}
+              {hospitalList ? 
+              <Grid xs={12} item style={{fontSize:desktop?"12px":"12px", textAlign:"center",padding:"0 auto"}}>
+                <Box>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
+              </Grid>:null}
+              <Grid xs={12} item id="hospitalDeck">
+                <Container id="body" style={{  height: isDesktop ? "80vh": "40vh", overflow:"auto"}}>
+                  {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
+                </Container>
+              </Grid>
+          </Grid>  
+        </Grid>
           
           </Content>
           <Footer>

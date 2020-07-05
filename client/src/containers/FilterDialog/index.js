@@ -88,8 +88,8 @@ export default function FilterDialog() {
   }, hospitalList)
 
   return (
-    <div>
-      <Button fullWidth variant="contained" onClick={handleClickOpen}  startIcon={<FilterListIcon/>} color="primary" style={{height:"39px",fontSize:"0.7vw"}}>{"Filter"} </Button>
+    <div style={{marginLeft:"10px",marginTop:"15px"}}>
+      <Button size="small" fullWidth variant="contained" onClick={handleClickOpen} style={{height:"39px"}}   color="primary" >{"Filter"} </Button>
        
  
       

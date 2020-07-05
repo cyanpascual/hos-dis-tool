@@ -81,7 +81,7 @@ const HospitalDeck = React.memo(function SocialCard(hospitals) {
   return (
     <>
       {hospitalList ? (
-        <Grid container spacing={3} >
+        <Grid container spacing={2} >
         {hospitals['hospitals']
           .filter((hospital)=>{
             if(justTestCenters){
