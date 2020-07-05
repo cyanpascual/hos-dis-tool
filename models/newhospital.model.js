@@ -265,6 +265,12 @@ const hospitalSchema = new Schema({
     },
     "reportdate": {
       "type": "String" // Date Last Updated
+    },
+    "assigned_num": {
+      "type": "String" // Date Last Updated
+    },
+    "assigned_token": {
+      "type": "String" // Date Last Updated
     }
   },
   "geometry": {
