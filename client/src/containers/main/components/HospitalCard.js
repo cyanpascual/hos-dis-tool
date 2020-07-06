@@ -118,13 +118,13 @@ const HospitalCard = ({
               More Info
             </Button>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Button size="small" variant={'contained'} color="primary" onClick={()=>{
                 setHospitalToDonateTo(hospital)
               }}>
               Donate
             </Button>
-          </Grid>
+          </Grid> */}
           </Grid>
         </Grid>
       </Card>

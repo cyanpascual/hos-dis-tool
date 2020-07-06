@@ -253,19 +253,19 @@ const Main = () => {
                 )}
               </Box>
             </Container> */}
-          <Grid style={{ width:"100%", margin:"0 auto"}} container ref={hospitalScrollbarReference}>
+          <Grid id="mainContentGrid" style={{ width:"100%"}} container ref={hospitalScrollbarReference}>
             {hospitalToDonateTo ?<DonationDialog />:null}
             <Grid id="map" item lg={9} md={12} xl={9} xs={12} style={{height: isDesktop ? "100vh": "40vh"}}>
               <ReactMap/>
             </Grid>
-            <Grid id="rightBar" spacing={3} item lg={3} md={12} xl={3} xs={12} style={{height: isDesktop ? "100vh": "50vh", padding:"0 20"}} container>
+            <Grid id="rightBar"  item lg={3} md={12} xl={3} xs={12} style={{height: isDesktop ? "100vh": "50vh"}} container>
               {!selectedHospital? 
-              <Grid id="topBar" item xs={12} container direction="row" spacing={2} justify="center" alignItems="center" style={{padding:"0 20"}}>
+              <Grid id="topBar" item xs={12} container direction="row" justify="space-evenly" alignItems="center">
                 {hospitalList ?
-                <Grid item xs={3} id="filterButton">
+                <Grid item xs={2} id="filterButton">
                       <FilterDialog/>
                     </Grid>:null}
-                <Grid item xs={9} id="searchBar" >
+                <Grid item xs={6} id="searchBar" >
                   {hospitalList && <Autocomplete
                     onInputChange={(obj,value)=>{
                     goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
@@ -275,14 +275,14 @@ const Main = () => {
                     options={hospitalList}
                     getOptionLabel={(option) => option.properties.cfname}
                     size="small"
-                    style={{marginBottom:'5px', marginLeft:"20px", marginTop:"20px"}}
+                    style={{marginBottom:'5px', marginTop:"20px"}}
                     renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
                     />}
                 </Grid>                        
               </Grid>:null}
-              {hospitalList ? 
-              <Grid xs={12} item style={{fontSize:desktop?"12px":"12px", textAlign:"center",padding:"0 auto"}}>
-                <Box>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
+              {hospitalList && !selectedHospital ? 
+              <Grid id="textGuide" xs={12} item style={{fontSize:desktop?"12px":"12px", textAlign:"center"}}>
+                <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
                 <Container id="body" style={{  height: isDesktop ? "80vh": "40vh", overflow:"auto"}}>
