@@ -285,7 +285,7 @@ const Main = () => {
                 <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
-                <Container id="body" style={{  height: isDesktop ? "80vh": "40vh", overflow:"auto"}}>
+                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}}>
                   {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
                 </Container>
               </Grid>
