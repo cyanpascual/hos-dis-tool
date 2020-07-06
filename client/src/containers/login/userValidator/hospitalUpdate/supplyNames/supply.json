@@ -1,14 +1,14 @@
 {
     "features":{
         "alcohol": "Alcohol",
-        "disinfectant": "Disinfectant (Sterilium)",
+        "disinfectant": "Disinfectant",
         "soap": "Antibacterial Soap",
         "gown": "Surgical Gowns",
         "surgmask": "Surgical Masks",
         "n95mask": "N95 Masks",
         "gloves": "Gloves",
         "shoe_cover": "Shoe covers",
-        "coverall": "PPE",
+        "coverall": "Coveralls",
         "goggles": "Goggles",
         "face_shield": "Face shields",
         "head_cover": "Head covers",

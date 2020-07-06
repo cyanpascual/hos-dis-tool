@@ -11,7 +11,7 @@ import OrganizerContextProvider from './contexts/OrganizerContext';
 ReactDOM.render(
   <React.StrictMode>  
       <MapsContextProvider>
-        <FeaturesContextProvider>
+        <FeaturesContextProvider> 
           <LoginContextProvider>
             <OrganizerContextProvider>
              <App />

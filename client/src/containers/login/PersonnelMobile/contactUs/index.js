@@ -107,7 +107,7 @@ const Contact = (props) => {
     console.log(message)
     axios({
         method: "POST", 
-        url:"http://trams.com.ph/send/send", 
+        url:"https://trams.com.ph/send/send", 
         data: {
             name: name,   
             email: email,  

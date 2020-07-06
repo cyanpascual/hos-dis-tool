@@ -14,6 +14,7 @@ import { LoginContext } from '../../../contexts/LoginContext';
 
 import Dashboard from './landingScreen/one';
 import HospitalUpdate from './landingScreen/two'
+import Donations from './landingScreen/three'
 import ManageAccount from './landingScreen/four'
 import LabSupplies from './landingScreen/five'
 import Contact from './contactUs'
@@ -204,7 +205,7 @@ function Personnel(props) {
           <div style={{overflow: "auto", height:'85vh'}}>
             {landing === 0 ? <Dashboard/> 
             :landing === 1 ? <HospitalUpdate/>
-            :landing === 2 ? <Typography align='center'>Feature under construction</Typography>
+            :landing === 2 ? <Typography>Feature under construction</Typography>/*<Donations/>*/
             :landing === 4 ? <LabSupplies/>
             :landing === 3 ? <ManageAccount/>
             :landing === 'f' ? <Contact/>:<p/>}
