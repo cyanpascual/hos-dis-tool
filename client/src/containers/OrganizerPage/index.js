@@ -32,7 +32,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
-import SidebarMenu from './components/sidebar'
+
 import DonationTable from './components/DonationTable';
 import OrderTable from './components/OrderTable';
 import { makeStyles } from '@material-ui/core/styles';

@@ -3,15 +3,14 @@ import GoogleFontLoader from 'react-google-font-loader';
 import NoSsr from '@material-ui/core/NoSsr';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import {Card, Grid,  Typography, Icon } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import { Info, InfoSubtitle, InfoTitle } from '@mui-treasury/components/info';
 import { useApexInfoStyles } from '@mui-treasury/styles/info/apex';
 import { useGraphicBtnStyles } from '@mui-treasury/styles/button/graphic';
-import { Typography, Icon } from '@material-ui/core';
 import { useRowFlexStyles } from '@mui-treasury/styles/flex/row';
 import simple_high from '../../../assets/levelIndicators/alcohol-green.png'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -49,8 +48,8 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: "40px",
+    height: "40px",
     borderRadius: '0.75rem',
   },
   avatar: {
@@ -76,54 +75,116 @@ const HospitalCard = ({
   const flexStyles = useRowFlexStyles();
 
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-  const {hospitalScrollbarReference} = useContext(FeaturesContext)
+  const {hospitalScrollbarReference,hospitalToDonateTo,setHospitalToDonateTo,donationDialogOpen,setDonationDialogOpen,dialogCount, setDialogCount} = useContext(FeaturesContext)
   return (
-    <div className={styles.root}>
-      <Column className={styles.card}>
-        <Row p={2} gap={2} className={flexStyles.parent}>
-          <Info position={'left'} style={{whiteSpace: 'nowrap',width:"70%"}}>
-            {/* hospital name */}
-            <Box noWrap style={{fontWeight: 600,fontSize: '1rem'}} textOverflow="ellipsis" overflow="hidden">
-              {hospital.properties.cfname}
-            </Box>
-
+      <Card style={{padding:10}}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} container  direction="row" justify="space-between" alignItems="center">
+            <Grid item xs={9} sm={9} md={11} lg={9} and xl style={{whiteSpace: 'nowrap', width:"10vw"}}>
+              <Typography style={{fontSize:14}} gutterBottom>
+                <Box noWrap textOverflow="ellipsis" overflow="hidden" >
+                  {hospital.properties.cfname}
+                </Box>
+              </Typography>
             {/* address */}
-            <Box style={{fontWeight: 400,fontSize: '0.8rem'}}  textOverflow="ellipsis" overflow="hidden"><LocationOnIcon style={{ fontSize: "0.8rem",marginRight:5}} />
-              {hospital.properties.city + ", " +hospital.properties.prov}
-            </Box>
+              <Typography style={{fontSize:12}} gutterBottom>
+                <Box textOverflow="ellipsis" overflow="hidden"><LocationOnIcon style={{fontSize:10, marginRight:5}} />
+                  {hospital.properties.city + ", " +hospital.properties.prov}
+                </Box>
 
-            {/* DOH level */}
-            <Box style={{fontWeight: 400,fontSize: '0.8rem'}}  textOverflow="ellipsis" overflow="hidden"><LocalHospitalIcon style={{ fontSize: "0.8rem",marginRight:5 }}/>
-            {hospital.properties.doh_level}
-            </Box>
-          </Info>
-          <div className={flexStyles.rightChild}  style={{textAlign:"center", padding:"0 auto"}}>
-          <Avatar style={{margin:'0 auto',opacity: 0.70}}className={styles.logo} variant={'rounded'} src={image} />
-          <Box style={{fontWeight: 400,fontSize: '1rem'}}  textOverflow="ellipsis" overflow="hidden">{label}</Box>
-          <Box style={{fontWeight: 400,fontSize: '0.7rem'}}  textOverflow="ellipsis" overflow="hidden">{hospital.properties.supply_cur[supply]}/{hospital.properties.supply_need[supply]}</Box>
-          </div>
-        </Row>
-        <Row p={2} gap={2} position={'bottom'}>
+                {/* DOH level */}
+                <Box textOverflow="ellipsis" overflow="hidden"><LocalHospitalIcon style={{fontSize:10,marginRight:5 }}/>
+                {hospital.properties.doh_level}
+                </Box>
+            </Typography>
+          </Grid>
+            <Grid item xs={3} sm={3} md={1} lg={3} container direction="column" justify="flex-start" alignItems="center" >
+              <Avatar style={{opacity: 0.70}}className={styles.logo} variant={'rounded'} src={image} />
+              <Typography style={{fontSize:10, textAlign:"center"}} gutterBottom>
+                <Box textOverflow="ellipsis" overflow="hidden">{label}</Box>
+                <Box textOverflow="ellipsis" overflow="hidden">{hospital.properties.supply_cur[supply]}/{hospital.properties.supply_need[supply]}</Box>
+              </Typography>
+            </Grid>
 
-          <Item position={'left'}>
-            <Button
-      
-              onClick={(e)=>{
-                setSelectedHospital(hospital);
-                goToSelected(hospital);
-            }}
-              
-              color={'primary'}
+          </Grid>
+          <Grid item xs={12} container  direction="row" justify="space-between" alignItems="flex-start">
+          <Grid item>
+            <Button size="small" color={'primary'}
+                onClick={(e)=>{
+                  setSelectedHospital(hospital);
+                  goToSelected(hospital);
+              }}
             >
               More Info
             </Button>
-          </Item>
-          {/* <Item position={'right'}>
-            {hospital?<DonationDialog name={hospital.properties.cfname}/>:null}
-          </Item> */}
-        </Row>
-      </Column>
-    </div>
+          </Grid>
+          {/* <Grid item>
+            <Button size="small" variant={'contained'} color="primary" onClick={()=>{
+                setHospitalToDonateTo(hospital)
+              }}>
+              Donate
+            </Button>
+          </Grid> */}
+          </Grid>
+        </Grid>
+      </Card>
+
+    // <div className={styles.root}>
+    //   <Column className={styles.card}>
+    //     <Row p={2} gap={2} className={flexStyles.parent}>
+    //       <Info position={'left'} style={{whiteSpace: 'nowrap',width:"70%"}}>
+    //         {/* hospital name */}
+    //         <Typography style={{fontSize:14}} gutterBottom>
+    //         <Box noWrap textOverflow="ellipsis" overflow="hidden">
+    //           {hospital.properties.cfname}
+    //         </Box>
+    //         </Typography>
+    //         {/* address */}
+    //         <Typography style={{fontSize:12}} gutterBottom>
+    //         <Box textOverflow="ellipsis" overflow="hidden"><LocationOnIcon style={{fontSize:10, marginRight:5}} />
+    //           {hospital.properties.city + ", " +hospital.properties.prov}
+    //         </Box>
+
+    //         {/* DOH level */}
+    //         <Box textOverflow="ellipsis" overflow="hidden"><LocalHospitalIcon style={{fontSize:10,marginRight:5 }}/>
+    //         {hospital.properties.doh_level}
+    //         </Box>
+    //         </Typography>
+    //       </Info>
+    //       <div className={flexStyles.rightChild}  style={{textAlign:"center", padding:"0 auto"}}>
+          // <Avatar style={{margin:'0 auto',opacity: 0.70}}className={styles.logo} variant={'rounded'} src={image} />
+          // <Typography style={{fontSize:12}} gutterBottom>
+          // <Box textOverflow="ellipsis" overflow="hidden">{label}</Box>
+          // <Box textOverflow="ellipsis" overflow="hidden">{hospital.properties.supply_cur[supply]}/{hospital.properties.supply_need[supply]}</Box>
+          // </Typography>
+    //       </div>
+    //     </Row>
+    //     <Row p={2} gap={2} position={'bottom'}>
+
+          // <Item position={'left'}>
+            // <Button
+            //   size="small"
+            //   onClick={(e)=>{
+            //     setSelectedHospital(hospital);
+            //     goToSelected(hospital);
+            // }}
+              
+            //   color={'primary'}
+            // >
+            //   More Info
+            // </Button>
+    //       </Item>
+    //       <Item position={'right'}>
+            // <Button size="small" variant={'contained'} color="primary" onClick={()=>{
+            //   setHospitalToDonateTo(hospital)
+            // }}>
+            //   Donate
+            // </Button>
+            
+    //       </Item> 
+    //     </Row>
+    //   </Column>
+    // </div>
   );
 };
 
