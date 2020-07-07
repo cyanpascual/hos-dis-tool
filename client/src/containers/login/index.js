@@ -12,7 +12,7 @@ import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
 import PropTypes from "prop-types";
 import { DriveEtaRounded } from '@material-ui/icons';
@@ -195,7 +195,7 @@ function Login(props) {
             <PersonnelMobile/>
           </Hidden>
         </div>
-        
+
       )
     }
   } else if(!loaded){
@@ -293,5 +293,5 @@ function Login(props) {
 
 
 export default Login;
-serviceWorker.register();
+// serviceWorker.register();
 
