@@ -163,6 +163,21 @@ function Login(props) {
         setError(false);
         setAccountType(ob[0].type)
         setHelperText('Login Successfully');
+
+        const logindetails = {
+          "type": ob[0].type,
+          "properties": {
+            "Surname": ob[0].properties.Surname,
+            "Firstname": ob[0].properties.Firstname,
+            "Username": ob[0].properties.Username,
+            "loginDate": new Date().toLocaleString()
+          }
+        }
+
+        axios.post(`https://trams-up-dge.herokuapp.com/uz3rl0gz/add`, logindetails )
+          .then(res => console.log(res.data))
+          .catch(error => console.log(error))
+
       } else {
         setError(true);
         setHelperText('Wrong password');
