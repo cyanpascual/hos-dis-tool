@@ -25,7 +25,15 @@ if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
 }
 
-app.use(cors());
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Content-Type', 'application/json');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+  next();
+});
+
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
@@ -38,8 +46,9 @@ const hospitallogsRouter = require('./routes/hospitallogs');
 const announcementsRouter = require('./routes/announcement');
 const donationsRouter = require('./routes/donation');
 const donationdrivesRouter = require('./routes/donationdrive');
+const userlogsRouter = require('./routes/userlog');
 const loginRouter = require('./routes/login');
-const contactRouter = require('./routes/contact')
+// const contactRouter = require('./routes/contact')
 
 
 app.use('/hospitals', hospitalsRouter);
@@ -50,7 +59,8 @@ app.use('/hl0gs', hospitallogsRouter);
 app.use('/ann0unc3m3nt', announcementsRouter);
 app.use('/d0nati0n', donationsRouter);
 app.use('/d0ndriv3z', donationdrivesRouter);
-app.use('/send', contactRouter); 
+app.use('/uz3rl0gz', userlogsRouter);
+// app.use('/send', contactRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

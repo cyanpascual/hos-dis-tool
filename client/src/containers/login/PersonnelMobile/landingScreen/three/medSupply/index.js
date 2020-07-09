@@ -328,7 +328,7 @@ const HospitalUpdate = (props) => {
       "address": number // change to selectedHospital.properties.assigned_num
         }};
     // console.log(formData);
-    axios.post(`https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData) // change to selectedHospital.properties.assigned_num
+    axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData) // change to selectedHospital.properties.assigned_num
     .then(res => console.log(res.data))
     .catch(error => console.log(error))
 
