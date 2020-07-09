@@ -317,20 +317,28 @@ const HospitalUpdate = (props) => {
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
 
-    const message = '[TrAMS Alert] ' + new Date().toLocaleString() + ': ' + selectedHospital.properties.cfname + '\'s inventory is now updated. Thank you.';
-    const number = selectedHospital.properties.assigned_num;
-    const access_token = selectedHospital.properties.assigned_token;
+      const message = '[TrAMS Alert] ' + new Date().toLocaleString() + ': ' + selectedHospital.properties.cfname + '\'s inventory is now updated. Thank you.';
+      const number = selectedHospital.properties.assigned_num;
+      const access_token = selectedHospital.properties.assigned_token;
 
-    const formData = {"outboundSMSMessageRequest": {
-      "clientCorrelator": "24601",
-      "senderAddress": "0661",
-      "outboundSMSTextMessage": {"message": message},
-      "address": number // change to selectedHospital.properties.assigned_num
-        }};
-    // console.log(formData);
-    axios.post(`https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData) // change to selectedHospital.properties.assigned_num
-    .then(res => console.log(res.data))
-    .catch(error => console.log(error))
+      var headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
+      }
+
+      const formData = {"outboundSMSMessageRequest": {
+        "clientCorrelator": "24601",
+        "senderAddress": "0661",
+        "outboundSMSTextMessage": {"message": message},
+        "address": number
+         }};
+
+      console.log(formData);
+      axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData, {mode: 'no-cors', headers: headers})
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
 
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))

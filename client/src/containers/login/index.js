@@ -12,7 +12,7 @@ import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
-//import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from '../../serviceWorker';
 
 import PropTypes from "prop-types";
 import { DriveEtaRounded } from '@material-ui/icons';
@@ -163,6 +163,21 @@ function Login(props) {
         setError(false);
         setAccountType(ob[0].type)
         setHelperText('Login Successfully');
+
+        const logindetails = {
+          "type": ob[0].type,
+          "properties": {
+            "Surname": ob[0].properties.Surname,
+            "Firstname": ob[0].properties.Firstname,
+            "Username": ob[0].properties.Username,
+            "loginDate": new Date().toLocaleString()
+          }
+        }
+
+        axios.post(`https://trams-up-dge.herokuapp.com/uz3rl0gz/add`, logindetails )
+          .then(res => console.log(res.data))
+          .catch(error => console.log(error))
+
       } else {
         setError(true);
         setHelperText('Wrong password');
@@ -195,7 +210,7 @@ function Login(props) {
             <PersonnelMobile/>
           </Hidden>
         </div>
-        
+
       )
     }
   } else if(!loaded){
@@ -293,5 +308,5 @@ function Login(props) {
 
 
 export default Login;
-//serviceWorker.register();
+serviceWorker.register();
 
