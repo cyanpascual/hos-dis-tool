@@ -60,7 +60,7 @@ app.use('/ann0unc3m3nt', announcementsRouter);
 app.use('/d0nati0n', donationsRouter);
 app.use('/d0ndriv3z', donationdrivesRouter);
 app.use('/uz3rl0gz', userlogsRouter);
-app.use('/send', contactRouter);
+// app.use('/send', contactRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
