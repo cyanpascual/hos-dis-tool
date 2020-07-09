@@ -97,7 +97,6 @@ const OrganizerContextProvider = (props) => {
     {
         title: 'Supplier',
         field: 'supplier',
-        lookup: { 0: "Unassigned",1: 'Supplier 1', 2: 'Supplier 2' },
     },
     { 
         title: 'Supply', 
@@ -154,9 +153,9 @@ const OrganizerContextProvider = (props) => {
         title: 'Status',
         field: 'status',
         lookup: {
-            0: "Order made but unpaid",
-            1: "Paid",
-            2: "Delivered",
+            0:"Order made but unpaid",
+            1:"Paid",
+            2:"Delivered",
             3:"Allocated only"
         } 
     },
@@ -169,7 +168,7 @@ const OrganizerContextProvider = (props) => {
     // }    
 ]);
 
-
+const [pictures, setPictures] = useState([]);
 
  
 
@@ -179,7 +178,8 @@ const OrganizerContextProvider = (props) => {
         donationTableFields, setDonationTableFields,
         selectedPage, setSelectedPage,
         ordersTableData,setOrdersTableData,
-        ordersTableFields,setOrdersTableFields
+        ordersTableFields,setOrdersTableFields,
+        pictures, setPictures
     }}>
       {props.children}
     </OrganizerContext.Provider>

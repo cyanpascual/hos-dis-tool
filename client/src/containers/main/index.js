@@ -30,6 +30,7 @@ import HospitalInfo  from '../HospitalInfo';
 import DonationDialog  from '../DonationDialog';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
+import {OrganizerContext} from '../../contexts/OrganizerContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
 
@@ -164,13 +165,14 @@ const Main = () => {
   const styles = useStyles();
   const {hospitalToDonateTo,  hospitalScrollbarReference,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
+  const {selectedPage, setSelectedPage, } = useContext(OrganizerContext);
   
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
 
   setDesktop(isDesktop)
-
+  setSelectedPage("No")
 
   return (
     <Root theme={theme} scheme={scheme}>
@@ -193,6 +195,7 @@ const Main = () => {
                 <FeedbackDialog/>
                 <UpdateDialog/>
                 <DonateDialog/>
+              
             </Box>
             <Divider style={{marginTop:20,marginBottom:20}}/>
             <Grid
@@ -254,7 +257,7 @@ const Main = () => {
               </Box>
             </Container> */}
           <Grid id="mainContentGrid" style={{ width:"100%"}} container ref={hospitalScrollbarReference}>
-            {hospitalToDonateTo ?<DonationDialog />:null}
+            
             <Grid id="map" item lg={9} md={12} xl={9} xs={12} style={{height: isDesktop ? "100vh": "40vh"}}>
               <ReactMap/>
             </Grid>
@@ -286,7 +289,7 @@ const Main = () => {
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
                 <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}}>
-                  {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
+                  {!selectedHospital ? (<HospitalDeck hospitals={hospitalList} page={selectedPage}/>): (<HospitalInfo/>)}
                 </Container>
               </Grid>
           </Grid>  

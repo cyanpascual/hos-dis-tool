@@ -24,10 +24,10 @@ const DialogContent = withStyles((theme) => ({
 export default function WelcomeDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mop, setMop] = React.useState("Gcash");
-  const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage } = useContext(OrganizerContext);
+  const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage,pictures,setPictures } = useContext(OrganizerContext);
   const {setHospitalToDonateTo,hospitalToDonateTo,donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
   const handleClickOpen = () => {
-    setDonationDialogOpen(true);
+    setHospitalToDonateTo(true);
   };
   const handleClose = () => {
     setHospitalToDonateTo(null);
@@ -90,14 +90,13 @@ export default function WelcomeDialog(props) {
     setValue(parseFloat(event.target.value));
   };
 
-  const [pictures, setPictures] = useState([]);
 
   const onDrop = picture => {
     setPictures([...pictures, picture]);
   };
   return (
     <div>
-        <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={true} fullScreen >
+        <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={hospitalToDonateTo ? true : false} fullScreen >
         <DialogTitle  onClose={handleClose}>
           <Grid container   
           direction="row"
@@ -105,45 +104,58 @@ export default function WelcomeDialog(props) {
           alignItems="center">
           {hospitalToDonateTo ? hospitalToDonateTo.properties.cfname : ""}
           <Button variant={'contained'} color="primary" onClick={()=>{
-            setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
+            setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:pictures[0]},
           ]);
-          //setSelectedPage("Order Tracker")
+          setSelectedPage("Order Tracker")
+          setHospitalToDonateTo(null)
           }}>
             Donate
           </Button>
           </Grid>
         </DialogTitle>
         <DialogContent dividers>
-        <Grid   container
-                direction="column"
-                justify="space-evenly"
-                alignItems="flex-start"
-                spacing={3}>
-          <Grid item xs={6}>
+          <Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
+          <Grid item xs={6} >
             <Container>
                {"Send your donation to <insert bank details here> or <insert Gcash details here> and then please fill out the following. Your email will be used to send you updates regarding your donation."} 
+                
             </Container>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} container >
+       
             <TextField
             id="outlined-helperText"
             label="Name"
             variant="outlined"
             helperText="First Name Last Name"
+            fullWidth
           />
-          
+        
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} container>
             <TextField
             id="outlined-helperText"
             label="Email"
             variant="outlined"
+            fullWidth
           />
+
+        </Grid>
+        <Grid item xs={6} container>
+            <TextField
+            id="outlined-helperText"
+            label="Contact Number"s
+            variant="outlined"
+            helperText="+63 XXX XXX XXXX"
+            fullWidth
+          />
+        
           
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} container> 
           <TextField
+          
           fullWidth
           id="standard-number"
           label="Amount in pesos"
@@ -153,10 +165,10 @@ export default function WelcomeDialog(props) {
           onChange={handleValueChange}
         />
           </Grid>
-          <Grid item xs={6} >
+          <Grid item xs={6} container>
           <FormControl component="fieldset" >
                 <FormLabel component="legend">Supply</FormLabel>
-                <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} style={{height:"30vh"}}>
+                <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} >
                   {supplies.map((supply)=>{
                     return(
                       <FormControlLabel value={supply} control={<Radio />} label={supply} />
@@ -166,17 +178,9 @@ export default function WelcomeDialog(props) {
                 </RadioGroup>
               </FormControl>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-            id="outlined-helperText"
-            label="Contact Number"
-            defaultValue="Number"
-            variant="outlined"
-            helperText="+63 XXX XXX XXXX"
-          />
-        </Grid>
+x
         
-        <Grid item xs={6} >
+        <Grid item xs={6} container>
           <FormControl component="fieldset" >
                 <FormLabel component="legend">Method of Payment</FormLabel>
                 <RadioGroup aria-label="MOP" name="mop" value={mop} onChange={handleMOPChange}>
@@ -186,7 +190,7 @@ export default function WelcomeDialog(props) {
               </FormControl>
         </Grid>
 
-        <Grid item xs={2}>
+        {/* <Grid item xs={2}>
         <ImageUploader
           buttonText="Upload"
           withIcon={false}
@@ -198,7 +202,7 @@ export default function WelcomeDialog(props) {
           fileContainerStyle={{boxShadow: "none",elevation:0,textAlign:"left"}}
         />
 
-        </Grid>
+        </Grid> */}
         </Grid>
         
 
