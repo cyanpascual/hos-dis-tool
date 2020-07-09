@@ -324,7 +324,7 @@ const LabSupplies = (props) => {
     setIsEditMode(!isEditMode)
   }
 
-  const handleSubmit = () => {   
+  const handleSubmit = () => {
     axios.post(`https://trams-up-dge.herokuapp.com/h0zPiTaLs/update/${selectedHospital._id}`, selectedHospital )
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
