@@ -124,7 +124,7 @@ const HospitalUpdate = (props) => {
   const [logs, setLogs] = useState('');
   const [logList, setLogList] = useState('');
   const [enabledDates, setEnabledDates] = useState([(new Date()).toLocaleDateString()])
-
+  
   const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const HospitalUpdate = (props) => {
       setEnabledDates(res.data.filter(log => log.properties.hfhudcode.toLowerCase() === shownLog.properties.hfhudcode.toLowerCase())
         .map(log => {
           if (log.properties.reportdate.slice(-22)[0] === 'n'){
-            return new Date(log.properties.reportdate.slice(-21)).toLocaleDateString()
+            return new Date(log.properties.reportdate.slice(-21)).toLocaleDateString()    
           } else {
             return new Date(log.properties.reportdate.slice(-22)).toLocaleDateString()
           }
@@ -335,24 +335,16 @@ const HospitalUpdate = (props) => {
     const number = selectedHospital.properties.assigned_num;
     const access_token = selectedHospital.properties.assigned_token;
 
-    var headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
-    }
-
     const formData = {"outboundSMSMessageRequest": {
       "clientCorrelator": "24601",
       "senderAddress": "0661",
       "outboundSMSTextMessage": {"message": message},
-      "address": number
+      "address": number // change to selectedHospital.properties.assigned_num
        }};
-
-    console.log(formData);
-    axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData, {mode: 'no-cors', headers: headers})
-      .then(res => console.log(res.data))
-      .catch(error => console.log(error))
+    // console.log(formData);
+    axios.post(`https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData) // change to selectedHospital.properties.assigned_num
+    .then(res => console.log(res.data))
+    .catch(error => console.log(error))
 
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))

@@ -112,9 +112,6 @@ const donationSchema = new Schema({
     },
     "reportdate": {
       "type": "String" // Date Last Updated
-    },
-    "status": {
-      "type": "String" // Received, Allocated, Processing?
     }
   }
 });
