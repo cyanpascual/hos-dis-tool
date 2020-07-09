@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useContext,  useEffect} from 'react';
 import PropTypes from 'prop-types';
-
+import {withRouter} from 'react-router';
 import MaterialTable from 'material-table'
  import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -47,7 +47,7 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
-import HospitalDeck from './components/HospitalDeck'
+import HospitalDeck from '../main/components/HospitalDeck'
 //styled components stuff    
 import styled from 'styled-components';
 
@@ -163,7 +163,7 @@ let theme = createMuiTheme({
 //Main function that returns the component
 const Main = () => {
   const styles = useStyles();
-  const {  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
+  const {  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity,hospitalToDonateTo,setHospitalToDonateTo} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   const { selectedPage, setSelectedPage } = useContext(OrganizerContext);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -171,8 +171,10 @@ const Main = () => {
   });
 
   setDesktop(isDesktop)
-
-
+  useEffect(()=>{
+    setSelectedPage("Hospital Map")
+  },[])
+  
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
@@ -201,6 +203,7 @@ const Main = () => {
 
                 {"Hospitals"}
               </ListItem>
+              
             </Box>
             </SidebarContent>
             <CollapseBtn />
@@ -272,50 +275,46 @@ const Main = () => {
                     <ReactMap/>
 
                   </Grid>
-                  <Grid item           
-                    lg={3}
-                    md={12}
-                    xl={3}
-                    xs={12}
-                    style={{height: isDesktop ? "100vh": "50vh"}}
-                    >
-                    {!selectedHospital?<div id='header' style={{ height: "10vh", padding:"2vh",marginBottom:"2vh"}}>
-                      <div style={{ height: "6vh"}}>
-                      <Grid container spacing={1}>
-                    {hospitalList ?<Grid item xs={3}>
+                  <Grid id="rightBar"  item lg={3} md={12} xl={3} xs={12} style={{height: isDesktop ? "100vh": "50vh"}} container>
+              {!selectedHospital? 
+              <Grid id="topBar" item xs={12} container direction="row" justify="space-evenly" alignItems="center">
+                {hospitalList ?
+                <Grid item xs={2} id="filterButton">
                       <FilterDialog/>
                     </Grid>:null}
-
-                    <Grid item xs={9}>
-                    {hospitalList && <Autocomplete
-                      onInputChange={(obj,value)=>{
-                      goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
-                      setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
-                      }}
-                      options={hospitalList}
-                      getOptionLabel={(option) => option.properties.cfname}
-                      size="small"
-                      style={{marginBottom:'5px'}}
-                      renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
-                      />}
-                      </Grid>
-                      {hospitalList ? <Grid style={{fontSize:desktop?"20px":"12px"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Grid>:null}
-                    
-                  </Grid>
-                      </div>
-                    </div>:null}
-                    <Container id="body" style={{  height: isDesktop ? "90vh": "50vh", overflow:"auto"}}>
-                      {!selectedHospital ? (<HospitalDeck hospitals={hospitalList}/>): (<HospitalInfo/>)}
-                    </Container>
-                  </Grid>
-          
+                <Grid item xs={6} id="searchBar" >
+                  {hospitalList && <Autocomplete
+                    onInputChange={(obj,value)=>{
+                    goToSelected(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    setSelectedHospital(hospitalList.filter((hospital)=>{return(hospital.properties.cfname===value)})[0])
+                    }}
+                    fullWidth
+                    options={hospitalList}
+                    getOptionLabel={(option) => option.properties.cfname}
+                    size="small"
+                    style={{marginBottom:'5px', marginTop:"20px"}}
+                    renderInput={(params) => <TextField {...params} label="Search..." variant="outlined" />}
+                    />}
+                </Grid>                        
+              </Grid>:null}
+              {hospitalList && !selectedHospital ? 
+              <Grid id="textGuide" xs={12} item style={{fontSize:desktop?"12px":"12px", textAlign:"center"}}>
+                <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
+              </Grid>:null}
+              <Grid xs={12} item id="hospitalDeck">
+                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}}>
+                  {!selectedHospital ? (<HospitalDeck hospitals={hospitalList} page={selectedPage}/>): (<HospitalInfo/>)}
+                </Container>
+              </Grid>
+          </Grid>  
+       
                 
                 </React.Fragment>
               ):null
             }
                 
               </Grid>
-          
+            
           </Content>
           <Footer>
            

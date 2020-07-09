@@ -19,7 +19,6 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useTwitterBtnStyles } from '@mui-treasury/styles/button/twitter';
 import { MapsContext } from '../../../contexts/MapsContext';
 
-import DonationDialog from '../../DonationDialog'
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%',
@@ -119,7 +118,7 @@ const HospitalCard = ({
             </Button>
           </Item>
            <Item position={'right'}>
-            {hospital?<DonationDialog name={hospital.properties.cfname}/>:null}
+    
           </Item> 
         </Row>
       </Column>

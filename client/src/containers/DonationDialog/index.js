@@ -27,7 +27,7 @@ export default function WelcomeDialog(props) {
   const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage } = useContext(OrganizerContext);
   const {setHospitalToDonateTo,hospitalToDonateTo,donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
   const handleClickOpen = () => {
-    setDonationDialogOpen(true);
+    setHospitalToDonateTo(true);
   };
   const handleClose = () => {
     setHospitalToDonateTo(null);
@@ -97,7 +97,7 @@ export default function WelcomeDialog(props) {
   };
   return (
     <div>
-        <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={true} fullScreen >
+        <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={hospitalToDonateTo ? true : false} fullScreen >
         <DialogTitle  onClose={handleClose}>
           <Grid container   
           direction="row"
@@ -114,11 +114,7 @@ export default function WelcomeDialog(props) {
           </Grid>
         </DialogTitle>
         <DialogContent dividers>
-        <Grid   container
-                direction="column"
-                justify="space-evenly"
-                alignItems="flex-start"
-                spacing={3}>
+          <Grid container direction="column" justify="space-evenly" alignItems="center" spacing={3} >
           <Grid item xs={6}>
             <Container>
                {"Send your donation to <insert bank details here> or <insert Gcash details here> and then please fill out the following. Your email will be used to send you updates regarding your donation."} 
@@ -156,7 +152,7 @@ export default function WelcomeDialog(props) {
           <Grid item xs={6} >
           <FormControl component="fieldset" >
                 <FormLabel component="legend">Supply</FormLabel>
-                <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} style={{height:"30vh"}}>
+                <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} >
                   {supplies.map((supply)=>{
                     return(
                       <FormControlLabel value={supply} control={<Radio />} label={supply} />
@@ -169,8 +165,7 @@ export default function WelcomeDialog(props) {
           <Grid item xs={6}>
             <TextField
             id="outlined-helperText"
-            label="Contact Number"
-            defaultValue="Number"
+            label="Contact Number"s
             variant="outlined"
             helperText="+63 XXX XXX XXXX"
           />
