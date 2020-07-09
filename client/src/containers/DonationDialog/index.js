@@ -107,38 +107,55 @@ export default function WelcomeDialog(props) {
             setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:pictures[0]},
           ]);
           setSelectedPage("Order Tracker")
+          setHospitalToDonateTo(null)
           }}>
             Donate
           </Button>
           </Grid>
         </DialogTitle>
         <DialogContent dividers>
-          <Grid container direction="column" justify="space-evenly" alignItems="center" spacing={3} >
-          <Grid item xs={6}>
+          <Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
+          <Grid item xs={6} >
             <Container>
                {"Send your donation to <insert bank details here> or <insert Gcash details here> and then please fill out the following. Your email will be used to send you updates regarding your donation."} 
+                
             </Container>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} container >
+       
             <TextField
             id="outlined-helperText"
             label="Name"
             variant="outlined"
             helperText="First Name Last Name"
+            fullWidth
           />
-          
+        
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} container>
             <TextField
             id="outlined-helperText"
             label="Email"
             variant="outlined"
+            fullWidth
           />
+
+        </Grid>
+        <Grid item xs={6} container>
+            <TextField
+            id="outlined-helperText"
+            label="Contact Number"s
+            variant="outlined"
+            helperText="+63 XXX XXX XXXX"
+            fullWidth
+          />
+        
           
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} container> 
           <TextField
+          
           fullWidth
           id="standard-number"
           label="Amount in pesos"
@@ -148,7 +165,7 @@ export default function WelcomeDialog(props) {
           onChange={handleValueChange}
         />
           </Grid>
-          <Grid item xs={6} >
+          <Grid item xs={6} container>
           <FormControl component="fieldset" >
                 <FormLabel component="legend">Supply</FormLabel>
                 <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} >
@@ -161,16 +178,9 @@ export default function WelcomeDialog(props) {
                 </RadioGroup>
               </FormControl>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-            id="outlined-helperText"
-            label="Contact Number"s
-            variant="outlined"
-            helperText="+63 XXX XXX XXXX"
-          />
-        </Grid>
+x
         
-        <Grid item xs={6} >
+        <Grid item xs={6} container>
           <FormControl component="fieldset" >
                 <FormLabel component="legend">Method of Payment</FormLabel>
                 <RadioGroup aria-label="MOP" name="mop" value={mop} onChange={handleMOPChange}>
