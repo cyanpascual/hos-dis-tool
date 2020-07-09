@@ -18,7 +18,7 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { useTwitterBtnStyles } from '@mui-treasury/styles/button/twitter';
 import { MapsContext } from '../../../contexts/MapsContext';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
-import DonationDialog from '../../DonationDialog'
+
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%',
@@ -68,7 +68,8 @@ const useStyles = makeStyles(() => ({
 const HospitalCard = ({
   hospital,
   supply,label,
-  image
+  image,
+  page
 }) => {
   const styles = useStyles();
   const btnStyles = useTwitterBtnStyles();
@@ -76,6 +77,7 @@ const HospitalCard = ({
 
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
   const {hospitalScrollbarReference,hospitalToDonateTo,setHospitalToDonateTo,donationDialogOpen,setDonationDialogOpen,dialogCount, setDialogCount} = useContext(FeaturesContext)
+
   return (
       <Card style={{padding:10}}>
         <Grid container spacing={1}>
@@ -118,13 +120,11 @@ const HospitalCard = ({
               More Info
             </Button>
           </Grid>
-          {/* <Grid item>
-            <Button size="small" variant={'contained'} color="primary" onClick={()=>{
-                setHospitalToDonateTo(hospital)
-              }}>
-              Donate
-            </Button>
-          </Grid> */}
+          {page==="Hospital Map" ? (
+          <Grid item>
+            <Button onClick={()=>{setHospitalToDonateTo(hospital)}}>Allocate</Button>
+            
+          </Grid>): null }
           </Grid>
         </Grid>
       </Card>

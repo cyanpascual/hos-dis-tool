@@ -11,7 +11,7 @@ import { useDynamicAvatarStyles } from '@mui-treasury/styles/avatar/dynamic';
 import HospitalCard from './HospitalCard';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
-
+import DonationDialog from '../../DonationDialog'
 
 const usePersonStyles = makeStyles(() => ({
   text: {
@@ -73,15 +73,16 @@ const useStyles = makeStyles(() => ({
 
 
 
-const HospitalDeck = React.memo(function SocialCard(hospitals) {
+const HospitalDeck = React.memo(function SocialCard(hospitals, page) {
   const styles = useStyles();
   const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,supplyLabels,supplyIconGetter} = useContext(FeaturesContext);
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-
+  
   return (
     <>
       {hospitalList ? (
         <Grid container spacing={2} >
+          <DonationDialog/> 
         {hospitals['hospitals']
           .filter((hospital)=>{
             if(justTestCenters){
@@ -103,7 +104,7 @@ const HospitalDeck = React.memo(function SocialCard(hospitals) {
         .map((hospital)=>{
           return(
           <Grid item xs={12} md={12} lg={12}>
-            <HospitalCard hospital={hospital} supply={filterSetting} label={supplyLabels[filterSetting]} image={supplyIconGetter(filterSetting,hospital.properties.supply_status[filterSetting])}/>
+            <HospitalCard hospital={hospital} page={hospitals['page']} supply={filterSetting} label={supplyLabels[filterSetting]} image={supplyIconGetter(filterSetting,hospital.properties.supply_status[filterSetting])}/>
           </Grid>
           )
         })}
