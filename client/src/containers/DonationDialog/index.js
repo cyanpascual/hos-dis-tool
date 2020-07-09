@@ -24,7 +24,7 @@ const DialogContent = withStyles((theme) => ({
 export default function WelcomeDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mop, setMop] = React.useState("Gcash");
-  const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage } = useContext(OrganizerContext);
+  const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage,pictures,setPictures } = useContext(OrganizerContext);
   const {setHospitalToDonateTo,hospitalToDonateTo,donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
   const handleClickOpen = () => {
     setHospitalToDonateTo(true);
@@ -90,7 +90,6 @@ export default function WelcomeDialog(props) {
     setValue(parseFloat(event.target.value));
   };
 
-  const [pictures, setPictures] = useState([]);
 
   const onDrop = picture => {
     setPictures([...pictures, picture]);
@@ -105,9 +104,9 @@ export default function WelcomeDialog(props) {
           alignItems="center">
           {hospitalToDonateTo ? hospitalToDonateTo.properties.cfname : ""}
           <Button variant={'contained'} color="primary" onClick={()=>{
-            setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
+            setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:pictures[0]},
           ]);
-          //setSelectedPage("Order Tracker")
+          setSelectedPage("Order Tracker")
           }}>
             Donate
           </Button>
@@ -181,7 +180,7 @@ export default function WelcomeDialog(props) {
               </FormControl>
         </Grid>
 
-        <Grid item xs={2}>
+        {/* <Grid item xs={2}>
         <ImageUploader
           buttonText="Upload"
           withIcon={false}
@@ -193,7 +192,7 @@ export default function WelcomeDialog(props) {
           fileContainerStyle={{boxShadow: "none",elevation:0,textAlign:"left"}}
         />
 
-        </Grid>
+        </Grid> */}
         </Grid>
         
 

@@ -168,7 +168,7 @@ const OrganizerContextProvider = (props) => {
     // }    
 ]);
 
-
+const [pictures, setPictures] = useState([]);
 
  
 
@@ -178,7 +178,8 @@ const OrganizerContextProvider = (props) => {
         donationTableFields, setDonationTableFields,
         selectedPage, setSelectedPage,
         ordersTableData,setOrdersTableData,
-        ordersTableFields,setOrdersTableFields
+        ordersTableFields,setOrdersTableFields,
+        pictures, setPictures
     }}>
       {props.children}
     </OrganizerContext.Provider>
