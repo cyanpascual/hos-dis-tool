@@ -256,7 +256,7 @@ const Main = () => {
                 )}
               </Box>
             </Container> */}
-          <Grid id="mainContentGrid" style={{ width:"100%"}} container ref={hospitalScrollbarReference}>
+          <Grid id="mainContentGrid" style={{ width:"100%"}} container >
             
             <Grid id="map" item lg={9} md={12} xl={9} xs={12} style={{height: isDesktop ? "100vh": "40vh"}}>
               <ReactMap/>
@@ -288,7 +288,7 @@ const Main = () => {
                 <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
-                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}}>
+                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}} ref={hospitalScrollbarReference}>
                   {!selectedHospital ? (<HospitalDeck hospitals={hospitalList} page={selectedPage}/>): (<HospitalInfo/>)}
                 </Container>
               </Grid>
