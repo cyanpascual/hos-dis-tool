@@ -40,7 +40,10 @@ const donationsRouter = require('./routes/donation');
 const donationdrivesRouter = require('./routes/donationdrive');
 const userlogsRouter = require('./routes/userlog');
 const loginRouter = require('./routes/login');
-const contactRouter = require('./routes/contact')
+const contactRouter = require('./routes/contact');
+const regionsRouter = require('./routes/regions');
+const provincesRouter = require('./routes/provinces');
+const citiesRouter = require('./routes/cities');
 
 
 app.use('/hospitals', hospitalsRouter);
@@ -53,6 +56,9 @@ app.use('/d0nati0n', donationsRouter);
 app.use('/d0ndriv3z', donationdrivesRouter);
 app.use('/uz3rl0gz', userlogsRouter);
 app.use('/send', contactRouter);
+app.use('/regions', regionsRouter);
+app.use('/provinces', provincesRouter);
+app.use('/cities', citiesRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

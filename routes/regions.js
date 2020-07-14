@@ -2,7 +2,7 @@ const router = require('express').Router();
 let region = require('../models/regions.model');
 
 router.route('/').get((req, res)=>{
-    region.find({"Region":"BARMM"})
+    region.find()
         .then(regions => res.json(regions))
         .catch(err => res.status(400).json('Error: '+err));
 });
