@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import GoogleSheetsProvider from 'react-db-google-sheets';
 import './assets/index.css'
 import App from './containers'
 import * as serviceWorker from './serviceWorker';
@@ -10,6 +11,7 @@ import OrganizerContextProvider from './contexts/OrganizerContext';
 
 ReactDOM.render(
   <React.StrictMode>  
+    <GoogleSheetsProvider>
       <MapsContextProvider>
         <FeaturesContextProvider> 
           <LoginContextProvider>
@@ -19,6 +21,7 @@ ReactDOM.render(
           </LoginContextProvider>
         </FeaturesContextProvider>
       </MapsContextProvider>
+    </GoogleSheetsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -26,4 +29,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

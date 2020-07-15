@@ -12,7 +12,8 @@ import {Button, Input, Grid, Typography, Paper} from '@material-ui/core';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import CancelIcon from '@material-ui/icons/CancelTwoTone';
-import AddIcon from '@material-ui/icons/Add';;
+import AddIcon from '@material-ui/icons/Add';
+import * as supplyNames from './supplyNames/supply.json'
 
 
 const styles = (theme) => ({
@@ -106,6 +107,7 @@ const Donations = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [dpage, setDpage] = useState(0);
   const [rowsPerPageD, setRowsPerPageD] = useState(5);
+  const [supplies, setSupplies] = useState()
 
   const handleChangePageD = (event, newPage) => {
     setDpage(newPage);
@@ -116,7 +118,12 @@ const Donations = (props) => {
     setDpage(0);
   };
 
+  useEffect(()=>{
+    if (selectedDonation){
+      setSupplies(Object.keys(selectedDonation.properties.donation_supply))
+    }
 
+  }, [selectedDonation])
 
   return (
     <ThemeProvider theme={theme}>
@@ -124,7 +131,7 @@ const Donations = (props) => {
       <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
         <Grid container item xs={5} direction="column" justify="flex-start" alignItems='flex-start'>
           <Grid item>
-            <Paper className={classes.table}><TableContainer><Table size="small" style={{height: '82vh', overflow: 'scroll', width:'100%'}}>
+            <Paper className={classes.table}><TableContainer><Table size="small" style={{display: 'flex', flexDirection: 'column', align: 'left', height: '82vh', overflow: 'scroll'}}>
               <TableBody>
                 {donations ? donations.slice(dpage * rowsPerPageD, dpage * rowsPerPageD + rowsPerPageD).map((donation) => { 
                 return (
@@ -140,54 +147,63 @@ const Donations = (props) => {
                         </Grid>
                         <Grid item xs={10}>
                           <Typography style={{fontSize:14, color:"black"}} gutterBottom>
-                            Status: 
+                            Status: {donation.properties.status}
                           </Typography>
                         </Grid>
                       </Grid>
                     </div></Button></TableCell>
                   </TableRow>
-                  )}): <TableRow><TableCell align='center'><Typography variant='h3'>No donations yet</Typography></TableCell></TableRow>}
-                  </TableBody>
-                  <TableFooter>
-                  <TablePagination style={{display: 'flex', padding: 0, alignSelf: 'center'}} component="div" 
-                    count={donations.length} rowsPerPage={rowsPerPageD} page={dpage} rowsPerPageOptions={[5]}
-                    onChangePage={handleChangePageD} onChangeRowsPerPage={handleChangeRowsPerPageD} />
-                  </TableFooter>
-                  </Table></TableContainer></Paper>
-                </Grid>
+                )}): <TableRow><TableCell align='center'><Typography variant='h3'>No donations yet</Typography></TableCell></TableRow>}
+              </TableBody>
+              <TableFooter>
+                <TablePagination style={{display: 'flex', padding: 0, alignSelf: 'center'}} component="div" 
+                  count={donations.length} rowsPerPage={rowsPerPageD} page={dpage} rowsPerPageOptions={[5]}
+                  onChangePage={handleChangePageD} onChangeRowsPerPage={handleChangeRowsPerPageD} />
+              </TableFooter>
+            </Table></TableContainer></Paper>
+          </Grid>
         </Grid>
         <Grid container direction='column' item xs={7}>
-          {selectedDonation ? selectedHospital.test_center ? 
-          <div>
+          {selectedDonation ?
+          <div style={{height: '76vh', overflow: 'auto'}}>
           <Grid item container direction='row'>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Typography variant="h4">From:</Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Typography variant="h3">{selectedDonation.properties.donor}</Typography>
             </Grid>
-            <Grid item xs={4}>
-              <Typography variant="h4">Status:</Typography>
+            <Grid item xs={3}>
+              <Typography variant="h4">Status: </Typography>
             </Grid>
-            <Grid item xs={4}>
-              <Typography></Typography>
+            <Grid item xs={3}>
+              <Typography>{selectedDonation.properties.status}</Typography>
             </Grid>
           </Grid>
+          {supplies ? supplies.map((supply)=>{
+            if(supply === "other"){
+              return(
+                <TableRow key={supply} className="supplies">
+                  <TableCell>
+                    <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Other Needs</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedDonation.properties.donation_supply[supply]}</Typography>
+                  </TableCell>
+                </TableRow>
+                ) 
+              } return(
+                <TableRow key={supply} className="supplies">
+                  <TableCell>
+                    <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply][0]}</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedDonation.properties.donation_supply[supply]} {supplyNames.features[supply][1]}</Typography>
+                  </TableCell>
+                </TableRow>
+              )  
+            }):<div/>}
           </div>
-          : <Grid item container direction='row'>
-            <Grid item xs={4}>
-              <Typography variant="h4">From:</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="h3">{selectedDonation.properties.donor}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="h4">Status:</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography></Typography>
-            </Grid>
-          </Grid> 
           :<Typography variant='h4' align='center'>Select donation</Typography>}
         </Grid>
       </Grid>
