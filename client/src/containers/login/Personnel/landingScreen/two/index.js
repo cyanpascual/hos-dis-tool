@@ -353,6 +353,18 @@ const HospitalUpdate = (props) => {
     axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData, {mode: 'no-cors', headers: headers})
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
+    
+    const outgoing = {
+      "type": 'Alert',
+      "properties": {
+        "Date": new Date().toLocaleString(),
+        "Recipient": number,
+        "Message": message
+      }
+    }
+    axios.post(`https://trams-up-dge.herokuapp.com/m355ag3s/add`, outgoing )
+    .then(res => console.log(res.data))
+    .catch(error => console.log(error))
 
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
