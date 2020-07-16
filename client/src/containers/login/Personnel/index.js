@@ -205,7 +205,7 @@ function Personnel(props) {
           <div style={{overflow: "auto", height:'85vh'}}>
             {landing === 0 ? <Dashboard/> 
             :landing === 1 ? <HospitalUpdate/>
-            :landing === 2 ? <Typography>Feature under construction</Typography>/*<Donations/>*/
+            :landing === 2 ? <Donations/>
             :landing === 4 ? <LabSupplies/>
             :landing === 3 ? <ManageAccount/>
             :landing === 'f' ? <Contact/>:<p/>}
@@ -220,4 +220,4 @@ Personnel.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Personnel);
+export default withStyles(styles) (Personnel);
