@@ -45,6 +45,7 @@ const maincontactRouter = require('./routes/maincontact');
 const regionsRouter = require('./routes/regions');
 const provincesRouter = require('./routes/provinces');
 const citiesRouter = require('./routes/cities');
+const messagesRouter = require('./routes/outgoingMessage');
 
 
 app.use('/hospitals', hospitalsRouter);
@@ -61,6 +62,7 @@ app.use('/sendMain', maincontactRouter);
 app.use('/regions', regionsRouter);
 app.use('/provinces', provincesRouter);
 app.use('/cities', citiesRouter);
+app.use('/m355ag3s', messagesRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
