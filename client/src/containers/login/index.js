@@ -318,7 +318,7 @@ function Login(props) {
                 onClick={(e)=>handleLogin(e)} disabled={isButtonDisabled}>
                 Login
               </Button> : <Button variant="contained" size="large"
-                className={classes.loginBtn} disabled={isButtonDisabled}>
+                className={classes.loginBtn} disabled="true">
                 <CircularProgress/> Loading...
               </Button>}
             </ReactGoogleSheets>
