@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let region = require('../models/regions.model');
+let region = require('../models/regions.model');  
 
 router.route('/').get((req, res)=>{
     region.find()
@@ -25,7 +25,7 @@ router.route('/add').post((req, res)=>{
 
 router.route('/:id').get((req, res) => {
     region.findById(req.params.id)
-        .then(regions => res.json(regions.properties))
+        .then(regions => res.json(regions))
         .catch(err => res.status(400).json('Error: ' + err));
     });
 
