@@ -1,46 +1,50 @@
 const router = require('express').Router();
-let Donation = require('../models/donation.model');
+let Item = require('../models/allocation.model');
 
 router.route('/').get((req, res) => {
-  Donation.find()
-    .then(donations => res.json(donations))
+  Item.find()
+    .then(items => res.json(items))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//adds Item info in the facility database
 router.route('/add').post((req, res) => {
   const type = req.body.type;
   const properties = req.body.properties;
 
-  const newDonation = new Donation({
+  const newItem = new Item({
     type,
     properties
 });
 
-  newDonation.save()
-    .then(() => res.json('Donation added!'))
+  newItem.save()
+    .then(() => res.json('Item added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//finds announcement using id
 router.route('/:id').get((req, res) => {
-  Donation.findById(req.params.id)
-    .then(donations => res.json(donations))
+  Item.findById(req.params.id)
+    .then(items => res.json(items))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//deletes an item
 router.route('/:id').delete((req, res) => {
-  Donation.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Donation deleted.'))
+  Item.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Item deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//updates info about item
 router.route('/update/:id').post((req, res) => {
-  Donation.findById(req.params.id)
-    .then(donation => {
-      donation.type = req.body.type;
-      donation.properties = req.body.properties;
+  Item.findById(req.params.id)
+    .then(item => {
+      item.type = req.body.type;
+      item.properties = req.body.properties;
 
-      donation.save()
-        .then(() => res.json('Donation updated!' + req.body))
+      item.save()
+        .then(() => res.json('Item updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
