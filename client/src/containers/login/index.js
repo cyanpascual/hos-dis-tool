@@ -2,17 +2,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MapsContext } from '../../contexts/MapsContext';
 import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
+import ReactGoogleSheets from 'react-google-sheets';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Hidden, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HospitalList from './userValidator';
 import Personnel from './Personnel';
+import Main from '../OrganizerPage'
 import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
-//import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from '../../serviceWorker';
 
 import PropTypes from "prop-types";
 import { DriveEtaRounded } from '@material-ui/icons';
@@ -101,6 +103,7 @@ theme.typography.h2 = {
 
 
 function Login(props) {
+  const { updateCell, getSheetsData } = props;
   const { hospitalList, setHospitalList, setHospitals } = useContext(FeaturesContext)
   const { setSelectedHospital } = useContext(MapsContext);
   const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
@@ -111,7 +114,8 @@ function Login(props) {
   const [error, setError] = useState(false);
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
+  const [sheetLoaded, setSheetLoaded] = useState(false);
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -162,7 +166,34 @@ function Login(props) {
         setLogin(true);
         setError(false);
         setAccountType(ob[0].type)
+        let dataHospi = parseInt(getSheetsData('Sample db sheets')[0].data[0][1])
+        let dataVali = parseInt(getSheetsData('Sample db sheets')[0].data[0][0])
+        if (ob[0].type === 'Validator'){
+          updateCell('Sheet1', 'A', '2', dataVali + 1, null, (error) => {
+            console.log('error', error)
+          })
+        } else if (ob[0].type === 'Hospital'){
+
+          updateCell('Sheet1', 'B', '2', dataHospi + 1, null, (error) => {
+            console.log('error', error)
+          })
+        }
         setHelperText('Login Successfully');
+
+        const logindetails = {
+          "type": ob[0].type,
+          "properties": {
+            "Surname": ob[0].properties.Surname,
+            "Firstname": ob[0].properties.Firstname,
+            "Username": ob[0].properties.Username,
+            "loginDate": new Date().toLocaleString()
+          }
+        }
+
+        axios.post(`https://trams-up-dge.herokuapp.com/uz3rl0gz/add`, logindetails )
+          .then(res => console.log(res.data))
+          .catch(error => console.log(error))
+
       } else {
         setError(true);
         setHelperText('Wrong password');
@@ -195,7 +226,11 @@ function Login(props) {
             <PersonnelMobile/>
           </Hidden>
         </div>
-        
+
+      )
+    } else{
+      return(
+        <Main/>
       )
     }
   } else if(!loaded){
@@ -276,14 +311,17 @@ function Login(props) {
             </div>
           </CardContent>
           <CardActions>
-            <Button
-              variant="contained"
-              size="large"
-              className={classes.loginBtn}
-              onClick={(e)=>handleLogin(e)}
-              disabled={isButtonDisabled}>
-              Login
-            </Button>
+            <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
+              apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
+              spreadsheetId="1xked3wuj7t66XftXn_70j2H9tLkxAxosv0d9COflB2k" afterLoading={() => setSheetLoaded(true)}>
+              {sheetLoaded? <Button variant="contained" size="large" className={classes.loginBtn}
+                onClick={(e)=>handleLogin(e)} disabled={isButtonDisabled}>
+                Login
+              </Button> : <Button variant="contained" size="large"
+                className={classes.loginBtn} disabled="true">
+                <CircularProgress/> Loading...
+              </Button>}
+            </ReactGoogleSheets>
           </CardActions>
         </Card>
       </form>
@@ -292,6 +330,6 @@ function Login(props) {
 }
 
 
-export default Login;
-//serviceWorker.register();
+export default ReactGoogleSheets.connect(Login);
+serviceWorker.register();
 

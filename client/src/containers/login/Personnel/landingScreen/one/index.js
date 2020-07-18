@@ -249,7 +249,7 @@ const Dashboard = (props) => {
           <Card className={classes.card}>
             <CardHeader className={classes.header} title="Donations Tracking" />
             <CardContent className={classes.container} style={{height:'65vh'}}>
-              {/*<Grid container direction='column'>
+              <Grid container direction='column'>
                 <Grid item style={{height:'55vh', overflow: 'scroll', display: 'flex', flexDirection: 'column'}} xs={12}>
                   <TableContainer><Table size="small" style={{height: '100%', overflow: 'scroll', width:'100%'}}>
                     <TableBody>
@@ -266,7 +266,7 @@ const Dashboard = (props) => {
                               </Grid>
                               <Grid item xs={10}>
                                 <Typography style={{fontSize:14, color:"black"}} gutterBottom>
-                                  Status: 
+                                  Status:  {donation.properties.status}
                                 </Typography>
                               </Grid>
                             </Grid>
@@ -292,8 +292,7 @@ const Dashboard = (props) => {
                     count={donations.length} rowsPerPage={rowsPerPageD} page={dpage} rowsPerPageOptions={[5]}
                     onChangePage={handleChangePageD} onChangeRowsPerPage={handleChangeRowsPerPageD} />
                 </Grid>
-                  </Grid>*/}
-                  Feature under construction
+                  </Grid>
             </CardContent>
           </Card>
         </Grid>

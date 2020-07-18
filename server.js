@@ -38,8 +38,15 @@ const hospitallogsRouter = require('./routes/hospitallogs');
 const announcementsRouter = require('./routes/announcement');
 const donationsRouter = require('./routes/donation');
 const donationdrivesRouter = require('./routes/donationdrive');
+const userlogsRouter = require('./routes/userlog');
 const loginRouter = require('./routes/login');
-const contactRouter = require('./routes/contact')
+const contactRouter = require('./routes/contact');
+const maincontactRouter = require('./routes/maincontact');
+const regionsRouter = require('./routes/regions');
+const provincesRouter = require('./routes/provinces');
+const citiesRouter = require('./routes/cities');
+const messagesRouter = require('./routes/outgoingMessage');
+const allocationsRouter = require('./routes/allocation');
 
 
 app.use('/hospitals', hospitalsRouter);
@@ -49,8 +56,15 @@ app.use('/uz3rz', userRouter);
 app.use('/hl0gs', hospitallogsRouter);
 app.use('/ann0unc3m3nt', announcementsRouter);
 app.use('/d0nati0n', donationsRouter);
+app.use('/all0cati0n', allocationsRouter);
 app.use('/d0ndriv3z', donationdrivesRouter);
-app.use('/send', contactRouter); 
+app.use('/uz3rl0gz', userlogsRouter);
+app.use('/send', contactRouter);
+app.use('/sendMain', maincontactRouter);
+app.use('/regions', regionsRouter);
+app.use('/provinces', provincesRouter);
+app.use('/cities', citiesRouter);
+app.use('/m355ag3s', messagesRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
