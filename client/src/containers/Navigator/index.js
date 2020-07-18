@@ -40,7 +40,7 @@ import SortDialog from '../SortDialog';
 import FilterList from '../FilterList';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
-import HospitalInfo from '../HospitalInfo'
+import HospitalInfo from '../main/components/HospitalInfo'
 
 
 

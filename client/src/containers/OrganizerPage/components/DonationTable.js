@@ -45,19 +45,19 @@ const Editable = () => {
 
 
   
-    
+    var total_donations = donationTableData.reduce((a, {amount}) => a + amount, 0);
   
     return (
       <MaterialTable
-        title="Donations"
+        title={`Total Donations: ${total_donations}`}
         components={{
             Container: props => <div {...props} style={{ height:"100%"}}/>
         }}
         options={{
             exportButton: true,
             pageSize:10,
-            minBodyHeight:"87vh",
-            maxBodyHeight:"87vh",
+            minBodyHeight:"80vh",
+            maxBodyHeight:"80vh",
             filtering:true
           }}
         

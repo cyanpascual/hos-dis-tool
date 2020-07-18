@@ -26,7 +26,7 @@ import UpdateDialog from '../UpdateDialog';
 import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
 import SortDialog from '../SortDialog';
-import HospitalInfo  from '../HospitalInfo';
+import HospitalInfo  from "./components/HospitalInfo";
 import DonationDialog  from '../DonationDialog';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -173,7 +173,10 @@ const Main = () => {
 
   setDesktop(isDesktop)
   setSelectedPage("No")
+  
 
+
+  var desktopHeight = selectedHospital ? "95vh" : "80vh";
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
@@ -288,7 +291,7 @@ const Main = () => {
                 <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
-                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}} ref={hospitalScrollbarReference}>
+                <Container id="body" style={{  height: isDesktop ? desktopHeight : "35vh", overflowY:"auto"}} ref={hospitalScrollbarReference}>
                   {!selectedHospital ? (<HospitalDeck hospitals={hospitalList} page={selectedPage}/>): (<HospitalInfo/>)}
                 </Container>
               </Grid>

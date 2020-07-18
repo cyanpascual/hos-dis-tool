@@ -66,6 +66,7 @@ const OrganizerContextProvider = (props) => {
         title: 'Date Made',
         field: 'date',
         type: "datetime",
+        filtering: false
     },
     {
         title: 'Method of Payment',
