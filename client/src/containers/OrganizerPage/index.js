@@ -175,6 +175,7 @@ const Main = () => {
     setSelectedPage("Hospital Map")
   },[])
   
+  console.log(hospitalList)
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (

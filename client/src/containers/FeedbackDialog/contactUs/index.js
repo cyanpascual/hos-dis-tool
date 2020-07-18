@@ -138,6 +138,9 @@ const Contact = (props) => {
     updateCell('Feedback_Main', 'C', dat.length + 2, message, null, (error) => {
       console.log('error', error)
     })
+    updateCell('Feedback_Main', 'D', dat.length + 2, "Not yet addressed", null, (error) => {
+      console.log('error', error)
+    })
   }
   const resetForm = () =>{
     document.getElementById('contact-form').reset();
