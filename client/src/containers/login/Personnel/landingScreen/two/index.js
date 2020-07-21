@@ -35,9 +35,9 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justify: 'center',
-    width: '95%',
-    padding: '10px',
-    margin: '10px',
+    width: '98%',
+    padding: '5px',
+    margin: '5px',
     background: '#fffffe'
   }, categoryHeader: {
     paddingTop: theme.spacing(2),
@@ -332,6 +332,7 @@ const HospitalUpdate = (props) => {
       .catch(error => console.log(error))
 
       const message = '[TrAMS Alert] ' + new Date().toLocaleString() + ': ' + selectedHospital.properties.cfname + '\'s inventory is now updated. Thank you.';
+<<<<<<< HEAD
       const number = selectedHospital.properties.assigned_num;
       const access_token = selectedHospital.properties.assigned_token;
 
@@ -353,6 +354,33 @@ const HospitalUpdate = (props) => {
       axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData, {mode: 'no-cors', headers: headers})
         .then(res => console.log(res.data))
         .catch(error => console.log(error))
+=======
+    const number = selectedHospital.properties.assigned_num;
+    const access_token = selectedHospital.properties.assigned_token;
+
+    const formData = {"outboundSMSMessageRequest": {
+      "clientCorrelator": "24601",
+      "senderAddress": "0661",
+      "outboundSMSTextMessage": {"message": message},
+      "address": number // change to selectedHospital.properties.assigned_num
+        }};
+    // console.log(formData);
+    axios.post(`https://cors-anywhere.herokuapp.com/https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/0661/requests?access_token=${access_token}`, formData) // change to selectedHospital.properties.assigned_num
+    .then(res => console.log(res.data))
+    .catch(error => console.log(error))
+
+    const outgoing = {
+      "type": 'Alert',
+      "properties": {
+        "Date": new Date().toLocaleString(),
+        "Recipient": number,
+        "Message": message
+      }
+    }
+    axios.post(`https://trams-up-dge.herokuapp.com/m355ag3s/add`, outgoing )
+    .then(res => console.log(res.data))
+    .catch(error => console.log(error))
+>>>>>>> develop
 
     setIsEditMode(!isEditMode);
     setHospitalList(hospitals.filter(hos => hos._id !== selectedHospital._id))
@@ -444,29 +472,29 @@ const HospitalUpdate = (props) => {
                     <TableRow key={supply} className="supplies">
                       <TableCell>{imageChoose(shownLog, supply)}</TableCell>
                       <TableCell>
-                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply]}</Typography>
+                        <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply][0]}</Typography>
                       </TableCell>
                       <TableCell align="center">
                       {isEditMode? 
-                        <Typography align="center" variant="subtitle2">
-                          {shownLog.properties.supply_cur[supply] ?
-                          <Input style={{width: 80, fontSize: 12}} name={supply} value={shownLog.properties.supply_cur[supply]} 
-                            onChange={handleOnChange}/> 
-                          : <Input style={{width: 80, fontSize: 12}} name={supply} value={0} 
-                            onChange={handleOnChange}/>}
+                        <Typography align="left" style={{fontSize:12, fontWeight:350}} variant="subtitle2">
+                          {shownLog.properties.supply_cur[supply] ? <div>
+                          <Input style={{width: 50, fontSize: 12}} name={supply} value={shownLog.properties.supply_cur[supply]} 
+                            onChange={handleOnChange}/> {supplyNames.features[supply][1]}</div>
+                          : <div><Input style={{width: 50, fontSize: 12}} name={supply} value={0} 
+                            onChange={handleOnChange}/> {supplyNames.features[supply][1]}</div>}
                         </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_cur[supply]}</Typography>}
+                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_cur[supply]} {supplyNames.features[supply][1]}</Typography>}
                       </TableCell>
                       <TableCell>
                       {isEditMode? 
-                        <Typography align="center" variant="subtitle2">
-                          {shownLog.properties.supply_need[supply] ?
-                          <Input style={{width: 80, fontSize: 12}} name={supply} value={shownLog.properties.supply_need[supply]} 
-                            onChange={handleOnChangeNeed}/> 
-                          : <Input style={{width: 80, fontSize: 12}} name={supply} value={0} 
-                            onChange={handleOnChangeNeed}/>}
+                        <Typography align="left" style={{fontSize:12, fontWeight:350}} variant="subtitle2">
+                          {shownLog.properties.supply_need[supply] ? <div>
+                          <Input style={{width: 50, fontSize: 12}} name={supply} value={shownLog.properties.supply_need[supply]} 
+                            onChange={handleOnChangeNeed}/> {supplyNames.features[supply][1]}</div>
+                          : <div><Input style={{width: 50, fontSize: 12}} name={supply} value={0} 
+                            onChange={handleOnChangeNeed}/> {supplyNames.features[supply][1]}</div>}
                         </Typography>
-                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_need[supply]}</Typography>}
+                        :<Typography align="center" style={{fontSize:12, fontWeight:350}}>{shownLog.properties.supply_need[supply]} {supplyNames.features[supply][1]}</Typography>}
                       </TableCell>
                     </TableRow>
                   )  

@@ -21,6 +21,9 @@ const hospitalSchema = new Schema({
   "numbers": {
     "type": "Boolean" // true or false whether hospital wants to show hard numbers
   },
+  "score":{
+    "type": "String"
+  },
   "properties": {
     "cfname": {
       "type": "String" // Facility Name

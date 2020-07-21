@@ -1,23 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import {Typography} from '@material-ui/core';
-//import HospitalUpdate from './hospitalUpdate';
-//import HospitalUpdateMobile from './hospitalUpdateMobile'
-import Navigator from './drawer';
+import TabPanel from './tabs';
 import Header from './header';
-import 'typeface-roboto';
-import { MapsContext } from '../../../contexts/MapsContext';
-import { LoginContext } from '../../../contexts/LoginContext';
+import '../../OrganizerPage/node_modules/typeface-roboto';
 
-import Dashboard from './landingScreen/one';
-import HospitalUpdate from './landingScreen/two'
-import Donations from './landingScreen/three'
-import ManageAccount from './landingScreen/four'
-import LabSupplies from './landingScreen/five'
-import Contact from './contactUs'
 
 
 let theme = createMuiTheme({
@@ -130,34 +118,23 @@ theme = {
   },
 };
 
-const drawerWidth = 475;
+
 
 const styles = {
   root: {
     display: 'flex',
     minHeight: '100vh',
-    [theme.breakpoints.up('md')]: {
-      width: '100vw'
-    }
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  drawer: {
-    [theme.breakpoints.up('md')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    overflow:"hidden"
-  },
   app: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justify: 'center',
-    overflow: 'hidden'
+    width: '100%'
   },
   main: {
     flex: 1,
@@ -170,11 +147,10 @@ const styles = {
   },
 };
 
-function Personnel(props) {
+function HospitalValidate(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { selectedHospital } = useContext(MapsContext)
-  const { landing } = useContext(LoginContext)
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -184,40 +160,19 @@ function Personnel(props) {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <nav className={classes.drawer}>
-
-          <Hidden mdUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: '85vw', backgroundColor:"#8c0e0e" } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden smDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth, backgroundColor:"#8c0e0e" } }} />
-          </Hidden>
-
-
-        </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <div style={{overflow: "auto", height:'85vh'}}>
-            {landing === 0 ? <Dashboard/> 
-            :landing === 1 ? <HospitalUpdate/>
-            :landing === 2 ? <Donations/>
-            :landing === 4 ? <LabSupplies/>
-            :landing === 3 ? <ManageAccount/>
-            :landing === 'f' ? <Contact/>:<p/>}
-          </div>  
+          <TabPanel/>
+
         </div>
       </div>
     </ThemeProvider>
   );
 }
 
-Personnel.propTypes = {
+HospitalValidate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles) (Personnel);
+export default withStyles(styles)(HospitalValidate);
+

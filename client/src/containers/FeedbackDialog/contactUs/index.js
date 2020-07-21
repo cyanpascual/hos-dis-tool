@@ -1,6 +1,6 @@
 import React, {useContext,useState,useEffect} from 'react';
-import { MapsContext } from '../../../../contexts/MapsContext';
-import { LoginContext } from '../../../../contexts/LoginContext';
+import { MapsContext } from '../../../contexts/MapsContext';
+import { LoginContext } from '../../../contexts/LoginContext';
 import { createMuiTheme, makeStyles, withStyles, ThemeProvider} from '@material-ui/core/styles';
 import axios from 'axios';
 import ReactGoogleSheets from 'react-google-sheets';
@@ -92,8 +92,6 @@ theme.typography.h2 = {
 
 const Contact = (props) => {
   const { classes, updateCell, getSheetsData } = props;
-  const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
-  const { username } = useContext(LoginContext);
 
   const [msg, setMsg] = useState('')
   const [open, setOpen] = useState(false)
@@ -108,7 +106,7 @@ const Contact = (props) => {
     const message = document.getElementById('message').value;
     axios({
         method: "POST", 
-        url:"https://trams-up-dge.herokuapp.com/send/send", 
+        url:"https://trams-up-dge.herokuapp.com/sendMain/send", 
         data: {
             name: name,   
             email: email,  
@@ -131,24 +129,19 @@ const Contact = (props) => {
 
     
     let dat = getSheetsData('Feedback form responses')[0].data
-    updateCell('Feedback_Login', 'A', dat.length + 2, name, null, (error) => {
+    updateCell('Feedback_Main', 'A', dat.length + 2, name, null, (error) => {
       console.log('error', error)
     })
-    updateCell('Feedback_Login', 'B', dat.length + 2, email, null, (error) => {
+    updateCell('Feedback_Main', 'B', dat.length + 2, email, null, (error) => {
       console.log('error', error)
     })
-    updateCell('Feedback_Login', 'C', dat.length + 2, message, null, (error) => {
+    updateCell('Feedback_Main', 'C', dat.length + 2, message, null, (error) => {
       console.log('error', error)
     })
-    updateCell('Feedback_Login', 'D', dat.length + 2, "Not yet addressed", null, (error) => {
+    updateCell('Feedback_Main', 'D', dat.length + 2, "Not yet addressed", null, (error) => {
       console.log('error', error)
     })
   }
-
-  if (sheetLoaded){
-    console.log(getSheetsData('Feedback form responses')[0].data)
-  }
-  
   const resetForm = () =>{
     document.getElementById('contact-form').reset();
   }
@@ -185,7 +178,7 @@ const Contact = (props) => {
                 className={classes.loginBtn} disabled="true">
                 <CircularProgress/> Loading...
               </Button>}
-            </ReactGoogleSheets>
+            </ReactGoogleSheets> 
             </Grid>
             <Grid item>
               

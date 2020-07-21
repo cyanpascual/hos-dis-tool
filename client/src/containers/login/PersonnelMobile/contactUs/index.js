@@ -3,6 +3,7 @@ import { MapsContext } from '../../../../contexts/MapsContext';
 import { LoginContext } from '../../../../contexts/LoginContext';
 import { createMuiTheme, makeStyles, withStyles, ThemeProvider} from '@material-ui/core/styles';
 import axios from 'axios';
+import ReactGoogleSheets from 'react-google-sheets';
 
 import {Table, TableBody, TableCell, } from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -90,7 +91,7 @@ theme.typography.h2 = {
 };
 
 const Contact = (props) => {
-  const { classes, ...other } = props;
+  const { classes, updateCell, getSheetsData } = props;
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { username } = useContext(LoginContext);
 
@@ -101,6 +102,7 @@ const Contact = (props) => {
   const [open, setOpen] = useState(false)
   const [sever, setSever] = useState('info')
   const [loading, setLoading] = useState(false)
+  const [sheetLoaded, setSheetLoaded] = useState(false)
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -126,6 +128,19 @@ const Contact = (props) => {
             setLoading(false)
             setSever('error')
         }
+    })
+    let dat = getSheetsData('Feedback form responses')[0].data
+    updateCell('Feedback_Login', 'A', dat.length + 2, name, null, (error) => {
+      console.log('error', error)
+    })
+    updateCell('Feedback_Login', 'B', dat.length + 2, email, null, (error) => {
+      console.log('error', error)
+    })
+    updateCell('Feedback_Login', 'C', dat.length + 2, message, null, (error) => {
+      console.log('error', error)
+    })
+    updateCell('Feedback_Login', 'D', dat.length + 2, "Not yet addressed", null, (error) => {
+      console.log('error', error)
     })
   }
 
@@ -156,7 +171,16 @@ const Contact = (props) => {
             </Grid>
             <br/>
             <Grid item xs>
-              <Button type="submit" color="inherit" onClick={() => setLoading(true)}>Submit {loading ? <CircularProgress size={24}/>: <div/>}</Button>
+              <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
+                apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
+                spreadsheetId="1OCEuU4CZYlgM6NggOtvpYdpX6qyzVqvrOyZARp7VO2c" afterLoading={() => setSheetLoaded(true)}>
+                {sheetLoaded? <Button type="submit" color="inherit" onClick={() => setLoading(true)}>
+                  Submit {loading ? <CircularProgress size={24}/>: <div/>}
+                </Button> : <Button variant="contained" size="large"
+                  className={classes.loginBtn} disabled="true">
+                  <CircularProgress/> Loading...
+                </Button>}
+              </ReactGoogleSheets>
             </Grid>
             <Grid item>
               
@@ -175,5 +199,5 @@ const Contact = (props) => {
   )
 }
 
-export default withStyles(styles)(Contact);
+export default ReactGoogleSheets.connect(withStyles(styles)(Contact));
 
