@@ -9,7 +9,7 @@ import { Card, CardContent, Hidden, CardActions, Button, CardHeader, Link, Dialo
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HospitalList from './userValidator';
 import Personnel from './Personnel';
-import Main from '../OrganizerPage'
+import OrganizerPage from '../OrganizerPage'
 import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
@@ -130,7 +130,6 @@ function Login(props) {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
       const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
 
       setUsers(res.data);
@@ -207,7 +206,9 @@ function Login(props) {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
-      isButtonDisabled || handleLogin();
+      if (sheetLoaded){
+        isButtonDisabled || handleLogin();
+      }
     }
   };
 
@@ -230,7 +231,7 @@ function Login(props) {
       )
     } else{
       return(
-        <Main/>
+        <OrganizerPage/>
       )
     }
   } else if(!loaded){

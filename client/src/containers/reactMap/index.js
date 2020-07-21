@@ -92,7 +92,7 @@ export default function App() {
     const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
     const position = [viewport.lat, viewport.lng]
     
-    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}):[]
+    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]
     const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
     const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
     const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]

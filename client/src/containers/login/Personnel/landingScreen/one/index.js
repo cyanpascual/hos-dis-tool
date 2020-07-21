@@ -259,16 +259,16 @@ const Dashboard = (props) => {
                           <TableCell colSpan={4}><div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
                             <Grid container>
                               <Grid item xs={12}>
-                                <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.donor}</Typography>
+                                <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.donor_name}</Typography>
                               </Grid>
                               <Grid item xs={10}>
-                                <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.reportdate.slice(-22)}</Typography>
+                                <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.reportdate}</Typography>
                               </Grid>
-                              <Grid item xs={10}>
+                              {/*<Grid item xs={10}>
                                 <Typography style={{fontSize:14, color:"black"}} gutterBottom>
                                   Status:  {donation.properties.status}
                                 </Typography>
-                              </Grid>
+                              </Grid>*/}
                             </Grid>
                           </div></TableCell>
                         </TableRow>

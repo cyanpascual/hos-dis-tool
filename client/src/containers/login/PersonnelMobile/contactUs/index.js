@@ -139,6 +139,9 @@ const Contact = (props) => {
     updateCell('Feedback_Login', 'C', dat.length + 2, message, null, (error) => {
       console.log('error', error)
     })
+    updateCell('Feedback_Login', 'D', dat.length + 2, "Not yet addressed", null, (error) => {
+      console.log('error', error)
+    })
   }
 
   const resetForm = () =>{
