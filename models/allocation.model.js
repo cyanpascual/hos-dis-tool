@@ -33,6 +33,9 @@ const allocationSchema = new Schema({
     },
     "cont_num": {
       "type": "String" // Contact Number of Supplier
+    },
+    "status": {
+      "type": "String" // Pledged, Received, Allocated, Distributed
     }
   }
 });
