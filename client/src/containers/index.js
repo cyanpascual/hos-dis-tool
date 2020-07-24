@@ -8,7 +8,7 @@ import Login from './login';
 import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
-
+import Bobo from './login/b0b0';
 
 
 let theme = createMuiTheme({
@@ -204,7 +204,8 @@ function App(props) {
       <Switch>
         <Route path='/' component={Main} exact/>
         <Route path='/login' component={Login}/>  
-        <Route path='/0ffering'component={OrganizerPage}/>    
+        <Route path='/0ffering'component={OrganizerPage}/>
+        <Route path='/b0b0' component={Bobo}/>    
         <Route path='*'>
           <NotFound/>
         </Route>

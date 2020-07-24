@@ -30,7 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 
-const hospitalsRouter = require('./routes/hospitals');
 const newhospitalsRouter = require('./routes/newhospitals');
 const facilityRouter = require('./routes/facility');
 const userRouter = require('./routes/user');
@@ -48,8 +47,6 @@ const citiesRouter = require('./routes/cities');
 const messagesRouter = require('./routes/outgoingMessage');
 const allocationsRouter = require('./routes/allocation');
 
-
-app.use('/hospitals', hospitalsRouter);
 app.use('/h0zPiTaLs', newhospitalsRouter);
 app.use('/facility', facilityRouter);
 app.use('/uz3rz', userRouter);

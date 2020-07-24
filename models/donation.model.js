@@ -10,6 +10,9 @@ const donationSchema = new Schema({
     "donor_name": {
       "type": "String" // Unique identifier for the Donation Drive or Donor
     },
+    "affiliation": {
+      "type": "String" // Affiliation
+    },
     "amount": {
       "type": "Number" // Amount Donated
     },
@@ -25,11 +28,14 @@ const donationSchema = new Schema({
     "reportdate": {
       "type": "String" // Date of Donation
     },
-    "method": {
+    "bank": {
       "type": "String" // Method of Payment
     },
     "cont_num": {
       "type": "String" // Contact Number of Donor
+    },
+    "status": {
+      "type": "String" // Pledged, Received, Allocated, Distributed
     },
     "receipt": {
       "type": "Mixed" // Proof
