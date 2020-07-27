@@ -119,7 +119,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/ann0unc3m3nt', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/d0nati0n', )
+      const res2 = await axios('https://trams-up-dge.herokuapp.com/all0cati0n', )
 
       
       setAnnouncements(res.data.sort(function(a,b){
@@ -138,8 +138,8 @@ const Dashboard = (props) => {
       }}))
 
       setDonations(res2.data.sort(function(a,b){
-        var x = (new Date(a.properties.reportdate.slice(-22))).getTime();
-        var y = (new Date(b.properties.reportdate.slice(-22))).getTime();
+        var x = (new Date(a.properties.orderdate.slice(-22))).getTime();
+        var y = (new Date(b.properties.orderdate.slice(-22))).getTime();
         if (x<y) {return 1;}
         if (x>y) {return -1;}
         return 0;
@@ -259,16 +259,16 @@ const Dashboard = (props) => {
                           <TableCell colSpan={4}><div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
                             <Grid container>
                               <Grid item xs={12}>
-                                <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.donor_name}</Typography>
+                                <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.supplier}</Typography>
                               </Grid>
                               <Grid item xs={10}>
-                                <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.reportdate}</Typography>
+                                <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.orderdate}</Typography>
                               </Grid>
-                              {/*<Grid item xs={10}>
+                              <Grid item xs={10}>
                                 <Typography style={{fontSize:14, color:"black"}} gutterBottom>
-                                  Status:  {donation.properties.status}
+                                  Method:  {donation.properties.method}
                                 </Typography>
-                              </Grid>*/}
+                              </Grid>
                             </Grid>
                           </div></TableCell>
                         </TableRow>

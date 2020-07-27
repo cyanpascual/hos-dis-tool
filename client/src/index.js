@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GoogleSheetsProvider from 'react-db-google-sheets';
+//import GoogleSheetsProvider from 'react-db-google-sheets';
 import './assets/index.css'
 import App from './containers'
 import * as serviceWorker from './serviceWorker';
@@ -11,17 +11,15 @@ import OrganizerContextProvider from './contexts/OrganizerContext';
 
 ReactDOM.render(
   <React.StrictMode>  
-    <GoogleSheetsProvider>
-      <MapsContextProvider>
-        <FeaturesContextProvider> 
-          <LoginContextProvider>
-            <OrganizerContextProvider>
-             <App />
-            </OrganizerContextProvider>
-          </LoginContextProvider>
-        </FeaturesContextProvider>
-      </MapsContextProvider>
-    </GoogleSheetsProvider>
+    <MapsContextProvider>
+      <FeaturesContextProvider> 
+        <LoginContextProvider>
+          <OrganizerContextProvider>
+           <App />
+          </OrganizerContextProvider>
+        </LoginContextProvider>
+      </FeaturesContextProvider>
+    </MapsContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
