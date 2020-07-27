@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MapsContext } from '../../contexts/MapsContext';
 import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
-import ReactGoogleSheets from 'react-google-sheets';
+//import ReactGoogleSheets from 'react-google-sheets';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Hidden, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
@@ -115,7 +115,7 @@ function Login(props) {
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [sheetLoaded, setSheetLoaded] = useState(false);
+  //const [sheetLoaded, setSheetLoaded] = useState(false);
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -165,7 +165,7 @@ function Login(props) {
         setLogin(true);
         setError(false);
         setAccountType(ob[0].type)
-        let dataHospi = parseInt(getSheetsData('Sample db sheets')[0].data[0][1])
+        /*let dataHospi = parseInt(getSheetsData('Sample db sheets')[0].data[0][1])
         let dataVali = parseInt(getSheetsData('Sample db sheets')[0].data[0][0])
         if (ob[0].type === 'Validator'){
           updateCell('Sheet1', 'A', '2', dataVali + 1, null, (error) => {
@@ -176,7 +176,7 @@ function Login(props) {
           updateCell('Sheet1', 'B', '2', dataHospi + 1, null, (error) => {
             console.log('error', error)
           })
-        }
+        }*/
         setHelperText('Login Successfully');
 
         const logindetails = {
@@ -206,9 +206,10 @@ function Login(props) {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
-      if (sheetLoaded){
+      isButtonDisabled || handleLogin();
+      /*if (sheetLoaded){
         isButtonDisabled || handleLogin();
-      }
+      }*/
     }
   };
 
@@ -312,7 +313,12 @@ function Login(props) {
             </div>
           </CardContent>
           <CardActions>
-            <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
+            <Button variant="contained" size="large" className={classes.loginBtn}
+                onClick={(e)=>handleLogin(e)} disabled={isButtonDisabled}>
+                Login
+            </Button>
+
+            {/*<ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
               apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
               spreadsheetId="1xked3wuj7t66XftXn_70j2H9tLkxAxosv0d9COflB2k" afterLoading={() => setSheetLoaded(true)}>
               {sheetLoaded? <Button variant="contained" size="large" className={classes.loginBtn}
@@ -322,7 +328,7 @@ function Login(props) {
                 className={classes.loginBtn} disabled="true">
                 <CircularProgress/> Loading...
               </Button>}
-            </ReactGoogleSheets>
+            </ReactGoogleSheets>*/}
           </CardActions>
         </Card>
       </form>
@@ -331,6 +337,7 @@ function Login(props) {
 }
 
 
-export default ReactGoogleSheets.connect(Login);
+//export default ReactGoogleSheets.connect(Login);
+export default Login;
 serviceWorker.register();
 

@@ -18,7 +18,7 @@ router.route('/add').post((req, res) => {
 });
 
   newItem.save()
-    .then(() => res.json('Item added!'))
+    .then(() => res.json(newItem.id))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
