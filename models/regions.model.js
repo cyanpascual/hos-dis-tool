@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 
 const regionsSchema = new Schema({
         "type":{"type":"String"},
+        "properties":{
+            "REGION": {"type":"String"},
+            "HOSPCOUNT1": {"type":"number"}
+        },
         "geometry":{
             "type":{"type":"String"},
-            "coordinates":{"type":"array"},
-        },
-        "properties":{
-            "HospCount": {"type":"number"},
-            "Region": {"type":"String"}
+            "coordinates":{"type":"array"}
         }
     });
 

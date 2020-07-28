@@ -22,8 +22,8 @@ const allocationSchema = new Schema({
     "orderdate": {
       "type": "String" // Date of Donation
     },
-    "cfname": {
-      "type": "String" // Hospital Name
+    "benefactor": {
+      "type": "String" // Can be for the hospital or other changesS
     },
     "hfhudcode": {
       "type": "String"  // Unique identifier for the health facility based on the National Health Facility Registry
