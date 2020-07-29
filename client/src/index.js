@@ -8,9 +8,11 @@ import FeaturesContextProvider from './contexts/FeaturesContext';
 import MapsContextProvider from './contexts/MapsContext';
 import LoginContextProvider from './contexts/LoginContext';
 import OrganizerContextProvider from './contexts/OrganizerContext';
+import ReactPWAInstallProvider from "react-pwa-install";
 
 ReactDOM.render(
-  <React.StrictMode>  
+  <React.StrictMode>
+    <ReactPWAInstallProvider enableLogging>
     <MapsContextProvider>
       <FeaturesContextProvider> 
         <LoginContextProvider>
@@ -20,6 +22,7 @@ ReactDOM.render(
         </LoginContextProvider>
       </FeaturesContextProvider>
     </MapsContextProvider>
+    </ReactPWAInstallProvider>  
   </React.StrictMode>,
   document.getElementById('root')
 );

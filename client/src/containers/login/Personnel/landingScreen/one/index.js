@@ -266,7 +266,7 @@ const Dashboard = (props) => {
                               </Grid>
                               <Grid item xs={10}>
                                 <Typography style={{fontSize:14, color:"black"}} gutterBottom>
-                                  Method:  {donation.properties.method}
+                                  Status:  {donation.properties.status}
                                 </Typography>
                               </Grid>
                             </Grid>
