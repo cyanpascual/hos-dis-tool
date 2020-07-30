@@ -39,6 +39,9 @@ const donationSchema = new Schema({
     },
     "receipt": {
       "type": "Mixed" // Proof
+    },
+    "email": {
+      "type": "String" // Email Address
     }
   }
 });
