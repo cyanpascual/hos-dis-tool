@@ -15,6 +15,8 @@ import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import * as serviceWorker from '../../serviceWorker';
+import { useReactPWAInstall } from "react-pwa-install";
+import myLogo from '../../assets/logos/logo192.png'
 
 import PropTypes from "prop-types";
 import { DriveEtaRounded } from '@material-ui/icons';
@@ -34,6 +36,12 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(2),
       flexGrow: 1,
       background: '#800000',
+      color: '#fff'
+    },
+    but: {
+      marginTop: theme.spacing(2),
+      flexGrow: 1,
+      background: '#993232',
       color: '#fff'
     },
     header: {
@@ -105,8 +113,9 @@ theme.typography.h2 = {
 function Login(props) {
   const { updateCell, getSheetsData } = props;
   const { hospitalList, setHospitalList, setHospitals } = useContext(FeaturesContext)
+  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
   const { setSelectedHospital } = useContext(MapsContext);
-  const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
+  const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText, allowed} = useContext(LoginContext);
 
   const classes = useStyles();
 
@@ -141,6 +150,24 @@ function Login(props) {
 
     fetchData();
   }, [])
+
+  const handleClick = () => {
+    pwaInstall({
+      title: "Install TrAMS+ login",
+      logo: myLogo,
+      features: (
+        <ul>
+          <li>This is a beta test</li>
+          <li>Please respond to the feedback form if it works or not</li>
+          <li>This feature should install the app on your device</li>
+          <li>Should work offline</li>
+        </ul>
+      ),
+      description: "Add TrAMS+ login to your device for easier access.",
+    })
+      .then(() => alert("App installed successfully"))
+      .catch(() => alert("User opted out from installing"));
+  };
 
   const handleLogin = (e) => {
     //e.preventDefault();
@@ -254,7 +281,7 @@ function Login(props) {
     <ThemeProvider theme={theme}>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="TrAMS Update Login" />
+          <CardHeader className={classes.header} title="TrAMS Login" />
           <CardContent>
             <div>
               <TextField
@@ -317,6 +344,13 @@ function Login(props) {
                 onClick={(e)=>handleLogin(e)} disabled={isButtonDisabled}>
                 Login
             </Button>
+            {allowed && !isInstalled() && (
+              <div>
+                <Button variant="contained" size="large" className={classes.but}
+                  onClick={(e)=>handleClick(e)}>
+                  Install app on your device</Button>
+              </div>
+            )}
 
             {/*<ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
               apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"

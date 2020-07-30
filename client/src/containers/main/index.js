@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import ReactGoogleSheets from 'react-google-sheets';
 
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -162,13 +161,10 @@ let theme = createMuiTheme({
 
 //Main function that returns the component
 const Main = (props) => {
-  const { updateCell, getSheetsData } = props;
   const styles = useStyles();
   const {hospitalToDonateTo,  hospitalScrollbarReference,hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   const {selectedPage, setSelectedPage, } = useContext(OrganizerContext);
-
-  const [sheetLoaded, setSheetLoaded] = React.useState(false);
   
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
@@ -177,14 +173,6 @@ const Main = (props) => {
   setDesktop(isDesktop)
   setSelectedPage("No")
 
-  React.useEffect(() => {
-    if (sheetLoaded){
-      let data = parseInt(getSheetsData('Sample db sheets')[0].data[0][2])
-      updateCell('Sheet1', 'C', '2', data + 1, null, (error) => {
-        console.log('error', error)
-      })
-    }
-  },[sheetLoaded])
 
   return (
     <Root theme={theme} scheme={scheme}>
@@ -303,13 +291,7 @@ const Main = (props) => {
         </Grid>
           
           </Content>
-          <Footer>
-            <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
-              apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
-              spreadsheetId="1xked3wuj7t66XftXn_70j2H9tLkxAxosv0d9COflB2k" afterLoading={() => setSheetLoaded(true)}>
-              <div/>
-            </ReactGoogleSheets>
-          </Footer>
+          <Footer/>
         </>
       )}
 
@@ -317,7 +299,7 @@ const Main = (props) => {
   );
 };
 
-export default ReactGoogleSheets.connect(Main);
+export default Main;
 
 // let theme = createMuiTheme({
 //   palette: {

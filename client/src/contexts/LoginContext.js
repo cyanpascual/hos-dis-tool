@@ -15,6 +15,7 @@ const LoginContextProvider = (props) => {
   const [users, setUsers] = useState('');
   const [landing, setLanding] = useState(0);
   const [donations, setDonations] = useState('')
+  const [allowed, setAllowed] = useState(false);
 
   const logout = () => {
     setLogin(false);
@@ -25,7 +26,7 @@ const LoginContextProvider = (props) => {
   }
 
   return(
-    <LoginContext.Provider value={{ login, setLogin, user, setUser, username, setUsername, password, setPassword, helperText, setHelperText, logout, page, setPage, locPage, setLocPage, users, setUsers, landing, setLanding, donations, setDonations }}>
+    <LoginContext.Provider value={{ login, setLogin, user, setUser, username, setUsername, password, setPassword, helperText, setHelperText, logout, page, setPage, locPage, setLocPage, users, setUsers, landing, setLanding, donations, setDonations, allowed, setAllowed }}>
       {props.children}
     </LoginContext.Provider>
   );

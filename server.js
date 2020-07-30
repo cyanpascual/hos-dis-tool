@@ -46,6 +46,7 @@ const provincesRouter = require('./routes/provinces');
 const citiesRouter = require('./routes/cities');
 const messagesRouter = require('./routes/outgoingMessage');
 const allocationsRouter = require('./routes/allocation');
+const statusRouter = require('./routes/status')
 
 app.use('/h0zPiTaLs', newhospitalsRouter);
 app.use('/facility', facilityRouter);
@@ -54,6 +55,7 @@ app.use('/hl0gs', hospitallogsRouter);
 app.use('/ann0unc3m3nt', announcementsRouter);
 app.use('/d0nati0n', donationsRouter);
 app.use('/all0cati0n', allocationsRouter);
+app.use('/all0c', statusRouter)
 app.use('/d0ndriv3z', donationdrivesRouter);
 app.use('/uz3rl0gz', userlogsRouter);
 app.use('/send', contactRouter);

@@ -100,7 +100,7 @@ const Donations = (props) => {
   const { classes, ...other } = props;
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
-  const { username, donations } = useContext(LoginContext);
+  const { username, donations, setDonations, user } = useContext(LoginContext);
 
   const [selectedDonation, setSelectedDonation] = useState();
   
@@ -115,6 +115,71 @@ const Donations = (props) => {
     setRowsPerPageD(+event.target.value);
     setDpage(0);
   };
+
+  useEffect(() => {
+    if (selectedDonation){
+      axios.post(`https://trams-up-dge.herokuapp.com/all0cati0n/update/${selectedDonation._id}`, selectedDonation )
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+      setDonations(donations.filter(don => don._id !== selectedDonation._id))
+      setDonations(prevState => [
+        ...prevState,
+        selectedDonation
+      ])
+    }
+  },[selectedDonation])
+
+  const changeToDelivering = () => {
+    setSelectedDonation({
+      ...selectedDonation,
+      properties: {
+        ...selectedDonation.properties,
+        status: "Delivering"
+      }
+    })
+
+    axios({
+      method: "POST", 
+      url:"https://trams-up-dge.herokuapp.com/all0c/send", 
+      data: {
+          name: selectedDonation.properties.supplier,   
+          email: user.properties.Email,  
+          message: `${selectedHospital.properties.cfname} is ready to receive your donation`
+      }
+  }).then((response)=>{
+      if (response.data.msg === 'success'){
+        console.log("Message sent")
+      }else if(response.data.msg === 'fail'){
+        console.log("Message not sent")
+      }
+    })
+  }
+
+  const changeToDelivered = () => {
+    setSelectedDonation({
+      ...selectedDonation,
+      properties: {
+        ...selectedDonation.properties,
+        status: "Delivered"
+      }
+    })
+
+    axios({
+      method: "POST", 
+      url:"https://trams-up-dge.herokuapp.com/all0c/send", 
+      data: {
+          name: selectedDonation.properties.supplier,   
+          email: user.properties.Email,  
+          message: `${selectedHospital.properties.cfname} has received your donation`
+      }
+  }).then((response)=>{
+      if (response.data.msg === 'success'){
+        console.log("Message sent")
+      }else if(response.data.msg === 'fail'){
+        console.log("Message not sent")
+      }
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,11 +201,11 @@ const Donations = (props) => {
                         <Grid item xs={10}>
                           <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.orderdate}</Typography>
                         </Grid>
-                        {/*<Grid item xs={10}>
+                        <Grid item xs={10}>
                           <Typography style={{fontSize:14, color:"black"}} gutterBottom>
                             Status: {donation.properties.status}
                           </Typography>
-                        </Grid>*/}
+                        </Grid>
                       </Grid>
                     </div></Button></TableCell>
                   </TableRow>
@@ -208,7 +273,9 @@ const Donations = (props) => {
               <Typography variant="h4">Status: </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h3">{/*selectedDonation.properties.supply*/}</Typography>
+              <Typography variant="h3">{selectedDonation.properties.status}</Typography>
+              {selectedDonation.properties.status.toLowerCase() === "paid" ? <Button size='small' className={classes.cancelButton} onClick={()=>changeToDelivering()}>Ready to receive</Button> : 
+              selectedDonation.properties.status.toLowerCase() === "delivering" ? <Button size='small' className={classes.cancelButton} onClick={()=>changeToDelivered()}>Donation received</Button> : <div/>}
             </Grid>
           </Grid>
           </div>

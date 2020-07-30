@@ -4,10 +4,12 @@ import axios from 'axios';
 import { createMuiTheme} from '@material-ui/core/styles';
 
 import { FeaturesContext } from '../contexts/FeaturesContext';
+import { LoginContext } from '../contexts/LoginContext';
 import Login from './login';
 import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
+import { useReactPWAInstall } from "react-pwa-install";
 import Bobo from './login/b0b0';
 
 
@@ -155,7 +157,8 @@ function App(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
-
+  const {setAllowed} = useContext(LoginContext);
+  const { supported } = useReactPWAInstall();
 
 
 
@@ -194,6 +197,9 @@ function App(props) {
       setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
+      if (supported){
+        setAllowed(true)
+      }
     };
 
     fetchData();
