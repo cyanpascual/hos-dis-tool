@@ -169,7 +169,7 @@ const Contact = (props) => {
             </Grid>
             <br/>
             <Grid item xs>
-            <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
+            {/* <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
               apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
               spreadsheetId="1OCEuU4CZYlgM6NggOtvpYdpX6qyzVqvrOyZARp7VO2c" afterLoading={() => setSheetLoaded(true)}>
               {sheetLoaded? <Button type="submit" color="inherit" onClick={() => setLoading(true)}>
@@ -178,7 +178,7 @@ const Contact = (props) => {
                 className={classes.loginBtn} disabled="true">
                 <CircularProgress/> Loading...
               </Button>}
-            </ReactGoogleSheets> 
+            </ReactGoogleSheets>  */}
             </Grid>
             <Grid item>
               
@@ -197,5 +197,5 @@ const Contact = (props) => {
   )
 }
 
-export default ReactGoogleSheets.connect(withStyles(styles)(Contact));
+export default (withStyles(styles)(Contact));
 
