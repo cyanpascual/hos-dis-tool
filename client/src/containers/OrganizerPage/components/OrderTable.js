@@ -18,7 +18,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Paper, Box} from '@material-ui/core'
 import { OrganizerContext } from '../../../contexts/OrganizerContext';
-
+import axios from 'axios';
 
 const tableIcons = {
   Add: AddBox,
@@ -71,19 +71,75 @@ const OrderTable = () => {
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
-                setOrdersTableData([...ordersTableData, newData]);
                 
+                
+                var record = {
+                  "properties": {
+                      "supplier": newData.supplier,
+                      "supply": newData.supply,
+                      "amount": newData.amount,
+                      "cost": newData.cost,
+                      "orderdate": newData.orderdate,
+                      "cfname": newData.cfname,
+                      "hfhudcode":'',
+                      "method": newData.method,
+                      "cont_num": newData.cont_num
+                  },
+                  "type": "Allocation",
+              }
+
+                axios.post(`https://trams.com.ph/all0cati0n/add`, record)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  var new_record = {
+                    "supplier": newData.supplier,
+                    "supply": newData.supply,
+                    "amount": newData.amount,
+                    "cost": newData.cost,
+                    "orderdate": newData.orderdate,
+                    "cfname": newData.cfname,
+                    "hfhudcode":res.data,
+                    "method": newData.method,
+                    "cont_num": newData.cont_num,
+                    "status":newData.status
+                  }
+
+                  setOrdersTableData([...ordersTableData, new_record]);
+                })
                 resolve();
               }, 1000)
             }),
           onRowUpdate: (newData, oldData) =>
+          
+
             new Promise((resolve, reject) => {
+              var record = {
+                "properties": {
+                    "supplier": newData.supplier,
+                    "supply": newData.supply,
+                    "amount": newData.amount,
+                    "cost": newData.cost,
+                    "orderdate": newData.orderdate,
+                    "cfname": newData.cfname,
+                    "hfhudcode":'',
+                    "method": newData.method,
+                    "cont_num": newData.cont_num,
+                    "status":newData.status
+                },
+                "type": "Allocation",
+              }
               setTimeout(() => {
                 const dataUpdate = [...ordersTableData];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setOrdersTableData([...dataUpdate]);
-  
+                axios.post(`https://trams.com.ph/all0cati0n/update/${oldData.id}`, record)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  
+                })
                 resolve();
               }, 1000)
             }),
@@ -94,7 +150,11 @@ const OrderTable = () => {
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
                 setOrdersTableData([...dataDelete]);
-                
+                axios.delete(`https://trams.com.ph/all0cati0n/${oldData.id}`)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                })
                 resolve()
               }, 1000)
             }),

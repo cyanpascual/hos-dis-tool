@@ -42,9 +42,6 @@ const tableIcons = {
 
 const Editable = () => {
     const { donationTableData,setDonationTableData,donationTableFields } = useContext(OrganizerContext);
-
-
-  
     var total_donations = donationTableData.reduce((a, {amount}) => a + amount, 0);
   
     return (

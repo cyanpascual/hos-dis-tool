@@ -8,6 +8,7 @@ import Login from './login';
 import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
+import { MapsContext } from '../contexts/MapsContext';
 
 
 
@@ -155,7 +156,9 @@ function App(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
-
+  const {regions, setRegions,
+    provinces, setProvinces,
+    cities, setCities}  = useContext(MapsContext)
 
 
 
@@ -165,7 +168,6 @@ function App(props) {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-
       var temp = Object.keys(res.data[0].properties.supply_need)
       //this is because supplyList won't update before this function is over 
       setSupplyList(temp) 
@@ -188,6 +190,7 @@ function App(props) {
           }
       });
 
+      
        
       });
       setHospitals(res.data.sort(compareValues('cfname')));

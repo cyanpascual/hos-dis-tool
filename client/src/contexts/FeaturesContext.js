@@ -177,6 +177,7 @@ const FeaturesContextProvider = (props) => {
   const [provincesList, setProvincesList] = useState(null);
   const [citiesList, setCitiesList] = useState(null);
   const [donationDialogOpen,setDonationDialogOpen] = useState(false);
+  const [callToActionDialogOpen,setCallToActionDialogOpen] = useState(true);
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -264,7 +265,8 @@ const FeaturesContextProvider = (props) => {
       citiesList, setCitiesList,
       hospitalToDonateTo,setHospitalToDonateTo,
       dialogCount, setDialogCount,
-      setSearchTerm,
+      callToActionDialogOpen,setCallToActionDialogOpen,
+      setSearchTerm,//DEFINED CALL TO ACTION DIALOGUE BOOLEAN. NEXT STEP IS TO SET UP THE ACTUAL COMPONENT
       supplyLabels,
       supplyIconGetter,
       filterHospitalBySupply}}>

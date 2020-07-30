@@ -73,8 +73,7 @@ function Header(props) {
       
       prioritizedHospitals = Array.from([...hospitalList].sort(compareValues("priorityScore",'Descending')),x=>x)
   }
-  console.log('************')
-  console.log(prioritizedHospitals)
+
 
   
   return (

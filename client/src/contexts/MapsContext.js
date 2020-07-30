@@ -21,6 +21,11 @@ const MapsContextProvider = (props) => {
     const [clickedFacility, setClickedFacility] = useState(null)
 
     const [mapReference, setMapReference] = useState(useRef(null));
+
+    const [regions, setRegions] = useState(null);
+    const [provinces, setProvinces] = useState(null);
+    const [cities, setCities] = useState(null);
+    
     
 
 
@@ -42,7 +47,14 @@ const MapsContextProvider = (props) => {
   };
 
   return (
-    <MapsContext.Provider value={{ closePopups, mapReference, setMapReference ,defaultMapSettings, clickedFacility, setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, hoveredHospital, setHoveredHospital, goToSelected}}>
+    <MapsContext.Provider value={{ 
+      closePopups, mapReference, setMapReference ,defaultMapSettings, clickedFacility, 
+      setClickedFacility ,viewport, setViewport, selectedHospital,setSelectedHospital, 
+      hoveredHospital, setHoveredHospital, goToSelected, 
+      regions, setRegions,
+      provinces, setProvinces,
+      cities, setCities
+      }}>
       {props.children}
     </MapsContext.Provider>
   );

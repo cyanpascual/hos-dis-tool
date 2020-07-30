@@ -77,8 +77,7 @@ const HospitalDeck = React.memo(function SocialCard(hospitals, page) {
   const styles = useStyles();
   const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,supplyLabels,supplyIconGetter} = useContext(FeaturesContext);
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-  console.log('Look here')
-  console.log(hospitalList)
+
   return (
     <>
       {hospitalList ? (

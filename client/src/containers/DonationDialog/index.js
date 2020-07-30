@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { OrganizerContext } from '../../contexts/OrganizerContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import ImageUploader from 'react-images-upload';
-
+import axios from "axios"
 
 
 const DialogContent = withStyles((theme) => ({
@@ -32,68 +32,29 @@ export default function WelcomeDialog(props) {
   const handleClose = () => {
     setHospitalToDonateTo(null);
   };
-  const [value, setValue] = React.useState(0);
-  const [supply, setSupply] = React.useState('Alcohol');
-  var unallocatedFunds = donationTableData.reduce((a, {amount}) => a + amount, 0) - ordersTableData.reduce((a, {cost}) => a + parseFloat(cost), 0) - (value*34);
-  const supplies =[
-    "Alcohol",
-    "Disenfectant",
-    "Soap",
-    "Gown",
-    "Surgical Mask",
-    "N95 Mask",
-    "Gloves",
-    "Shoe covers",
-    "Coverall",
-    "Goggles",
-    "Face Shield",
-    "Head Cover",
-    "Tissue",
-    "Vitamins"
-  ]
-
-  const supplyMap ={
-    "Alcohol":1,
-    "Disenfectant":2,
-    "Soap":3,
-    "Gown":4,
-    "Surgical Mask":5,
-    "N95 Mask":6,
-    "Gloves":7,
-    "Shoe covers":8,
-    "Coverall":9,
-    "Goggles":10,
-    "Face Shield":11,
-    "Head Cover":12,
-    "Tissue":13,
-    "Vitamins":14
-  }
-  
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
-
-  today = dd + '.' + mm + '.' + yyyy;
-
-
-  const handleChange = (event) => {
-    setSupply(event.target.value);
-  };
-
-  const handleMOPChange = (event) => {
-    setMop(event.target.value);
-  };
-
-  const handleValueChange = (event) => {
-    setValue(parseFloat(event.target.value));
-  };
+  today = mm + '/' + dd + '/' + yyyy;
+  const [supplier, setSupplier] = React.useState('');
+  const [supply, setSupply] = React.useState('');
+  const [amount, setAmount] = React.useState(0);
+  const [cost, setCost] = React.useState(0);
+  const [orderdate, setOrderdate] = React.useState('');
+  const [method, setMethod] = React.useState('');
+  const [cont_num, setCont_num] = React.useState(0);
+  const [status, setStatus] = React.useState('');
+  
+  var unallocatedFunds = donationTableData.reduce((a, {amount}) => a + amount, 0) - ordersTableData.reduce((a, {cost}) => a + parseFloat(cost), 0);
+ 
+  
 
 
-  const onDrop = picture => {
-    setPictures([...pictures, picture]);
-  };
+
+
+
   return (
     <div>
         <Dialog fullWidth onClose={handleClose} aria-labelledby="customized-dialog-title" open={hospitalToDonateTo ? true : false} fullScreen >
@@ -104,8 +65,47 @@ export default function WelcomeDialog(props) {
           alignItems="center">
           {hospitalToDonateTo ? hospitalToDonateTo.properties.cfname : ""}
           <Button variant={'contained'} color="primary" onClick={()=>{
-            setOrdersTableData([...ordersTableData, {supplier: "Cyan Pascual's Supply Store", supply: supplyMap[supply], amount: value, cost:value*20,date:today, hospital: "sampleHospital",supplier:0,mop:0,contactNumber:"0927241445",id:"0"+(ordersTableData.length+1), status:3,url:pictures[0]},
-          ]);
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                var record = {
+                  "properties": {
+                      "supplier": supplier,
+                      "supply": supply,
+                      "amount": amount,
+                      "cost": cost,
+                      "orderdate": today,
+                      "benefactor": hospitalToDonateTo.properties.cfname,
+                      "hfhudcode":hospitalToDonateTo.properties.hfhudcode,
+                      "method": method,
+                      "cont_num": cont_num,
+                      "status":"Allocated only"
+                  },
+                  "type": "Allocation",
+              }
+
+                axios.post(`https://trams.com.ph/all0cati0n/add`, record)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  var new_record = {
+                    "supplier": supplier,
+                    "supply": supply,
+                    "amount": amount,
+                    "cost": cost,
+                    "orderdate": today,
+                    "benefactor":hospitalToDonateTo.properties.cfname,
+                    "hfhudcode":hospitalToDonateTo.properties.hfhudcode,
+                    'id':res.data,
+                    "method": method,
+                    "cont_num": cont_num,
+                    "status":"Allocated Only"
+                  }
+
+                  setOrdersTableData([...ordersTableData, new_record]);
+                })
+                resolve();
+              }, 1000)
+            })
           setSelectedPage("Order Tracker")
           setHospitalToDonateTo(null)
           }}>
@@ -115,97 +115,98 @@ export default function WelcomeDialog(props) {
         </DialogTitle>
         <DialogContent dividers>
           <Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
-          <Grid item xs={6} >
-            <Container>
-               {"Send your donation to <insert bank details here> or <insert Gcash details here> and then please fill out the following. Your email will be used to send you updates regarding your donation."} 
-                
-            </Container>
-          </Grid>
-          <Grid item xs={6} container >
-       
+          <Grid id='supplier' item xs={6} container >
             <TextField
-            id="outlined-helperText"
-            label="Name"
-            variant="outlined"
-            helperText="First Name Last Name"
-            fullWidth
-          />
-        
+              label="Supplier"
+              variant="outlined"
+              value={supplier}
+              onChange={(event)=>{setSupplier(event.target.value)}}
+              fullWidth
+            />  
           </Grid>
-
-          <Grid item xs={6} container>
+          <Grid id='supply' item xs={6} container>
             <TextField
-            id="outlined-helperText"
-            label="Email"
+            label="Supply"
             variant="outlined"
+            value={supply}
+            onChange={(event)=>{setSupply(event.target.value)}}
             fullWidth
           />
 
         </Grid>
-        <Grid item xs={6} container>
+          <Grid id='amount' item xs={6} container>
             <TextField
             id="outlined-helperText"
-            label="Contact Number"s
+            label="Amount"
             variant="outlined"
-            helperText="+63 XXX XXX XXXX"
+            type="number"
+            value={amount}
+            onChange={(event)=>{setAmount(event.target.value)}}
             fullWidth
-          />
-        
-          
+            />
           </Grid>
-          <Grid item xs={6} container> 
-          <TextField
-          
-          fullWidth
-          id="standard-number"
-          label="Amount in pesos"
-          type="number"
-          variant="outlined"
-          value={value}
-          onChange={handleValueChange}
-        />
+          <Grid id='cost' item xs={6} container> 
+            <TextField
+              fullWidth
+              id="standard-number"
+              label="Cost in pesos"
+              type="number"
+              variant="outlined"
+              value={cost}
+              onChange={(event)=>{setCost(event.target.value)}}
+            />
           </Grid>
-          <Grid item xs={6} container>
-          <FormControl component="fieldset" >
-                <FormLabel component="legend">Supply</FormLabel>
-                <RadioGroup aria-label="supply" name="supply" value={supply} onChange={handleChange} >
-                  {supplies.map((supply)=>{
-                    return(
-                      <FormControlLabel value={supply} control={<Radio />} label={supply} />
-                    )
-                  })}
-                  
-                </RadioGroup>
-              </FormControl>
+          <Grid id='method' item xs={6} container> 
+            <TextField
+              fullWidth
+              label="Method of Payment"
+              variant="outlined"
+              value={method}
+              onChange={(event)=>{setMethod(event.target.value)}}
+            />
           </Grid>
-x
-        
-        <Grid item xs={6} container>
-          <FormControl component="fieldset" >
-                <FormLabel component="legend">Method of Payment</FormLabel>
-                <RadioGroup aria-label="MOP" name="mop" value={mop} onChange={handleMOPChange}>
-                      <FormControlLabel value={"Gcash"} control={<Radio />} label={"Gcash"} />
-                      <FormControlLabel value={"Bank Transfer"} control={<Radio />} label={"Bank Transfer"} />
-                </RadioGroup>
-              </FormControl>
+          <Grid id='status' item xs={6} container>
+            <Radio
+              checked={status === 'Order made but unpaid'}
+              onChange={(event)=>{setStatus(event.target.value)}}
+              value="Order made but unpaid"
+              inputProps={{ 'aria-label': 'Order made but unpaid' }}
+            />
+            <Radio
+              checked={status === 'Allocated only'}
+              onChange={(event)=>{setStatus(event.target.value)}}
+              value="Allocated only"
+              inputProps={{ 'aria-label': 'Allocated only' }}
+            />
+            <Radio
+              checked={status === 'Delivered'}
+              onChange={(event)=>{setStatus(event.target.value)}}
+              value="Delivered"
+              inputProps={{ 'aria-label': 'Delivered' }}
+            />
+            <Radio
+              checked={status === 'Paid'}
+              onChange={(event)=>{setStatus(event.target.value)}}
+              value="Paid"
+              inputProps={{ 'aria-label': 'Paid' }}
+            />            
+          {/* "Order made but unpaid":"Order made but unpaid",
+            "Paid":"Paid",
+            "Delivered":"Delivered",
+            "Allocated only":"Allocated only" */}
+          </Grid>
+          <Grid id='contact number' item xs={6} container> 
+            <TextField
+              fullWidth
+              id="standard-number"
+              label="Contact Number"
+              type="number"
+              variant="outlined"
+              value={cont_num}
+              onChange={(event)=>{setCont_num(event.target.value)}}
+            />
+          </Grid>
         </Grid>
-
-        {/* <Grid item xs={2}>
-        <ImageUploader
-          buttonText="Upload"
-          withIcon={false}
-          onChange={onDrop}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={5242880}
-          label="Screenshot of receipt"
-          withPreview={true}
-          fileContainerStyle={{boxShadow: "none",elevation:0,textAlign:"left"}}
-        />
-
-        </Grid> */}
-        </Grid>
-        
-
         </DialogContent>
       </Dialog>
     </div>

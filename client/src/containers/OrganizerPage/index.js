@@ -51,6 +51,9 @@ import HospitalDeck from '../main/components/HospitalDeck'
 //styled components stuff    
 import styled from 'styled-components';
 
+//for backend calls
+import axios from 'axios';
+
 //mui-treasury stuff
 import Layout, 
       {
@@ -165,7 +168,7 @@ const Main = () => {
   const styles = useStyles();
   const {hospitalScrollbarReference,  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity,hospitalToDonateTo,setHospitalToDonateTo} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
-  const { selectedPage, setSelectedPage } = useContext(OrganizerContext);
+  const { selectedPage, setSelectedPage,setOrdersTableData,setDonationTableData } = useContext(OrganizerContext);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
@@ -173,8 +176,52 @@ const Main = () => {
   setDesktop(isDesktop)
   useEffect(()=>{
     setSelectedPage("Hospital Map")
+
+    const fetchDonationData = async () => {
+      const res_donation_data = await axios('https://trams-up-dge.herokuapp.com/d0nati0n/')
+      const res_allocation_data = await axios('https://trams-up-dge.herokuapp.com/all0cati0n/')  
+      setOrdersTableData(res_allocation_data.data.map((record)=>{
+        if(record){
+          return({
+            supplier:record.properties.supplier,
+            supply:record.properties.supply,
+            amount:record.properties.amount,
+            cost:record.properties.cost,
+            orderdate:record.properties.orderdate,
+            benefactor:record.properties.benefactor,
+            method:record.properties.method,
+            cont_num:record.properties.cont_num,
+            id:record._id,
+            status:record.properties.status,
+          })
+        }
+      }))
+      setDonationTableData(res_donation_data.data.map((record)=>{
+        if(record){
+          return({
+            "donor_name": record.properties.donor_name,
+            "affiliation": record.properties.affiliation,
+            "amount": record.properties.amount,
+            "donation_supply": record.properties.donation_supply,
+            "cfname": record.properties.cfname,
+            "id": record._id,
+            "reportdate": record.properties.reportdate,
+            "bank": record.properties.bank,
+//            "cont_num": record.properties.cont_num,
+            "status": record.properties.status,
+            "receipt": record.properties.receipt
+          })
+        }
+      }))
+    }
+    
+    fetchDonationData()
   },[])
-  
+
+
+    
+
+
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (

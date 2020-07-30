@@ -113,7 +113,6 @@ const HospitalCard = ({
           <Grid item>
             <Button size="small" color={'primary'}
                 onClick={(e)=>{
-                  console.log('look here!')
                   hospitalScrollbarReference.current.scrollTop=0;
                   setSelectedHospital(hospital);
                   goToSelected(hospital);

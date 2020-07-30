@@ -99,7 +99,6 @@ const HospitalDeck = React.memo(function SocialCard(hospitals) {
             }
             
           })       
-        
         .map((hospital)=>{
           return(
           <Grid item xs={12} md={12} lg={12}>
