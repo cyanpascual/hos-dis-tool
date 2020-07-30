@@ -80,8 +80,8 @@ const OrderTable = () => {
                       "amount": newData.amount,
                       "cost": newData.cost,
                       "orderdate": newData.orderdate,
-                      "cfname": newData.cfname,
-                      "hfhudcode":'',
+                      "cfname": newData.benefactor,
+                      "hfhudcode":'N/A',
                       "method": newData.method,
                       "cont_num": newData.cont_num
                   },
@@ -99,7 +99,7 @@ const OrderTable = () => {
                     "cost": newData.cost,
                     "orderdate": newData.orderdate,
                     "cfname": newData.cfname,
-                    "hfhudcode":res.data,
+                    "hfhudcode":"N/A",
                     "method": newData.method,
                     "cont_num": newData.cont_num,
                     "status":newData.status
@@ -121,7 +121,7 @@ const OrderTable = () => {
                     "amount": newData.amount,
                     "cost": newData.cost,
                     "orderdate": newData.orderdate,
-                    "cfname": newData.cfname,
+                    "benefactor": newData.benefactor  ,
                     "hfhudcode":'',
                     "method": newData.method,
                     "cont_num": newData.cont_num,

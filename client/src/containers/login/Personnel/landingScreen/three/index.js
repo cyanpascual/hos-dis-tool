@@ -100,14 +100,12 @@ const Donations = (props) => {
   const { classes, ...other } = props;
   const { selectedHospital, setSelectedHospital } = useContext(MapsContext)
   const { hospitalList, setHospitalList, hospitals, setHospitals } = useContext(FeaturesContext)
-  const { username, donations } = useContext(LoginContext);
+  const { username, donations, setDonations, user } = useContext(LoginContext);
 
   const [selectedDonation, setSelectedDonation] = useState();
   
-  const [isEditMode, setIsEditMode] = useState(false);
   const [dpage, setDpage] = useState(0);
   const [rowsPerPageD, setRowsPerPageD] = useState(5);
-  const [supplies, setSupplies] = useState()
 
   const handleChangePageD = (event, newPage) => {
     setDpage(newPage);
@@ -118,12 +116,70 @@ const Donations = (props) => {
     setDpage(0);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (selectedDonation){
-      setSupplies(Object.keys(selectedDonation.properties.donation_supply))
+      axios.post(`https://trams-up-dge.herokuapp.com/all0cati0n/update/${selectedDonation._id}`, selectedDonation )
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+      setDonations(donations.filter(don => don._id !== selectedDonation._id))
+      setDonations(prevState => [
+        ...prevState,
+        selectedDonation
+      ])
     }
+  },[selectedDonation])
 
-  }, [selectedDonation])
+  const changeToDelivering = () => {
+    setSelectedDonation({
+      ...selectedDonation,
+      properties: {
+        ...selectedDonation.properties,
+        status: "Delivering"
+      }
+    })
+
+    axios({
+      method: "POST", 
+      url:"https://trams-up-dge.herokuapp.com/all0c/send", 
+      data: {
+          name: selectedDonation.properties.supplier,   
+          email: user.properties.Email,  
+          message: `${selectedHospital.properties.cfname} is ready to receive your donation`
+      }
+  }).then((response)=>{
+      if (response.data.msg === 'success'){
+        console.log("Message sent")
+      }else if(response.data.msg === 'fail'){
+        console.log("Message not sent")
+      }
+    })
+  }
+
+  const changeToDelivered = () => {
+    setSelectedDonation({
+      ...selectedDonation,
+      properties: {
+        ...selectedDonation.properties,
+        status: "Delivered"
+      }
+    })
+
+    axios({
+      method: "POST", 
+      url:"https://trams-up-dge.herokuapp.com/all0c/send", 
+      data: {
+          name: selectedDonation.properties.supplier,   
+          email: user.properties.Email,  
+          message: `${selectedHospital.properties.cfname} has received your donation`
+      }
+  }).then((response)=>{
+      if (response.data.msg === 'success'){
+        console.log("Message sent")
+      }else if(response.data.msg === 'fail'){
+        console.log("Message not sent")
+      }
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -140,10 +196,10 @@ const Donations = (props) => {
                       <div style={{borderLeft: `3px solid maroon`, width:"100%", padding:"5px", textAlign:'left'}}>
                       <Grid container>
                         <Grid item xs={12}>
-                          <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.donor}</Typography>
+                          <Typography style={{fontSize:16, fontWeight:500}} gutterBottom>From: {donation.properties.supplier}</Typography>
                         </Grid>
                         <Grid item xs={10}>
-                          <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.reportdate.slice(-22)}</Typography>
+                          <Typography style={{fontSize:11, color:"gray"}} gutterBottom>{donation.properties.orderdate}</Typography>
                         </Grid>
                         <Grid item xs={10}>
                           <Typography style={{fontSize:14, color:"black"}} gutterBottom>
@@ -166,43 +222,62 @@ const Donations = (props) => {
         <Grid container direction='column' item xs={7}>
           {selectedDonation ?
           <div style={{height: '76vh', overflow: 'auto'}}>
+          <br/><br/><br/>
           <Grid item container direction='row'>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Typography variant="h4">From:</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h3">{selectedDonation.properties.donor}</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h4">Status: </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography>{selectedDonation.properties.status}</Typography>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.supplier}</Typography>
             </Grid>
           </Grid>
-          {supplies ? supplies.map((supply)=>{
-            if(supply === "other"){
-              return(
-                <TableRow key={supply} className="supplies">
-                  <TableCell>
-                    <Typography align="center" noWrap style={{fontSize:12, fontWeight:500}}>Other Needs</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedDonation.properties.donation_supply[supply]}</Typography>
-                  </TableCell>
-                </TableRow>
-                ) 
-              } return(
-                <TableRow key={supply} className="supplies">
-                  <TableCell>
-                    <Typography align="center" style={{fontSize:12, fontWeight:500}}>{supplyNames.features[supply][0]}</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography align="center" style={{fontSize:12, fontWeight:350}}>{selectedDonation.properties.donation_supply[supply]} {supplyNames.features[supply][1]}</Typography>
-                  </TableCell>
-                </TableRow>
-              )  
-            }):<div/>}
+          <br/>
+          <Grid item container direction='row'>
+            <Grid item xs={6}>
+              <Typography variant="h4">Supply: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.supply}</Typography>
+            </Grid>
+          </Grid>
+          <br/>
+          <Grid item container direction='row'>
+            <Grid item xs={6}>
+              <Typography variant="h4">Amount:</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.amount}</Typography>
+            </Grid>
+          </Grid>
+          <br/>
+          <Grid item container direction='row'>
+            <Grid item xs={6}>
+              <Typography variant="h4">Cost: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.cost}</Typography>
+            </Grid>
+          </Grid>
+          <br/>
+          <Grid item container direction='row'>
+            <Grid item xs={6}>
+              <Typography variant="h4">Report date: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.orderdate}</Typography>
+            </Grid>
+          </Grid>
+          <br/>
+          <Grid item container direction='row'>
+            <Grid item xs={6}>
+              <Typography variant="h4">Status: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h3">{selectedDonation.properties.status}</Typography>
+              {selectedDonation.properties.status.toLowerCase() === "paid" ? <Button size='small' className={classes.cancelButton} onClick={()=>changeToDelivering()}>Ready to receive</Button> : 
+              selectedDonation.properties.status.toLowerCase() === "delivering" ? <Button size='small' className={classes.cancelButton} onClick={()=>changeToDelivered()}>Donation received</Button> : <div/>}
+            </Grid>
+          </Grid>
           </div>
           :<Typography variant='h4' align='center'>Select donation</Typography>}
         </Grid>

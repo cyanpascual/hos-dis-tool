@@ -2,19 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MapsContext } from '../../contexts/MapsContext';
 import { LoginContext } from '../../contexts/LoginContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
-import ReactGoogleSheets from 'react-google-sheets';
+//import ReactGoogleSheets from 'react-google-sheets';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Hidden, CardActions, Button, CardHeader, Link, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HospitalList from './userValidator';
 import Personnel from './Personnel';
-import Main from '../OrganizerPage'
+import OrganizerPage from '../OrganizerPage'
 import PersonnelMobile from './PersonnelMobile';
 import axios from 'axios';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import * as serviceWorker from '../../serviceWorker';
+import { useReactPWAInstall } from "react-pwa-install";
+import myLogo from '../../assets/logos/logo192.png'
 
 import PropTypes from "prop-types";
 import { DriveEtaRounded } from '@material-ui/icons';
@@ -34,6 +36,12 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(2),
       flexGrow: 1,
       background: '#800000',
+      color: '#fff'
+    },
+    but: {
+      marginTop: theme.spacing(2),
+      flexGrow: 1,
+      background: '#993232',
       color: '#fff'
     },
     header: {
@@ -105,8 +113,9 @@ theme.typography.h2 = {
 function Login(props) {
   const { updateCell, getSheetsData } = props;
   const { hospitalList, setHospitalList, setHospitals } = useContext(FeaturesContext)
+  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
   const { setSelectedHospital } = useContext(MapsContext);
-  const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText} = useContext(LoginContext);
+  const { users, setUsers, login, setLogin, setUser, username, setUsername, password, setPassword, helperText, setHelperText, allowed} = useContext(LoginContext);
 
   const classes = useStyles();
 
@@ -115,7 +124,7 @@ function Login(props) {
   const [accountType, setAccountType] = useState('');
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [sheetLoaded, setSheetLoaded] = useState(false);
+  //const [sheetLoaded, setSheetLoaded] = useState(false);
 
   useEffect(() => {
     if (username.trim() && password.trim()) {
@@ -130,7 +139,6 @@ function Login(props) {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res2 = await axios('https://trams-up-dge.herokuapp.com/hospitals', );
       const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
 
       setUsers(res.data);
@@ -142,6 +150,24 @@ function Login(props) {
 
     fetchData();
   }, [])
+
+  const handleClick = () => {
+    pwaInstall({
+      title: "Install TrAMS+ login",
+      logo: myLogo,
+      features: (
+        <ul>
+          <li>This is a beta test</li>
+          <li>Please respond to the feedback form if it works or not</li>
+          <li>This feature should install the app on your device</li>
+          <li>Should work offline</li>
+        </ul>
+      ),
+      description: "Add TrAMS+ login to your device for easier access.",
+    })
+      .then(() => alert("App installed successfully"))
+      .catch(() => alert("User opted out from installing"));
+  };
 
   const handleLogin = (e) => {
     //e.preventDefault();
@@ -166,7 +192,7 @@ function Login(props) {
         setLogin(true);
         setError(false);
         setAccountType(ob[0].type)
-        let dataHospi = parseInt(getSheetsData('Sample db sheets')[0].data[0][1])
+        /*let dataHospi = parseInt(getSheetsData('Sample db sheets')[0].data[0][1])
         let dataVali = parseInt(getSheetsData('Sample db sheets')[0].data[0][0])
         if (ob[0].type === 'Validator'){
           updateCell('Sheet1', 'A', '2', dataVali + 1, null, (error) => {
@@ -177,7 +203,7 @@ function Login(props) {
           updateCell('Sheet1', 'B', '2', dataHospi + 1, null, (error) => {
             console.log('error', error)
           })
-        }
+        }*/
         setHelperText('Login Successfully');
 
         const logindetails = {
@@ -208,6 +234,9 @@ function Login(props) {
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 || e.which === 13) {
       isButtonDisabled || handleLogin();
+      /*if (sheetLoaded){
+        isButtonDisabled || handleLogin();
+      }*/
     }
   };
 
@@ -230,7 +259,7 @@ function Login(props) {
       )
     } else{
       return(
-        <Main/>
+        <OrganizerPage/>
       )
     }
   } else if(!loaded){
@@ -252,7 +281,7 @@ function Login(props) {
     <ThemeProvider theme={theme}>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="TrAMS Update Login" />
+          <CardHeader className={classes.header} title="TrAMS Login" />
           <CardContent>
             <div>
               <TextField
@@ -311,7 +340,19 @@ function Login(props) {
             </div>
           </CardContent>
           <CardActions>
-            <ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
+            <Button variant="contained" size="large" className={classes.loginBtn}
+                onClick={(e)=>handleLogin(e)} disabled={isButtonDisabled}>
+                Login
+            </Button>
+            {allowed && !isInstalled() && (
+              <div>
+                <Button variant="contained" size="large" className={classes.but}
+                  onClick={(e)=>handleClick(e)}>
+                  Install app on your device</Button>
+              </div>
+            )}
+
+            {/*<ReactGoogleSheets clientId="462837753842-3iur2of57stvapg6oo4gll2gr8999gbe.apps.googleusercontent.com" 
               apiKey="AIzaSyAAQsMS44Idq1_XT4Xlh4PQbEweMso-xX8"
               spreadsheetId="1xked3wuj7t66XftXn_70j2H9tLkxAxosv0d9COflB2k" afterLoading={() => setSheetLoaded(true)}>
               {sheetLoaded? <Button variant="contained" size="large" className={classes.loginBtn}
@@ -321,7 +362,7 @@ function Login(props) {
                 className={classes.loginBtn} disabled="true">
                 <CircularProgress/> Loading...
               </Button>}
-            </ReactGoogleSheets>
+            </ReactGoogleSheets>*/}
           </CardActions>
         </Card>
       </form>
@@ -330,6 +371,7 @@ function Login(props) {
 }
 
 
-export default ReactGoogleSheets.connect(Login);
+//export default ReactGoogleSheets.connect(Login);
+export default Login;
 serviceWorker.register();
 

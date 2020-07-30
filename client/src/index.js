@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GoogleSheetsProvider from 'react-db-google-sheets';
+//import GoogleSheetsProvider from 'react-db-google-sheets';
 import './assets/index.css'
 import App from './containers'
 import * as serviceWorker from './serviceWorker';
@@ -8,20 +8,21 @@ import FeaturesContextProvider from './contexts/FeaturesContext';
 import MapsContextProvider from './contexts/MapsContext';
 import LoginContextProvider from './contexts/LoginContext';
 import OrganizerContextProvider from './contexts/OrganizerContext';
+import ReactPWAInstallProvider from "react-pwa-install";
 
 ReactDOM.render(
-  <React.StrictMode>  
-    <GoogleSheetsProvider>
-      <MapsContextProvider>
-        <FeaturesContextProvider> 
-          <LoginContextProvider>
-            <OrganizerContextProvider>
-             <App />
-            </OrganizerContextProvider>
-          </LoginContextProvider>
-        </FeaturesContextProvider>
-      </MapsContextProvider>
-    </GoogleSheetsProvider>
+  <React.StrictMode>
+    <ReactPWAInstallProvider enableLogging>
+    <MapsContextProvider>
+      <FeaturesContextProvider> 
+        <LoginContextProvider>
+          <OrganizerContextProvider>
+           <App />
+          </OrganizerContextProvider>
+        </LoginContextProvider>
+      </FeaturesContextProvider>
+    </MapsContextProvider>
+    </ReactPWAInstallProvider>  
   </React.StrictMode>,
   document.getElementById('root')
 );

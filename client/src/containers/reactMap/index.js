@@ -106,7 +106,7 @@ export default function App() {
     
 
     
-    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}):[]
+    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]
     const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
     const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
     const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]

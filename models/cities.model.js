@@ -4,15 +4,17 @@ const Schema = mongoose.Schema;
 
 const citiesSchema = new Schema({
         "type":{"type":"String"},
+        "properties":{
+            "ID_1": {"type":"number"},
+            "ID_2": {"type":"number"},
+            "PROVINCE": {"type":"String"},
+            "REGION": {"type":"String"},
+            "CITY": {"type":"String"},
+            "HOSPCOUNT3": {"type":"number"}            
+        },
         "geometry":{
             "type":{"type":"String"},
             "coordinates":{"type":"array"},
-        },
-        "properties":{
-            "HospCount3": {"type":"number"},
-            "City": {"type":"String"},
-            "Province": {"type":"String"},
-            "Region": {"type":"String"}
         }
     });
 

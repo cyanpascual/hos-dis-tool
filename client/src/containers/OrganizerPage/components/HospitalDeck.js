@@ -100,13 +100,14 @@ const HospitalDeck = React.memo(function SocialCard(hospitals) {
             
           })       
         .map((hospital)=>{
-          return(
+          if (hospital.properties.supply_status[filterSetting]){
+          return( 
           <Grid item xs={12} md={12} lg={12}>
             <HospitalCard hospital={hospital} supply={filterSetting} label={supplyLabels[filterSetting]} image={supplyIconGetter(filterSetting,hospital.properties.supply_status[filterSetting])}/>
           </Grid>
-          )
+          )}
         })}
-      </Grid>
+      </Grid> 
       ):(<Container>Loading</Container>)}
     </>
   );

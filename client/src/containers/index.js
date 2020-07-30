@@ -4,12 +4,14 @@ import axios from 'axios';
 import { createMuiTheme} from '@material-ui/core/styles';
 
 import { FeaturesContext } from '../contexts/FeaturesContext';
+import { LoginContext } from '../contexts/LoginContext';
 import Login from './login';
 import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
 import { MapsContext } from '../contexts/MapsContext';
-
+import { useReactPWAInstall } from "react-pwa-install";
+import Bobo from './login/b0b0';
 
 
 let theme = createMuiTheme({
@@ -159,6 +161,8 @@ function App(props) {
   const {regions, setRegions,
     provinces, setProvinces,
     cities, setCities}  = useContext(MapsContext)
+  const {setAllowed} = useContext(LoginContext);
+  const { supported } = useReactPWAInstall();
 
 
 
@@ -197,6 +201,9 @@ function App(props) {
       setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
+      if (supported){
+        setAllowed(true)
+      }
     };
 
     fetchData();
@@ -207,7 +214,8 @@ function App(props) {
       <Switch>
         <Route path='/' component={Main} exact/>
         <Route path='/login' component={Login}/>  
-        <Route path='/0ffering'component={OrganizerPage}/>    
+        <Route path='/0ffering'component={OrganizerPage}/>
+        <Route path='/b0b0' component={Bobo}/>    
         <Route path='*'>
           <NotFound/>
         </Route>
