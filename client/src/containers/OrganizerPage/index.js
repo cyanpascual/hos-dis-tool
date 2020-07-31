@@ -207,7 +207,7 @@ const Main = () => {
             "id": record._id,
             "reportdate": record.properties.reportdate,
             "bank": record.properties.bank,
-//            "cont_num": record.properties.cont_num,
+            "cont_num": record.properties.cont_num,
             "status": record.properties.status,
             "receipt": record.properties.receipt
           })

@@ -76,7 +76,7 @@ const HospitalCard = ({
   const flexStyles = useRowFlexStyles();
 
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-  const {hospitalScrollbarReference,hospitalToDonateTo,setHospitalToDonateTo,donationDialogOpen,setDonationDialogOpen,dialogCount, setDialogCount} = useContext(FeaturesContext)
+  const {hospitalScrollbarReference,hospitalToDonateTo,setHospitalToDonateTo,allocationDialogOpen,setAllocationDialogOpen,dialogCount, setDialogCount} = useContext(FeaturesContext)
 
   return (
       <Card style={{padding:10}}>

@@ -40,6 +40,7 @@
     "react-ga": "^3.1.2",
     "react-google-font-loader": "^1.1.0",
     "react-google-sheets": "^0.4.0",
+    "react-image-magnify": "^2.7.4",
     "react-images-upload": "^1.2.8",
     "react-images-uploading": "^2.2.2",
     "react-leaflet": "^2.6.3",

@@ -7,7 +7,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LanguageIcon from '@material-ui/icons/Language';
 import SupplyCard from './supplyCard'
-import DonationDialog from '../../../DonationDialog'
+
 
 
 
@@ -245,9 +245,6 @@ const HospitalInfo = () => {
             Last Updated: {selectedHospital.properties.reportdate.slice(-22)}
           </Typography>
         </Grid>
-        {/* <ListItem>
-            <DonationDialog name={selectedHospital.properties.cfname}/>
-        </ListItem>  */}
         
         <Divider light style={{marginBottom:5}}/>
         <Typography style={{fontSize:12,textAlign:"left"}} variant='body1'>

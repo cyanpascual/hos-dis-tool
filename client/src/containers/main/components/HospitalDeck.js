@@ -11,7 +11,7 @@ import { useDynamicAvatarStyles } from '@mui-treasury/styles/avatar/dynamic';
 import HospitalCard from './HospitalCard';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
-import DonationDialog from '../../DonationDialog'
+import AllocationDialog from '../../AllocationDialog'
 
 const usePersonStyles = makeStyles(() => ({
   text: {
@@ -82,7 +82,7 @@ const HospitalDeck = React.memo(function SocialCard(hospitals, page) {
     <>
       {hospitalList ? (
         <Grid container spacing={2} >
-          <DonationDialog/> 
+          <AllocationDialog/> 
         {hospitals['hospitals']
           .filter((hospital)=>{
             if(justTestCenters){

@@ -25,7 +25,7 @@ export default function WelcomeDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mop, setMop] = React.useState("Gcash");
   const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage,pictures,setPictures } = useContext(OrganizerContext);
-  const {setHospitalToDonateTo,hospitalToDonateTo,donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
+  const {setHospitalToDonateTo,hospitalToDonateTo,allocationDialogOpen,setAllocationDialogOpen} = useContext(FeaturesContext);
   const handleClickOpen = () => {
     setHospitalToDonateTo(true);
   };
@@ -109,7 +109,7 @@ export default function WelcomeDialog(props) {
           setSelectedPage("Order Tracker")
           setHospitalToDonateTo(null)
           }}>
-            Donate
+            Allocate to hospital
           </Button>
           </Grid>
         </DialogTitle>
@@ -166,34 +166,16 @@ export default function WelcomeDialog(props) {
             />
           </Grid>
           <Grid id='status' item xs={6} container>
-            <Radio
-              checked={status === 'Order made but unpaid'}
-              onChange={(event)=>{setStatus(event.target.value)}}
-              value="Order made but unpaid"
-              inputProps={{ 'aria-label': 'Order made but unpaid' }}
-            />
-            <Radio
-              checked={status === 'Allocated only'}
-              onChange={(event)=>{setStatus(event.target.value)}}
-              value="Allocated only"
-              inputProps={{ 'aria-label': 'Allocated only' }}
-            />
-            <Radio
-              checked={status === 'Delivered'}
-              onChange={(event)=>{setStatus(event.target.value)}}
-              value="Delivered"
-              inputProps={{ 'aria-label': 'Delivered' }}
-            />
-            <Radio
-              checked={status === 'Paid'}
-              onChange={(event)=>{setStatus(event.target.value)}}
-              value="Paid"
-              inputProps={{ 'aria-label': 'Paid' }}
-            />            
-          {/* "Order made but unpaid":"Order made but unpaid",
-            "Paid":"Paid",
-            "Delivered":"Delivered",
-            "Allocated only":"Allocated only" */}
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Status</FormLabel>
+              <RadioGroup aria-label="status" name="status" value={status} onChange={(event)=>{setStatus(event.target.value)}}>
+                <FormControlLabel value="Order made but unpaid" control={<Radio />} label="Order made but unpaid" />
+                <FormControlLabel value="Allocated only" control={<Radio />} label="Allocated only" />
+                <FormControlLabel value="Delivered" control={<Radio />} label="Delivered" />
+                <FormControlLabel value="Paid" control={<Radio />} label="Paid" />
+              </RadioGroup>
+            </FormControl>
+
           </Grid>
           <Grid id='contact number' item xs={6} container> 
             <TextField

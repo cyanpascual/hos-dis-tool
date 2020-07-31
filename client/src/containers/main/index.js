@@ -27,7 +27,7 @@ import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
 import SortDialog from '../SortDialog';
 import HospitalInfo  from "./components/HospitalInfo";
-import DonationDialog  from '../DonationDialog';
+
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import {OrganizerContext} from '../../contexts/OrganizerContext';

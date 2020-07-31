@@ -1,6 +1,6 @@
 
 import React, { createContext, useState } from 'react';
-
+import ReactImageMagnify from 'react-image-magnify';    
 
 
 export const OrganizerContext = createContext();
@@ -21,17 +21,16 @@ const OrganizerContextProvider = (props) => {
     { title: 'Amount', field: 'amount', type: 'currency',filtering: false,
     currencySetting:{ currencyCode:'PHP'}
     },
-    { 
-        title: 'Item', 
-        field: 'donation_supply', 
-    },
+    // { 
+    //     title: 'Item', 
+    //     field: 'donation_supply', 
+    // },
+    // {
+    //   title: 'Benefactor',
+    //   field: 'cfname',
+    // },
     {
-      title: 'Benefactor',
-      field: 'cfname',
-    },
-
-    {
-        title: 'Time & Date Made',
+        title: 'Date Made',
         field: 'reportdate',
         type: "datetime",
         filtering: false
@@ -49,12 +48,23 @@ const OrganizerContextProvider = (props) => {
         field:"id",
         cellStyle: { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: 80}
     },
-    {
-        field: 'url',
-        title: 'receipt',
-        filtering: false,
-        render: (rowData) => {return (<a href={rowData.url} target="_blank" rel="noopener noreferrer"><img src={rowData.url} style={{maxWidth: 50,maxHeight:100}} alt={rowData.url}/></a>)}
-    },
+    // {
+    //     field: 'url',
+    //     title: 'receipt',
+    //     filtering: false,
+    //     render: (rowData) => {return (
+    //     <ReactImageMagnify {...{
+    //         smallImage: {
+    //             alt: 'no image uploaded',
+    //             width:100,
+    //             src: rowData.receipt
+    //         },
+    //         largeImage: {
+    //             src: rowData.receipt,
+    //             width: 600
+    //         }
+    //     }} />)}
+    // },
     {
         title: 'Status',
         field: 'status',
