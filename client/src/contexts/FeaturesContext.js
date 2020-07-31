@@ -160,6 +160,9 @@ const FeaturesContextProvider = (props) => {
   const [filterLevel, setFilterLevel] = useState('All');
   const [facilities, setFacilities] = useState();
   const [facilitiesList, setFacilitiesList] = useState();
+  const [regions, setRegions] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
   const [dialogCount, setDialogCount] = useState(0);
   const [hospitalsShown,setHospitalsShown] = useState([0,9]);
   const [currentPage,setCurrentPage] = useState(1);
@@ -223,8 +226,8 @@ const FeaturesContextProvider = (props) => {
       setFilterLevel('All');
       setFilterSetting('');
       setSelectedProvince('');
-      
-  } 
+
+  }
 
 
 
@@ -235,8 +238,6 @@ const FeaturesContextProvider = (props) => {
   const filterHospitalBySupply = (supply,supplyLevel) =>{
     return(hospitalList.filter((hospital)=>{return(hospital.properties.supply_status[supply] ===supplyLevel)}))
   }
-
- 
 
   return (
     <FeaturesContext.Provider value={{
@@ -249,7 +250,10 @@ const FeaturesContextProvider = (props) => {
       facilities, setFacilities, 
       facilitiesList, setFacilitiesList, 
       hospitals, setHospitals, 
-      hospitalList, setHospitalList, 
+      hospitalList, setHospitalList,
+      regions, setRegions,
+      provinces, setProvinces,
+      cities, setCities,
       filterSetting, setFilterSetting, 
       filterLevel, setFilterLevel,
       donationDialogOpen,setDonationDialogOpen,

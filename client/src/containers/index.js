@@ -156,7 +156,7 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
+  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList, regions, setRegions, cities, setCities, provinces, setProvinces} = useContext(FeaturesContext);
   const {setAllowed} = useContext(LoginContext);
   const { supported } = useReactPWAInstall();
 
@@ -164,14 +164,17 @@ function App(props) {
 
   useEffect(()=>{
 
-    
+
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
+      const res_cities = await axios('https://trams-up-dge.herokuapp.com/cities', );
+      const res_regions = await axios('https://trams-up-dge.herokuapp.com/regions', );
+      const res_provinces = await axios('https://trams-up-dge.herokuapp.com/provinces', );
 
       var temp = Object.keys(res.data[0].properties.supply_need)
       //this is because supplyList won't update before this function is over 
-      setSupplyList(temp) 
+      setSupplyList(temp)
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
         hospital.properties.supply_status = {}
@@ -185,18 +188,21 @@ function App(props) {
               hospital.properties.priorityScore += 1
             } else{
               hospital.properties.supply_status[supply] = "Well stocked"
-            }           
+            }
           } else{
             hospital.properties.supply_status[supply] = "No Data"
           }
       });
 
-       
+
       });
       setHospitals(res.data.sort(compareValues('cfname')));
       setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
+      setRegions(res_regions.data);
+      setCities(res_cities.data);
+      setProvinces(res_provinces.data);
       if (supported){
         setAllowed(true)
       }
@@ -209,9 +215,9 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path='/' component={Main} exact/>
-        <Route path='/login' component={Login}/>  
+        <Route path='/login' component={Login}/>
         <Route path='/0ffering'component={OrganizerPage}/>
-        <Route path='/b0b0' component={Bobo}/>    
+        <Route path='/b0b0' component={Bobo}/>
         <Route path='*'>
           <NotFound/>
         </Route>
