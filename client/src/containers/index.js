@@ -157,14 +157,14 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
+  const {loading,setLoading,setHightlightedHospitals,compareValues,setFacilities, facilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
   const {regions, setRegions,
     provinces, setProvinces,
     cities, setCities}  = useContext(MapsContext)
   const {setAllowed} = useContext(LoginContext);
   const { supported } = useReactPWAInstall();
 
-
+  
 
   useEffect(()=>{
 
@@ -174,6 +174,7 @@ function App(props) {
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
       var temp = Object.keys(res.data[0].properties.supply_need)
       //this is because supplyList won't update before this function is over 
+      
       setSupplyList(temp) 
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
@@ -208,7 +209,6 @@ function App(props) {
 
     fetchData();
   }, [])
-
   return(
     <BrowserRouter>
       <Switch>

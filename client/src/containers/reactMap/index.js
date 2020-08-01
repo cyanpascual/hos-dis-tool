@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
-import { Map, TileLayer, Marker, Popup, Circle,Pane } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup, Circle,GeoJSON, Pane, Rectangle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -13,6 +13,15 @@ import icon from "../../assets/markers/red50.png";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export default function App() {
+    const outer = [
+        [50.505, -29.09],
+        [52.505, 29.09],
+      ]
+      const inner = [
+        [49.505, -2.09],
+        [53.505, 2.09],
+      ]
+      
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -106,7 +115,7 @@ export default function App() {
     
 
     
-    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]
+    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]    
     const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
     const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
     const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]
@@ -126,6 +135,8 @@ export default function App() {
             }
         }}
         onZoomend={()=>{
+            console.log('Zoom')
+            console.log(viewport.zoom)
             if(mapReference){
                 setMapBounds(
                     [
@@ -353,6 +364,7 @@ export default function App() {
                     </Marker>
                 )}})) : null
             } 
+
     </Map>
     );
 }

@@ -171,6 +171,9 @@ const FeaturesContextProvider = (props) => {
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [supplyList, setSupplyList] = useState([]);
+  const [successAlertDonation,setSuccessAlertDonation] = useState(false);
+  const [failureAlertDonation,setfailureAlertDonation] = useState(false);
+  const [loading,setLoading] = useState(true);
   const [donationDialogOpen,setDonationDialogOpen] = useState(false)
   const [desktop, setDesktop] = useState(true);
   const [justTestCenters, setJustTestCenters] = useState(false);
@@ -265,10 +268,13 @@ const FeaturesContextProvider = (props) => {
       hospitalScrollbarReference, setHospitalScrollbarReference,
       provincesList, setProvincesList,
       citiesList, setCitiesList,
+      successAlertDonation,setSuccessAlertDonation,
+      failureAlertDonation,setfailureAlertDonation,
+      loading,setLoading,
       hospitalToDonateTo,setHospitalToDonateTo,
       dialogCount, setDialogCount,
       callToActionDialogOpen,setCallToActionDialogOpen,
-      setSearchTerm,//DEFINED CALL TO ACTION DIALOGUE BOOLEAN. NEXT STEP IS TO SET UP THE ACTUAL COMPONENT
+      setSearchTerm,
       supplyLabels,
       supplyIconGetter,
       filterHospitalBySupply}}>

@@ -48,23 +48,23 @@ const OrganizerContextProvider = (props) => {
         field:"id",
         cellStyle: { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: 80}
     },
-    // {
-    //     field: 'url',
-    //     title: 'receipt',
-    //     filtering: false,
-    //     render: (rowData) => {return (
-    //     <ReactImageMagnify {...{
-    //         smallImage: {
-    //             alt: 'no image uploaded',
-    //             width:100,
-    //             src: rowData.receipt
-    //         },
-    //         largeImage: {
-    //             src: rowData.receipt,
-    //             width: 600
-    //         }
-    //     }} />)}
-    // },
+    {
+        field: 'url',
+        title: 'receipt',
+        filtering: false,
+        render: (rowData) => {return (
+        <ReactImageMagnify {...{
+            smallImage: {
+                alt: 'no image uploaded',
+                width:100,
+                src: rowData.receipt
+            },
+            largeImage: {
+                src: rowData.receipt,
+                width: 600
+            }
+        }} />)}
+    },
     {
         title: 'Status',
         field: 'status',

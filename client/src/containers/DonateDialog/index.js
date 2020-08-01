@@ -4,7 +4,7 @@ import axios from 'axios';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import {IconButton, Typography, Dialog, ListItem, Grid, Button, TextField} from '@material-ui/core'
+import {IconButton, Typography, Dialog, ListItem, Grid, Button, TextField,CircularProgress} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import { OrganizerContext } from '../../contexts/OrganizerContext';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
@@ -52,7 +52,7 @@ const DialogActions = withStyles((theme) => ({
 
 export default function DonateDialog() {
   const {setDonationTableData,donationTableData,setSelectedPage} = useContext(OrganizerContext);
-  const {donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
+  const {donationDialogOpen,setDonationDialogOpen,setfailureAlertDonation,setSuccessAlertDonation} = useContext(FeaturesContext);
 
 
 
@@ -74,11 +74,15 @@ export default function DonateDialog() {
   const [bank, setBank] = React.useState('');
   const [cont_num, setCont_num] = React.useState(0);
   const [status, setStatus] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [pictures, setPictures] = useState([]);
-
-  const onDrop = picture => {
-    setPictures([...pictures, picture]);
+  const [loading, setLoading] = React.useState(false);
+  const onDrop = (picture,file) => {
+    setPictures([file]);
+    console.log(file)
   };
+
+
 
   return (
     <div>
@@ -92,6 +96,7 @@ export default function DonateDialog() {
           justify="space-between"
           alignItems="center">
           <Button variant={'contained'} color="primary" onClick={()=>{
+            setLoading(true)
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 var record = {
@@ -111,7 +116,7 @@ export default function DonateDialog() {
                   "type": "Donation",
               }
 
-                axios.post(`https://trams.com.ph/d0nati0n/add`, record)
+                axios.post(`https://cors-anywhere.herokuapp.com/https://trams.com.ph/d0nati0n/add`, record)
                 .then(res => {
                   console.log(res);
                   console.log(res.data);
@@ -128,19 +133,28 @@ export default function DonateDialog() {
                     "status": status,
                     "receipt": pictures[0]
                   }
-
+                  setLoading(false)
                   setDonationTableData([...donationTableData, new_record]);
+                  setDonationDialogOpen(false);
+                  setSuccessAlertDonation(true)
+                })
+                .catch(error =>{
+                  setLoading(false)
+                  setDonationDialogOpen(false);
+                  setfailureAlertDonation(true)
                 })
                 resolve();
               }, 1000)
             })
+
+            
           }}>
             Donate
           </Button>
           </Grid>
         </DialogTitle>
         <DialogContent dividers>
-          <Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
+          {!loading ? (<Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
             <Grid id='donor_name' item xs={6} container >
               <TextField
                 label="Name"
@@ -184,12 +198,21 @@ export default function DonateDialog() {
                 variant="outlined"
                 value={cont_num}
                 onChange={(event)=>{setCont_num(event.target.value)}}
-                type="number"
                 helperText={'(Optional if you want to get updated)'}
                 fullWidth
               />  
             </Grid>
-            {/* <Grid id='receipt' item xs={6} container>
+            <Grid id='cont_num' item xs={6} container >
+              <TextField
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={(event)=>{setEmail(event.target.value)}}
+                helperText={'(Optional if you want to get updated)'}
+                fullWidth
+              />  
+            </Grid>
+            <Grid id='receipt' item xs={6} container>
             <ImageUploader
                 withIcon={true}
                 onChange={onDrop}
@@ -199,8 +222,11 @@ export default function DonateDialog() {
                 label="Upload receipt as proof"
                 withPreview={true}
               />
-            </Grid> */}
-          </Grid>
+            </Grid> 
+            <Grid id='receipt' item xs={6} container>
+              
+            </Grid> 
+          </Grid>):(<CircularProgress/>)}
         </DialogContent>
       </Dialog>
     </div>
