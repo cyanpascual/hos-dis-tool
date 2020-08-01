@@ -330,7 +330,7 @@ export default function App() {
                 )}})) : null
             }
 
-        {regions
+        {/* {regions
         .map(f => {
             return(
             <GeoJSON data={f} style={{
@@ -341,7 +341,7 @@ export default function App() {
                         fillOpacity: 0.8,
                         dashArray: '8 5',
         }}/>
-        )})}
+        )})} */}
 
 {/* {provinces
         .map(f => {

@@ -168,9 +168,9 @@ function App(props) {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      const res_cities = await axios('https://trams-up-dge.herokuapp.com/cities', );
-      const res_regions = await axios('https://trams-up-dge.herokuapp.com/regions', );
-      const res_provinces = await axios('https://trams-up-dge.herokuapp.com/provinces', );
+      // const res_cities = await axios('https://trams-up-dge.herokuapp.com/cities', );
+      // const res_regions = await axios('https://trams-up-dge.herokuapp.com/regions', );
+      // const res_provinces = await axios('https://trams-up-dge.herokuapp.com/provinces', );
 
       var temp = Object.keys(res.data[0].properties.supply_need)
       //this is because supplyList won't update before this function is over 
@@ -200,9 +200,9 @@ function App(props) {
       setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
-      setRegions(res_regions.data);
-      setCities(res_cities.data);
-      setProvinces(res_provinces.data);
+      // setRegions(res_regions.data);
+      // setCities(res_cities.data);
+      // setProvinces(res_provinces.data);
       if (supported){
         setAllowed(true)
       }
