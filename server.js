@@ -12,15 +12,16 @@ require("./passport")(passport);
 
 const app = express();
 const port = process.env.PORT || 5000;
-
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    limit: '50mb',
+    extended: false,
+    parameterLimit: 50000
   })
 );
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
 }
