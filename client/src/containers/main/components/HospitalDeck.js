@@ -11,7 +11,7 @@ import { useDynamicAvatarStyles } from '@mui-treasury/styles/avatar/dynamic';
 import HospitalCard from './HospitalCard';
 import { FeaturesContext } from '../../../contexts/FeaturesContext';
 import { MapsContext } from '../../../contexts/MapsContext';
-import DonationDialog from '../../DonationDialog'
+import AllocationDialog from '../../AllocationDialog'
 
 const usePersonStyles = makeStyles(() => ({
   text: {
@@ -77,12 +77,12 @@ const HospitalDeck = React.memo(function SocialCard(hospitals, page) {
   const styles = useStyles();
   const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,supplyLabels,supplyIconGetter} = useContext(FeaturesContext);
   const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
-  
+
   return (
     <>
       {hospitalList ? (
         <Grid container spacing={2} >
-          <DonationDialog/> 
+          <AllocationDialog/> 
         {hospitals['hospitals']
           .filter((hospital)=>{
             if(justTestCenters){
@@ -100,7 +100,31 @@ const HospitalDeck = React.memo(function SocialCard(hospitals, page) {
             }
             
           })       
-        
+        .sort((hospital1,hospital2)=>{
+          if(hospital1.properties.supply_status[filterSetting]===hospital2.properties.supply_status[filterSetting]){
+            return 0
+          }
+          else if(hospital1.properties.supply_status[filterSetting]==="Well stocked"){
+            return 1
+          }
+          else if(hospital1.properties.supply_status[filterSetting]==="Low"){
+            if(hospital2.properties.supply_status[filterSetting]==="Well stocked"){
+              return -1
+            }
+            else if(hospital2.properties.supply_status[filterSetting]==="Critically Low"){
+              return 1
+            }
+            else if(hospital2.properties.supply_status[filterSetting]==="No Data"){
+              return -1
+            }
+          }
+          else if(hospital1.properties.supply_status[filterSetting]==="Critically Low"){
+            return -1
+          }
+          else if(hospital1.properties.supply_status[filterSetting]==="No Data"){
+            return 1
+          }
+        })
         .map((hospital)=>{
           return(
           <Grid item xs={12} md={12} lg={12}>

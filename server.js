@@ -12,7 +12,6 @@ require("./passport")(passport);
 
 const app = express();
 const port = process.env.PORT || 5000;
-
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({

@@ -25,8 +25,6 @@ export default function FilterDialog() {
   const flexStyles = useRowFlexStyles();
 
   const handleClickOpen = () => {
-    console.log("checkTHIS")
-    console.log(citiesList)
     setOpen(true);
   };
 

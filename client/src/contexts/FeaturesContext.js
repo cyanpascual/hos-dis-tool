@@ -174,12 +174,17 @@ const FeaturesContextProvider = (props) => {
   const [highlightedHospitals, setHightlightedHospitals] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [supplyList, setSupplyList] = useState([]);
+  const [successAlertDonation,setSuccessAlertDonation] = useState(false);
+  const [failureAlertDonation,setfailureAlertDonation] = useState(false);
+  const [loading,setLoading] = useState(true);
+  const [donationDialogOpen,setDonationDialogOpen] = useState(false)
   const [desktop, setDesktop] = useState(true);
   const [justTestCenters, setJustTestCenters] = useState(false);
   const [hospitalScrollbarReference, setHospitalScrollbarReference] = useState(useRef(null));
   const [provincesList, setProvincesList] = useState(null);
   const [citiesList, setCitiesList] = useState(null);
-  const [donationDialogOpen,setDonationDialogOpen] = useState(false);
+  const [allocationDialogOpen,setAllocationDialogOpen] = useState(false);
+  const [callToActionDialogOpen,setCallToActionDialogOpen] = useState(true);
   const supplyLabels={
     "alcohol": "Alcohol",
     "disinfectant": "Disenfectant",
@@ -250,13 +255,11 @@ const FeaturesContextProvider = (props) => {
       facilities, setFacilities, 
       facilitiesList, setFacilitiesList, 
       hospitals, setHospitals, 
-      hospitalList, setHospitalList,
-      regions, setRegions,
-      provinces, setProvinces,
-      cities, setCities,
+      donationDialogOpen,setDonationDialogOpen,
+      hospitalList, setHospitalList, 
       filterSetting, setFilterSetting, 
       filterLevel, setFilterLevel,
-      donationDialogOpen,setDonationDialogOpen,
+      allocationDialogOpen,setAllocationDialogOpen,
       highlightedHospitals, setHightlightedHospitals,
       selectedCity,setSelectedCity,
       resetHospitals, searchTerm,
@@ -266,8 +269,12 @@ const FeaturesContextProvider = (props) => {
       hospitalScrollbarReference, setHospitalScrollbarReference,
       provincesList, setProvincesList,
       citiesList, setCitiesList,
+      successAlertDonation,setSuccessAlertDonation,
+      failureAlertDonation,setfailureAlertDonation,
+      loading,setLoading,
       hospitalToDonateTo,setHospitalToDonateTo,
       dialogCount, setDialogCount,
+      callToActionDialogOpen,setCallToActionDialogOpen,
       setSearchTerm,
       supplyLabels,
       supplyIconGetter,

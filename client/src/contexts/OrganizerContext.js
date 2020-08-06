@@ -1,6 +1,6 @@
 
 import React, { createContext, useState } from 'react';
-
+import ReactImageMagnify from 'react-image-magnify';    
 
 
 export const OrganizerContext = createContext();
@@ -11,152 +11,128 @@ export const OrganizerContext = createContext();
 
 
 const OrganizerContextProvider = (props) => {
-  const [donationTableData, setDonationTableData] = useState([
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"01", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"02", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"03", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"04", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"05", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"06", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"07", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"08", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"09", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"10", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-    { name: 'Cyan Pascual', amount: 1234, supply: 1, hospital: "sampleHospital", date:"18.06.2020 07:49:00",mop:1,contactNumber:"0927241448",id:"11", url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    { name: 'Someone Else', amount: 5678, supply: 12, hospital: "sampleHospital", date:"18.05.2020 12:49:00",mop:2,contactNumber:"0999224536",id:"12", url:"https://drive.google.com/uc?id=1Hz0BC1GNPcmfqx0A-jIzzefmoZg8yk2X"},
-  ]);
+  const [donationTableData, setDonationTableData] = useState([]);
 
-  const [ordersTableData, setOrdersTableData] = useState([
-    {supplier: "Cyan Pascual's Supply Store", supply: 1, amount: 10,cost:500,date:"18.06.2020", hospital: "sampleHospital",supplier:1,mop:1,contactNumber:"0927241448",id:"01", status:1,url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    {supplier: "Cyan Pascual's Supply Store", supply: 2, amount: 50,cost:500,date:"18.05.2020", hospital: "sampleHospital",supplier:2,mop:1,contactNumber:"0927241445",id:"02", status:2,url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    {supplier: "Cyan Pascual's Supply Store", supply: 5, amount: 50, cost:200,date:"18.05.2020", hospital: "sampleHospital",supplier:2,mop:2,contactNumber:"0927241445",id:"03", status:0,url:"https://drive.google.com/uc?id=1PZTI9mmA18L8JnElZ_UjngGhzJovi5uf"},
-    ]);
+  const [ordersTableData, setOrdersTableData] = useState([]);
 
   const [donationTableFields, setDonationTableFields] = useState([
-    { title: 'Name', field: 'name' },
+    { title: 'Name', field: 'donor_name' },
+    { title: 'Affiliation', field: 'affiliation' },
     { title: 'Amount', field: 'amount', type: 'currency',filtering: false,
     currencySetting:{ currencyCode:'PHP'}
     },
-    { 
-        title: 'Supply', 
-        field: 'supply', 
-        lookup: {
-            1: "Alcohol",
-            2: "Disenfectant",
-            3: "Soap",
-            4: "Gown",
-            5: "Surgical Mask",
-            6: "N95 Mask",
-            7: "Gloves",
-            8: "Shoe covers",
-            9: "Coverall",
-            10: "Goggles",
-            11: "Face Shield",
-            12: "Head Cover",
-            13: "Tissue",
-            14: "Vitamins"
-        } 
-    },
-    {
-      title: 'Hospital',
-      field: 'hospital',
-    },
-
+    // { 
+    //     title: 'Item', 
+    //     field: 'donation_supply', 
+    // },
+    // {
+    //   title: 'Benefactor',
+    //   field: 'cfname',
+    // },
     {
         title: 'Date Made',
-        field: 'date',
+        field: 'reportdate',
         type: "datetime",
+        filtering: false
     },
     {
         title: 'Method of Payment',
-        field: 'mop',
-        lookup: {
-            1: "Gcash",
-            2: "Bank Transfer"
-        } 
+        field: 'bank',
     },
     {
         title: 'Contact Number',
-        field: 'contactNumber',
+        field: 'cont_num',
     },
     {
         title:"ID",
-        field:"id"
+        field:"id",
+        cellStyle: { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: 80}
     },
     {
         field: 'url',
-        title: 'Receipt',
+        title: 'receipt',
         filtering: false,
-        render: rowData => (<a href={rowData.url} target="_blank" rel="noopener noreferrer"><img src={rowData.url} style={{maxWidth: 50,maxHeight:100}}/></a>)
-    }
+        render: (rowData) => {return (
+        <ReactImageMagnify {...{
+            smallImage: {
+                alt: 'no image uploaded',
+                isFluidWidth: true,
+                src: rowData.receipt
+            },
+            largeImage: {
+                src: rowData.receipt,
+                width: 1200,
+                height: 1800
+            }
+        }} />)}
+    },
+    {
+        title: 'Status',
+        field: 'status',
+        lookup: {
+            "Unconfirmed":"Unconfirmed",
+            "Confirmed":"Confirmed",
+            "Pledge":"Pledge"
+        } 
+    },
     ]);
 
   const [selectedPage, setSelectedPage] = useState('Hospital Map');
   
   const [ordersTableFields,setOrdersTableFields] = useState([
     {
-        title: 'Supplier',
-        field: 'supplier',
-    },
-    { 
-        title: 'Supply', 
-        field: 'supply', 
-        lookup: {
-            1: "Alcohol",
-            2: "Disenfectant",
-            3: "Soap",
-            4: "Gown",
-            5: "Surgical Mask",
-            6: "N95 Mask",
-            7: "Gloves",
-            8: "Shoe covers",
-            9: "Coverall",
-            10: "Goggles",
-            11: "Face Shield",
-            12: "Head Cover",
-            13: "Tissue",
-            14: "Vitamins"
-        } 
-    },
-    {title:"Amount", field:"amount", type:"number",filtering: false},
-    { title: 'Cost', field: 'cost', type: 'currency',filtering: false,
-    currencySetting:{ currencyCode:'PHP'}
-    },
-    {
         title: 'Date Ordered',
-        field: 'date',
+        field: 'orderdate',
         type: "date",
     },
-
     {
-      title: 'Assigned Hospital',
-      field: 'hospital'
+        title: 'Supplier',
+        field: 'supplier',
+        cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 100}
+    },
+    { 
+        title: 'Item', 
+        field: 'supply', 
+        cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 120}
+    },
+    
+    {title:"Amount", field:"amount", type:"numeric",filtering: false,
+    cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 120}},
+    {title: 'Cost', field: 'cost', type: 'currency',filtering: false,
+    currencySetting:{ currencyCode:'PHP'},
+    cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 120}
     },
     {
         title: 'Method of Payment',
-        field: 'mop',
-        lookup: {
-            0: "Unassigned",
-            1: "Gcash",
-            2: "Bank Transfer"
-        } 
+        field: 'method',
+        cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 100}
     },
     {
+      title: 'Benefactor',
+      field: 'benefactor',
+      cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 100}
+    },
+    
+    {
         title: 'Contact Number',
-        field: 'contactNumber',
+        field: 'cont_num',
+        type:'numeric',
+        cellStyle:{whiteSpace: 'normal',wordWrap: 'break-word', maxWidth: 140}
     },
     {
         title: 'ID',
         field: 'id',
+        editable: 'never',
+        cellStyle: { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', maxWidth: 80}
     },
     {
         title: 'Status',
         field: 'status',
         lookup: {
-            0:"Order made but unpaid",
-            1:"Paid",
-            2:"Delivered",
-            3:"Allocated only"
+            "Order made but unpaid":"Order made but unpaid",
+            "Paid":"Paid",
+            "Delivered":"Delivered",
+            "Allocated only":"Allocated only"
         } 
     },
     // {

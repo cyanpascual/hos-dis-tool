@@ -25,7 +25,8 @@ export default function WelcomeDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mop, setMop] = React.useState("Gcash");
   const {ordersTableData,setOrdersTableData,ordersTableFields,setOrdersTableFields,donationTableData,setSelectedPage,pictures,setPictures } = useContext(OrganizerContext);
-  const {setHospitalToDonateTo,hospitalToDonateTo,donationDialogOpen,setDonationDialogOpen} = useContext(FeaturesContext);
+  const {setHospitalToDonateTo,hospitalToDonateTo,allocationDialogOpen,setAllocationDialogOpen} = useContext(FeaturesContext);
+
   const handleClickOpen = () => {
     setHospitalToDonateTo(true);
   };

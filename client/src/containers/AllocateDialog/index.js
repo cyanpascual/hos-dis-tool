@@ -95,7 +95,7 @@ export default function WelcomeDialog(name) {
           ]);
           //setSelectedPage("Order Tracker")
           }}>
-            Donate
+            Add Record
           </Button>
         </DialogTitle>
         <DialogContent dividers>

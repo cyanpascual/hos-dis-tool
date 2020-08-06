@@ -9,6 +9,7 @@ import Login from './login';
 import OrganizerPage from './OrganizerPage';
 import Main from './main';
 import NotFound from './notFound';
+import { MapsContext } from '../contexts/MapsContext';
 import { useReactPWAInstall } from "react-pwa-install";
 import Bobo from './login/b0b0';
 
@@ -156,11 +157,14 @@ function App(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const {setHightlightedHospitals,compareValues,setFacilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList, regions, setRegions, cities, setCities, provinces, setProvinces} = useContext(FeaturesContext);
+  const {loading,setLoading,setHightlightedHospitals,compareValues,setFacilities, facilities, setFacilitiesList, hospitals,setHospitals, setHospitalList, hospitalList,supplyList, setSupplyList } = useContext(FeaturesContext);
+  const {regions, setRegions,
+    provinces, setProvinces,
+    cities, setCities}  = useContext(MapsContext)
   const {setAllowed} = useContext(LoginContext);
   const { supported } = useReactPWAInstall();
 
-
+  
 
   useEffect(()=>{
 
@@ -168,13 +172,10 @@ function App(props) {
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
-      // const res_cities = await axios('https://trams-up-dge.herokuapp.com/cities', );
-      // const res_regions = await axios('https://trams-up-dge.herokuapp.com/regions', );
-      // const res_provinces = await axios('https://trams-up-dge.herokuapp.com/provinces', );
-
       var temp = Object.keys(res.data[0].properties.supply_need)
       //this is because supplyList won't update before this function is over 
-      setSupplyList(temp)
+      
+      setSupplyList(temp) 
       res.data.forEach(hospital => {
         hospital.properties.priorityScore = 0
         hospital.properties.supply_status = {}
@@ -194,7 +195,8 @@ function App(props) {
           }
       });
 
-
+      
+       
       });
       setHospitals(res.data.sort(compareValues('cfname')));
       setHospitalList(res.data.sort(compareValues('cfname')));
@@ -210,7 +212,6 @@ function App(props) {
 
     fetchData();
   }, [])
-
   return(
     <BrowserRouter>
       <Switch>

@@ -18,7 +18,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Paper, Box} from '@material-ui/core'
 import { OrganizerContext } from '../../../contexts/OrganizerContext';
-
+import axios from 'axios';
 
 const tableIcons = {
   Add: AddBox,
@@ -47,46 +47,99 @@ const OrderTable = () => {
 
     var unallocatedFunds = donationTableData.reduce((a, {amount}) => a + amount, 0) - ordersTableData.reduce((a, {cost}) => a + parseFloat(cost), 0);
     var allocatedFunds = ordersTableData.reduce((a, {cost}) => a + parseFloat(cost), 0);
-    console.log('fasjflkjajslkfjasjflkajsdlkfja')
-    console.log(ordersTableData)
-
+ 
   
     return (
       <MaterialTable
-        title="Donations"
+        title={`Unallocated Donations: ${unallocatedFunds} | Allocated Donations: ${allocatedFunds}`}
         components={{
             Container: props => <div {...props} style={{ height:"100%"}}/>
         }}
         options={{
             exportButton: true,
-            pageSize:10,
-            minBodyHeight:"87vh",
-            maxBodyHeight:"87vh",
+            pageSize:5,
+            maxBodyHeight:"71vh",
             filtering:true
           }}
         
         columns={ordersTableFields}
         data={ordersTableData}
         icons={tableIcons}
-        maxBodyHeight={200}
-        minBodyHeight={200}
+        maxBodyHeight={100}
+        minBodyHeight={100}
         editable={{
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
-                setOrdersTableData([...ordersTableData, newData]);
                 
+                
+                var record = {
+                  "properties": {
+                      "supplier": newData.supplier,
+                      "supply": newData.supply,
+                      "amount": newData.amount,
+                      "cost": newData.cost,
+                      "orderdate": newData.orderdate,
+                      "benefactor": newData.benefactor,
+                      "hfhudcode":'N/A',
+                      "method": newData.method,
+                      "cont_num": newData.cont_num
+                  },
+                  "type": "Allocation",
+              }
+
+                axios.post(`https://trams.com.ph/all0cati0n/add`, record)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  var new_record = {
+                    "supplier": newData.supplier,
+                    "supply": newData.supply,
+                    "amount": newData.amount,
+                    "cost": newData.cost,
+                    "orderdate": newData.orderdate,
+                    "benefactor": newData.benefactor,
+                    "hfhudcode":"N/A",
+                    "method": newData.method,
+                    "cont_num": newData.cont_num,
+                    "status":newData.status
+                  }
+
+                  setOrdersTableData([...ordersTableData, new_record]);
+                })
                 resolve();
               }, 1000)
             }),
           onRowUpdate: (newData, oldData) =>
+          
+
             new Promise((resolve, reject) => {
+              var record = {
+                "properties": {
+                    "supplier": newData.supplier,
+                    "supply": newData.supply,
+                    "amount": newData.amount,
+                    "cost": newData.cost,
+                    "orderdate": newData.orderdate,
+                    "benefactor": newData.benefactor  ,
+                    "hfhudcode":'',
+                    "method": newData.method,
+                    "cont_num": newData.cont_num,
+                    "status":newData.status
+                },
+                "type": "Allocation",
+              }
               setTimeout(() => {
                 const dataUpdate = [...ordersTableData];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setOrdersTableData([...dataUpdate]);
-  
+                axios.post(`https://trams.com.ph/all0cati0n/update/${oldData.id}`, record)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  
+                })
                 resolve();
               }, 1000)
             }),
@@ -97,24 +150,17 @@ const OrderTable = () => {
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
                 setOrdersTableData([...dataDelete]);
-                
+                axios.delete(`https://trams.com.ph/all0cati0n/${oldData.id}`)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                })
                 resolve()
               }, 1000)
             }),
         }}
 
-        components={{
-          Toolbar: props => (
-            <div>
-              <MTableToolbar {...props} />
-              <div style={{padding: '0px 10px'}}>
-                <Box>Unallocated Donations: PHP {unallocatedFunds}</Box>
-                <Box>Allocated Donations: PHP {allocatedFunds}</Box>
-                <Box>Total Donations</Box>
-              </div>
-            </div>
-          ),
-        }}
+
       />
     )
   }

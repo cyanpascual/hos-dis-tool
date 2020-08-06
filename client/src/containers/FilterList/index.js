@@ -87,7 +87,6 @@ const FilterList = (props) => {
       } 
       return(<Chip  className={classes.chip} style={{opacity:0.2, fontWeight:200}} size="small" label={supplyLabelMap[supply]} />)
     }
-    console.log(filterLevel)
     return (
       <div >
         {hospitalList ? (
@@ -104,7 +103,6 @@ const FilterList = (props) => {
       })
         .filter((hospital)=> {
           if (filterLevel=== 'All'){
-            console.log(hospital.properties.prov.includes(selectedProvince))
             return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
           } else{
             return(hospital.properties.supply_status[filterSetting] === filterLevel && hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))

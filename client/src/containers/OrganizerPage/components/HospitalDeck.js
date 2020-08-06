@@ -99,7 +99,6 @@ const HospitalDeck = React.memo(function SocialCard(hospitals) {
             }
             
           })       
-        
         .map((hospital)=>{
           if (hospital.properties.supply_status[filterSetting]){
           return( 

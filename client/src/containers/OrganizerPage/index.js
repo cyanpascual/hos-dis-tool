@@ -27,7 +27,7 @@ import UpdateDialog from '../UpdateDialog';
 import WelcomeDialog from '../WelcomeDialog';
 import FeedbackDialog from '../FeedbackDialog';
 import SortDialog from '../SortDialog';
-import HospitalInfo  from '../HospitalInfo';
+import HospitalInfo  from '../main/components/HospitalInfo';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
@@ -50,6 +50,9 @@ import Box from '@material-ui/core/Box';
 import HospitalDeck from '../main/components/HospitalDeck'
 //styled components stuff    
 import styled from 'styled-components';
+
+//for backend calls
+import axios from 'axios';
 
 //mui-treasury stuff
 import Layout, 
@@ -109,7 +112,7 @@ scheme.configureEdgeSidebar(builder => {
     })
     //makes the sidebar permanent for laptop screens
     .registerPermanentConfig('md', {
-      width: 256, // px, (%, rem, em is compatible)
+      width: 150, // px, (%, rem, em is compatible)
 
     });
 });
@@ -163,9 +166,9 @@ let theme = createMuiTheme({
 //Main function that returns the component
 const Main = () => {
   const styles = useStyles();
-  const {  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity,hospitalToDonateTo,setHospitalToDonateTo} = useContext(FeaturesContext);
+  const {hospitalScrollbarReference,  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity,hospitalToDonateTo,setHospitalToDonateTo} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
-  const { selectedPage, setSelectedPage } = useContext(OrganizerContext);
+  const { selectedPage, setSelectedPage,setOrdersTableData,setDonationTableData } = useContext(OrganizerContext);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
@@ -173,9 +176,52 @@ const Main = () => {
   setDesktop(isDesktop)
   useEffect(()=>{
     setSelectedPage("Hospital Map")
+
+    const fetchDonationData = async () => {
+      const res_donation_data = await axios('https://trams-up-dge.herokuapp.com/d0nati0n/')
+      const res_allocation_data = await axios('https://trams-up-dge.herokuapp.com/all0cati0n/')  
+      setOrdersTableData(res_allocation_data.data.map((record)=>{
+        if(record){
+          return({
+            supplier:record.properties.supplier,
+            supply:record.properties.supply,
+            amount:record.properties.amount,
+            cost:record.properties.cost,
+            orderdate:record.properties.orderdate,
+            benefactor:record.properties.benefactor,
+            method:record.properties.method,
+            cont_num:record.properties.cont_num,
+            id:record._id,
+            status:record.properties.status,
+          })
+        }
+      }))
+      setDonationTableData(res_donation_data.data.map((record)=>{
+        if(record){
+          return({
+            "donor_name": record.properties.donor_name,
+            "affiliation": record.properties.affiliation,
+            "amount": record.properties.amount,
+            "donation_supply": record.properties.donation_supply,
+            "cfname": record.properties.cfname,
+            "id": record._id,
+            "reportdate": record.properties.reportdate,
+            "bank": record.properties.bank,
+            "cont_num": record.properties.cont_num,
+            "status": record.properties.status,
+            "receipt": record.properties.receipt
+          })
+        }
+      }))
+    }
+        
+    fetchDonationData()
   },[])
-  
-  console.log(hospitalList)
+
+
+    
+
+
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
@@ -188,11 +234,11 @@ const Main = () => {
           </Header>)}
           <DrawerSidebar sidebarId="unique_id" PaperProps={{ className: styles.sidebar }}>
             <SidebarContent>
-            <Container>
-             <img src={tramsLogo} style={{width:200, marginTop:30}}/>
-            </Container>
+              <Box style={{marginLeft:15}}>
+                  <img src={tramsLogo} style={{width:90, marginTop:30}}/>
+              </Box>
             <Divider style={{marginTop:20,marginBottom:20}}/>
-            <Box minWidth={240}>
+            <Box minWidth={150}>
               <ListItem button onClick={()=>{setSelectedPage("Donation Tracker")}}>
               {"Donations"}
               </ListItem>
@@ -303,7 +349,7 @@ const Main = () => {
                 <Box style={{maxWidth:"250px", margin:"0 auto"}}>{`Showing ${supplyLabels[filterSetting]} supply of hospitals${selectedProvince?(" in " + selectedProvince):("")}${selectedCity?(", " + selectedCity):("")} `}</Box>
               </Grid>:null}
               <Grid xs={12} item id="hospitalDeck">
-                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto"}}>
+                <Container id="body" style={{  height: isDesktop ? "80vh": "35vh", overflow:"auto" }} ref={hospitalScrollbarReference}>
                   {!selectedHospital ? (<HospitalDeck hospitals={hospitalList} page={selectedPage}/>): (<HospitalInfo/>)}
                 </Container>
               </Grid>

@@ -1,6 +1,6 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 //import ReactMapGL, {Marker, Popup} from 'react-map-gl';
-import { Map, TileLayer, Marker, Popup, Circle, GeoJSON, Pane } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup, Circle,GeoJSON, Pane, Rectangle } from 'react-leaflet';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -12,6 +12,15 @@ import icon from "../../assets/markers/red50.png";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export default function App() {
+    const outer = [
+        [50.505, -29.09],
+        [52.505, 29.09],
+      ]
+      const inner = [
+        [49.505, -2.09],
+        [53.505, 2.09],
+      ]
+      
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -103,23 +112,42 @@ export default function App() {
         popupAnchor: [0,-40]
     })
 
-      useEffect(() => {
-        //const L = require("leaflet");
 
-        let DefaultIcon = L.icon({
-            iconUrl: icon,
-            iconSize:[50,50],
-            iconAnchor:[25,50],
-            popupAnchor: [0,-40]
-        });
-        L.Marker.prototype.options.icon = DefaultIcon;
-      }, []);
-
-    const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,filterHospitalBySupply, regions, provinces, cities} = useContext(FeaturesContext);
-    const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected } = useContext(MapsContext)
+    const {facilities, hospitalList,filterLevel, filterSetting,selectedProvince,selectedCity,justTestCenters,filterHospitalBySupply} = useContext(FeaturesContext);
+    const { closePopups,mapReference, clickedFacility, setClickedFacility ,viewport, selectedHospital,setSelectedHospital, goToSelected,provinces,regions,cities } = useContext(MapsContext)
     const position = [viewport.lat, viewport.lng]
+    
+    const [mapBounds,setMapBounds] = useState([])
 
-    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]
+    useEffect(() => {
+    //const L = require("leaflet");
+    
+    let DefaultIcon = L.icon({
+        iconUrl: icon,
+        iconSize:[50,50],
+        iconAnchor:[25,50],
+        popupAnchor: [0,-40]
+    }); 
+    L.Marker.prototype.options.icon = DefaultIcon;
+
+    if(mapReference){
+
+        setMapBounds(
+            [
+            mapReference.current.leafletElement.getBounds()._northEast.lat,
+            mapReference.current.leafletElement.getBounds()._northEast.lng,
+            mapReference.current.leafletElement.getBounds()._southWest.lat,
+            mapReference.current.leafletElement.getBounds()._southWest.lng
+            ]
+        )
+    }
+    }, []);
+
+
+    
+
+    
+    const redHospitals = hospitalList ? hospitalList.filter((hospital)=>{if(hospital.properties.supply_status[filterSetting]){return(hospital.properties.supply_status[filterSetting] ==="Critically Low")}}):[]    
     const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
     const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
     const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]
@@ -127,9 +155,36 @@ export default function App() {
     console.log(regions)
 
     return (
-
-        <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={closePopups}>
-
+ 
+        <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={()=>{
+            closePopups()
+            if(mapReference){
+                setMapBounds(
+                    [
+                    mapReference.current.leafletElement.getBounds()._northEast.lat,
+                    mapReference.current.leafletElement.getBounds()._northEast.lng,
+                    mapReference.current.leafletElement.getBounds()._southWest.lat,
+                    mapReference.current.leafletElement.getBounds()._southWest.lng
+                    ]
+                )
+            }
+        }}
+        onZoomend={()=>{
+            console.log('Zoom')
+            console.log(viewport.zoom)
+            if(mapReference){
+                setMapBounds(
+                    [
+                    mapReference.current.leafletElement.getBounds()._northEast.lat,
+                    mapReference.current.leafletElement.getBounds()._northEast.lng,
+                    mapReference.current.leafletElement.getBounds()._southWest.lat,
+                    mapReference.current.leafletElement.getBounds()._southWest.lng
+                    ]
+                )
+            }
+        }}
+        >
+           
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2JwYXNjdWFsIiwiYSI6ImNrODNlbnlubDA1MWQzb281b2tvaGM1M2EifQ.lcGIG62j6rN1qyXEgFR3jw'
@@ -149,6 +204,9 @@ export default function App() {
              .filter((hospital)=> {
                 return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
             })
+             .filter((hospital)=>{
+                 return(hospital.geometry.coordinates[1] < mapBounds[0] && hospital.geometry.coordinates[1] > mapBounds[2] && hospital.geometry.coordinates[0] < mapBounds[1] && hospital.geometry.coordinates[0] > mapBounds[3])
+             })
              .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
@@ -187,6 +245,9 @@ export default function App() {
              .filter((hospital)=> {
                 return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
             })
+            .filter((hospital)=>{
+                return(hospital.geometry.coordinates[1] < mapBounds[0] && hospital.geometry.coordinates[1] > mapBounds[2] && hospital.geometry.coordinates[0] < mapBounds[1] && hospital.geometry.coordinates[0] > mapBounds[3])
+            })
              .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
@@ -222,6 +283,9 @@ export default function App() {
                      return(hospital)
                  }
              })
+             .filter((hospital)=>{
+                return(hospital.geometry.coordinates[1] < mapBounds[0] && hospital.geometry.coordinates[1] > mapBounds[2] && hospital.geometry.coordinates[0] < mapBounds[1] && hospital.geometry.coordinates[0] > mapBounds[3])
+            })
              .filter((hospital)=> {
                 return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
             })
@@ -306,6 +370,9 @@ export default function App() {
              .filter((hospital)=> {
                   return(hospital.properties.prov.includes(selectedProvince) && hospital.properties.city.includes(selectedCity))
               })
+                           .filter((hospital)=>{
+                 return(hospital.geometry.coordinates[1] < mapBounds[0] && hospital.geometry.coordinates[1] > mapBounds[2] && hospital.geometry.coordinates[0] < mapBounds[1] && hospital.geometry.coordinates[0] > mapBounds[3])
+             })
              .map((hospital) => {
                 if(hospital.properties != null){return(
                     <Marker 
@@ -328,46 +395,7 @@ export default function App() {
 
                     </Marker>
                 )}})) : null
-            }
-
-        {/* {regions
-        .map(f => {
-            return(
-            <GeoJSON data={f} style={{
-                        color: "black",
-                        weight: 1,
-                        opacity: 0.8,
-                        fillColor: hslToRgb(0.07,1,normalize(f.properties.HOSPCOUNT1,0,30)),
-                        fillOpacity: 0.8,
-                        dashArray: '8 5',
-        }}/>
-        )})} */}
-
-{/* {provinces
-        .map(f => {
-            return(
-            <GeoJSON data={f} style={{
-                        color: "black",
-                        weight: 1,
-                        opacity: 0.8,
-                        fillColor: hslToRgb(0.07,1,normalize(f.properties.HOSPCOUNT2,0,20)),
-                        fillOpacity: 0.8,
-                        dashArray: '8 5',
-        }}/>
-        )})} */}
-
-{/* {cities
-        .map(f => {
-            return(
-            <GeoJSON data={f} style={{
-                        color: "black",
-                        weight: 1,
-                        opacity: 0.8,
-                        fillColor: hslToRgb(0.07,1,normalize(f.properties.HOSPCOUNT3,0,10)),
-                        fillOpacity: 0.8,
-                        dashArray: '8 5',
-        }}/>
-        )})} */}
+            } 
 
     </Map>
     );
