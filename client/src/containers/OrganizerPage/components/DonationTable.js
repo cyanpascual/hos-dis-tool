@@ -63,7 +63,19 @@ const Editable = () => {
         icons={tableIcons}
         maxBodyHeight={200}
         minBodyHeight={200}
-          
+        
+        actions={[
+          {
+            icon: () =>  <Check/>,
+            tooltip: 'Confirm that the donation has been received',
+            onClick: (event, rowData) => alert("You saved " + rowData.name)
+          },
+          {
+            icon: () => <DeleteOutline />,
+            tooltip: 'Delete record',
+            onClick: (event, rowData) => window.confirm("You want to delete " + rowData.name)
+          }
+        ]}
       />
     )
   }

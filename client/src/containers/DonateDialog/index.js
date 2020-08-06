@@ -95,66 +95,69 @@ export default function DonateDialog() {
           direction="row"
           justify="space-between"
           alignItems="center">
-          <Button variant={'contained'} color="primary" onClick={()=>{
-            setLoading(true)
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                var record = {
-                  "properties": {
-                    "donor_name": donor_name,
-                    "affiliation": affiliation,
-                    "amount": amount,
-                    "donation_supply": "",
-                    "cfname": "",
-                    "hfhudcode": "",
-                    "reportdate": today,
-                    "bank": bank,
-                    "cont_num": cont_num,
-                    "status": status,
-                    "receipt": pictures[0]
-                  },
-                  "type": "Donation",
-              }
+          <div>
+            <Button variant={'contained'} color="primary" onClick={()=>{
+              setLoading(true)
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  var record = {
+                    "properties": {
+                      "donor_name": donor_name,
+                      "affiliation": affiliation,
+                      "amount": amount,
+                      "donation_supply": "",
+                      "cfname": "",
+                      "hfhudcode": "",
+                      "reportdate": today,
+                      "bank": bank,
+                      "cont_num": cont_num,
+                      "status": "Unconfirmed",
+                      "receipt": pictures[0]
+                    },
+                    "type": "Donation",
+                }
 
-                axios.post(`https://cors-anywhere.herokuapp.com/https://trams.com.ph/d0nati0n/add`, record)
-                .then(res => {
-                  console.log(res);
-                  console.log(res.data);
-                  var new_record = {
-                    "donor_name": donor_name,
-                    "affiliation": affiliation,
-                    "amount": amount,
-                    "donation_supply": "",
-                    "cfname": "",
-                    "hfhudcode": "",
-                    "reportdate": today,
-                    "bank": bank,
-                    "cont_num": cont_num,
-                    "status": status,
-                    "receipt": pictures[0]
-                  }
-                  setLoading(false)
-                  setDonationTableData([...donationTableData, new_record]);
-                  setDonationDialogOpen(false);
-                  setSuccessAlertDonation(true)
-                })
-                .catch(error =>{
-                  setLoading(false)
-                  setDonationDialogOpen(false);
-                  setfailureAlertDonation(true)
-                })
-                resolve();
-              }, 1000)
-            })
+                  axios.post(`https://cors-anywhere.herokuapp.com/https://trams.com.ph/d0nati0n/add`, record)
+                  .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    var new_record = {
+                      "donor_name": donor_name,
+                      "affiliation": affiliation,
+                      "amount": amount,
+                      "donation_supply": "",
+                      "cfname": "",
+                      "hfhudcode": "",
+                      "reportdate": today,
+                      "bank": bank,
+                      "cont_num": cont_num,
+                      "status": "Unconfirmed",
+                      "receipt": pictures[0]
+                    }
+                    setLoading(false)
+                    setDonationTableData([...donationTableData, new_record]);
+                    setDonationDialogOpen(false);
+                    setSuccessAlertDonation(true)
+                  })
+                  .catch(error =>{
+                    setLoading(false)
+                    setDonationDialogOpen(false);
+                    setfailureAlertDonation(true)
+                  })
+                  resolve();
+                }, 1000)
+              })
 
-            
-          }}>
-            Donate
-          </Button>
+              
+            }}>
+              Donate
+            </Button>
+            {loading ? (<CircularProgress style={{height:"20px", width:"20px",marginLeft:"10px"}}/>):(null)}
+          </div>
           </Grid>
         </DialogTitle>
         <DialogContent dividers>
-          {!loading ? (<Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
+          <Grid  container direction="column" justify="space-evenly" alignItems="center" spacing={3}>
             <Grid id='donor_name' item xs={6} container >
               <TextField
                 label="Name"
@@ -192,7 +195,7 @@ export default function DonateDialog() {
                 fullWidth
               />  
             </Grid>
-            <Grid id='cont_num' item xs={6} container >
+            {/* <Grid id='cont_num' item xs={6} container >
               <TextField
                 label="Contact Number"
                 variant="outlined"
@@ -201,14 +204,14 @@ export default function DonateDialog() {
                 helperText={'(Optional if you want to get updated)'}
                 fullWidth
               />  
-            </Grid>
-            <Grid id='cont_num' item xs={6} container >
+            </Grid> */}
+            <Grid id='email' item xs={6} container >
               <TextField
                 label="Email"
                 variant="outlined"
                 value={email}
                 onChange={(event)=>{setEmail(event.target.value)}}
-                helperText={'(Optional if you want to get updated)'}
+                helperText={"(Optional: So we can tell you if we didn't receive anything)"}
                 fullWidth
               />  
             </Grid>
@@ -226,7 +229,7 @@ export default function DonateDialog() {
             <Grid id='receipt' item xs={6} container>
               
             </Grid> 
-          </Grid>):(<CircularProgress/>)}
+          </Grid>
         </DialogContent>
       </Dialog>
     </div>

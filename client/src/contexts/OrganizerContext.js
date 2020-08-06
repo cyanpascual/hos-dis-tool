@@ -68,6 +68,11 @@ const OrganizerContextProvider = (props) => {
     {
         title: 'Status',
         field: 'status',
+        lookup: {
+            "Unconfirmed":"Unconfirmed",
+            "Confirmed":"Confirmed",
+            "Pledge":"Pledge"
+        } 
     },
     ]);
 
