@@ -117,7 +117,7 @@ export default function DonateDialog() {
                     "type": "Donation",
                 }
 
-                  axios.post(`https://cors-anywhere.herokuapp.com/https://trams.com.ph/d0nati0n/add`, record)
+                  axios.post(`https://trams.com.ph/d0nati0n/add`, record)
                   .then(res => {
                     console.log(res);
                     console.log(res.data);
