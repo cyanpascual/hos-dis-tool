@@ -56,12 +56,13 @@ const OrganizerContextProvider = (props) => {
         <ReactImageMagnify {...{
             smallImage: {
                 alt: 'no image uploaded',
-                width:100,
+                isFluidWidth: true,
                 src: rowData.receipt
             },
             largeImage: {
                 src: rowData.receipt,
-                width: 600
+                width: 1200,
+                height: 1800
             }
         }} />)}
     },
