@@ -78,7 +78,7 @@ export default function WelcomeDialog(props) {
                       "hfhudcode":hospitalToDonateTo.properties.hfhudcode,
                       "method": method,
                       "cont_num": cont_num,
-                      "status":"Allocated only"
+                      "status":status
                   },
                   "type": "Allocation",
               }
@@ -98,7 +98,7 @@ export default function WelcomeDialog(props) {
                     'id':res.data,
                     "method": method,
                     "cont_num": cont_num,
-                    "status":"Allocated Only"
+                    "status":status
                   }
 
                   setOrdersTableData([...ordersTableData, new_record]);
