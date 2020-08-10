@@ -73,7 +73,8 @@ app.get('*', (req, res) => {
 });
 
 //MongoDB connection string
-const uri = "mongodb+srv://rvramos:rvramos@trams-cluster-xmna9.mongodb.net/heroku_4gm4k4rf?retryWrites=true&w=majority"
+// const uri = "mongodb+srv://rvramos:rvramos@trams-cluster-xmna9.mongodb.net/heroku_4gm4k4rf?retryWrites=true&w=majority"
+const uri = "mongodb+srv://rvramos:rvramos@project-trams.xmna9.mongodb.net/trams-db?retryWrites=true&w=majority"
 mongoose.connect(process.env.MONGODB_URI || uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).catch(error => handleError(error));
 
 const connection = mongoose.connection;
