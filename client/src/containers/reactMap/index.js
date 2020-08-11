@@ -5,9 +5,8 @@ import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'react-leaflet-markercluster/dist/styles.min.css';
-import L from 'leaflet'
+import L, { Polygon, FeatureGroup} from 'leaflet'
 import 'leaflet/dist/leaflet.css';
-
 
 import icon from "../../assets/markers/red50.png";
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -35,11 +34,44 @@ export default function App() {
         var d = R * c; // Distance in km
         return d;
       }
-    
+
     function deg2rad(deg) {
         return deg * (Math.PI/180)
     }
- 
+
+    function normalize(property, min=0, max=100) {
+        return (90-((property-min)/(max-min)*80))/100.0
+    }
+
+    function hslToRgb(h,s,l){
+//     Converts an HSL color value to RGB. Conversion formula
+//  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+//  * Assumes h, s, and l are contained in the set [0, 1] and
+//  * returns r, g, and b in the set [0, 255].
+        var r, g, b;
+        var color;
+
+        if(s == 0){
+            r = g = b = l; // achromatic
+        }else{
+            var hue2rgb = function hue2rgb(p, q, t){
+                if(t < 0) t += 1;
+                if(t > 1) t -= 1;
+                if(t < 1/6) return p + (q - p) * 6 * t;
+                if(t < 1/2) return q;
+                if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            }
+
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+        }
+        color= "rgb("+Math.round(r * 255)+" ,"+Math.round(g * 255)+","+ Math.round(b * 255)+")";
+        return color;
+    }
 
     var blueIcon = L.icon({
         iconUrl:'https://drive.google.com/uc?id=1EffpdBTqDJcDZz2gphQ0os_SuuGmbYrr',
@@ -119,9 +151,12 @@ export default function App() {
     const yellowHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"Low"):[]
     const greenHospitals = hospitalList ? filterHospitalBySupply(filterSetting,"Well stocked"):[]
     const grayHospitals =  hospitalList ? filterHospitalBySupply(filterSetting,"No Data"):[]
+
+    console.log(regions)
+
     return (
  
-        <Map className='map' center={position} zoom={viewport.zoom} ref={mapReference} onDragend={()=>{
+        <Map className='map' center={position} useFlyTo={true} animate={true} zoom={viewport.zoom} ref={mapReference} onDragend={()=>{
             closePopups()
             if(mapReference){
                 setMapBounds(
@@ -156,9 +191,6 @@ export default function App() {
                 id='mapbox.light'
             />
 
-
-       
-
             {(hospitalList  && (filterLevel==="Well stocked" || filterLevel==="All"))? (
                 greenHospitals
              .filter((hospital)=>{
@@ -192,14 +224,14 @@ export default function App() {
                                 {selectedHospital.properties.cfname}
                             </div>
                         ):null}
-                        
+
                     </Popup>
-   
+
                     </Marker>
                 )}})) : null
-            } 
+            }
 
-            
+
         {(hospitalList  && (filterLevel==="No Data" || filterLevel==="All"))? (
                 grayHospitals
              .filter((hospital)=>{
@@ -234,13 +266,13 @@ export default function App() {
                                 {selectedHospital.properties.cfname}
                             </div>
                         ):null}
-                        
+
                     </Popup>
-   
+
                     </Marker>
                 )}})) : null
-            } 
-            
+            }
+
             {(hospitalList  && (filterLevel==="Low" || filterLevel==="All"))?(
             yellowHospitals
              .filter((hospital)=>{
@@ -274,9 +306,9 @@ export default function App() {
                                 {selectedHospital.properties.cfname}
                             </div>
                         ):null}
-                        
+
                     </Popup>
-   
+
                     </Marker>
                 )}})) : null
             }
@@ -297,7 +329,7 @@ export default function App() {
                             }}
                             icon={blueIcon}
                         >
-                            
+
                             <Popup>
                                 {clickedFacility ? (
                                     <div>
@@ -307,9 +339,9 @@ export default function App() {
                                         <div>Contact Number{clickedFacility.properties["Contact Numbers"]}</div>
                                     </div>
                                 ): null}
-                            
+
                         </Popup>
-                            
+
                         </Marker>
                     )}})
             ): null} 
@@ -358,9 +390,9 @@ export default function App() {
                                 {selectedHospital.properties.cfname}
                             </div>
                         ):null}
-                        
+
                     </Popup>
-   
+
                     </Marker>
                 )}})) : null
             } 
@@ -368,5 +400,3 @@ export default function App() {
     </Map>
     );
 }
-
-

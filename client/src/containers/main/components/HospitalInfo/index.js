@@ -289,7 +289,7 @@ const HospitalInfo = () => {
                 Current Supply vs Weekly Need
               </Typography>
             </Grid>
-            <List  style={{height:'35vh',overflowY:'scroll'}}> 
+            <List  style={{height:'60vh',overflowY:'scroll'}}> 
             {supplies.map((supply)=>{return(
               <ListItem>
                 <SupplyCard name={supply} current={selectedHospital.properties.supply_cur[supply]} cap={selectedHospital.properties.supply_need[supply]} level={selectedHospital.properties.supply_status}/>

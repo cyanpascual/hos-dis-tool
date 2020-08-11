@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Contact from './contactUs'
+// import Contact from './contactUs'
 
 const styles = (theme) => ({
   root: {
@@ -71,7 +71,7 @@ export default function FeedbackDialog() {
       <Dialog fullScreen={true} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} style={{height:60}}/>
         <DialogContent dividers>
-          <Contact/>
+          {/* <Contact/> */}
         </DialogContent>
       </Dialog>
     </div>

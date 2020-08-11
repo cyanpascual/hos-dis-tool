@@ -168,7 +168,7 @@ function App(props) {
 
   useEffect(()=>{
 
-    
+
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', );
       const res2 = await axios('https://trams-up-dge.herokuapp.com/facility/', );
@@ -189,7 +189,7 @@ function App(props) {
               hospital.properties.priorityScore += 1
             } else{
               hospital.properties.supply_status[supply] = "Well stocked"
-            }           
+            }
           } else{
             hospital.properties.supply_status[supply] = "No Data"
           }
@@ -202,6 +202,9 @@ function App(props) {
       setHospitalList(res.data.sort(compareValues('cfname')));
       setFacilities(res2.data);
       setFacilitiesList(res2.data);
+      // setRegions(res_regions.data);
+      // setCities(res_cities.data);
+      // setProvinces(res_provinces.data);
       if (supported){
         setAllowed(true)
       }
@@ -213,9 +216,9 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path='/' component={Main} exact/>
-        <Route path='/login' component={Login}/>  
+        <Route path='/login' component={Login}/>
         <Route path='/0ffering'component={OrganizerPage}/>
-        <Route path='/b0b0' component={Bobo}/>    
+        <Route path='/b0b0' component={Bobo}/>
         <Route path='*'>
           <NotFound/>
         </Route>
