@@ -232,15 +232,15 @@ const HospitalInfo = () => {
         <Grid item xs={12} style={{ paddingBottom:20}}>
           <Divider/>
         </Grid>
-        <Grid item >
+        <Grid item xs={12}>
           <Typography style={{fontSize:14,textAlign:"left"}} variant="h5" gutterBottom>{selectedHospital.properties.cfname}</Typography>    
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <Typography style={{fontSize:12,textAlign:"left"}}  gutterBottom>
             DOH Level: <span >{selectedHospital.properties.doh_level}</span>
           </Typography>
         </Grid>
-        <Grid>
+        <Grid item xs={12}>
           <Typography style={{fontSize:12,textAlign:"left"}}  gutterBottom>
             Last Updated: {selectedHospital.properties.reportdate.slice(-22)}
           </Typography>
@@ -257,9 +257,9 @@ const HospitalInfo = () => {
             <Grid item xs={11}>{selectedHospital.properties.cont_num}</Grid>
           </Grid>
           {selectedHospital.properties.website.toLowerCase() !="none"? 
-          <Grid item>
-            <ListItemIcon><LanguageIcon/></ListItemIcon>
-            <a href={selectedHospital.properties.website}>{selectedHospital.properties.website}</a>
+          <Grid item container direction="row" justify="flex-start" alignItems="center">
+            <Grid item xs={1}><LanguageIcon style={{width:12,height:12, marginRight:5}}/></Grid>
+            <Grid item xs={11}><a href={selectedHospital.properties.website}>{selectedHospital.properties.website}</a></Grid>
           </Grid>
           :
             null}
@@ -289,7 +289,7 @@ const HospitalInfo = () => {
                 Current Supply vs Weekly Need
               </Typography>
             </Grid>
-            <List  style={{height:'60vh',overflowY:'scroll'}}> 
+            <List  style={{height:'40vh',overflowY:'scroll'}}> 
             {supplies.map((supply)=>{return(
               <ListItem>
                 <SupplyCard name={supply} current={selectedHospital.properties.supply_cur[supply]} cap={selectedHospital.properties.supply_need[supply]} level={selectedHospital.properties.supply_status}/>

@@ -194,7 +194,8 @@ function App(props) {
             hospital.properties.supply_status[supply] = "No Data"
           }
       });
-
+      console.log('container index')
+      console.log(res.data)
       
        
       });

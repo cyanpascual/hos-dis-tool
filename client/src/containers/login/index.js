@@ -139,11 +139,11 @@ function Login(props) {
     setHelperText('');
     const fetchData = async () => {
       const res = await axios('https://trams-up-dge.herokuapp.com/uz3rz', );
-      const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
+      //const res3 = await axios('https://trams-up-dge.herokuapp.com/h0zPiTaLs', )
 
       setUsers(res.data);
-      setHospitals(res3.data);
-      setHospitalList(res3.data);
+      //setHospitals(res3.data);
+      //setHospitalList(res3.data);
       //console.log(res2.data)
       setLoaded(true)
     }

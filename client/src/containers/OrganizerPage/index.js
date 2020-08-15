@@ -1,43 +1,22 @@
 import React, {useContext,  useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router';
-import MaterialTable from 'material-table'
- import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import Card from '@material-ui/core/Card';
-import Paper from '@material-ui/core/Paper';
-import { List, ListItem, colors, Typography, AppBar, Divider } from '@material-ui/core';
-import Navigator from '../Navigator';
+import Grid from '@material-ui/core/Grid';
+import { ListItem, Divider } from '@material-ui/core';
 import ReactMap from '../reactMap'
-import Drawer from '@material-ui/core/Drawer';
 import { useMediaQuery, createMuiTheme} from '@material-ui/core';
 import 'leaflet/dist/leaflet.css'
 import 'typeface-roboto';
-import AcUnitIcon from '@material-ui/icons/AcUnit';
-import WorkIcon from '@material-ui/icons/Work';
-import BusinessIcon from '@material-ui/icons/Business';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import HelpIcon from '@material-ui/icons/Help';
-import FilterList from '../FilterList';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import FilterDialog from '../FilterDialog';
-import UpdateDialog from '../UpdateDialog';
-import WelcomeDialog from '../WelcomeDialog';
-import FeedbackDialog from '../FeedbackDialog';
-import SortDialog from '../SortDialog';
 import HospitalInfo  from '../main/components/HospitalInfo';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FeaturesContext } from '../../contexts/FeaturesContext';
 import { MapsContext } from '../../contexts/MapsContext';
 import {TextField} from '@material-ui/core'
-
 import DonationTable from './components/DonationTable';
 import OrderTable from './components/OrderTable';
 import { makeStyles } from '@material-ui/core/styles';
 import tramsLogo from '../../assets/logos/tramsLogo.png';
 import { OrganizerContext } from '../../contexts/OrganizerContext';
+import { LoginContext } from '../../contexts/LoginContext';
 
 
 //material ui stuff
@@ -169,6 +148,7 @@ const Main = () => {
   const {hospitalScrollbarReference,  hospitals, resetHospitals, hospitalList, setFilterSetting, filterSetting, filterLevel, setFilterLevel,compareValues,desktop, setDesktop, supplyLabels,selectedProvince,selectedCity,hospitalToDonateTo,setHospitalToDonateTo} = useContext(FeaturesContext);
   const { selectedHospital,goToSelected,setSelectedHospital } = useContext(MapsContext);
   const { selectedPage, setSelectedPage,setOrdersTableData,setDonationTableData } = useContext(OrganizerContext);
+  const {login, setLogin} = useContext(LoginContext);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
@@ -221,7 +201,7 @@ const Main = () => {
 
     
 
-
+if(login){
   return (
     <Root theme={theme} scheme={scheme}>
       {({ state: { sidebar }, setOpen, setCollapsed }) => (
@@ -370,6 +350,10 @@ const Main = () => {
       )}
     </Root>
   );
+  }
+  else{
+    return(null)
+  }
 };
 
 export default Main;
