@@ -317,48 +317,7 @@ export default function App() {
                 )}})) : null
             }
 
-             {selectedHospital ? (
-                facilities.filter((facility)=>getDistanceFromLatLonInKm(
-                    selectedHospital.geometry.coordinates[1],
-                    selectedHospital.geometry.coordinates[0],
-                    facility.geometry.coordinates[1],
-                    facility.geometry.coordinates[0],
-                    ) <= 0.6).map((facility) => {
-                    if(facility.properties != null){
-                        return(
-                        <Marker 
-                            position={[facility.geometry.coordinates[1],facility.geometry.coordinates[0]]}
-                            onClick={(e)=>{
-                                setClickedFacility(facility)
-                            }}
-                            icon={blueIcon}
-                        >
-
-                            <Popup>
-                                {clickedFacility ? (
-                                    <div>
-                                        <div>Facility: {clickedFacility.properties.Name_of_Fa}</div>
-                                        <div>Address: {clickedFacility.properties.Address}</div>
-                                        <div>Contact Person: {clickedFacility.properties["Contact Person"]}</div>
-                                        <div>Contact Number{clickedFacility.properties["Contact Numbers"]}</div>
-                                    </div>
-                                ): null}
-
-                        </Popup>
-
-                        </Marker>
-                    )}})
-            ): null} 
-        {selectedHospital ? (
-        <Circle center={[selectedHospital.geometry.coordinates[1],selectedHospital.geometry.coordinates[0]]} radius={600}>
-            <Popup>
-                <div>
-                    Walkable Distance
-                </div>
-            </Popup>
-        </Circle>
-
-        ):null}
+ 
 
                     {/*for critically low markers*/}
                     {(hospitalList && (filterLevel==="Critically Low" || filterLevel==="All"))? (
